@@ -89,6 +89,9 @@ export default function Home() {
           />
           Go to nextjs.org →
         </a>
+        <a href="/PruebaInmobiliaria">
+          Inmobiliaria
+        </a>
       </footer>
     </div>
   );
