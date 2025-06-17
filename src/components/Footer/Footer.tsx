@@ -52,7 +52,7 @@ export default function Footer(){
 
             <div className={styles.footerSection}>
                 <Image
-                    src={'/footerLogo.png'}
+                    src={'/logos/footerLogo.png'}
                     alt={'minimalist inmobiliaria yellow logo'}
                     width={200}
                     height={120}

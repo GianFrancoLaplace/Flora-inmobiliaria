@@ -1,45 +1,24 @@
-import Image from "next/image";
 import styles from "./page.module.css";
+import {cactus} from "@/app/ui/fonts";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/magnoLogo.png"
-          alt="Magno logo"
-          width={198}
-          height={200}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+      <div className={`${styles.page} ${cactus.className}`}>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://www.figma.com/design/edBzcuBuqGyKY1sBo6IyLI/floraCordeiro?node-id=0-1&p=f&t=T85jrtBxhqXGDgcf-0"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Figma
-          </a>
-          <a
-            href="https://trello.com/b/TTUjxt0R/floracordeiroinmobiliaria"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
+          <div className={styles.navImageProperties}>
+              <p>barra de busqueda</p>
+          </div>
 
-            Trello
-          </a>
-        </div>
-      </main>
-    </div>
+          <div className={styles.presentationProperties}>
+              <h1>Tu próxima propiedad, nuestra prioridad</h1>
+              <h5>
+                  Combinamos experiencia, compromiso y un trato cercano para ayudarte a encontrar el lugar que estás
+                  buscando. Ya sea que quieras comprar, vender o alquilar, te acompañamos en cada paso con
+                  asesoramiento personalizado y total transparencia. Descubrí una nueva forma de hacer negocios
+                  inmobiliarios, centrada en vos.
+              </h5>
+              <button className={`${styles.messageBtn} ${cactus.className}`}>Enviar un mensaje</button>
+          </div>
+      </div>
   );
 }
