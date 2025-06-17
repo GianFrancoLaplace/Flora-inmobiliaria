@@ -1,12 +1,12 @@
     import styles from './page.module.css'
-    import VentaForm from '@/components/features/VentaForm/VentaForm'
+    import LoginForm from '@/components/Forms/LoginForm/LoginForm'
     import {cactus} from "@/app/ui/fonts";
     
-    export default function QuieroVender(){
+    export default function Login(){
         return (
             <main className={`${styles.page} ${cactus.className}`}>
                 <div className={styles.formContainerProperties}>
-                    <VentaForm />
+                    <LoginForm />
                 </div>
             </main>
         )

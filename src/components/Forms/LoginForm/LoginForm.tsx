@@ -1,7 +1,7 @@
-import styles from './VentaForm.module.css'
+import styles from './LoginForm.module.css'
 import {cactus} from "@/app/ui/fonts";
 
-export default function VentaForm() {
+export default function LoginForm() {
     return(
         <main className={styles.loginContainer}>
             <h2>Iniciar sesión</h2>
