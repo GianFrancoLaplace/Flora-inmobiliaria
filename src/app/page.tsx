@@ -20,6 +20,9 @@ export default function Home() {
               <button className={`${styles.messageBtn} ${cactus.className}`}>Enviar un mensaje</button>
           </div>
           <div className={styles.mainCardsGridProperties}>
+              <div>
+                  <p>cardsGrid</p>
+              </div>
               <button className={`${styles.allPropertiesBtn} ${cactus.className}`}>Ver todas las propiedades</button>
           </div>
       </div>

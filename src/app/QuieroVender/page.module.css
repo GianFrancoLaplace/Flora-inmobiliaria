@@ -1,0 +1,13 @@
+.page{
+    background-color: var(--secondary-color-4);
+}
+
+.formContainerProperties{
+    width: 100%;
+    height: 750px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("/home/quieroVenderBackground.jpg");
+}

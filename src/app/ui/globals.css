@@ -63,6 +63,15 @@ h5{
   font-size: 18px;
   font-weight: lighter;
 }
+h6{
+  font-size: 14px;
+  font-weight: lighter;
+}
+h7{
+  font-size: 10px;
+  font-weight: lighter;
+}
+
 
 * {
   box-sizing: border-box;
