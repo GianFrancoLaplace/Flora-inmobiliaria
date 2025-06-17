@@ -19,6 +19,9 @@ export default function Home() {
               </h5>
               <button className={`${styles.messageBtn} ${cactus.className}`}>Enviar un mensaje</button>
           </div>
+          <div className={styles.mainCardsGridProperties}>
+              <button className={`${styles.allPropertiesBtn} ${cactus.className}`}>Ver todas las propiedades</button>
+          </div>
       </div>
   );
 }

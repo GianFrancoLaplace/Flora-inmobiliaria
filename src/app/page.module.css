@@ -27,19 +27,15 @@
 
 .messageBtn {
   width: 265px;
-  height: 40px;
-  font-size: 14px;
-  color: var(--primary-color-5);
   background-color: var(--primary-color-1);
-  border: 1.5px solid var(--primary-color-5);
-  border-radius: 100px;
-  margin-top: 10px;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.30);
-  transition: box-shadow 1s ease-in-out;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
+.mainCardsGridProperties{
+  width: 100%;
+}
+
+.allPropertiesBtn{
+  width: 450px;
+  background-color: var(--secondary-color-5);
+}
 
