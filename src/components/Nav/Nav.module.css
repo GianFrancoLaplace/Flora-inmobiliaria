@@ -7,11 +7,19 @@
             #16161600 0%,   /* 0% opacidad */
             #161616ff 95%   /* 100% opacidad */
     );
-    height: 250px;
+    height: 150px;
     width: 100%;
     color: rgb(253, 255, 226);
-    gap: 30%;
+    gap: 20%;
+}
+
+.absoluteNav{
     z-index: 100;
+    position: absolute;
+}
+
+.staticNav{
+    position: static;
 }
 
 .nameProperties{
@@ -31,12 +39,22 @@
 .sectionProperties{
     display: flex;
     flex-direction: row;
-    padding-top: 40px;
+    padding-top: 50px;
     gap: 30px;
     cursor: pointer;
+    list-style-type: none;
 }
 
-.sectionProperties h2:hover{
+.sectionProperties li{
+    font-size: 25px;
+}
+
+.sectionProperties a {
+    text-decoration: none;
+    color: var(--primary-color-1);
+}
+
+.sectionProperties li:hover{
     color: #FADA4D;
 }
 

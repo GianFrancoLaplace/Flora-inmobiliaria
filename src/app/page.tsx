@@ -1,15 +1,14 @@
 import styles from "./page.module.css";
 import {cactus} from "@/app/ui/fonts";
-import PropertiesSearchBar from "@/components/features/SearchBar/SearchBar";
+import HomeF from "@/components/Home/Home";
 import FilterButtons from '@/components/FilterButtons/filterbuttons';
 
-export default function Home() {
+export default function Page() {
   return (
       <div className={`${styles.page} ${cactus.className}`}>
-          <div className={styles.navImageProperties}>
-              <PropertiesSearchBar/>
+          <div>
+              <HomeF/>
           </div>
-
 
           <div className={styles.presentationProperties}>
               <h1>Tu próxima propiedad, nuestra prioridad</h1>
