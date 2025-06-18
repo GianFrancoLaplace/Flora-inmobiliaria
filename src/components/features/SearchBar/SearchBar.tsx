@@ -32,11 +32,9 @@ export default function PropertiesSearchBar() {
                         key={type.id}
                         onClick={() => setSelectedType(type.id)}
                         className={`
-              properties-searcher__button
-              ${index === 0 ? 'properties-searcher__button--first' : ''}
-              ${index === operationTypes.length - 1 ? 'properties-searcher__button--last' : ''}
-              ${selectedType === type.id ? 'properties-searcher__button--active' : ''}
-            `}
+                            properties-searcher__button
+                            ${selectedType === type.id ? 'properties-searcher__button--active' : ''}
+                        `}
                     >
                         {type.label}
                     </button>
