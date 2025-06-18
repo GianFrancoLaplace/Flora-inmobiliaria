@@ -9,6 +9,7 @@
     justify-content: normal;
     align-items: normal;
     color: var(--secondary-color-1);
+    margin-top: 5%;
 }
 
 .loginContainer h2 {
@@ -28,7 +29,6 @@
     width: 280px;
     margin: 12px auto;
 }
-
 
 .fieldProperties label {
     display: block;

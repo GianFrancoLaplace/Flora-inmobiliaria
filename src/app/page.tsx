@@ -1,14 +1,14 @@
 import styles from "./page.module.css";
 import {cactus} from "@/app/ui/fonts";
-import PropertiesSearchBar from "@/components/features/SearchBar/SearchBar";
+import HomeF from "@/components/Home/Home";
+import FilterButtons from '@/components/FilterButtons/filterbuttons';
 
-export default function Home() {
+export default function Page() {
   return (
       <div className={`${styles.page} ${cactus.className}`}>
-          <div className={styles.navImageProperties}>
-              <PropertiesSearchBar/>
+          <div>
+              <HomeF/>
           </div>
-
 
           <div className={styles.presentationProperties}>
               <h1>Tu próxima propiedad, nuestra prioridad</h1>
@@ -19,6 +19,9 @@ export default function Home() {
                   inmobiliarios, centrada en vos.
               </h5>
               <button className={`${styles.messageBtn} ${cactus.className}`}>Enviar un mensaje</button>
+          </div>
+          <div>
+            <FilterButtons></FilterButtons>
           </div>
           <div className={styles.mainCardsGridProperties}>
               <div>

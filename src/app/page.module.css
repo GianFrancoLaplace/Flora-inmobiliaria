@@ -7,14 +7,6 @@
   text-align: center;
 }
 
-.navImageProperties{
-  width: 100%;
-  height: 750px;
-  display: flex;
-  flex-direction: column;
-  background-image: url("/backgrounds/homeBackground.jpg");
-}
-
 .presentationProperties{
   width: 80%;
   height: fit-content;
@@ -25,6 +17,8 @@
   align-items: center;
   text-align: center;
   gap: 10px;
+  margin-top: 20%;
+  position: relative;
 }
 
 .messageBtn {

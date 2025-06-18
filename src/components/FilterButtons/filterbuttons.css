@@ -1,0 +1,63 @@
+@import url('../../app/ui/globals.css');
+@import url('../../app/ui/fonts.ts');
+
+.filtro-contenedor {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 2rem 3rem;
+  background-color: #fdfde3;
+}
+
+.filtro-boton {
+  margin: 0 2rem; /* márgenes horizontales pequeños */
+  background-color: #33322f;
+  color: #f1e9d2;
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  min-width: 150px;
+  justify-content: space-between;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+  user-select: none;
+  border: none;
+  font-size: 1rem;
+}
+
+.filtro-boton:hover {
+  background-color: #44423e;
+}
+
+.toggle {
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 999px;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-circulo {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--primary-color-3, gray);
+  position: absolute;
+  top: 3px;
+  left: 2px;
+  transition: left 0.3s ease, background-color 0.3s ease;
+}
+
+.toggle.activo {
+  background-color: #ccc;
+}
+
+.toggle.activo .toggle-circulo {
+  left: 24px;
+  background-color: var(--secondary-color-5, gold);
+}
+
