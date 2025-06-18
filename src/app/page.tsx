@@ -1,5 +1,6 @@
 import styles from "./page.module.css";
 import {cactus} from "@/app/ui/fonts";
+import FilterButtons from '@/components/FilterButtons/filterbuttons';
 
 export default function Home() {
   return (
@@ -16,6 +17,9 @@ export default function Home() {
                   inmobiliarios, centrada en vos.
               </h5>
               <button className={`${styles.messageBtn} ${cactus.className}`}>Enviar un mensaje</button>
+          </div>
+          <div>
+            <FilterButtons></FilterButtons>
           </div>
           <div className={styles.mainCardsGridProperties}>
               <div>
