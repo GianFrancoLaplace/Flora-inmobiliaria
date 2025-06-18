@@ -1,35 +1,52 @@
 'use client';
-
-import React, { useState } from 'react';
-import './filterbuttons.css'; // Importamos los estilos personalizados
-
-const filtros = ['Departamentos', 'Lotes', 'Campos', 'Casas', 'Locales'];
+import './filterbuttons.css';
+import '../../app/ui/fonts';
 
 export default function FilterButtons() {
-  const [filtrosActivos, setFiltrosActivos] = useState<string[]>([]);
-
-  const toggleFiltro = (tipo: string) => {
-    setFiltrosActivos((prev) =>
-      prev.includes(tipo)
-        ? prev.filter((f) => f !== tipo)
-        : [...prev, tipo]
-    );
+  // ✅ Función de toggle definida dentro del componente
+  const toggleClase = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const boton = e.currentTarget;
+    const toggle = boton.querySelector('.toggle');
+    toggle?.classList.toggle('activo');
   };
 
   return (
-    <div className="filtro-contenedor">
-      {filtros.map((tipo) => (
-        <div
-          key={tipo}
-          className="filtro-boton"
-          onClick={() => toggleFiltro(tipo)}
-        >
-          <span>{tipo}</span>
-          <div className={`toggle ${filtrosActivos.includes(tipo) ? 'activo' : ''}`}>
-            <div className="toggle-circulo" />
-          </div>
-        </div>
-      ))}
+    <div className="filtro-contenedor ${cactus.className} antialiased">
+      <button className="filtro-boton" onClick={toggleClase}>
+        Departamentos
+        <span className="toggle">
+          <span className="toggle-circulo"></span>
+        </span>
+      </button>
+
+      <button className="filtro-boton" onClick={toggleClase}>
+        Lotes
+        <span className="toggle">
+          <span className="toggle-circulo"></span>
+        </span>
+      </button>
+
+      <button className="filtro-boton" onClick={toggleClase}>
+        Campos
+        <span className="toggle">
+          <span className="toggle-circulo"></span>
+        </span>
+      </button>
+
+      <button className="filtro-boton" onClick={toggleClase}>
+        Casas
+        <span className="toggle">
+          <span className="toggle-circulo"></span>
+        </span>
+      </button>
+
+      <button className="filtro-boton" onClick={toggleClase}>
+        Locales
+        <span className="toggle">
+          <span className="toggle-circulo"></span>
+        </span>
+      </button>
     </div>
   );
 }
+
