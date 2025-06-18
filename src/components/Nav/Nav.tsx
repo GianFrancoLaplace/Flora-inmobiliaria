@@ -2,6 +2,7 @@ import styles from './Nav.module.css'
 import {cactus} from "@/app/ui/fonts";
 import Image from "next/image";
 import Link from "next/link";
+import PropertiesSearchBar from "@/components/features/SearchBar/SearchBar";
 export default function Nav() {
     return (
         <div className={styles.navImageProperties}>
@@ -32,6 +33,7 @@ export default function Nav() {
                     />
                 </ul>
             </nav>
+            <PropertiesSearchBar/>
         </div>
     );
 }
