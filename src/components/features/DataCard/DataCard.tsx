@@ -11,8 +11,8 @@ export default function dataCard() {
                     width={20}
                     height={20}
                 />
-                <h5>Cantidad</h5>
-                <h5>Caract. descripta</h5>
+                <h5>120m2</h5>
+                <h5>Sup. Total</h5>
             </div>
         </main>
     )
