@@ -1,11 +1,7 @@
 import styles from "./page.module.css";
 import {cactus} from "@/app/ui/fonts";
-<<<<<<< HEAD
 import HomeF from "@/components/Home/Home";
-=======
-import PropertiesSearchBar from "@/components/features/SearchBar/SearchBar";
 import FilterButtons from '@/components/FilterButtons/filterbuttons';
->>>>>>> 69168693495bb076b730a4e3470cf341fd3ca828
 
 export default function Page() {
   return (
