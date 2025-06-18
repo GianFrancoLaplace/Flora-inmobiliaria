@@ -1,13 +1,12 @@
 import styles from "./page.module.css";
 import {cactus} from "@/app/ui/fonts";
+import Nav from "@/components/Nav/Nav";
 
 export default function Home() {
   return (
       <div className={`${styles.page} ${cactus.className}`}>
 
-          <div className={styles.navImageProperties}>
-              <p>barra de busqueda</p>
-          </div>
+
 
           <div className={styles.presentationProperties}>
               <h1>Tu próxima propiedad, nuestra prioridad</h1>
