@@ -1,8 +1,7 @@
-import styles from './NavCss.module.css'
+import styles from './Nav.module.css'
 import {cactus} from "@/app/ui/fonts";
 import Image from "next/image";
 import Link from "next/link";
-import PropertiesSearchBar from "@/components/features/SearchBar/SearchBar";
 export default function Nav() {
     return (
         <div className={styles.navImageProperties}>
@@ -11,21 +10,12 @@ export default function Nav() {
                 <ul className={`${styles.logoProperties}`}>
                     <Link href="./app/layout.tsx">
                         <Image
-                            src={'/logos/footerLogo.png'}
+                            src={'/logos/fullLogo.png'}
                             alt={'minimalist inmobiliaria yellow logo'}
-                            width={200}
-                            height={120}
+                            width={479}
+                            height={102}
                         />
                     </Link>
-
-                    <div className={`${styles.nameProperties} ${cactus.className}`}>
-                        <div className={`${cactus.className}`}>
-                            <h1>Flora Cordeiro</h1>
-                        </div>
-                        <div className={`${cactus.className}`}>
-                            <h3>Negocios inmobiliarios</h3>
-                        </div>
-                    </div>
                 </ul>
 
                 <ul className={`${styles.sectionProperties} ${cactus.className}`}>
@@ -34,15 +24,14 @@ export default function Nav() {
                     <h2>Nosotros</h2>
                     <h2>Ventas</h2>
                     <Image
-                        src={'/logos/iconoUser.png'}
-                        alt={'minimalist inmobiliaria yellow logo'}
+                        src={'/icons/iconoUser.png'}
+                        alt={'minimalist user icon'}
                         className={`${styles.iconoProperties}`}
                         width={35}
                         height={35}
                     />
                 </ul>
             </nav>
-            <PropertiesSearchBar/>
         </div>
     );
 }

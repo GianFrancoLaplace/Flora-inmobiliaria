@@ -5,7 +5,9 @@ import PropertiesSearchBar from "@/components/features/SearchBar/SearchBar";
 export default function Home() {
   return (
       <div className={`${styles.page} ${cactus.className}`}>
-
+          <div className={styles.navImageProperties}>
+              <PropertiesSearchBar/>
+          </div>
 
           <div className={styles.presentationProperties}>
               <h1>Tu próxima propiedad, nuestra prioridad</h1>
