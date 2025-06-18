@@ -1,0 +1,54 @@
+.page{
+    background-color: var(--primary-color-1);
+    color: var(--primary-color-5);
+}
+
+.mainAdressProperties{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.mediaCarouselProperties{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 100%;
+    height: 600px;
+    margin-bottom: 20px;
+}
+
+.main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-inline: 20px;
+}
+
+.mainInfo{
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+}
+
+.mainInfo h1{
+    margin-right: 5px;
+}
+
+.askBtn{
+    width: 340px;
+    background-color: var(--primary-color-1);
+
+}
+
+.cityProperties{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    padding-inline: 20px;
+    color: var(--secondary-color-5);
+}

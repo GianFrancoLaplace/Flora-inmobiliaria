@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from "react";
 import { Search } from "lucide-react";
 import "./SearchBar.css";
@@ -32,11 +33,9 @@ export default function PropertiesSearchBar() {
                         key={type.id}
                         onClick={() => setSelectedType(type.id)}
                         className={`
-              properties-searcher__button
-              ${index === 0 ? 'properties-searcher__button--first' : ''}
-              ${index === operationTypes.length - 1 ? 'properties-searcher__button--last' : ''}
-              ${selectedType === type.id ? 'properties-searcher__button--active' : ''}
-            `}
+                            properties-searcher__button
+                            ${selectedType === type.id ? 'properties-searcher__button--active' : ''}
+                        `}
                     >
                         {type.label}
                     </button>
@@ -65,9 +64,6 @@ export default function PropertiesSearchBar() {
 
             {/* Indicador del tipo seleccionado */}
             <div className="properties-searcher__indicator">
-        <span className="properties-searcher__mode-text">
-          Modo activo: <span className="properties-searcher__active-mode">{selectedType === 'buy' ? 'comprar' : selectedType === 'rent' ? 'alquilar' : 'vender'}</span>
-        </span>
             </div>
 
             {/* Preview del término de búsqueda */}

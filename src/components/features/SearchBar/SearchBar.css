@@ -1,26 +1,15 @@
-/* Variables CSS para mantener consistencia */
 :root {
-    /* Colores principales - CONSERVANDO TUS COLORES ORIGINALES */
     --primary-color-1: #FDFFE2;        /* Amarillo dorado */
     --primary-color-2: #D3D3D3;
     --primary-color-3: #8D8D8D;
     --primary-color-4: #626262;
     --primary-color-5: #353535;
 
-    --primary-hover-color: #f59e0b;     /* Amarillo más oscuro */
-
-    --secondary-color-1: #FFFEF9;       /* Gris medio */
+    --secondary-color-1: #FFFEF9;
     --secondary-color-2: #FFF5C5;
     --secondary-color-3: #FFEA81;
     --secondary-color-4: #FFE14D;
     --secondary-color-5: #FFDC2B;
-
-    --secondary-hover-color: #4b5563;   /* Gris más oscuro */
-    --primary-text-color: #374151;      /* Gris oscuro */
-    --secondary-text-color: #9ca3af;    /* Gris claro */
-    --background-color: #ffffff;        /* Blanco */
-    --border-color: #d1d5db;           /* Gris muy claro */
-    --focus-color: #fef3c7;            /* Amarillo muy claro */
 
     /* Espaciado */
     --space-xs: 0.25rem;    /* 4px */
@@ -30,7 +19,7 @@
     --space-xl: 2rem;       /* 32px */
 
     /* Tipografía */
-    --primary-font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --primary-font: 'Abyssinica SIL', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-weight-normal: 400;
     --font-weight-medium: 500;
     --font-weight-bold: 700;
@@ -58,8 +47,11 @@
     max-width: 32rem; /* 512px */
     margin: 0 auto;
     font-family: var(--primary-font);
-    background-color: var(--shadow-lg);
-    padding: var(--space-sm);
+    background-color: rgba(21, 21, 21, 0.60);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    position: relative;
+    top: 35%;
 }
 
 /* ========================================
@@ -68,8 +60,8 @@
 
 .properties-searcher__button-group {
     display: flex;
+    justify-content: space-between;
     margin-bottom: var(--space-md);
-    border-radius: var(--radius-md);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
 }
@@ -79,14 +71,14 @@
    ======================================== */
 
 .properties-searcher__button {
-    flex: 1;
-    padding: var(--space-md) var(--space-lg);
-    background-color: rgb(var(--secondary-color-1), 0.5);
-    color: var(--background-color);
+    background-color: rgb(var(--primary-color-1), 0.5);
+    border-radius: var(--radius-md);
+    color: var(--secondary-color-1);
     border: none;
     font-size: var(--text-sm);
     font-weight: var(--font-weight-medium);
     font-family: inherit;
+    padding: 0 var(--space-xl);
     cursor: pointer;
     transition: all var(--normal-transition);
     position: relative;
@@ -94,7 +86,6 @@
 }
 
 .properties-searcher__button:hover {
-    background-color: var(--secondary-hover-color);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
 }
@@ -105,32 +96,16 @@
 }
 
 .properties-searcher__button:focus {
-    outline: 2px solid var(--primary-color-1);
     outline-offset: 2px;
-}
-
-/* Modificadores de posición */
-.properties-searcher__button--first {
-    border-top-left-radius: var(--radius-md);
-    border-bottom-left-radius: var(--radius-md);
-}
-
-.properties-searcher__button--last {
-    border-top-right-radius: var(--radius-md);
-    border-bottom-right-radius: var(--radius-md);
 }
 
 /* Modificador: Botón activo */
 .properties-searcher__button--active {
-    background-color: var(--primary-color-1);
-    color: var(--primary-text-color);
+    background-color: var(--secondary-color-5);
+    color: var(--primary-color-5);
     transform: scale(1.02);
     box-shadow: var(--shadow-lg);
     z-index: 1;
-}
-
-.properties-searcher__button--active:hover {
-    background-color: var(--primary-hover-color);
 }
 
 /* ========================================
@@ -152,24 +127,21 @@
 .properties-searcher__input {
     flex: 1;
     padding: var(--space-md);
-    border: 2px solid var(--border-color);
-    border-right: none;
     border-radius: var(--radius-md) 0 0 var(--radius-md);
     font-size: var(--text-base);
     font-family: inherit;
-    color: var(--primary-text-color);
-    background-color: var(--background-color);
+    color: var(--primary-color-5);
+    background-color: var(--primary-color-1);
     outline: none;
     transition: all var(--normal-transition);
 }
 
 .properties-searcher__input::placeholder {
-    color: var(--secondary-text-color);
+    color: var(--primary-color-5);
 }
 
 .properties-searcher__input:focus {
     border-color: var(--primary-color-1);
-    box-shadow: 0 0 0 3px var(--focus-color);
 }
 
 /* ========================================
@@ -178,7 +150,7 @@
 
 .properties-searcher__search-button {
     padding: var(--space-md) var(--space-lg);
-    background-color: var(--primary-color-1);
+    background-color: var(--secondary-color-5);
     border: 2px solid var(--primary-color-1);
     border-radius: 0 var(--radius-md) var(--radius-md) 0;
     cursor: pointer;
@@ -187,11 +159,11 @@
     align-items: center;
     justify-content: center;
     outline: none;
+    margin: 0;
+    height: auto;
 }
 
 .properties-searcher__search-button:hover {
-    background-color: var(--primary-hover-color);
-    border-color: var(--primary-hover-color);
     transform: translateY(-1px);
     box-shadow: var(--shadow-lg);
 }
@@ -202,7 +174,6 @@
 }
 
 .properties-searcher__search-button:focus {
-    outline: 2px solid var(--primary-text-color);
     outline-offset: 2px;
 }
 
@@ -213,7 +184,6 @@
 .properties-searcher__search-icon {
     width: 1.25rem;  /* 20px */
     height: 1.25rem; /* 20px */
-    color: var(--background-color);
 }
 
 /* ========================================
@@ -227,12 +197,10 @@
 
 .properties-searcher__mode-text {
     font-size: var(--text-sm);
-    color: var(--secondary-text-color);
 }
 
 .properties-searcher__active-mode {
     font-weight: var(--font-weight-bold);
-    color: var(--primary-hover-color);
     text-transform: capitalize;
 }
 
@@ -244,7 +212,6 @@
     margin-top: var(--space-md);
     padding: var(--space-md);
     background-color: #f9fafb;
-    border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     animation: fade-in-up 0.3s ease-out;
 }
@@ -252,18 +219,15 @@
 .properties-searcher__preview-text {
     margin: 0;
     font-size: var(--text-sm);
-    color: var(--secondary-text-color);
 }
 
 .properties-searcher__label {
     font-weight: var(--font-weight-medium);
-    color: var(--primary-text-color);
 }
 
 .properties-searcher__search-type {
     margin-left: var(--space-sm);
     font-weight: var(--font-weight-medium);
-    color: var(--primary-hover-color);
 }
 
 /* ========================================
@@ -313,7 +277,7 @@
     }
 
     .properties-searcher__button {
-        padding: var(--space-lg) var(--space-xl);
+        padding: var(--space-xs) 8%;
     }
 
     .properties-searcher__input {
