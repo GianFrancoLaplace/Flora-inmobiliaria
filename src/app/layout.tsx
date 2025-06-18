@@ -4,7 +4,6 @@ import {cactus} from "@/app/ui/fonts";
 import Nav from "@/components/Nav/Nav";
 import Footer from "@/components/Footer/Footer";
 import WhatsAppRedirection from "@/components/WhatsAppRedirection/WhatsAppRedirection";
-import PropertiesSearchBar from "@/components/features/SearchBar/SearchBar";
 
 
 export const metadata: Metadata = {
@@ -17,21 +16,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-    <head>
-        <link rel="stylesheet" href="Styles.css"/>
-    </head>
 
-      <body className={`${cactus.className}`}>
-        <Nav/>
+    return (
+        <html lang="en">
+            <head>
+              <link rel="stylesheet" href="Styles.css"/>
+            </head>
 
-        {children}
+            <body className={`${cactus.className}`}>
+                <Nav/>
 
-        <WhatsAppRedirection/>
-        <Footer/>
-      </body>
+                {children}
 
-    </html>
-  );
+                <WhatsAppRedirection/>
+                <Footer/>
+            </body>
+
+        </html>
+    );
 }

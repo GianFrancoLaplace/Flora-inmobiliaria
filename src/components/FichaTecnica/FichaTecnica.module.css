@@ -1,6 +1,8 @@
 .page{
     background-color: var(--primary-color-1);
     color: var(--primary-color-5);
+    position: relative;
+    z-index: 10;
 }
 
 .mainAdressProperties{
@@ -10,7 +12,7 @@
     padding: 20px;
 }
 
-.mediaCarouselProperties{
+.mediaCarouselProperties {
     display: flex;
     flex-direction: row;
     position: relative;
@@ -26,6 +28,8 @@
     align-items: center;
     width: 100%;
     padding-inline: 20px;
+    position: relative;
+    z-index: 10;
 }
 
 .mainInfo{
@@ -41,7 +45,6 @@
 .askBtn{
     width: 340px;
     background-color: var(--primary-color-1);
-
 }
 
 .cityProperties{
