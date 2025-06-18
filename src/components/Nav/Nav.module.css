@@ -8,6 +8,8 @@
     display: flex;
     flex-direction: row;
     position: fixed;
+    justify-content: space-evenly
+;
     background: linear-gradient(
             to top,
             #16161600 0%,   /* 0% opacidad */

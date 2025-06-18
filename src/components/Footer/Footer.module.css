@@ -13,12 +13,14 @@
     text-align: left;
     margin-bottom: 10px;
     height: fit-content;
+    background-color: transparent;
 }
 
 .footerImgContent{
     display: flex;
     align-items: center;
     margin-bottom: 4px;
+    background-color: transparent;
 }
 .footerImgContent img{
     margin-right: 10px;
