@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from "react";
 import { Search } from "lucide-react";
 import "./SearchBar.css";
@@ -63,9 +64,6 @@ export default function PropertiesSearchBar() {
 
             {/* Indicador del tipo seleccionado */}
             <div className="properties-searcher__indicator">
-        <span className="properties-searcher__mode-text">
-          Modo activo: <span className="properties-searcher__active-mode">{selectedType === 'buy' ? 'comprar' : selectedType === 'rent' ? 'alquilar' : 'vender'}</span>
-        </span>
             </div>
 
             {/* Preview del término de búsqueda */}

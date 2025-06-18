@@ -45,9 +45,9 @@
 .properties-searcher {
     width: 100%;
     max-width: 32rem; /* 512px */
-    margin: 300px auto;
+    margin: 0 auto;
     font-family: var(--primary-font);
-    background-color: var(--primary-color-3);
+    background-color: rgba(21, 21, 21, 0.60);
     padding: var(--space-lg);
     border-radius: var(--radius-md);
 }
@@ -157,6 +157,8 @@
     align-items: center;
     justify-content: center;
     outline: none;
+    margin: 0;
+    height: auto;
 }
 
 .properties-searcher__search-button:hover {
