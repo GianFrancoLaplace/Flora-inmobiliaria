@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./ui/globals.css";
 import {cactus} from "@/app/ui/fonts";
+import Nav from "@/components/Nav/Nav";
 import Footer from "@/components/Footer/Footer";
 import WhatsAppRedirection from "@/components/WhatsAppRedirection/WhatsAppRedirection";
 
@@ -33,9 +34,10 @@ export default function RootLayout({
     </head>
 
       <body className={`${cactus.className}`}>
+        <Nav/>
         {children}
-        <WhatsAppRedirection />
-        <Footer />
+        <WhatsAppRedirection/>
+        <Footer/>
       </body>
 
     </html>

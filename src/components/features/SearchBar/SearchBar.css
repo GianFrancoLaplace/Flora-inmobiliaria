@@ -50,6 +50,8 @@
     background-color: rgba(21, 21, 21, 0.60);
     padding: var(--space-lg);
     border-radius: var(--radius-md);
+    position: relative;
+    top: 35%;
 }
 
 /* ========================================
