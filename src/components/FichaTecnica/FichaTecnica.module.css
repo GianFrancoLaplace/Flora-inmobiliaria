@@ -1,6 +1,7 @@
 .page{
     background-color: var(--primary-color-1);
     color: var(--primary-color-5);
+    width: 100%;
     position: relative;
     z-index: 10;
 }
@@ -9,10 +10,13 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 20px;
+    padding-inline: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
 }
 
-.mediaCarouselProperties {
+.mediaCarouselProperties{
     display: flex;
     flex-direction: row;
     position: relative;
@@ -30,12 +34,15 @@
     padding-inline: 20px;
     position: relative;
     z-index: 10;
+    margin-right: 40px;
 }
 
 .mainInfo{
     display: flex;
     flex-direction: row;
     width: fit-content;
+    margin-inline: 40px;
+    margin-top: 20px;
 }
 
 .mainInfo h1{
@@ -44,7 +51,8 @@
 
 .askBtn{
     width: 340px;
-    background-color: var(--primary-color-1);
+    margin-top: 40px;
+    background-color: var(--secondary-color-4);
 }
 
 .cityProperties{
@@ -52,6 +60,62 @@
     display: flex;
     flex-direction: row;
     justify-content: left;
-    padding-inline: 20px;
     color: var(--secondary-color-5);
+    margin-inline: 40px;
+    margin-top: 10px;
+}
+
+.mainBoxesGridProperties{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    margin-left: 20px;
+}
+
+.mainBoxesGridProperties div{
+    margin-left: 10px;
+}
+
+.descriptionsProperties{
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    width: 880px;
+    margin: 30px;
+    margin-inline: 40px;
+}
+
+.descriptionsProperties div{
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.titleProperties{
+    border-bottom: 1px solid var(--primary-color-5);
+}
+
+.dataGridProperties{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.sectionProperties{
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    justify-content: left;
+    text-align: left;
+}
+
+.itemProperties{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.itemProperties h5{
+    margin-left: 30px;
 }
