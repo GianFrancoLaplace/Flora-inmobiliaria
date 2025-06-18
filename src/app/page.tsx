@@ -1,10 +1,13 @@
 import styles from "./page.module.css";
 import {cactus} from "@/app/ui/fonts";
+import PropertiesSearchBar from "@/components/features/SearchBar/SearchBar";
 
 export default function Home() {
   return (
       <div className={`${styles.page} ${cactus.className}`}>
-
+          <div className={styles.navImageProperties}>
+              <PropertiesSearchBar/>
+          </div>
 
 
           <div className={styles.presentationProperties}>

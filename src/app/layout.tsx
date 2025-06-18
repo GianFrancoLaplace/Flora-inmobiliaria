@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./ui/globals.css";
 import {cactus} from "@/app/ui/fonts";
 import Nav from "@/components/Nav/Nav";
@@ -7,16 +6,6 @@ import Footer from "@/components/Footer/Footer";
 import WhatsAppRedirection from "@/components/WhatsAppRedirection/WhatsAppRedirection";
 import PropertiesSearchBar from "@/components/features/SearchBar/SearchBar";
 
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Flora Cordeiro Inmobiliaria",
@@ -36,7 +25,6 @@ export default function RootLayout({
 
       <body className={`${cactus.className}`}>
         <Nav/>
-
 
         {children}
 
