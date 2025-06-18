@@ -1,0 +1,70 @@
+.filtro-contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 1rem;
+  flex-wrap: wrap;
+  background-color: #fdfde3;
+}
+
+.filtro-boton {
+  background-color: #33322f;
+  color: #f1e9d2;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  transition: background-color 0.4s ease;
+}
+
+.filtro-boton:hover {
+  background-color: #44423e;
+}
+
+.toggle {
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 999px;
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+.toggle-circulo {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 2px;
+  background-color: #999; /* gris por defecto (desactivado) */
+  transition: all 0.4s ease;
+}
+
+.toggle.activo {
+  background-color: #ccc;
+}
+
+.toggle.activo .toggle-circulo {
+  left: 24px;
+  background-color: #f7c600; /* amarillo al estar activado */
+}
+
+.filtro-boton {
+  /* ...lo que ya tenés... */
+  outline: none;
+  user-select: none;
+}
+
+.filtro-boton:focus {
+  outline: none;
+}
+
+.toggle:focus {
+  outline: none;
+}
+
+
