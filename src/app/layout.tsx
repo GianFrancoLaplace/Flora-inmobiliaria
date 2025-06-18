@@ -5,6 +5,7 @@ import {cactus} from "@/app/ui/fonts";
 import Nav from "@/components/Nav/Nav";
 import Footer from "@/components/Footer/Footer";
 import WhatsAppRedirection from "@/components/WhatsAppRedirection/WhatsAppRedirection";
+import PropertiesSearchBar from "@/components/features/SearchBar/SearchBar";
 
 
 const geistSans = Geist({
@@ -35,7 +36,10 @@ export default function RootLayout({
 
       <body className={`${cactus.className}`}>
         <Nav/>
+
+
         {children}
+
         <WhatsAppRedirection/>
         <Footer/>
       </body>
