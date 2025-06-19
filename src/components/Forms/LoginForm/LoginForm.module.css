@@ -19,6 +19,10 @@
     letter-spacing: 3px;
 }
 
+.linkProperties{
+    text-decoration: none;
+}
+
 .loginContainer h6 {
     font-size: 10px;
     margin: 10px auto;

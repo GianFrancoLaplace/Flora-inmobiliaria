@@ -1,5 +1,6 @@
 import styles from './LoginForm.module.css'
 import {cactus} from "@/app/ui/fonts";
+import Link from "next/link";
 
 export default function LoginForm() {
     return(
@@ -26,7 +27,10 @@ export default function LoginForm() {
                         className={styles.input}
                     />
                 </div>
-                <button type="submit" className={`${styles.loginBtn} ${cactus.className}`}>Iniciar sesión</button>
+                <Link href={"/Administracion"} className={styles.linkProperties}>
+                    <button type="submit" className={`${styles.loginBtn} ${cactus.className}`}>Iniciar sesión</button>
+                </Link>
+
                 <h6>Inicio de sesión exclusivo para administradores</h6>
             </form>
         </main>

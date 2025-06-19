@@ -2,7 +2,6 @@ import styles from "./page.module.css";
 import {cactus} from "@/app/ui/fonts";
 
 import PropertyGrid from '@/components/CardsImages/PropertyImagesGrid';
-import PropertiesSearchBar from "@/components/features/SearchBar/SearchBar";
 const FiltersSidebar = () => {
     const filterOptions = ['Campos', 'Departamentos', 'Casas', 'Locales', 'Lotes'];
     return (
@@ -56,6 +55,7 @@ const loadImages = [
 import HomeF from "@/components/Home/Home";
 import FilterButtons from '@/components/FilterButtons/filterbuttons';
 import FilterGroup from "@/components/FilterButtons/filtergroup";
+import Link from "next/link";
 
 export default function Page() {
     const filtrosTipoPropiedad = [
@@ -88,24 +88,12 @@ export default function Page() {
                       direction="row"
                   />
               </div>
-              <div className={styles.mainCardsGridProperties}>
-                  <div>
-                      <p>cardsGrid</p>
-                  </div>
-                  <button className={`${styles.allPropertiesBtn} ${cactus.className}`}>Ver todas las propiedades</button>
-              </div>
 
               <div className={styles['properties-layout']}>
-
-
-
-
                   <main className={styles['properties-layout__main-content']}>
                       <PropertyGrid properties={loadImages} />
                   </main>
               </div>
-
-              <button className={`${styles.messageBtn} ${cactus.className}`}>Enviar un mensaje</button>
           </div>
 
 

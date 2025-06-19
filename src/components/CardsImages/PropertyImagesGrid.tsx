@@ -1,5 +1,10 @@
+'use client';
 import PropertyCard from "@/components/CardsImages/PropertyCard";
 import styles from './PropertyImagesGrid.module.css';
+import Link from "next/link";
+import {cactus} from "@/app/ui/fonts";
+import React from "react";
+import { usePathname } from 'next/navigation';
 
 type Property = {
     id: number;
@@ -21,14 +26,29 @@ type PropertyGridProps = {
 };
 
 const PropertyGrid = ({ properties }: PropertyGridProps) => {
+    const pathname = usePathname();
+    const isHome = pathname === '/';
     return (
-        <div className={styles['property-grid']}>
-            {properties.map((property) => (
-                <PropertyCard
-                    key={property.id}
-                    property={property}
-                />
-            ))}
+        <div className={styles.cardsProperties}>
+            <div className={`${styles.mainCardsGridProperties} ${isHome ? styles.viewButton : styles.notViewButton}`}>
+                <Link href={"/Propiedades"} className={styles.linkProperties}>
+                    <button className={`${styles.allPropertiesBtn} ${cactus.className}`}>Ver todas las propiedades</button>
+                </Link>
+            </div>
+            <div className={styles['property-grid']}>
+                {properties.map((property) => (
+                    <PropertyCard
+                        key={property.id}
+                        property={property}
+                    />
+                ))}
+            </div>
+
+            <div className={`${styles.messageButtonProperties} ${isHome ? styles.viewButton : styles.notViewButton}`}>
+                <Link href={"https://wa.me/2494025527"} className={styles.linkProperties}>
+                    <button className={`${styles.messageBtn} ${cactus.className}`}>Enviar un mensaje</button>
+                </Link>
+            </div>
         </div>
     );
 };

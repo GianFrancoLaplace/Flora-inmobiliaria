@@ -1,6 +1,5 @@
 'use client'
 import React, { useState } from "react";
-import { Search } from "lucide-react";
 
 import "./SearchBar.css";
 import Image from 'next/image'

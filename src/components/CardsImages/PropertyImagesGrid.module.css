@@ -3,3 +3,35 @@
     grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
     gap: 1.5rem;
 }
+
+.cardsProperties{
+    display: flex;
+    flex-direction: column;
+}
+
+.linkProperties{
+    text-decoration: none;
+}
+
+.allPropertiesBtn{
+    width: 450px;
+    background-color: var(--secondary-color-4);
+    margin-bottom: 5%;
+}
+
+.messageBtn {
+    width: 265px;
+    background-color: var(--primary-color-1);
+ }
+
+.messageButtonProperties{
+    margin-top: 5%;
+}
+
+.viewButton{
+    visibility: visible;
+}
+
+.notViewButton{
+    visibility: hidden;
+}
