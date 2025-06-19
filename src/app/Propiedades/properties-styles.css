@@ -3,49 +3,55 @@
 
 .layout-propiedades {
   display: flex;
-  padding: 2rem;
+  gap: 2rem;
+  padding: 2rem; /* opcional para dar espacio general */
 }
 
 .container-filter-properties {
-  flex: 1;
+  flex-basis: 30%;
   max-width: 30%;
-}
-
-.container-listado-propiedades {
-  flex: 2;
-  width: 100%;
-  margin-left: 1rem; /* separación desde filtros */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-left: 30px; /* separación desde el borde izquierdo */
+  box-sizing: border-box; /* para que el padding no afecte ancho */
 }
 
 .filter-input-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
 }
 
 .filter-input-container label {
-  color: var(--primary-color-5);
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+  color: #33322f;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
 }
 
-.filter-input-container input {
-  background-color:var(--primary-color-5);
+.input-valor-maximo {
+  background-color: #33322f;
   color: #f1e9d2;
   border: none;
   border-radius: 8px;
   padding: 0.6rem 1rem;
   font-size: 1rem;
   outline: none;
-  transition: box-shadow 0.2s ease;
+  width: 100%; /* para que tome el ancho disponible */
+  max-width: 200px; /* limitar el ancho máximo */
 }
 
-.filter-input-container input::placeholder {
+.input-valor-maximo::placeholder {
   color: #ccc3aa;
 }
 
-.filter-input-container input:focus {
+.input-valor-maximo:focus {
   box-shadow: 0 0 0 2px #a7956f;
 }
 
+.container-listado-propiedades {
+  flex-basis: 70%;
+  max-width: 70%;
+  padding-left: 1rem; /* separación del filtro */
+  box-sizing: border-box;
+}
 
