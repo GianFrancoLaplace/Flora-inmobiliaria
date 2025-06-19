@@ -1,6 +1,6 @@
 /*HOME properties*/
 
-/*de prueba*/
+
 .properties-layout {
   width: 100%;
   max-width: 1440px;
@@ -10,11 +10,7 @@
   gap: 3rem;
 }
 
-/* Elemento: sidebar */
-.properties-layout__sidebar {
-  width: 285px;
-  flex-shrink: 0;
-}
+
 
 /* Elemento: main-content */
 .properties-layout__main-content {
@@ -70,14 +66,6 @@
   text-align: center;
 }
 
-.navImageProperties{
-  width: 100%;
-  height: 750px;
-  display: flex;
-  flex-direction: column;
-  background-image: url("/backgrounds/homeBackground.jpg");
-}
-
 .presentationProperties{
   width: 80%;
   height: fit-content;
@@ -88,6 +76,8 @@
   align-items: center;
   text-align: center;
   gap: 10px;
+  margin-top: 20%;
+  position: relative;
 }
 
 .messageBtn {
@@ -101,6 +91,6 @@
 
 .allPropertiesBtn{
   width: 450px;
-  background-color: var(--secondary-color-5);
+  background-color: var(--secondary-color-4);
 }
 

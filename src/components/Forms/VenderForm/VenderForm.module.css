@@ -4,6 +4,7 @@
     justify-content: center;
     color: var(--secondary-color-1);
     text-align: center;
+    margin-top: 10%;
 }
 
 .titleProperties {
@@ -75,5 +76,5 @@
     width: 225px;
     margin-top: 30px;
     margin-bottom: 10px;
-    background-color: var(--secondary-color-5);
+    background-color: var(--secondary-color-4);
 }

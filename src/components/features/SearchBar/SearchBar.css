@@ -12,7 +12,6 @@
     --secondary-color-5: #FFDC2B;
 
     /* Espaciado */
-    --space-xs: 0.25rem;    /* 4px */
     --space-sm: 0.5rem;     /* 8px */
     --space-md: 1rem;       /* 16px */
     --space-lg: 1.5rem;     /* 24px */
@@ -28,7 +27,7 @@
 
     /* Bordes y efectos */
     --radius-sm: 0.375rem;     /* 6px */
-    --radius-md: 0.5rem;       /* 8px */
+    --radius-md: 5px;
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -43,15 +42,16 @@
    ======================================== */
 
 .properties-searcher {
-    width: 100%;
-    max-width: 32rem; /* 512px */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 740px;
+    height: 120px;
     margin: 0 auto;
     font-family: var(--primary-font);
     background-color: rgba(21, 21, 21, 0.60);
-    padding: var(--space-lg);
-    border-radius: var(--radius-md);
-    position: relative;
-    top: 35%;
+    border-radius: 10px;
 }
 
 /* ========================================
@@ -60,8 +60,11 @@
 
 .properties-searcher__button-group {
     display: flex;
+    flex-direction: row;
+    width: 100%;
     justify-content: space-between;
-    margin-bottom: var(--space-md);
+    padding-inline: 10px;
+    padding-left: 18px;
     overflow: hidden;
     box-shadow: var(--shadow-sm);
 }
@@ -71,14 +74,14 @@
    ======================================== */
 
 .properties-searcher__button {
-    background-color: rgb(var(--primary-color-1), 0.5);
+    width: 250px;
+    height: 28px;
+    margin-right: 10px;
+    background-color: rgb(253,255,226,0.5);
     border-radius: var(--radius-md);
     color: var(--secondary-color-1);
+    font-size: 14px;
     border: none;
-    font-size: var(--text-sm);
-    font-weight: var(--font-weight-medium);
-    font-family: inherit;
-    padding: 0 var(--space-xl);
     cursor: pointer;
     transition: all var(--normal-transition);
     position: relative;
@@ -91,7 +94,6 @@
 }
 
 .properties-searcher__button:active {
-    transform: translateY(0);
     transition: all var(--fast-transition);
 }
 
@@ -101,9 +103,9 @@
 
 /* Modificador: Botón activo */
 .properties-searcher__button--active {
+    font-weight: bolder;
     background-color: var(--secondary-color-5);
     color: var(--primary-color-5);
-    transform: scale(1.02);
     box-shadow: var(--shadow-lg);
     z-index: 1;
 }
@@ -115,6 +117,8 @@
 .properties-searcher__search-container {
     position: relative;
     display: flex;
+    height: 47px;
+    width: 710px;
     border-radius: var(--radius-md);
     overflow: hidden;
     box-shadow: var(--shadow-md);
@@ -134,6 +138,7 @@
     background-color: var(--primary-color-1);
     outline: none;
     transition: all var(--normal-transition);
+    position: relative;
 }
 
 .properties-searcher__input::placeholder {
@@ -149,9 +154,7 @@
    ======================================== */
 
 .properties-searcher__search-button {
-    padding: var(--space-md) var(--space-lg);
     background-color: var(--secondary-color-5);
-    border: 2px solid var(--primary-color-1);
     border-radius: 0 var(--radius-md) var(--radius-md) 0;
     cursor: pointer;
     transition: all var(--normal-transition);
@@ -161,11 +164,7 @@
     outline: none;
     margin: 0;
     height: auto;
-}
-
-.properties-searcher__search-button:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-lg);
+    width: 52px;
 }
 
 .properties-searcher__search-button:active {
