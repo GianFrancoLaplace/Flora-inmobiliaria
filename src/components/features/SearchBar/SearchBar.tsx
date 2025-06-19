@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { Search } from "lucide-react";
 import "./SearchBar.css";
+import Image from 'next/image'
+import {cactus} from "@/app/ui/fonts";
 
 export default function PropertiesSearchBar() {
     const [selectedType, setSelectedType] = useState('buy');
@@ -33,6 +35,7 @@ export default function PropertiesSearchBar() {
                         key={type.id}
                         onClick={() => setSelectedType(type.id)}
                         className={`
+                            ${cactus.className}
                             properties-searcher__button
                             ${selectedType === type.id ? 'properties-searcher__button--active' : ''}
                         `}
@@ -55,10 +58,15 @@ export default function PropertiesSearchBar() {
                 />
                 <button
                     onClick={handleSearch}
-                    className="properties-searcher__search-button"
+                    className={"properties-searcher__search-button"}
                     aria-label="Buscar propiedades"
                 >
-                    <Search className="properties-searcher__search-icon" />
+                    <Image
+                        src={'/icons/search.png'}
+                        alt={'search icon'}
+                        width={24}
+                        height={24}
+                    />
                 </button>
             </div>
 

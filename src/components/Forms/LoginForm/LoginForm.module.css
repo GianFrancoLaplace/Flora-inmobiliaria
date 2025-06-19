@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     border-radius: 5px;
-    background-color: rgba(26, 26, 25, 0.70);
+    background-color: rgba(10, 10, 10, 0.80);
     justify-content: normal;
     align-items: normal;
     color: var(--secondary-color-1);
@@ -59,5 +59,5 @@
     width: 280px;
     margin-top: 50px;
     margin-bottom: 10px;
-    background-color: var(--secondary-color-5);
+    background-color: var(--secondary-color-4);
 }

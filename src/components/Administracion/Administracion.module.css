@@ -1,0 +1,82 @@
+.sectionProperties{
+    display: flex;
+    flex-direction: row;
+    gap: 55%;
+    margin-top: 3%;
+}
+
+.sectionProperties h1{
+    padding-left: 3%;
+}
+
+.buttonNewPublication,
+.showInactivePublication{
+    width: 250px;
+    height: 41px;
+    border: 2px black solid;
+}
+
+.buttonNewPublication{
+    background-color: var(--secondary-color-5);
+}
+
+.showInactivePublication{
+    background-color: var(--primary-color-1);
+}
+
+.cardsProperties{
+    display: flex;
+    flex-direction: column;
+    margin-left: 30%;
+    margin-bottom: 2%;
+    margin-top: 1%;
+}
+
+.cardProperties{
+    background-color: var(--primary-color-2);
+    width: 880px;
+    height: 220px;
+    display: flex;
+    flex-direction: row;
+}
+
+.imageProperties{
+    margin-top: 3%;
+    margin-left: 3%;
+}
+
+.priceProperties h5{
+    font-size: 22px;
+}
+
+.linkProperties{
+    text-decoration: none;
+}
+
+.infoProperties{
+    display: flex;
+    flex-direction: column;
+    gap: 40%;
+    margin-top: 3%;
+    margin-left: 10%;
+    color: var(--primary-color-5);
+}
+
+.restInfoProperties{
+    display: flex;
+    flex-direction: column;
+}
+
+.buttonsProperties{
+    display: flex;
+    flex-direction: row;
+    margin-left: 5%;
+    gap: 10%;
+}
+
+.buttonsProperties button{
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+}

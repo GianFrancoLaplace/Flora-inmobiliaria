@@ -9,9 +9,10 @@ export default function Nav() {
     const pathname = usePathname();
     const isHome = pathname === '/';
     const isLogin = pathname === '/Login';
+    const isI_WantSell = pathname === '/QuieroVender';
 
     return (
-        <nav className={`${styles.navProperties} ${isHome ? styles.absoluteNav : isLogin ? styles.absoluteNav : styles.staticNav}`}>
+        <nav className={`${styles.navProperties} ${isHome ? styles.absoluteNav : isLogin ? styles.absoluteNav : isI_WantSell ? styles.absoluteNav : styles.staticNav}`}>
             <ul className={`${styles.logoProperties}`}>
                 <Link href="/">
                     <Image
