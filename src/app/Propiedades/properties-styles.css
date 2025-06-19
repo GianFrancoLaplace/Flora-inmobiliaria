@@ -1,0 +1,76 @@
+@import url(../ui/fonts.ts);
+@import url(../ui/globals.css);
+
+
+.layout-propiedades {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  min-height: calc(100vh - 200px); /* altura mínima para aprovechar la pantalla */
+}
+
+.container-filter-properties {
+  flex-basis: 20%;
+  max-width: 20%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-left: 30px;
+  box-sizing: border-box;
+}
+
+.flex_col{
+
+}
+
+.container-content-right {
+  flex-basis: 80%;
+  max-width: 80%;
+  padding-left: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-section-title {
+  color: #33322f;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.input-valor-maximo {
+  background-color: #33322f;
+  color: #f1e9d2;
+  border: none;
+  border-radius: 10px;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  outline: none;
+  width: 220px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.input-valor-maximo::placeholder {
+  color: #ccc3aa;
+}
+
+.input-valor-maximo:focus {
+  box-shadow: 0 0 0 2px #a7956f;
+}
+
+.container-listado-propiedades {
+  flex-basis: 70%;
+  max-width: 70%;
+  padding-left: 1rem;
+  box-sizing: border-box;
+}
+
+

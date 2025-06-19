@@ -8,7 +8,6 @@ export default function Administracion()
     return (
         <div>
             <div className={`${styles.sectionProperties} ${cactus.className}`}>
-                <h1>Publicaciones activas</h1>
                 <div>
                     <Link href={'/Administracion/FichaVacia'}><button className={`${styles.buttonNewPublication} ${cactus.className}`}>Crear publicación</button></Link>
                     <button className={`${styles.showInactivePublication} ${cactus.className}`}>Ver publicaciones inactivas</button>

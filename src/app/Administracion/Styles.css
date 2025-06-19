@@ -1,0 +1,5 @@
+.activePosts{
+    margin-left: 30px;
+    border-bottom: 1px solid black;
+    display: inline-block;
+}
