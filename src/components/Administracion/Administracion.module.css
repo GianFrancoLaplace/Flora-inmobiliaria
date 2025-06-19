@@ -1,12 +1,9 @@
 .sectionProperties{
     display: flex;
     flex-direction: row;
-    gap: 55%;
+    justify-content: flex-end;
     margin-top: 3%;
-}
-
-.sectionProperties h1{
-    padding-left: 3%;
+    margin-right: 30px;
 }
 
 .buttonNewPublication,
@@ -27,7 +24,7 @@
 .cardsProperties{
     display: flex;
     flex-direction: column;
-    margin-left: 30%;
+    margin-left: 5%;
     margin-bottom: 2%;
     margin-top: 1%;
 }

@@ -1,26 +1,35 @@
 @import url(../ui/fonts.ts);
 @import url(../ui/globals.css);
-
 .layout-propiedades {
   display: flex;
   gap: 2rem;
-  padding: 2rem; /* opcional para dar espacio general */
+  padding: 2rem;
+  min-height: calc(100vh - 200px); /* altura mínima para aprovechar la pantalla */
 }
 
 .container-filter-properties {
-  flex-basis: 30%;
-  max-width: 30%;
+  flex-basis: 20%;
+  max-width: 20%;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding-left: 30px; /* separación desde el borde izquierdo */
-  box-sizing: border-box; /* para que el padding no afecte ancho */
+  padding-left: 30px;
+  box-sizing: border-box;
+}
+
+.container-content-right {
+  flex-basis: 80%;
+  max-width: 80%;
+  padding-left: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .filter-input-container {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* espacio entre título e input */
+  gap: 0.5rem;
 }
 
 .filter-section-title {
@@ -40,7 +49,7 @@
   padding: 0.4rem 0.8rem;
   font-size: 1rem;
   outline: none;
-  width: 220px; /* mismo ancho que los filtros */
+  width: 220px;
   box-sizing: border-box;
   text-align: center;
 }
@@ -56,6 +65,7 @@
 .container-listado-propiedades {
   flex-basis: 70%;
   max-width: 70%;
-  padding-left: 1rem; /* separación del filtro */
+  padding-left: 1rem;
   box-sizing: border-box;
 }
+
