@@ -1,4 +1,4 @@
-'use client';
+/*'use client';
 import './filterbuttons.css';
 import '../../app/ui/fonts';
 
@@ -49,4 +49,4 @@ export default function FilterButtons() {
     </div>
   );
 }
-
+*/

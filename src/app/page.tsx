@@ -1,7 +1,7 @@
 import styles from "./page.module.css";
 import {cactus} from "@/app/ui/fonts";
 import HomeF from "@/components/Home/Home";
-import FilterButtons from '@/components/FilterButtons/filterbuttons';
+//import FilterButtons from '@/components/FilterButtons/filterbuttons';
 
 export default function Page() {
   return (
@@ -20,9 +20,9 @@ export default function Page() {
               </h5>
               <button className={`${styles.messageBtn} ${cactus.className}`}>Enviar un mensaje</button>
           </div>
-          <div>
+          {/*<div>
             <FilterButtons></FilterButtons>
-          </div>
+          </div>*/}
           <div className={styles.mainCardsGridProperties}>
               <div>
                   <p>cardsGrid</p>
