@@ -20,24 +20,29 @@
 .filter-input-container {
   display: flex;
   flex-direction: column;
+  gap: 0.5rem; /* espacio entre título e input */
 }
 
-.filter-input-container label {
+.filter-section-title {
   color: #33322f;
-  font-weight: 700;
-  margin-bottom: 0.4rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
 .input-valor-maximo {
   background-color: #33322f;
   color: #f1e9d2;
   border: none;
-  border-radius: 8px;
-  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  padding: 0.4rem 0.8rem;
   font-size: 1rem;
   outline: none;
-  width: 100%; /* para que tome el ancho disponible */
-  max-width: 200px; /* limitar el ancho máximo */
+  width: 220px; /* mismo ancho que los filtros */
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .input-valor-maximo::placeholder {
@@ -54,4 +59,3 @@
   padding-left: 1rem; /* separación del filtro */
   box-sizing: border-box;
 }
-

@@ -3,8 +3,6 @@ import ContactInformation from "@/components/features/ContactInformation/Contact
 import FilterGroup from "../../components/FilterButtons/filtergroup";
 import './properties-styles.css';
 import { useState } from "react";
-import { cactus } from "../ui/fonts";
-
 
 export default function Properties() {
     const [maxValue, setMaxValue] = useState("");
@@ -23,6 +21,7 @@ export default function Properties() {
     function handleMaxValueChange(e: React.ChangeEvent<HTMLInputElement>) {
         setMaxValue(e.target.value);
     }
+    
     return (
         <div>
             <main>
@@ -32,16 +31,18 @@ export default function Properties() {
             <div className="layout-propiedades">
                 <div className="container-filter-properties">
                     {/* Input para valor máximo */}
-                    <div className="filter-input-container" style={{ marginBottom: "1rem" }}>
-                        <label htmlFor="maxValueInput">Valor máximo:</label>
-                        <input
-                            id="maxValueInput"
-                            type="number"
-                            className="input-valor-maximo"
-                            placeholder="Escribe el valor máximo"
-                            value={maxValue}
-                            onChange={handleMaxValueChange}
-                        />
+                    <div className="filtro-contenedor">
+                        <div className="flex-col">
+                            <label htmlFor="maxValueInput" className="filter-section-title">Valor máximo</label>
+                            <input
+                                id="maxValueInput"
+                                type="number"
+                                className="input-valor-maximo"
+                                placeholder="Escribe el valor máximo"
+                                value={maxValue}
+                                onChange={handleMaxValueChange}
+                            />
+                        </div>
                     </div>
 
                     <FilterGroup
