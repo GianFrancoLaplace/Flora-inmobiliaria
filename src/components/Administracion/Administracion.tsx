@@ -10,7 +10,7 @@ export default function Administracion()
             <div className={`${styles.sectionProperties} ${cactus.className}`}>
                 <h1>Publicaciones activas</h1>
                 <div>
-                    <button className={`${styles.buttonNewPublication} ${cactus.className}`}>Crear publicación</button>
+                    <Link href={'/Administracion/FichaVacia'}><button className={`${styles.buttonNewPublication} ${cactus.className}`}>Crear publicación</button></Link>
                     <button className={`${styles.showInactivePublication} ${cactus.className}`}>Ver publicaciones inactivas</button>
                 </div>
             </div>
@@ -74,7 +74,8 @@ export default function Administracion()
                             src={'/icons/iconoEdit.png'}
                             alt={'Icono para editar'}
                             width={25}
-                            height={25}/></button>
+                            height={25}/>
+                        </button>
                         <button><Image
                             src={'/icons/iconoDelete.png'}
                             alt={'Icono para elimianr'}
