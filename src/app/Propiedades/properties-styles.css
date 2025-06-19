@@ -1,0 +1,17 @@
+.layout-propiedades {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* Filtros a la izquierda */
+.container-filter-properties {
+  flex: 1;
+  max-width: 30%;
+}
+
+/* Listado al lado derecho */
+.container-listado-propiedades {
+  flex: 2;
+  width: 100%;
+}
