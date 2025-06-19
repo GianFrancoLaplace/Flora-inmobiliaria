@@ -5,6 +5,13 @@ import FilterButtons from '@/components/FilterButtons/filterbuttons';
 import FilterGroup from "@/components/FilterButtons/filtergroup";
 
 export default function Page() {
+    const filtrosTipoPropiedad = [
+    "Departamentos",
+    "Lotes",
+    "Casas",
+    "Locales",
+    "Campos",
+  ];
   return (
       <div className={`${styles.page} ${cactus.className}`}>
           <div>
@@ -23,9 +30,13 @@ export default function Page() {
               </h5>
               <button className={`${styles.messageBtn} ${cactus.className}`}>Enviar un mensaje</button>
           </div>
-          <div>
-                <FilterGroup direction="row" />
-          </div>
+           <div>
+                <FilterGroup
+                    title=""
+                    filters={filtrosTipoPropiedad}
+                    direction="row"
+                />
+            </div>
           <div className={styles.mainCardsGridProperties}>
               <div>
                   <p>cardsGrid</p>

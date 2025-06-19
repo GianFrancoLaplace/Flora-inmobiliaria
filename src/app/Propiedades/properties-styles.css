@@ -1,17 +1,51 @@
+@import url(../ui/fonts.ts);
+@import url(../ui/globals.css);
+
 .layout-propiedades {
   display: flex;
-  gap: 2rem;
   padding: 2rem;
 }
 
-/* Filtros a la izquierda */
 .container-filter-properties {
   flex: 1;
   max-width: 30%;
 }
 
-/* Listado al lado derecho */
 .container-listado-propiedades {
   flex: 2;
   width: 100%;
+  margin-left: 1rem; /* separación desde filtros */
 }
+
+.filter-input-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.filter-input-container label {
+  color: var(--primary-color-5);
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.filter-input-container input {
+  background-color:var(--primary-color-5);
+  color: #f1e9d2;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  outline: none;
+  transition: box-shadow 0.2s ease;
+}
+
+.filter-input-container input::placeholder {
+  color: #ccc3aa;
+}
+
+.filter-input-container input:focus {
+  box-shadow: 0 0 0 2px #a7956f;
+}
+
+

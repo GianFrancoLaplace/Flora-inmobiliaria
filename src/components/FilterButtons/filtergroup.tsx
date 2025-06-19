@@ -4,13 +4,13 @@ import React, { useState } from 'react';
 import FiltroToggle from './filterbuttons';
 
 interface Props {
-  direction?: 'row' | 'column'; // por defecto horizontal
+  title: string;
+  filters: string[];
+  direction?: 'row' | 'column';
 }
 
-const items = ['Departamentos', 'Lotes', 'Campos', 'Casas', 'Locales'];
-
-const FilterGroup: React.FC<Props> = ({ direction = 'row' }) => {
-  const [activos, setActivos] = useState<string[]>(['Departamentos', 'Lotes']);
+const FilterGroup: React.FC<Props> = ({ title, filters, direction = 'row' }) => {
+  const [activos, setActivos] = useState<string[]>([]);
 
   const toggleFiltro = (label: string) => {
     setActivos((prev) =>
@@ -21,8 +21,11 @@ const FilterGroup: React.FC<Props> = ({ direction = 'row' }) => {
   return (
     <div
       className={`filtro-contenedor ${direction === 'column' ? 'flex-col' : 'flex-row'}`}
+      style={{ marginBottom: '1rem' }}
     >
-      {items.map((item) => (
+      <h3 style={{ marginBottom: '0.5rem' }}>{title}</h3>
+
+      {filters.map((item) => (
         <FiltroToggle
           key={item}
           label={item}
@@ -35,4 +38,5 @@ const FilterGroup: React.FC<Props> = ({ direction = 'row' }) => {
 };
 
 export default FilterGroup;
+
 
