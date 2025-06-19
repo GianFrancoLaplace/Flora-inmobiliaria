@@ -1,178 +1,106 @@
-/* OPCIÓN 1 - Minimalista y elegante */
-.imagenWrapper {
-  position: relative;
-  width: 330px;
-  height: 440px; /* o 300px, según el estilo */
+/*HOME properties*/
+
+/*de prueba*/
+.properties-layout {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+  display: flex;
+  gap: 3rem;
 }
 
-.imagenesContainer {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 20px;
+/* Elemento: sidebar */
+.properties-layout__sidebar {
+  width: 285px;
+  flex-shrink: 0;
 }
 
-.imagenesContainer h2 {
-  text-align: center;
-  color: #2c3e50;
-  margin-bottom: 40px;
-  font-size: 2.5rem;
-  font-weight: 300;
-  letter-spacing: 1px;
+/* Elemento: main-content */
+.properties-layout__main-content {
+  flex-grow: 1;
 }
 
-.imagenesGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 30px;
-  padding: 20px 0;
-}
 
-.imagenCard {
-  overflow: hidden;
-  border-radius: 8px;
-  transition: all 0.4s ease;
-  position: relative;
-}
-
-.imagenCard:hover {
-  transform: scale(1.03);
-}
-
-.imagen {
-  width: 330px;
-  height: 440px;
-  object-fit: cover;
-  border-radius: 8px;
-  filter: brightness(0.9);
-  transition: all 0.4s ease;
-}
-
-.imagenCard:hover .imagen {
-  filter: brightness(1);
-}
-
-/* OPCIÓN 2 - Sombras sutiles */
-.imagenesContainer {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 20px;
-  background: #fafafa;
-}
-
-.imagenesContainer h2 {
-  text-align: center;
-  color: #1a1a1a;
-  margin-bottom: 50px;
-  font-size: 2.8rem;
-  font-weight: 200;
-}
-
-.imagenesGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 40px;
-}
-
-.imagenCard {
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.imagenCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
-}
-
-.imagen {
-  width: 330px;
-  height: 440px;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.imagenCard:hover .imagen {
-  transform: scale(1.05);
-}
-
-/* OPCIÓN 3 - Estilo premium con overlay */
-.imagenesContainer {
-  max-width: 1300px;
-  margin: 60px auto;
-  padding: 40px 20px;
-}
-
-.imagenesContainer h2 {
-  text-align: center;
-  color: #2c2c2c;
-  margin-bottom: 60px;
-  font-size: 3rem;
-  font-weight: 100;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-}
-
-.imagenesGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 50px;
-}
-
-.imagenCard {
-  position: relative;
-  overflow: hidden;
-  border-radius: 0;
-  transition: all 0.5s ease;
-  cursor: pointer;
-}
-
-.imagenCard::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(45deg, rgba(0,0,0,0.3), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 1;
-}
-
-.imagenCard:hover::before {
-  opacity: 1;
-}
-
-.imagenCard:hover {
-  transform: scale(0.98);
-}
-
-.imagen {
-  width: 330px  ;
-  height: 350px;
-  object-fit: cover;
-  filter: contrast(1.1) saturate(1.1);
-  transition: all 0.5s ease;
-}
-
-.imagenCard:hover .imagen {
-  filter: contrast(1.2) saturate(1.2) brightness(1.1);
-}
-
-/* Responsive para todas las opciones */
-@media (max-width: 768px) {
-  .imagenesGrid {
-    grid-template-columns: 1fr;
-    gap: 25px;
+/* Media Query para responsividad */
+@media (max-width: 1024px) {
+  .properties-layout {
+    flex-direction: column;
+    gap: 2rem;
   }
 
-  .imagen {
-    height: 250px;
-  }
-
-  .imagenesContainer h2 {
-    font-size: 2rem;
+  .properties-layout__sidebar {
+    width: 100%;
   }
 }
+
+
+/* --- Bloque: filter-menu (para la barra lateral) --- */
+.filter-menu {
+  /* Este es el contenedor de la barra lateral */
+}
+
+.filter-menu__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+}
+
+.filter-menu__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #3c3c3b;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+
+
+.page{
+  background-color: var(--primary-color-1);
+  color: var(--primary-color-5);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.navImageProperties{
+  width: 100%;
+  height: 750px;
+  display: flex;
+  flex-direction: column;
+  background-image: url("/backgrounds/homeBackground.jpg");
+}
+
+.presentationProperties{
+  width: 80%;
+  height: fit-content;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.messageBtn {
+  width: 265px;
+  background-color: var(--primary-color-1);
+}
+
+.mainCardsGridProperties{
+  width: 100%;
+}
+
+.allPropertiesBtn{
+  width: 450px;
+  background-color: var(--secondary-color-5);
+}
+
