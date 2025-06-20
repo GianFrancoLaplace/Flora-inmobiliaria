@@ -22,6 +22,7 @@ export default function FichaPropiedad() {
         "Campos",
     ];
 
+
     // Handler para input
     function handleMaxValueChange(e: React.ChangeEvent<HTMLInputElement>) {
         setMaxValue(e.target.value);
@@ -65,7 +66,6 @@ export default function FichaPropiedad() {
                             direction="column"
                         />
                     </div>
-
                     <div className="container-content-right">
                         <Admns />
                     </div>

@@ -3,7 +3,6 @@ import ContactInformation from "@/components/features/ContactInformation/Contact
 import FilterGroup from "../../components/FilterButtons/filtergroup";
 import './properties-styles.css';
 import { useState } from "react";
-
 export default function Properties() {
     const [maxValue, setMaxValue] = useState("");
 
@@ -64,6 +63,7 @@ export default function Properties() {
                     <p>Valor máximo seleccionado: {maxValue}</p>
                 </div>
             </div>
+
         </div>
     );
 }

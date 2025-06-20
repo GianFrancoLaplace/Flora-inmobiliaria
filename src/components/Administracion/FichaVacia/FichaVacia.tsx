@@ -7,27 +7,23 @@ import { useState } from 'react';
 
 export default function Ficha() {
     const [modoEdicion, setModoEdicion] = useState(false);
-    const [adress, setText] = useState('Dirección');
-    const [operation, setOperation] = useState('Dirección | OPERACIÓN');
-    const [city, setCity] = useState('Ciudad');
+    const [formulario, setFormulario] = useState({
+        adress: 'Dirección',
+        operation: 'Dirección | OPERACIÓN',
+        city: 'Ciudad',
+        ubicationDescription: '',
+    });
 
-
-
-    // 👇 Acá están las funciones que mencionás
-    const manejarCambio = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setText(e.target.value);
+    const manejarCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormulario(prev => ({
+            ...prev,
+            [name]: value,
+        }));
     };
 
-    const manejarCambioOperation = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setOperation(e.target.value);
-    };
-
-    const manejarCambioCity = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setCity(e.target.value);
-    };
 
     const activarEdicion = (): void => setModoEdicion(true);
-
     const desactivarEdicion = (): void => setModoEdicion(false);
 
 
@@ -38,12 +34,13 @@ export default function Ficha() {
                         {modoEdicion ? (
                             <input
                                 type="text"
-                                value={adress}
+                                name="adress"
+                                value={formulario.adress}
                                 onChange={manejarCambio}
                                 onBlur={desactivarEdicion}
                             />
                         ) : (
-                            <h1>{adress}</h1>
+                            <h1>{formulario.adress}</h1>
                         )}
 
                         <button onClick={activarEdicion} className={styles.editButtonProperties}>
@@ -90,12 +87,13 @@ export default function Ficha() {
                         {modoEdicion ? (
                             <input
                                 type="text"
-                                value={operation}
-                                onChange={manejarCambioOperation}
+                                name="operation"
+                                value={formulario.operation}
+                                onChange={manejarCambio}
                                 onBlur={desactivarEdicion}
                             />
                         ) : (
-                            <h1>{operation}</h1>
+                            <h1>{formulario.operation}</h1>
                         )}
                     </div>
                     <div>
@@ -117,13 +115,14 @@ export default function Ficha() {
             <div className={styles.cityProperties}>
                 {modoEdicion ? (
                     <input
-                        type="text"
-                        value={city}
-                        onChange={manejarCambioCity}
-                        onBlur={desactivarEdicion}
+                        type = "text"
+                        name = "city"
+                        value = {formulario.city}
+                        onChange = {manejarCambio}
+                        onBlur = {desactivarEdicion}
                     />
                 ) : (
-                    <h1>{city}</h1>
+                    <h1>{formulario.city}</h1>
                 )}
                 <button onClick={activarEdicion} className={styles.editButtonProperties}><Image
                     src={'/icons/iconoEdit.png'}
@@ -411,7 +410,7 @@ export default function Ficha() {
                 <div className={styles.titleProperties}>
                     <div className={styles.ubicationEditProperties}>
                         <h3>Ubicación</h3>
-                        <button className={styles.editButtonProperties}>
+                        <button onClick={activarEdicion} className={styles.editButtonProperties}>
                             <Image
                                 src={'/icons/iconoEdit.png'}
                                 alt={'Icono para editar'}
@@ -421,10 +420,23 @@ export default function Ficha() {
                         </button>
                     </div>
                 </div>
-                <h5 id={"ubicacionText"}>
+                <h5>
+                    {modoEdicion ? (
+                        <input
+                            type="text"
+                            name="ubicationDescription"
+                            value={formulario.ubicationDescription}
+                            onChange={manejarCambio}
+                            onBlur={desactivarEdicion}
+                        />
+                    ):(
+                        <h5>{formulario.ubicationDescription}</h5>
+                    )}
 
                 </h5>
             </div>
+
+
         </main>
     )
 }

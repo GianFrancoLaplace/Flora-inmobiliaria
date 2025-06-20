@@ -310,6 +310,16 @@ export default function Ficha() {
                     accesible y en constante crecimiento. Ideal para quienes buscan una buena conexión con
                     el movimiento urbano sin resignar calma y calidad de vida.
                 </h5>
+                <div className={styles.mapaInteractivo}>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6345.872814972624!2d-59.128316!3d-37.320334!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95911f92a1699e0f%3A0xb7acb39bd2ed6d7!2sMitre%201247%2C%20B7000%20Tandil%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1750441385483!5m2!1ses!2sar"
+                        width="600"
+                        height="400"
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+
             </div>
         </main>
     )

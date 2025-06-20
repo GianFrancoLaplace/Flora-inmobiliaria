@@ -53,7 +53,6 @@ const loadImages = [
 ];
 
 import HomeF from "@/components/Home/Home";
-import FilterButtons from '@/components/FilterButtons/filterbuttons';
 import FilterGroup from "@/components/FilterButtons/filtergroup";
 import Link from "next/link";
 
@@ -72,8 +71,8 @@ export default function Page() {
           </div>
 
           <div className={styles.presentationProperties}>
-            <br />
-            <br />
+              <br/>
+              <br/>
               <h1>Tu próxima propiedad, nuestra prioridad</h1>
               <h5>
                   Combinamos experiencia, compromiso y un trato cercano para ayudarte a encontrar el lugar que estás
@@ -91,10 +90,14 @@ export default function Page() {
 
               <div className={styles['properties-layout']}>
                   <main className={styles['properties-layout__main-content']}>
-                      <PropertyGrid properties={loadImages} />
+                      <Link href="Propiedades/Ficha">
+                      <PropertyGrid properties={loadImages}/>
+                      </Link>
                   </main>
               </div>
+
           </div>
+
 
 
       </div>
