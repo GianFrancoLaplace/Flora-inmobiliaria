@@ -64,4 +64,5 @@
     margin-top: 50px;
     margin-bottom: 10px;
     background-color: var(--secondary-color-4);
+    cursor: pointer;
 }
