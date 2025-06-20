@@ -5,6 +5,19 @@
     position: relative;
     z-index: 10;
 }
+.mapaInteractivo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0; /* Separación superior e inferior del texto */
+    padding: 20px 0; /* Padding adicional para más separación */
+}
+
+.mapaInteractivo iframe {
+    border-radius: 8px; /* Bordes redondeados opcionales */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra sutil opcional */
+}
+
 
 .mainAdressProperties{
     display: flex;
