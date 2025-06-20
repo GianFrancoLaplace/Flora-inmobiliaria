@@ -9,8 +9,8 @@
 /* Dirección horizontal */
 .flex-row {
   flex-direction: row;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  flex-wrap:nowrap;
+  gap: 2rem;
 }
 
 /* Dirección vertical */

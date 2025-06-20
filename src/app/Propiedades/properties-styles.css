@@ -20,9 +20,9 @@
 
 .filtro-contenedor {
   display: flex;
-  justify-content: flex-start; /* Cambiado de center a flex-start */
-  padding: 0; /* Eliminado el padding excesivo */
-  margin-left: 20px; /* Agregado margen izquierdo para alinear con los filtros */
+  justify-content: flex-start; 
+  padding: 0;
+  margin-left: 20px; 
 }
 
 /* Dirección horizontal */
