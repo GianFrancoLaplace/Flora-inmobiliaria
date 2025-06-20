@@ -7,4 +7,5 @@
     height: 60px;
     z-index: 1000;
     cursor: pointer;
+    background-color: transparent;
 }

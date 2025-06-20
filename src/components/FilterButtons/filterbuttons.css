@@ -1,0 +1,79 @@
+@import url('../../app/ui/globals.css');
+
+.filtro-contenedor {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 3rem;
+}
+
+/* Dirección horizontal */
+.flex-row {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Dirección vertical */
+.flex-col {
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filtro-boton {
+  background-color: #33322f;
+  color: #f1e9d2;
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  justify-content: space-between;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+  user-select: none;
+  border: none;
+  font-size: 1rem;
+
+  width: 220px; /* Fijo para vertical */
+  box-sizing: border-box;
+}
+
+/* Si querés que los horizontales se adapten, podrías cambiar width en futuro con clases */
+
+.filtro-boton:hover {
+  background-color: #44423e;
+}
+
+/* TOGGLE: visible y funcional */
+.toggle {
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 999px;
+  position: relative;
+  transition: background-color 0.3s ease;
+
+  flex-shrink: 0; /* que no se achique nunca */
+}
+
+.toggle-circulo {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--primary-color-3, gray);
+  position: absolute;
+  top: 3px;
+  left: 2px;
+  transition: left 0.3s ease, background-color 0.3s ease;
+}
+
+.toggle.activo {
+  background-color: #ccc;
+}
+
+.toggle.activo .toggle-circulo {
+  left: 24px;
+  background-color: var(--secondary-color-5, gold);
+}

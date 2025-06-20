@@ -1,5 +1,6 @@
 .page{
     background-color: var(--secondary-color-4);
+    width: 100vw;
 }
 
 .formContainerProperties{

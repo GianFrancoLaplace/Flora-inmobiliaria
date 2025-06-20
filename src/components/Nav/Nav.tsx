@@ -1,46 +1,38 @@
-import styles from './NavCss.module.css'
+'use client';
+
+import styles from './Nav.module.css'
 import {cactus} from "@/app/ui/fonts";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from 'next/navigation';
 export default function Nav() {
+    const pathname = usePathname();
+    const isHome = pathname === '/';
+    const isLogin = pathname === '/Login';
+    const isI_WantSell = pathname === '/QuieroVender';
+
     return (
-        <div className={styles.navImageProperties}>
-            <nav className={`${styles.navProperties}`}>
-
-                <ul className={`${styles.logoProperties}`}>
-                    <Link href="./app/layout.tsx">
-                        <Image
-                            src={'/logos/footerLogo.png'}
-                            alt={'minimalist inmobiliaria yellow logo'}
-                            width={200}
-                            height={120}
-                        />
-                    </Link>
-
-                    <div className={`${styles.nameProperties} ${cactus.className}`}>
-                        <div className={`${cactus.className}`}>
-                            <h1>Flora Cordeiro</h1>
-                        </div>
-                        <div className={`${cactus.className}`}>
-                            <h3>Negocios inmobiliarios</h3>
-                        </div>
-                    </div>
-                </ul>
-
-                <ul className={`${styles.sectionProperties} ${cactus.className}`}>
-                    <h2>Inicio</h2>
-                    <h2>Propiedades</h2>
-                    <h2>Nosotros</h2>
-                    <h2>Ventas</h2>
+        <nav className={`${styles.navProperties} ${isHome ? styles.absoluteNav : isLogin ? styles.absoluteNav : isI_WantSell ? styles.absoluteNav : styles.staticNav}`}>
+            <ul className={`${styles.logoProperties}`}>
+                <Link href="/">
                     <Image
-                        src={'/logos/iconoUser.png'}
+                        src={'/logos/fullLogo.png'}
                         alt={'minimalist inmobiliaria yellow logo'}
-                        className={`${styles.iconoProperties}`}
-                        width={35}
-                        height={35}
+                        width={479}
+                        height={102}
                     />
-                </ul>
-            </nav>
-        </div>
+                </Link>
+            </ul>
+
+            <ul className={`${styles.sectionProperties} ${cactus.className}`}>
+                <li><a href={"/"}>Inicio</a></li>
+                <li><a href={"/Propiedades"}>Propiedades</a></li>
+                <li><a href={"/Nosotros"}>Nosotros</a></li>
+                <li><a href={"/Ventas"}>Ventas</a></li>
+                <li><a href={"/Login"}><Image src={'/icons/iconoUser.png'} alt={'minimalist user icon'} className={`${styles.iconoProperties}`}
+                    width={35}
+                    height={35}/></a> </li>
+            </ul>
+        </nav>
     );
 }
