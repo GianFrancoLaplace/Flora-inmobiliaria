@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search } from "lucide-react";
 import "./SearchBar.css";
-
+import Image from 'next/image'
+import {cactus} from "@/app/ui/fonts";
 
 export default function PropertiesSearchBar() {
 
@@ -44,6 +44,7 @@ export default function PropertiesSearchBar() {
                             }
                         }}
                         className={`
+                            ${cactus.className}
                             properties-searcher__button
                             ${selectedType === type.id ? 'properties-searcher__button--active' : ''}
                         `}
@@ -69,7 +70,12 @@ export default function PropertiesSearchBar() {
                     className="properties-searcher__search-button"
                     aria-label="Buscar propiedades"
                 >
-                    <Search className="properties-searcher__search-icon" />
+                    <Image
+                        src={'/icons/search.png'}
+                        alt={'search icon'}
+                        width={24}
+                        height={24}
+                    />
                 </button>
             </div>
 
