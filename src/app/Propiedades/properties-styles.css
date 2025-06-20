@@ -118,10 +118,9 @@
 
 .filter-section-title {
   color: #33322f;
-  font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
+  font-weight: 100;
   text-align: left;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   margin-bottom: 0;
 }
 
