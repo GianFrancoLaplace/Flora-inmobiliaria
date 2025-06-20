@@ -3,6 +3,8 @@ import ContactInformation from "@/components/features/ContactInformation/Contact
 import FilterGroup from "../../components/FilterButtons/filtergroup";
 import './properties-styles.css';
 import { useState } from "react";
+
+
 export default function Properties() {
     const [maxValue, setMaxValue] = useState("");
 
@@ -20,7 +22,7 @@ export default function Properties() {
     function handleMaxValueChange(e: React.ChangeEvent<HTMLInputElement>) {
         setMaxValue(e.target.value);
     }
-    
+
     return (
         <div>
             <main>
@@ -44,18 +46,21 @@ export default function Properties() {
                         </div>
                     </div>
 
-                    <FilterGroup
-                        title="Filtrar por operación"
-                        filters={filtrosTipoTransaccion}
-                        direction="column"
-                    />
+                    <div className="filtros-columna">
 
-                    <FilterGroup
-                        title="Filtrar por inmueble"
-                        filters={filtrosTipoPropiedad}
-                        direction="column"
-                    />
 
+                        <FilterGroup
+                            title="Filtrar por operación"
+                            filters={filtrosTipoTransaccion}
+                            direction="column"
+                        />
+
+                        <FilterGroup
+                            title="Filtrar por inmueble"
+                            filters={filtrosTipoPropiedad}
+                            direction="column"
+                        />
+                    </div>
                 </div>
 
                 <div className="container-listado-propiedades">
