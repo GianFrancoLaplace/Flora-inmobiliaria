@@ -23,52 +23,49 @@ export default function Properties() {
         setMaxValue(e.target.value);
     }
 
-    return (
-        <div>
-            <main>
-                <ContactInformation />
-            </main>
-            <br />
-            <div className="layout-propiedades">
-                <div className="container-filter-properties">
-                    {/* Input para valor máximo */}
-                    <div className="filtro-contenedor">
-                        <div className="flex-col">
-                            <label htmlFor="maxValueInput" className="filter-section-title">Valor máximo</label>
-                            <input
-                                id="maxValueInput"
-                                type="number"
-                                className="input-valor-maximo"
-                                placeholder="Escribe el valor máximo"
-                                value={maxValue}
-                                onChange={handleMaxValueChange}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="filtros-columna">
-
-
-                        <FilterGroup
-                            title="Filtrar por operación"
-                            filters={filtrosTipoTransaccion}
-                            direction="column"
-                        />
-
-                        <FilterGroup
-                            title="Filtrar por inmueble"
-                            filters={filtrosTipoPropiedad}
-                            direction="column"
+   return (
+    <div>
+        <main>
+            <ContactInformation />
+        </main>
+        <br />
+        <div className="properties-layout">
+            <div className="container-filter-properties">
+                {/* Input para valor máximo */}
+                <div className="filter-container">
+                    <div className="flex-col">
+                        <label htmlFor="maxValueInput" className="filter-section-title">Valor máximo</label>
+                        <input
+                            id="maxValueInput"
+                            type="number"
+                            className="max-value-input"
+                            placeholder="Escribe el valor máximo"
+                            value={maxValue}
+                            onChange={handleMaxValueChange}
                         />
                     </div>
                 </div>
 
-                <div className="container-listado-propiedades">
-                    <p>Futuro listado de propiedades:</p>
-                    <p>Valor máximo seleccionado: {maxValue}</p>
+                <div className="filters-column">
+                    <FilterGroup
+                        title="Filtrar por operación"
+                        filters={filtrosTipoTransaccion}
+                        direction="column"
+                    />
+
+                    <FilterGroup
+                        title="Filtrar por inmueble"
+                        filters={filtrosTipoPropiedad}
+                        direction="column"
+                    />
                 </div>
             </div>
 
+            <div className="properties-list-container">
+                <p>Futuro listado de propiedades:</p>
+                <p>Valor máximo seleccionado: {maxValue}</p>
+            </div>
         </div>
-    );
+    </div>
+);
 }
