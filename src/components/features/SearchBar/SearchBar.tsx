@@ -77,15 +77,14 @@ export default function PropertiesSearchBar() {
                         height={24}
                     />
                 </button>
+                {/* Preview del término de búsqueda */}
+                {searchTerm && (
+                    <div className="properties-searcher__preview">
+                        <p className="properties-searcher__preview-text">
+                        </p>
+                    </div>
+                )}
             </div>
-
-            {/* Preview del término de búsqueda */}
-            {searchTerm && (
-                <div className="properties-searcher__preview">
-                    <p className="properties-searcher__preview-text">
-                    </p>
-                </div>
-            )}
         </div>
     );
 }

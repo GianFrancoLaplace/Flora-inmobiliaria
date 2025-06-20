@@ -168,10 +168,12 @@
    ======================================== */
 
 .properties-searcher__preview {
-    margin-top: var(--space-md);
+    position: absolute;
+    bottom: 0;
+    transform: translateY(50%);
     padding: var(--space-md);
-    background-color: #f9fafb;
-    border-radius: var(--radius-md);
+    background-color: var(--primary-color-1);
+    border-radius: 0 0  var(--radius-md) var(--radius-md);
     animation: fade-in-up 0.3s ease-out;
 }
 
