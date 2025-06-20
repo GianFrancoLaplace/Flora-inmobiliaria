@@ -19,7 +19,7 @@
     --space-xl: 2rem;       /* 32px */
 
     /* Tipografía */
-    --primary-font: 'Abyssinica SIL', -apple-system, BlinkMacSystemFont, sans-serif;
+    --primary-font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-weight-normal: 400;
     --font-weight-medium: 500;
     --font-weight-bold: 700;
@@ -43,15 +43,14 @@
    ======================================== */
 
 .properties-searcher {
-    width: 100%;
-    max-width: 32rem; /* 512px */
-    margin: 0 auto;
     font-family: var(--primary-font);
     background-color: rgba(21, 21, 21, 0.60);
     padding: var(--space-lg);
     border-radius: var(--radius-md);
     position: relative;
-    top: 35%;
+    margin: 0 auto;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 /* ========================================
@@ -60,8 +59,7 @@
 
 .properties-searcher__button-group {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
 }
@@ -71,7 +69,8 @@
    ======================================== */
 
 .properties-searcher__button {
-    background-color: rgb(var(--primary-color-1), 0.5);
+    background-color: #D3D3D388;
+    width: 220px;
     border-radius: var(--radius-md);
     color: var(--secondary-color-1);
     border: none;
@@ -149,7 +148,7 @@
    ======================================== */
 
 .properties-searcher__search-button {
-    padding: var(--space-md) var(--space-lg);
+    padding: var(--space-md) var(--space-md);
     background-color: var(--secondary-color-5);
     border: 2px solid var(--primary-color-1);
     border-radius: 0 var(--radius-md) var(--radius-md) 0;
@@ -281,7 +280,7 @@
     }
 
     .properties-searcher__input {
-        padding: var(--space-lg);
+        padding: var(--space-md);
         font-size: 1.125rem; /* 18px */
     }
 
@@ -293,7 +292,14 @@
 /* Desktop grande (1024px+) */
 @media (min-width: 1024px) {
     .properties-searcher {
-        max-width: 48rem; /* 768px */
+        max-width: 44rem; /* 702px */
+    }
+}
+
+/* Desktop grande (1024px+) */
+@media (min-width: 1440px) {
+    .properties-searcher {
+        max-width: 46.25rem; /* 740px */
     }
 }
 

@@ -1,9 +1,15 @@
-'use client'
+'use client';
+
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import "./SearchBar.css";
 
+
 export default function PropertiesSearchBar() {
+
+    const router = useRouter();
+
     const [selectedType, setSelectedType] = useState('buy');
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -28,10 +34,15 @@ export default function PropertiesSearchBar() {
         <div className="properties-searcher">
             {/* Botonera de tipo de operación */}
             <div className="properties-searcher__button-group">
-                {operationTypes.map((type, index) => (
+                {operationTypes.map((type) => (
                     <button
                         key={type.id}
-                        onClick={() => setSelectedType(type.id)}
+                        onClick={() => {
+                            setSelectedType(type.id);
+                            if (type.id === 'sell') {
+                                router.push('/QuieroVender');
+                            }
+                        }}
                         className={`
                             properties-searcher__button
                             ${selectedType === type.id ? 'properties-searcher__button--active' : ''}
@@ -62,16 +73,10 @@ export default function PropertiesSearchBar() {
                 </button>
             </div>
 
-            {/* Indicador del tipo seleccionado */}
-            <div className="properties-searcher__indicator">
-            </div>
-
             {/* Preview del término de búsqueda */}
             {searchTerm && (
                 <div className="properties-searcher__preview">
                     <p className="properties-searcher__preview-text">
-                        <span className="properties-searcher__label">Buscando:</span> {searchTerm}
-                        <span className="properties-searcher__search-type"> para {selectedType === 'buy' ? 'comprar' : selectedType === 'rent' ? 'alquilar' : 'vender'}</span>
                     </p>
                 </div>
             )}
