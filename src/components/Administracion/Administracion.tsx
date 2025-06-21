@@ -5,9 +5,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+type Property = {
+    id: number;
+    precio: string;
+    direccion: string;
+    descripcion: string;
+    imagen: string;
+};
+
 export default function Administracion() {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
-    const [propertyToDelete, setPropertyToDelete] = useState(null);
+    const [propertyToDelete, setPropertyToDelete] = useState<Property | null>(null);
 
     const propiedades = [
         {
@@ -54,8 +62,8 @@ export default function Administracion() {
         },
     ];
 
-    const handleDeleteClick = (propertyId) => {
-        setPropertyToDelete(propertyId);
+    const handleDeleteClick = (property: Property) => {
+        setPropertyToDelete(property);
         setShowConfirmModal(true);
     };
 
@@ -65,7 +73,7 @@ export default function Administracion() {
     };
 
     const handleConfirmDelete = () => {
-        // Aquí puedes agregar la lógica para eliminar la propiedad
+        // aca se debe agregar la lógica para eliminar la propiedad
         console.log('Eliminando propiedad:', propertyToDelete);
         setShowConfirmModal(false);
         setPropertyToDelete(null);
@@ -104,56 +112,47 @@ export default function Administracion() {
                                 </div>
                             </div>
                             <div className={`${styles.buttonsProperties}`}>
-                                <Link href="FichaVacia/FichaVacia.tsx">
+                                <Link href="/Administracion/FichaVacia"> {/* Ruta corregida */}
                                     <button>
-                                        <Image
-                                            src={'/icons/iconoEdit.png'}
-                                            alt={'Icono para editar'}
-                                            width={25}
-                                            height={25}
-                                        />
+                                        <Image src={'/icons/iconoEdit.png'} alt={'Icono para editar'} width={25} height={25} />
                                     </button>
                                 </Link>
                                 <button
                                     onClick={(e) => {
-                                        e.preventDefault(); // Evita que el Link se active
-                                        handleDeleteClick(`property-${prop.id}`);
+                                        e.preventDefault();
+                                        handleDeleteClick(prop); // <-- CORRECCIÓN
                                     }}
                                     type="button"
                                 >
-                                    <Image
-                                        src={'/icons/iconoDelete.png'}
-                                        alt={'Icono para eliminar'}
-                                        width={25}
-                                        height={25}
-                                    />
+                                    <Image src={'/icons/iconoDelete.png'} alt={'Icono para eliminar'} width={25} height={25} />
                                 </button>
+
                             </div>
                         </div>
                     </div>
                 </Link>
             ))}
 
-            {/* cartel de confirmación */}
-            {showConfirmModal && (
+            {/* Cartel de confirmación */}
+            {showConfirmModal && propertyToDelete && ( // Añadido check para propertyToDelete
                 <div className={styles.modalOverlay}>
                     <div className={`${styles.modalContent} ${cactus.className}`}>
-                        <h3>Confirmar eliminación</h3>
-                        <p>¿Estás seguro de que deseas eliminar esta propiedad?</p>
+                        <p>
+                            ¿Desea eliminar la publicación “<span>{propertyToDelete.direccion}</span>”?
+                        </p>
                         <p>Esta acción no se puede deshacer.</p>
-
                         <div className={styles.modalButtons}>
-                            <button
-                                onClick={handleCancelDelete}
-                                className={`${styles.cancelButton} ${cactus.className}`}
-                            >
-                                Cancelar
-                            </button>
                             <button
                                 onClick={handleConfirmDelete}
                                 className={`${styles.deleteButton} ${cactus.className}`}
                             >
-                                Eliminar
+                                Sí, deseo eliminarla
+                            </button>
+                            <button
+                                onClick={handleCancelDelete}
+                                className={`${styles.cancelButton} ${cactus.className}`}
+                            >
+                                No, gracias
                             </button>
                         </div>
                     </div>

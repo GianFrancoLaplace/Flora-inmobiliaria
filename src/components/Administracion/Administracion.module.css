@@ -94,7 +94,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,7 +102,7 @@
 }
 
 .modalContent {
-    background: white;
+    background: rgba(0, 0, 0, 0.7);
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -112,13 +112,13 @@
 }
 
 .modalContent h3 {
-    color: #333;
+    color: #FDFFE2;
     margin-bottom: 15px;
     font-size: 1.5em;
 }
 
 .modalContent p {
-    color: #666;
+    color: #FDFFE2;
     margin-bottom: 10px;
     line-height: 1.5;
 }
@@ -131,13 +131,13 @@
 }
 
 .cancelButton {
-    background-color: #6c757d;
-    color: white;
+    background-color: #FDFFE2;
+    color: black;
     border: none;
     padding: 12px 24px;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     transition: background-color 0.3s ease;
 }
 
@@ -146,8 +146,8 @@
 }
 
 .deleteButton {
-    background-color: #dc3545;
-    color: white;
+    background-color: #FFDC2B;
+    color: black;
     border: none;
     padding: 12px 24px;
     border-radius: 6px;
