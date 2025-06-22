@@ -28,49 +28,56 @@ export default function FichaPropiedad() {
         setMaxValue(e.target.value);
     }
 
-    return (
-        <div>
-            <main>
-                <ContactInformation />
-            </main>
-            <br />
-            <div className={`${cactus.className}`}>
-               <h1 className={` activePosts ${cactus.className}`}>Publicaciones activas</h1>
-                <div></div>
-                <div className="layout-propiedades">
-                    <div className="container-filter-properties">
-                        {/* Input para valor máximo */}
-                        <div className="filtro-contenedor">
-                            <div className="flex-col">
-                                <label htmlFor="maxValueInput" className="filter-section-title">Valor máximo</label>
-                                <input
-                                    id="maxValueInput"
-                                    type="number"
-                                    className="input-valor-maximo"
-                                    placeholder="Escribe el valor máximo"
-                                    value={maxValue}
-                                    onChange={handleMaxValueChange}
-                                />
-                            </div>
-                        </div>
-
-                        <FilterGroup
-                            title="Filtrar por operación"
-                            filters={filtrosTipoTransaccion}
-                            direction="column"
-                        />
-
-                        <FilterGroup
-                            title="Filtrar por inmueble"
-                            filters={filtrosTipoPropiedad}
-                            direction="column"
-                        />
-                    </div>
-                    <div className="container-content-right">
-                        <Admns />
-                    </div>
-                </div>
-            </div>
+   return (
+  <div>
+    <main>
+      <ContactInformation />
+    </main>
+    <br />
+    <div className="properties-layout">
+      {/* Filtros a la izquierda */}
+      <div className="container-filter-properties">
+        {/* Input para valor máximo */}
+        <div className="filter-container">
+          <div className="flex-col">
+            <label
+              htmlFor="maxValueInput"
+              className={`filter-section-title ${cactus.className} antialiased`}
+            >
+              Valor máximo
+            </label>
+            <input
+              id="maxValueInput"
+              type="number"
+              className="max-value-input"
+              placeholder="Escribe el valor máximo"
+              value={maxValue}
+              onChange={handleMaxValueChange}
+            />
+          </div>
         </div>
-    )
+
+        <div className="filters-column">
+          <FilterGroup
+            title="Filtrar por operación"
+            filters={filtrosTipoTransaccion}
+            direction="column"
+          />
+
+          <FilterGroup
+            title="Filtrar por inmueble"
+            filters={filtrosTipoPropiedad}
+            direction="column"
+          />
+        </div>
+      </div>
+
+      {/* Cards y botones a la derecha */}
+      <div className="container-content-right">
+        <Admns />
+      </div>
+    </div>
+  </div>
+);
+
 }
