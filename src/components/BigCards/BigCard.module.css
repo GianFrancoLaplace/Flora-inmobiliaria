@@ -2,7 +2,8 @@
 .page{
     position: relative;
     overflow: hidden;
-    width: 550px;
+    max-width: 550px;
+    width: 100%;
     height: 415px;
     display: flex;
     flex-direction: column;
@@ -25,13 +26,39 @@
 
     background-color: rgb(26,26,25, 0.85);
     color: var(--primary-color-1);
+    transition: 0.3s ease-in-out;
+}
+
+.detailsProperties:hover{
+    background-color: rgba(26, 26, 25, 0.95);
 }
 
 /*only grid properties*/
 .grid {
     display: grid;
-    width: 100%;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+    column-gap: 70px;
+    row-gap: 50px;
     padding: 20px;
+    justify-content: center;
+    align-items: start;
+
+    max-width: 1300px;
+    margin: 40px auto;
+}
+
+
+@media (max-width: 768px) {
+    .gridContainer {
+        grid-template-columns: 1fr;
+        padding: 15px;
+        gap: 20px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+    .gridContainer {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 2 o 3 columnas */
+        gap: 25px;
+    }
 }

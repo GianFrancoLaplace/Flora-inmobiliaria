@@ -3,9 +3,7 @@ import { cactus } from "@/app/ui/fonts";
 import HomeF from "@/components/Home/Home";
 import FilterGroup from "@/components/FilterButtons/filtergroup";
 import BigCardsGrid from "@/components/BigCards/BigCardsGrid";
-import Link from "next/link";
 
-import PropertyGrid from '@/components/CardsImages/PropertyImagesGrid';
 const FiltersSidebar = () => {
     const filterOptions = ['Campos', 'Departamentos', 'Casas', 'Locales', 'Lotes'];
     return (
@@ -23,38 +21,7 @@ const FiltersSidebar = () => {
         </aside>
     );
 };
-const loadImages = [
-    {
-        id: 1, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
-        address: 'San Martin 567', city: 'Tandil', state: 'disponible',
-        features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
-    },
-    {
-        id: 2, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
-        address: 'San Martin 567', city: 'Tandil', state: 'disponible',
-        features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
-    },
-    {
-        id: 3, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
-        address: 'San Martin 567', city: 'Tandil', state: 'disponible',
-        features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
-    },
-    {
-        id: 4, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
-        address: 'San Martin 567', city: 'Tandil', state: 'disponible',
-        features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
-    },
-    {
-        id: 5, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
-        address: 'San Martin 567', city: 'Tandil', state: 'disponible',
-        features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
-    },
-    {
-        id: 6, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
-        address: 'San Martin 567', city: 'Tandil', state: 'disponible',
-        features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
-    },
-];
+
 
 export default function Page() {
     const filtrosTipoPropiedad = [
@@ -87,12 +54,6 @@ export default function Page() {
                         filters={filtrosTipoPropiedad}
                         direction="row"
                     />
-                </div>
-
-                <div className={styles['properties-layout']}>
-                    <main className={styles['properties-layout__main-content']}>
-                        <PropertyGrid properties={loadImages}/>
-                    </main>
                 </div>
 
                 <div>

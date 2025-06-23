@@ -2,11 +2,15 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
     gap: 1.5rem;
+    padding: 0px;
+    margin: 0px;
 }
 
 .cardsProperties{
     display: flex;
     flex-direction: column;
+    padding: 0px;
+    margin: 0px;
 }
 
 .linkProperties{

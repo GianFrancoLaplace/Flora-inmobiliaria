@@ -5,11 +5,45 @@ import './properties-styles.css';
 import { useState } from "react";
 import '../ui/fonts';
 import { cactus } from "../ui/fonts";
+import styles from "@/app/page.module.css";
+import PropertyGrid from "@/components/CardsImages/PropertyImagesGrid";
 
 
 export default function Properties() {
     const [maxValue, setMaxValue] = useState("");
 
+    const loadImages = [
+        {
+            id: 1, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+            address: 'San Martin 567', city: 'Tandil', state: 'disponible',
+            features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
+        },
+        {
+            id: 2, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+            address: 'San Martin 567', city: 'Tandil', state: 'disponible',
+            features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
+        },
+        {
+            id: 3, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+            address: 'San Martin 567', city: 'Tandil', state: 'disponible',
+            features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
+        },
+        {
+            id: 4, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+            address: 'San Martin 567', city: 'Tandil', state: 'disponible',
+            features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
+        },
+        {
+            id: 5, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+            address: 'San Martin 567', city: 'Tandil', state: 'disponible',
+            features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
+        },
+        {
+            id: 6, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+            address: 'San Martin 567', city: 'Tandil', state: 'disponible',
+            features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
+        },
+    ];
     // Opciones de filtros
     const filtrosTipoTransaccion = ["Quiero comprar", "Quiero alquilar"];
     const filtrosTipoPropiedad = [
@@ -28,9 +62,9 @@ export default function Properties() {
     return (
         <div>
             <main>
-                <ContactInformation />
+                <ContactInformation/>
             </main>
-            <br />
+            <br/>
             <div className="properties-layout">
                 <div className="container-filter-properties">
                     {/* Input para valor máximo */}
@@ -68,11 +102,13 @@ export default function Properties() {
                     </div>
                 </div>
 
-                <div className="properties-list-container">
-                    <p>Futuro listado de propiedades:</p>
-                    <p>Valor máximo seleccionado: {maxValue}</p>
+                <div className={styles['properties-layout']}>
+                    <main className={styles['properties-layout__main-content']}>
+                        <PropertyGrid properties={loadImages}/>
+                    </main>
                 </div>
             </div>
+
         </div>
     );
 }
