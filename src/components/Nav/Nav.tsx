@@ -28,7 +28,7 @@ export default function Nav() {
                 <li><a href={"/"}>Inicio</a></li>
                 <li><a href={"/Propiedades"}>Propiedades</a></li>
                 <li><a href={"/Nosotros"}>Nosotros</a></li>
-                <li><a href={"/Ventas"}>Ventas</a></li>
+                <li><a href={"/QuieroVender"}>Quiero vender</a></li>
                 <li><a href={"/Login"}><Image src={'/icons/iconoUser.png'} alt={'minimalist user icon'} className={`${styles.iconoProperties}`}
                     width={35}
                     height={35}/></a> </li>

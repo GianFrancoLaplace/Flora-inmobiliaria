@@ -12,7 +12,7 @@
     border-radius: 10px;
     position: relative;
     margin: 0 auto;
-    top: 50%;
+    margin-top: 5%;
     transform: translateY(-50%);
 }
 

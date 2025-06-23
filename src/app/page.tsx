@@ -4,6 +4,7 @@ import HomeF from "@/components/Home/Home";
 import FilterGroup from "@/components/FilterButtons/filtergroup";
 import BigCardsGrid from "@/components/BigCards/BigCardsGrid";
 
+import PropertyGrid from '@/components/CardsImages/PropertyImagesGrid';
 const FiltersSidebar = () => {
     const filterOptions = ['Campos', 'Departamentos', 'Casas', 'Locales', 'Lotes'];
     return (
