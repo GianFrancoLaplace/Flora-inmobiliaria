@@ -33,18 +33,18 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
                 className={styles.card__image}
             />
             <div className={styles.card__overlay}>
-                <p className={styles['card__price-status']}>
+                <h3 className={styles['card__price-status']}>
                     USD {formattedPrice} | {property.rentOrSale}
-                </p>
-                <p className={styles.card__address}>
+                </h3>
+                <h4 className={styles.card__address}>
                     {property.address}, {property.city}
-                </p>
-                <p className={styles.card__features}>
+                </h4>
+                <h6 className={styles.card__features}>
                     {property.features.rooms} ambientes
-                </p>
-                <p className={styles.card__features}>
+                </h6>
+                <h6 className={styles.card__features}>
                     {property.features.bedrooms} dormitorios | {property.features.bathrooms} baños
-                </p>
+                </h6>
             </div>
         </article>
     );
