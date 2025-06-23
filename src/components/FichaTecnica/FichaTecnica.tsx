@@ -1,10 +1,37 @@
+'use client';
 import ContactInformation from "@/components/features/ContactInformation/ContactInformation";
 import DataCard from '@/components/features/DataCard/DataCard'
 import Image from 'next/image';
 import styles from './FichaTecnica.module.css'
 import {cactus} from "@/app/ui/fonts";
+import {useState} from "react";
+import {usePathname} from "next/navigation";
 
 export default function Ficha() {
+    const [modoEdicion, setModoEdicion] = useState(false);
+    const [formulario, setFormulario] = useState({
+        adress: 'Dirección',
+        operation: 'Dirección | OPERACIÓN',
+        city: 'Ciudad',
+        ubicationDescription: '',
+        price: 'Precio',
+        description: '',
+        ficha: ''
+    });
+    const pathname = usePathname();
+    const isEmptyFile = pathname === '/Administracion/FichaVacia';
+    const isEditableFile = pathname === '/Administracion/FichaEditable'
+
+    const manejarCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormulario(prev => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const activarEdicion = (): void => setModoEdicion(true);
+    const desactivarEdicion = (): void => setModoEdicion(false);
     return(
         <main className={styles.page}>
             <div>
@@ -12,13 +39,37 @@ export default function Ficha() {
             </div>
 
             <div className={styles.mainAdressProperties}>
-                <h1>Av. Avellaneda 987</h1>
-                <Image
-                    src={'/icons/share.png'}
-                    alt={'Share Icon'}
-                    width={30}
-                    height={30}
-                />
+                <div className={`${isEmptyFile ? styles.notShowProperties : styles.viewInfoAdress}`}>
+                    <h1>Av. Avellaneda 987</h1>
+                    <Image
+                        src={'/icons/share.png'}
+                        alt={'Share Icon'}
+                        width={30}
+                        height={30}
+                    />
+                </div>
+                <div className={`${styles.adressProperties} ${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
+                    {modoEdicion ? (
+                        <input
+                            type="text"
+                            name="adress"
+                            value={formulario.adress}
+                            onChange={manejarCambio}
+                            onBlur={desactivarEdicion}
+                        />
+                    ) : (
+                        <h1>{formulario.adress}</h1>
+                    )}
+
+                    <button onClick={activarEdicion} className={styles.editButtonProperties}>
+                        <Image
+                            src={'/icons/iconoEdit.png'}
+                            alt={'Icono para editar'}
+                            width={30}
+                            height={30}
+                        />
+                    </button>
+                </div>
             </div>
 
             <div className={styles.mediaCarouselProperties}>
@@ -31,20 +82,71 @@ export default function Ficha() {
             </div>
 
             <div className={styles.main}>
-                <div className={styles.mainInfo}>
-                    <h1>Av. Avellaneda 987</h1>
-                    <h1>|</h1>
-                    <h1>VENTA</h1>
+                <div className={`${isEmptyFile ? styles.notShowProperties : styles.mainInfo}`}>
+                    <div className={styles.mainInfoH1}>
+                        <h1>Av. Avellaneda 987</h1>
+                        <h1>|</h1>
+                        <h1>VENTA</h1>
+                    </div>
+                </div>
+                <div className={`${isEmptyFile ? styles.mainInfo : styles.notShowProperties}`}>
+                    <div className={styles.editProperties}>
+                        {modoEdicion ? (
+                            <input
+                                type = "text"
+                                name = "operation"
+                                value = {formulario.operation}
+                                onChange = {manejarCambio}
+                                onBlur = {desactivarEdicion}
+                            />
+                        ) : (
+                            <h1>{formulario.operation}</h1>
+                        )}
+                        <button onClick={activarEdicion} className={`${isEmptyFile ? styles.editButtonProperties : styles.notShowProperties}`}><Image
+                            src={'/icons/iconoEdit.png'}
+                            alt={'Icono para editar'}
+                            width={30}
+                            height={30}/>
+                        </button>
+                    </div>
                 </div>
                 <div>
-                    <button type="button" className={`${styles.askBtn} ${cactus.className}`}>
+                    <button type="button" className={`${styles.askBtn} ${isEmptyFile ? styles.notShowProperties : styles.showProperties || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
                         Consultar por esta propiedad
+                    </button>
+                    <button type="button" className={`${styles.askBtn} ${isEmptyFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
+                        Generar publicación
+                    </button>
+                    <button type="button" className={`${styles.askBtn} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
+                        Guardar cambios
+                    </button>
+                    <button type="button" className={`${styles.askBtn} ${styles.btnSold} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
+                        Marcar como vendida/alquilada
                     </button>
                 </div>
             </div>
 
             <div className={styles.cityProperties}>
-                <h5>Ciudad de Tandil</h5>
+                <div className={`${isEmptyFile ? styles.editProperties : styles.notShowProperties}`}>
+                    {modoEdicion ? (
+                        <input
+                            type = "text"
+                            name = "city"
+                            value = {formulario.city}
+                            onChange = {manejarCambio}
+                            onBlur = {desactivarEdicion}
+                        />
+                    ) : (
+                        <h1>{formulario.city}</h1>
+                    )}
+                    <button onClick={activarEdicion} className={`${styles.editButtonProperties} ${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}><Image
+                        src={'/icons/iconoEdit.png'}
+                        alt={'Icono para editar'}
+                        width={30}
+                        height={30}/>
+                    </button>
+                </div>
+                <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>Ciudad de Tandil</h5>
             </div>
 
             <div className={styles.mainBoxesGridProperties}>
@@ -65,15 +167,59 @@ export default function Ficha() {
                 </div>
             </div>
 
-            <div className={styles.mainInfo}>
-                <h1>USD 550.000</h1>
+            <div className={styles.mainInfoPrice}>
+                <div className={`${styles.priceEditionProperties} ${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
+                        {modoEdicion ? (
+                            <input
+                                type = "text"
+                                name = "price"
+                                className={styles.inputProperties}
+                                value = {formulario.price}
+                                onChange = {manejarCambio}
+                                onBlur = {desactivarEdicion}
+                            />
+                        ) : (
+                            <h1>{formulario.price}</h1>
+                        )}
+                    <button onClick={activarEdicion} className={styles.editButtonProperties}><Image
+                        src={'/icons/iconoEdit.png'}
+                        alt={'Icono para editar'}
+                        width={30}
+                        height={30}/>
+                    </button>
+                </div>
+                <h1 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>USD 550.000</h1>
             </div>
 
             <div className={styles.descriptionsProperties}>
                 <div className={styles.titleProperties}>
                     <h3>Descripción</h3>
+                    <div className={`${isEmptyFile ? styles.ubicationEditProperties : styles.notShowProperties}`}>
+                        <button onClick={activarEdicion} className={styles.editButtonProperties}>
+                            <Image
+                                src={'/icons/iconoEdit.png'}
+                                alt={'Icono para editar'}
+                                width={30}
+                                height={30}
+                            />
+                        </button>
+                    </div>
                 </div>
-                <h5>Ubicado en una de las zonas más buscadas de la ciudad, este departamento de tres
+                <h5 className={`${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
+                    {modoEdicion ? (
+                        <input
+                            type="text"
+                            name="description"
+                            className={styles.inputProperties}
+                            value={formulario.description}
+                            onChange={manejarCambio}
+                            onBlur={desactivarEdicion}
+                        />
+                    ):(
+                        <h5>{formulario.description}</h5>
+                    )}
+                </h5>
+                <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>Ubicado en una de las zonas más buscadas de la ciudad, este departamento de tres
                     ambientes ofrece comodidad, luminosidad y una excelente distribución en sus
                     68 metros cuadrados. Al ingresar, cuenta con un amplio living-comedor con salida a
                     un balcón con vista abierta, ideal para disfrutar al aire libre.
@@ -302,13 +448,38 @@ export default function Ficha() {
             <div className={styles.descriptionsProperties}>
                 <div className={styles.titleProperties}>
                     <h3>Ubicación</h3>
+                    <div className={`${isEmptyFile ? styles.ubicationEditProperties : styles.notShowProperties}`}>
+                        <button onClick={activarEdicion} className={styles.editButtonProperties}>
+                            <Image
+                                src={'/icons/iconoEdit.png'}
+                                alt={'Icono para editar'}
+                                width={30}
+                                height={30}
+                            />
+                        </button>
+                    </div>
                 </div>
-                <h5>
+                <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>
                     Ubicada en una zona semicéntrica de Tandil, esta propiedad combina la tranquilidad
                     de un barrio residencial con la cercanía al centro de la ciudad. A pocos minutos de
                     comercios, escuelas, espacios verdes y servicios esenciales, ofrece un entorno cómodo,
                     accesible y en constante crecimiento. Ideal para quienes buscan una buena conexión con
                     el movimiento urbano sin resignar calma y calidad de vida.
+                </h5>
+
+                <h5 className={`${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
+                    {modoEdicion ? (
+                        <input
+                            type="text"
+                            name="ubicationDescription"
+                            className={styles.inputProperties}
+                            value={formulario.ubicationDescription}
+                            onChange={manejarCambio}
+                            onBlur={desactivarEdicion}
+                        />
+                    ):(
+                        <h5>{formulario.ubicationDescription}</h5>
+                    )}
                 </h5>
                 <div className={styles.mapaInteractivo}>
                     <iframe
@@ -319,7 +490,6 @@ export default function Ficha() {
                         referrerPolicy="no-referrer-when-downgrade">
                     </iframe>
                 </div>
-
             </div>
         </main>
     )

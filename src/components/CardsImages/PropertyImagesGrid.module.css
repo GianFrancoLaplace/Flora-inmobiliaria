@@ -7,6 +7,7 @@
 .cardsProperties{
     display: flex;
     flex-direction: column;
+
 }
 
 .linkProperties{
@@ -23,10 +24,6 @@
     width: 265px;
     background-color: var(--primary-color-1);
  }
-
-.messageButtonProperties{
-    margin-top: 5%;
-}
 
 .viewButton{
     visibility: visible;

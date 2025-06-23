@@ -1,5 +1,11 @@
-.activePosts{
-    margin-left: 30px;
-    border-bottom: 1px solid black;
-    display: inline-block;
+.activePosts {
+  margin-left: 0; /* Quitamos el margen lateral que desalineaba los filtros */
+  border-bottom: 1px solid black;
+  display: inline-block;
+
+  /* Añadimos margen interno si hace falta separar del contenido */
+  padding-bottom: 4px;
 }
+
+
+

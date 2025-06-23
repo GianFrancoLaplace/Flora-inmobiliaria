@@ -19,24 +19,25 @@ const FilterGroup: React.FC<Props> = ({ title, filters, direction = 'row' }) => 
   };
 
   return (
-    <div
-      className={`filtro-contenedor ${direction === 'column' ? 'flex-col' : 'flex-row'}`}
-      style={{ marginBottom: '1rem' }}
-    >
-      <h3 style={{ marginBottom: '0.5rem' }}>{title}</h3>
+  <div
+    className={`filter-container ${direction === 'column' ? 'flex-col' : 'flex-row'}`}
+    style={{ marginBottom: '1rem' }}
+  >
+    <h3 style={{ marginBottom: '0.5rem' }}>{title}</h3>
 
-      {filters.map((item) => (
-        <FiltroToggle
-          key={item}
-          label={item}
-          isActive={activos.includes(item)}
-          onToggle={() => toggleFiltro(item)}
-        />
-      ))}
-    </div>
-  );
+    {filters.map((item) => (
+      <FiltroToggle
+        key={item}
+        label={item}
+        isActive={activos.includes(item)}
+        onToggle={() => toggleFiltro(item)}
+      />
+    ))}
+  </div>
+);
 };
 
 export default FilterGroup;
+
 
 

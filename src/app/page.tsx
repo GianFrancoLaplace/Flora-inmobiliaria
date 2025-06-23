@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-import {cactus} from "@/app/ui/fonts";
+import { cactus } from "@/app/ui/fonts";
 
 import PropertyGrid from '@/components/CardsImages/PropertyImagesGrid';
 const FiltersSidebar = () => {
@@ -21,32 +21,32 @@ const FiltersSidebar = () => {
 };
 const loadImages = [
     {
-        id: 1,     imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+        id: 1, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
         address: 'San Martin 567', city: 'Tandil', state: 'disponible',
         features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
     },
     {
-        id: 2,     imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+        id: 2, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
         address: 'San Martin 567', city: 'Tandil', state: 'disponible',
         features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
     },
     {
-        id: 3,     imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+        id: 3, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
         address: 'San Martin 567', city: 'Tandil', state: 'disponible',
         features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
     },
     {
-        id: 4,     imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+        id: 4, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
         address: 'San Martin 567', city: 'Tandil', state: 'disponible',
         features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
     },
     {
-        id: 5,     imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+        id: 5, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
         address: 'San Martin 567', city: 'Tandil', state: 'disponible',
         features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
     },
     {
-        id: 6,     imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+        id: 6, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
         address: 'San Martin 567', city: 'Tandil', state: 'disponible',
         features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
     },
@@ -58,48 +58,42 @@ import Link from "next/link";
 
 export default function Page() {
     const filtrosTipoPropiedad = [
-    "Departamentos",
-    "Lotes",
-    "Casas",
-    "Locales",
-    "Campos",
-  ];
-  return (
-      <div className={`${styles.page} ${cactus.className}`}>
-          <div>
-              <HomeF/>
-          </div>
+        "Departamentos",
+        "Lotes",
+        "Casas",
+        "Locales",
+        "Campos",
+    ];
+    return (
+        <div className={`${styles.page} ${cactus.className}`}>
+            <div>
+                <HomeF />
+            </div>
 
-          <div className={styles.presentationProperties}>
-              <br/>
-              <br/>
-              <h1>Tu próxima propiedad, nuestra prioridad</h1>
-              <h5>
-                  Combinamos experiencia, compromiso y un trato cercano para ayudarte a encontrar el lugar que estás
-                  buscando. Ya sea que quieras comprar, vender o alquilar, te acompañamos en cada paso con
-                  asesoramiento personalizado y total transparencia. Descubrí una nueva forma de hacer negocios
-                  inmobiliarios, centrada en vos.
-              </h5>
-              <div>
-                  <FilterGroup
-                      title=""
-                      filters={filtrosTipoPropiedad}
-                      direction="row"
-                  />
-              </div>
+            <div className={styles.presentationProperties}>
+                <br />
+                <br />
+                <h1>Tu próxima propiedad, nuestra prioridad</h1>
+                <h5>
+                    Combinamos experiencia, compromiso y un trato cercano para ayudarte a encontrar el lugar que estás
+                    buscando. Ya sea que quieras comprar, vender o alquilar, te acompañamos en cada paso con
+                    asesoramiento personalizado y total transparencia. Descubrí una nueva forma de hacer negocios
+                    inmobiliarios, centrada en vos.
+                </h5>
+                <div>
+                    <FilterGroup
+                        title=""
+                        filters={filtrosTipoPropiedad}
+                        direction="row"
+                    />
+                </div>
 
-              <div className={styles['properties-layout']}>
-                  <main className={styles['properties-layout__main-content']}>
-                      <Link href="Propiedades/Ficha">
-                      <PropertyGrid properties={loadImages}/>
-                      </Link>
-                  </main>
-              </div>
-
-          </div>
-
-
-
-      </div>
-  );
+                <div className={styles['properties-layout']}>
+                    <main className={styles['properties-layout__main-content']}>
+                        <PropertyGrid properties={loadImages} />
+                    </main>
+                </div>
+            </div>
+        </div>
+    );
 }
