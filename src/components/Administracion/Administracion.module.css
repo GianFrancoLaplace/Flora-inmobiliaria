@@ -82,3 +82,94 @@
 .linkProperties{
     text-decoration: none;
 }
+
+
+
+
+
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.modalContent h3 {
+    color: #FDFFE2;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.modalContent p {
+    color: #FDFFE2;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.modalButtons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.cancelButton {
+    background-color: #FDFFE2;
+    color: black;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.cancelButton:hover {
+    background-color: #5a6268;
+}
+
+.deleteButton {
+    background-color: #FFDC2B;
+    color: black;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.deleteButton:hover {
+    background-color: #c82333;
+}
+
+/* Opcional: Estilo para los botones de acción en las cards */
+.buttonsProperties button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.buttonsProperties button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
