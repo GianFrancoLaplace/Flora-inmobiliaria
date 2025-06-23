@@ -36,9 +36,9 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
                 <h3 className={styles['card__price-status']}>
                     USD {formattedPrice} | {property.rentOrSale}
                 </h3>
-                <h4 className={styles.card__address}>
+                <h5 className={styles.card__address}>
                     {property.address}, {property.city}
-                </h4>
+                </h5>
                 <h6 className={styles.card__features}>
                     {property.features.rooms} ambientes
                 </h6>

@@ -2,6 +2,7 @@ import styles from "./page.module.css";
 import { cactus } from "@/app/ui/fonts";
 import HomeF from "@/components/Home/Home";
 import FilterGroup from "@/components/FilterButtons/filtergroup";
+import BigCardsGrid from "@/components/BigCards/BigCardsGrid";
 import Link from "next/link";
 
 import PropertyGrid from '@/components/CardsImages/PropertyImagesGrid';
@@ -92,6 +93,10 @@ export default function Page() {
                     <main className={styles['properties-layout__main-content']}>
                         <PropertyGrid properties={loadImages}/>
                     </main>
+                </div>
+
+                <div>
+                    <BigCardsGrid/>
                 </div>
 
             </div>

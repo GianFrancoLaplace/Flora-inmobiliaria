@@ -4,7 +4,6 @@
     height: 422px;
     overflow: hidden;
     background-color: #e5e7eb;
-    transition: transform 0.3s ease-in-out;
     justify-content: left;
     text-align: left;
 }
@@ -36,7 +35,7 @@
     margin-top: 25px;
     margin-bottom: 5px;
     font-weight: lighter;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .card__features {
