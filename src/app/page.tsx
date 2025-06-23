@@ -93,7 +93,11 @@ export default function Page() {
                         <PropertyGrid properties={loadImages} />
                     </main>
                 </div>
+
             </div>
+
+
+
         </div>
     );
 }

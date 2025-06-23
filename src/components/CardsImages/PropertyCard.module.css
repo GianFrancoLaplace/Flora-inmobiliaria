@@ -4,11 +4,8 @@
     height: 422px;
     overflow: hidden;
     background-color: #e5e7eb;
-    transition: transform 0.3s ease-in-out;
-}
-
-.card:hover {
-    transform: scale(1.03);
+    justify-content: left;
+    text-align: left;
 }
 
 .card__image {
@@ -31,17 +28,16 @@
 }
 
 .card__price-status {
-    font-weight: 700;
-    font-size: 1.125rem;
     margin-bottom: 0.25rem;
 }
 
 .card__address {
-    font-size: 1rem;
-    margin-bottom: 0.75rem;
+    margin-top: 25px;
+    margin-bottom: 5px;
+    font-weight: lighter;
+    font-size: 18px;
 }
 
 .card__features {
-    font-size: 0.875rem;
     color: #d1d5db;
 }

@@ -12,6 +12,8 @@ export default function PropertiesSearchBar() {
 
     const [selectedType, setSelectedType] = useState('buy');
     const [searchTerm, setSearchTerm] = useState('');
+    let firstSearchTerm = '';
+    const searchMock = ["A1", "B2", "C3"] ;
 
     const operationTypes = [
         { id: 'buy', label: 'Quiero comprar' },
@@ -55,36 +57,45 @@ export default function PropertiesSearchBar() {
             </div>
 
             {/* Contenedor de búsqueda */}
-            <div className="properties-searcher__search-container">
-                <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    placeholder="Busca por barrio o calle"
-                    className="properties-searcher__input"
-                    aria-label="Campo de búsqueda de propiedades"
-                />
-                <button
-                    onClick={handleSearch}
-                    className="properties-searcher__search-button"
-                    aria-label="Buscar propiedades"
-                >
-                    <Image
-                        src={'/icons/search.png'}
-                        alt={'search icon'}
-                        width={24}
-                        height={24}
-                    />
-                </button>
-                {/* Preview del término de búsqueda */}
-                {searchTerm && (
-                    <div className="properties-searcher__preview">
-                        <p className="properties-searcher__preview-text">
-                        </p>
+
+                <div className="properties-searcher__search-container">
+                    <div className={ "properties-searcher__input-wrapper" }>
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            onKeyPress={handleKeyPress}
+                            placeholder="Buscá por barrio o calle"
+                            className="properties-searcher__input"
+                            aria-label="Campo de búsqueda de propiedades"
+                        />
+                        {searchTerm && (
+                            <div className="properties-searcher__preview">
+
+                                <p className={"properties-searcher__preview-text"}>
+                                    {searchTerm}
+                                </p>
+                                {searchMock.map(item =>
+                                    <p className={"properties-searcher__preview-text"} key={item}>
+                                        {item}
+                                    </p>
+                                )}
+                            </div>
+                        )}
                     </div>
-                )}
-            </div>
+                    <button
+                        onClick={handleSearch}
+                        className="properties-searcher__search-button"
+                        aria-label="Buscar propiedades"
+                    >
+                        <Image
+                            src={'/icons/search.png'}
+                            alt={'search icon'}
+                            width={24}
+                            height={24}
+                        />
+                    </button>
+                </div>
         </div>
     );
 }
