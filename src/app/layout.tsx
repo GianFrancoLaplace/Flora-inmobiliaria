@@ -22,7 +22,6 @@ export default function RootLayout({
             <head>
               <link rel="stylesheet" href="Styles.css"/>
             </head>
-
             <body className={`${cactus.className}`}>
                 <Nav/>
 
@@ -31,7 +30,6 @@ export default function RootLayout({
                 <WhatsAppRedirection/>
                 <Footer/>
             </body>
-
         </html>
     );
 }

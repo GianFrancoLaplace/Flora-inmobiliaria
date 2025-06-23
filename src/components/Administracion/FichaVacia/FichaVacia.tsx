@@ -12,6 +12,9 @@ export default function Ficha() {
         operation: 'Dirección | OPERACIÓN',
         city: 'Ciudad',
         ubicationDescription: '',
+        price: 'Precio',
+        description: '',
+        ficha: ''
     });
 
     const manejarCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -151,8 +154,18 @@ export default function Ficha() {
             </div>
 
             <div className={styles.mainInfo}>
-                <h1>Precio</h1>
-                <button className={styles.editButtonProperties}><Image
+                {modoEdicion ? (
+                    <input
+                        type = "text"
+                        name = "price"
+                        value = {formulario.price}
+                        onChange = {manejarCambio}
+                        onBlur = {desactivarEdicion}
+                    />
+                ) : (
+                    <h1>{formulario.price}</h1>
+                )}
+                <button onClick={activarEdicion} className={styles.editButtonProperties}><Image
                     src={'/icons/iconoEdit.png'}
                     alt={'Icono para editar'}
                     width={30}
@@ -163,8 +176,8 @@ export default function Ficha() {
             <div className={styles.descriptionsProperties}>
                 <div className={styles.titleProperties}>
                     <div className={styles.editProperties}>
-                        <h3>Descripción</h3>
-                        <button className={styles.editButtonProperties}><Image
+                        <h1>Descripcion</h1>
+                        <button onClick={activarEdicion} className={styles.editButtonProperties}><Image
                             src={'/icons/iconoEdit.png'}
                             alt={'Icono para editar'}
                             width={30}
@@ -172,19 +185,18 @@ export default function Ficha() {
                         </button>
                     </div>
                 </div>
-                <h5>Ubicado en una de las zonas más buscadas de la ciudad, este departamento de tres
-                    ambientes ofrece comodidad, luminosidad y una excelente distribución en sus
-                    68 metros cuadrados. Al ingresar, cuenta con un amplio living-comedor con salida a
-                    un balcón con vista abierta, ideal para disfrutar al aire libre.
-
-
-                    La cocina es independiente y está equipada con muebles modernos y lavadero
-                    incorporado. Dispone de dos dormitorios con placares empotrados y un baño completo
-                    con terminaciones de calidad.
-
-                    El edificio ofrece seguridad 24 horas, salón de usos múltiples y una terraza con
-                    parrilla. Gracias a su cercanía con medios de transporte, espacios verdes y una variada
-                    oferta comercial, esta propiedad es ideal tanto para vivienda como para inversión.
+                <h5>
+                    {modoEdicion ? (
+                        <input
+                            type = "text"
+                            name = "ficha"
+                            value = {formulario.ficha}
+                            onChange = {manejarCambio}
+                            onBlur = {desactivarEdicion}
+                        />
+                    ) : (
+                        formulario.ficha
+                    )}
                 </h5>
             </div>
 
@@ -192,7 +204,7 @@ export default function Ficha() {
                 <div className={styles.titleProperties}>
                     <div className={styles.editProperties}>
                         <h3>Ficha</h3>
-                        <button className={styles.editButtonProperties}><Image
+                        <button onClick={activarEdicion} className={styles.editButtonProperties}><Image
                             src={'/icons/iconoEdit.png'}
                             alt={'Icono para editar'}
                             width={30}
@@ -209,7 +221,17 @@ export default function Ficha() {
                                 width={20}
                                 height={20}
                             />
-                            <h5>Superficie Total: 500m2</h5>
+                            {modoEdicion ? (
+                                <input
+                                    type = "text"
+                                    name = "description"
+                                    value = {formulario.description}
+                                    onChange = {manejarCambio}
+                                    onBlur = {desactivarEdicion}
+                                />
+                            ) : (
+                                <h5>{formulario.description}</h5>
+                            )}
                         </div>
                         <div className={styles.itemProperties}>
                             <Image
@@ -432,11 +454,8 @@ export default function Ficha() {
                     ):(
                         <h5>{formulario.ubicationDescription}</h5>
                     )}
-
                 </h5>
             </div>
-
-
         </main>
     )
 }
