@@ -3,8 +3,9 @@
    ======================================== */
 
 .properties-searcher {
-    /*display: flex;*/
-    /*flex-wrap: nowrap;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     font-family: var(--primary-font);
     background-color: rgba(21, 21, 21, 0.60);
     padding: var(--space-lg);
@@ -70,11 +71,23 @@
    ======================================== */
 
 .properties-searcher__search-container {
-    position: relative;
     display: flex;
     border-radius: var(--radius-md);
-    overflow: hidden;
     box-shadow: var(--shadow-md);
+}
+
+.properties-searcher__search-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========================================
+   📝 ELEMENTO: INPUT-WRAPPER
+   ======================================== */
+
+.properties-searcher__input-wrapper{
+    position: relative;
+    flex: 1;
 }
 
 /* ========================================
@@ -82,8 +95,7 @@
    ======================================== */
 
 .properties-searcher__input {
-    flex: 1;
-    padding: var(--space-md);
+    width: 100%;
     border-radius: var(--radius-md) 0 0 var(--radius-md);
     font-size: var(--text-base);
     font-family: inherit;
@@ -101,8 +113,29 @@
     border-color: var(--primary-color-1);
 }
 
-.properties-searcher__input--wrapped{
+/* ========================================
+   👁️ ELEMENTO: PREVIEW
+   ======================================== */
 
+.properties-searcher__preview {
+    width: 100%;
+    background-color: var(--primary-color-1);
+    border-top: none;
+    position: absolute;
+    top: 100%;
+    border-radius: 0 0  var(--radius-md) var(--radius-md);
+    animation: fade-in-up 0.3s ease-out;
+}
+
+.properties-searcher__preview-text {
+    margin: 0;
+    padding: var(--space-xs);
+    font-size: var(--text-sm);
+    text-align: left;
+}
+
+.properties-searcher__preview-text:hover {
+    background-color: var(--primary-color-2);
 }
 
 /* ========================================
@@ -115,11 +148,6 @@
     cursor: pointer;
     transition: all var(--normal-transition);
     display: flex;
-    align-items: center;
-    justify-content: center;
-    outline: none;
-    margin: 0;
-    height: auto;
 }
 
 .properties-searcher__search-button:hover {
@@ -134,61 +162,6 @@
 
 .properties-searcher__search-button:focus {
     outline-offset: 2px;
-}
-
-/* ========================================
-   🔍 ELEMENTO: SEARCH ICON
-   ======================================== */
-
-.properties-searcher__search-icon {
-    width: 1.25rem;  /* 20px */
-    height: 1.25rem; /* 20px */
-}
-
-/* ========================================
-   📋 ELEMENTO: INDICATOR
-   ======================================== */
-
-.properties-searcher__indicator {
-    margin-top: var(--space-md);
-    text-align: center;
-}
-
-.properties-searcher__mode-text {
-    font-size: var(--text-sm);
-}
-
-.properties-searcher__active-mode {
-    font-weight: var(--font-weight-bold);
-    text-transform: capitalize;
-}
-
-/* ========================================
-   👁️ ELEMENTO: PREVIEW
-   ======================================== */
-
-.properties-searcher__preview {
-    position: absolute;
-    bottom: 0;
-    transform: translateY(50%);
-    padding: var(--space-md);
-    background-color: var(--primary-color-1);
-    border-radius: 0 0  var(--radius-md) var(--radius-md);
-    animation: fade-in-up 0.3s ease-out;
-}
-
-.properties-searcher__preview-text {
-    margin: 0;
-    font-size: var(--text-sm);
-}
-
-.properties-searcher__label {
-    font-weight: var(--font-weight-medium);
-}
-
-.properties-searcher__search-type {
-    margin-left: var(--space-sm);
-    font-weight: var(--font-weight-medium);
 }
 
 /* ========================================
@@ -238,12 +211,15 @@
     }
 
     .properties-searcher__input {
+        height: 3rem;
         padding: var(--space-md);
         font-size: 1.125rem; /* 18px */
     }
 
     .properties-searcher__search-button {
-        padding: var(--space-lg) var(--space-xl);
+        height: 3rem;
+        width: 3.125rem;
+        margin: 0;
     }
 }
 
@@ -274,10 +250,6 @@
 
     .properties-searcher__button:nth-child(3) {
         margin: 0;
-    }
-
-    .properties-searcher__search-button {
-        width: 3.125rem;
     }
 }
 
