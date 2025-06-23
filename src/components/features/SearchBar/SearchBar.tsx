@@ -1,11 +1,15 @@
-'use client'
+'use client';
+
 import React, { useState } from "react";
-import { Search } from "lucide-react";
+import { useRouter } from "next/navigation";
 import "./SearchBar.css";
 import Image from 'next/image'
 import {cactus} from "@/app/ui/fonts";
 
 export default function PropertiesSearchBar() {
+
+    const router = useRouter();
+
     const [selectedType, setSelectedType] = useState('buy');
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -30,10 +34,15 @@ export default function PropertiesSearchBar() {
         <div className="properties-searcher">
             {/* Botonera de tipo de operación */}
             <div className="properties-searcher__button-group">
-                {operationTypes.map((type, index) => (
+                {operationTypes.map((type) => (
                     <button
                         key={type.id}
-                        onClick={() => setSelectedType(type.id)}
+                        onClick={() => {
+                            setSelectedType(type.id);
+                            if (type.id === 'sell') {
+                                router.push('/QuieroVender');
+                            }
+                        }}
                         className={`
                             ${cactus.className}
                             properties-searcher__button
@@ -58,7 +67,7 @@ export default function PropertiesSearchBar() {
                 />
                 <button
                     onClick={handleSearch}
-                    className={"properties-searcher__search-button"}
+                    className="properties-searcher__search-button"
                     aria-label="Buscar propiedades"
                 >
                     <Image
@@ -68,21 +77,14 @@ export default function PropertiesSearchBar() {
                         height={24}
                     />
                 </button>
+                {/* Preview del término de búsqueda */}
+                {searchTerm && (
+                    <div className="properties-searcher__preview">
+                        <p className="properties-searcher__preview-text">
+                        </p>
+                    </div>
+                )}
             </div>
-
-            {/* Indicador del tipo seleccionado */}
-            <div className="properties-searcher__indicator">
-            </div>
-
-            {/* Preview del término de búsqueda */}
-            {searchTerm && (
-                <div className="properties-searcher__preview">
-                    <p className="properties-searcher__preview-text">
-                        <span className="properties-searcher__label">Buscando:</span> {searchTerm}
-                        <span className="properties-searcher__search-type"> para {selectedType === 'buy' ? 'comprar' : selectedType === 'rent' ? 'alquilar' : 'vender'}</span>
-                    </p>
-                </div>
-            )}
         </div>
     );
 }

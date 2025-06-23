@@ -1,52 +1,22 @@
-/*'use client';
-import './filterbuttons.css';
-import '../../app/ui/fonts';
+'use client';
+import React from 'react';
+import './filterbuttons.css'; 
 
-export default function FilterButtons() {
-  // ✅ Función de toggle definida dentro del componente
-  const toggleClase = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const boton = e.currentTarget;
-    const toggle = boton.querySelector('.toggle');
-    toggle?.classList.toggle('activo');
-  };
-
-  return (
-    <div className="filtro-contenedor ${cactus.className} antialiased">
-      <button className="filtro-boton" onClick={toggleClase}>
-        Departamentos
-        <span className="toggle">
-          <span className="toggle-circulo"></span>
-        </span>
-      </button>
-
-      <button className="filtro-boton" onClick={toggleClase}>
-        Lotes
-        <span className="toggle">
-          <span className="toggle-circulo"></span>
-        </span>
-      </button>
-
-      <button className="filtro-boton" onClick={toggleClase}>
-        Campos
-        <span className="toggle">
-          <span className="toggle-circulo"></span>
-        </span>
-      </button>
-
-      <button className="filtro-boton" onClick={toggleClase}>
-        Casas
-        <span className="toggle">
-          <span className="toggle-circulo"></span>
-        </span>
-      </button>
-
-      <button className="filtro-boton" onClick={toggleClase}>
-        Locales
-        <span className="toggle">
-          <span className="toggle-circulo"></span>
-        </span>
-      </button>
-    </div>
-  );
+interface Props {
+  label: string;
+  isActive: boolean;
+  onToggle: () => void;
 }
-*/
+
+const FiltroToggle: React.FC<Props> = ({ label, isActive, onToggle }) => {
+  return (
+  <button className="filter-button" onClick={onToggle}>
+    {label}
+    <span className={`toggle ${isActive ? 'active' : ''}`}>
+      <span className="toggle-circle"></span>
+    </span>
+  </button>
+);
+};
+
+export default FiltroToggle;

@@ -1,4 +1,61 @@
 /*HOME properties*/
+.properties-layout {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+  display: flex;
+  gap: 3rem;
+}
+
+.linkProperties{
+  text-decoration: none;
+}
+
+/* Elemento: main-content */
+.properties-layout__main-content {
+  flex-grow: 1;
+}
+
+
+/* Media Query para responsividad */
+@media (max-width: 1024px) {
+  .properties-layout {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .properties-layout__sidebar {
+    width: 100%;
+  }
+}
+
+
+/* --- Bloque: filter-menu (para la barra lateral) --- */
+.filter-menu {
+  /* Este es el contenedor de la barra lateral */
+}
+
+.filter-menu__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+}
+
+.filter-menu__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #3c3c3b;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
 .page{
   background-color: var(--primary-color-1);
   color: var(--primary-color-5);
@@ -19,11 +76,6 @@
   gap: 10px;
   margin-top: 20%;
   position: relative;
-}
-
-.messageBtn {
-  width: 265px;
-  background-color: var(--primary-color-1);
 }
 
 .mainCardsGridProperties{

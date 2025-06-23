@@ -5,28 +5,32 @@
     position: relative;
     z-index: 10;
 }
-.mapaInteractivo{
+
+.adressProperties{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 40px 0; /* Separación superior e inferior del texto */
-    padding: 20px 0; /* Padding adicional para más separación */
+    flex-direction: row;
+    margin-left: 1%;
+    width: fit-content;
+    gap: 10%;
+    white-space: nowrap;
 }
 
-.mapaInteractivo iframe {
-    border-radius: 8px; /* Bordes redondeados opcionales */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra sutil opcional */
+.mainAdressProperties button, .editButtonProperties{
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    padding-bottom: 20px;
 }
-
 
 .mainAdressProperties{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding-inline: 40px;
     margin-top: 20px;
     margin-bottom: 20px;
     box-sizing: border-box;
+    gap: 70%;
 }
 
 .mediaCarouselProperties{
@@ -47,15 +51,29 @@
     padding-inline: 20px;
     position: relative;
     z-index: 10;
-    margin-right: 40px;
 }
 
 .mainInfo{
     display: flex;
     flex-direction: row;
     width: fit-content;
-    margin-inline: 40px;
+    margin-left: 20px;
     margin-top: 20px;
+    gap: 5%;
+}
+
+#imageIconoEditPhoto{
+    display: flex;
+    position: relative;
+    margin-top: 35%;
+    margin-right: 3%;
+}
+
+.infoProperties{
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    white-space: nowrap;
 }
 
 .mainInfo h1{
@@ -69,13 +87,18 @@
 }
 
 .cityProperties{
-    width: 100%;
+    width: min-content;
     display: flex;
     flex-direction: row;
     justify-content: left;
     color: var(--secondary-color-5);
     margin-inline: 40px;
     margin-top: 10px;
+    gap: 20px;
+}
+
+.cityProperties button{
+    padding-bottom: 40px;
 }
 
 .mainBoxesGridProperties{
@@ -99,6 +122,17 @@
     margin-inline: 40px;
 }
 
+.descriptionUbication{
+    font-size: 16px;
+}
+
+.editProperties{
+    display: flex;
+    flex-direction: row;
+    width: min-content;
+    gap: 20px;
+}
+
 .descriptionsProperties div{
     padding-bottom: 10px;
     margin-bottom: 10px;
@@ -106,6 +140,13 @@
 
 .titleProperties{
     border-bottom: 1px solid var(--primary-color-5);
+}
+
+.ubicationEditProperties{
+    display: flex;
+    flex-direction: row;
+    width: min-content;
+    gap: 20px;
 }
 
 .dataGridProperties{
