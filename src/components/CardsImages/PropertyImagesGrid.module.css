@@ -1,16 +1,19 @@
 .property-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-    gap: 1.5rem;
-    padding: 0px;
-    margin: 0px;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    row-gap: 50px;
+    column-gap: 40px;
+    padding: 20px;
+    justify-content: center;
+    align-items: start;
+
+    max-width: 1300px;
+    margin: 0px auto;
 }
 
 .cardsProperties{
     display: flex;
     flex-direction: column;
-    padding: 0px;
-    margin: 0px;
 }
 
 .linkProperties{

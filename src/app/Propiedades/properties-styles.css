@@ -3,37 +3,36 @@
 
 .properties-layout {
   display: flex;
-  gap: 2rem;
-  min-height: calc(100vh - 200px);
-  padding: 0px;
-  margin: 0px;
+  justify-content: left;
+  text-align: left;
+  gap: 0rem;
+  padding: 40px;
 }
 
 .container-filter-properties {
+  justify-content: left;
+  text-align: left;
   flex-basis: 20%;
   max-width: 20%;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding-left: 30px;
   box-sizing: border-box;
 }
 
 .filter-container {
   display: flex;
-  justify-content: flex-start; 
+  justify-content: left;
+  text-align: left;
   padding: 0;
-  margin-left: 20px; 
 }
 
-/* Dirección horizontal */
 .flex-row {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-/* Dirección vertical */
 .flex-col {
   flex-direction: column;
   align-items: flex-start;
@@ -127,6 +126,8 @@
 
 .filters-column {
   margin-left: 0;
+  justify-content: left;
+  text-align: left;
 }
 
 .max-value-input {
