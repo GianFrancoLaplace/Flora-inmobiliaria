@@ -1,15 +1,17 @@
+import { Maximize } from 'lucide-react';
 import styles from './Nosotros.module.css'
 import Image from "next/image";
+import { maxHeaderSize } from 'node:http';
 
-export default function Nosotros(){
-    return(
+export default function Nosotros() {
+    return (
         <main>
             <div className={`${styles.backgroundNavProperties}`}>
                 <div className={styles.infoImageProperties}>
                     <div className={styles.h5Properties}>
-                    <h2>Acerca de nosotros</h2>
+                        <h2>Acerca de nosotros</h2>
                     </div>
-                        <h5>Experiencia | Compromiso | Transparencia</h5>
+                    <h5>Experiencia | Compromiso | Transparencia</h5>
                 </div>
             </div>
             <div className={styles.generalInfoProperties}>
@@ -36,9 +38,21 @@ export default function Nosotros(){
                     </div>
                 </div>
             </div>
-            <div className={styles.imgRealStateProperties}>
 
+            <div style={{ margin: '0 40px' }}>
+                <Image
+                    src="/images/imagen_nosotros.jpg"
+                    alt="Imagen Nosotros"
+                    width={1000}          // valor de referencia
+                    height={200}          // altura delgada
+                    priority
+                    style={{ width: '100%' }} // esto hace que se escale al 100%
+                />
             </div>
+
+
+
+
             <div>
                 <div className={styles.container}>
                     <div className={styles.imageContainer}>
