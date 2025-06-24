@@ -4,9 +4,9 @@ import DataCard from '@/components/features/DataCard/DataCard'
 import Item from '@/components/FichaTecnica/propertiesItem'
 import Image from 'next/image';
 import styles from './FichaTecnica.module.css'
-import {cactus} from "@/app/ui/fonts";
-import {useState} from "react";
-import {usePathname} from "next/navigation";
+import { cactus } from "@/app/ui/fonts";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Ficha() {
     const [modoEdicion, setModoEdicion] = useState(false);
@@ -33,10 +33,10 @@ export default function Ficha() {
 
     const activarEdicion = (): void => setModoEdicion(true);
     const desactivarEdicion = (): void => setModoEdicion(false);
-    return(
+    return (
         <main className={styles.page}>
             <div>
-                <ContactInformation/>
+                <ContactInformation />
             </div>
 
             <div className={styles.mainAdressProperties}>
@@ -95,12 +95,12 @@ export default function Ficha() {
                     <div className={styles.editProperties}>
                         {modoEdicion ? (
                             <input
-                                type = "text"
-                                name = "operation"
+                                type="text"
+                                name="operation"
                                 className={styles.inputProperties}
-                                value = {formulario.operation}
-                                onChange = {manejarCambio}
-                                onBlur = {desactivarEdicion}
+                                value={formulario.operation}
+                                onChange={manejarCambio}
+                                onBlur={desactivarEdicion}
                             />
                         ) : (
                             <h1>{formulario.operation}</h1>
@@ -109,7 +109,7 @@ export default function Ficha() {
                             src={'/icons/iconoEdit.png'}
                             alt={'Icono para editar'}
                             width={30}
-                            height={30}/>
+                            height={30} />
                         </button>
                     </div>
                 </div>
@@ -133,12 +133,12 @@ export default function Ficha() {
                 <div className={`${isEmptyFile ? styles.editProperties : styles.notShowProperties}`}>
                     {modoEdicion ? (
                         <input
-                            type = "text"
-                            name = "city"
+                            type="text"
+                            name="city"
                             className={styles.inputProperties}
-                            value = {formulario.city}
-                            onChange = {manejarCambio}
-                            onBlur = {desactivarEdicion}
+                            value={formulario.city}
+                            onChange={manejarCambio}
+                            onBlur={desactivarEdicion}
                         />
                     ) : (
                         <h1>{formulario.city}</h1>
@@ -147,7 +147,7 @@ export default function Ficha() {
                         src={'/icons/iconoEdit.png'}
                         alt={'Icono para editar'}
                         width={30}
-                        height={30}/>
+                        height={30} />
                     </button>
                 </div>
                 <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>Ciudad de Tandil</h5>
@@ -193,23 +193,23 @@ export default function Ficha() {
 
             <div className={styles.mainInfoPrice}>
                 <div className={`${styles.priceEditionProperties} ${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
-                        {modoEdicion ? (
-                            <input
-                                type = "text"
-                                name = "price"
-                                className={styles.inputProperties}
-                                value = {formulario.price}
-                                onChange = {manejarCambio}
-                                onBlur = {desactivarEdicion}
-                            />
-                        ) : (
-                            <h1>{formulario.price}</h1>
-                        )}
+                    {modoEdicion ? (
+                        <input
+                            type="text"
+                            name="price"
+                            className={styles.inputProperties}
+                            value={formulario.price}
+                            onChange={manejarCambio}
+                            onBlur={desactivarEdicion}
+                        />
+                    ) : (
+                        <h1>{formulario.price}</h1>
+                    )}
                     <button onClick={activarEdicion} className={styles.editButtonProperties}><Image
                         src={'/icons/iconoEdit.png'}
                         alt={'Icono para editar'}
                         width={30}
-                        height={30}/>
+                        height={30} />
                     </button>
                 </div>
                 <h1 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>USD 550.000</h1>
@@ -239,10 +239,11 @@ export default function Ficha() {
                             onChange={manejarCambio}
                             onBlur={desactivarEdicion}
                         />
-                    ):(
-                        <h5>{formulario.description}</h5>
+                    ) : (
+                        <span>{formulario.description}</span>
                     )}
                 </h5>
+
                 <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>
                     Ubicado en una de las zonas más buscadas de la ciudad, este departamento de tres
                     ambientes ofrece comodidad, luminosidad y una excelente distribución en sus
@@ -414,10 +415,11 @@ export default function Ficha() {
                             onChange={manejarCambio}
                             onBlur={desactivarEdicion}
                         />
-                    ):(
-                        <h5>{formulario.ubicationDescription}</h5>
+                    ) : (
+                        <span>{formulario.ubicationDescription}</span> // <-- Cambié <h5> por <span>
                     )}
                 </h5>
+
                 <div className={styles.mapaInteractivo}>
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6345.872814972624!2d-59.128316!3d-37.320334!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95911f92a1699e0f%3A0xb7acb39bd2ed6d7!2sMitre%201247%2C%20B7000%20Tandil%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1750441385483!5m2!1ses!2sar"
