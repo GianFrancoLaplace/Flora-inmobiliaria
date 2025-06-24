@@ -1,0 +1,57 @@
+.us-section {
+ display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: -150px;
+  z-index: 0; /* 👈 debajo del nav */
+  position: relative; /* necesita contexto para z-index */
+}
+
+.us-image {
+  background-image: url('/images/imagen_nosotros.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 60vh;
+  width: 100%;
+  overflow: hidden;
+   position: relative;
+  z-index: 0;
+}
+
+.us-image::before {
+ content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 0; /* 👈 importantísimo */
+}
+
+.us-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+   z-index: 1;
+}
+
+.us-text h1{
+    font-weight: 800;
+}
+
+.us-text p{
+    font-weight: 500;
+    font-style: inherit;
+}
+
+
+
+
+
+
