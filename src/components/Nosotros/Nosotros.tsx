@@ -1,5 +1,7 @@
+import { Maximize } from 'lucide-react';
 import styles from './Nosotros.module.css'
 import Image from "next/image";
+import { maxHeaderSize } from 'node:http';
 
 export default function Nosotros() {
     return (
@@ -37,14 +39,18 @@ export default function Nosotros() {
                 </div>
             </div>
 
-            <Image
-                src="/images/imagen_nosotros.jpg"
-                alt="Imagen Nosotros"
-                layout="responsive"
-                width={700}
-                height={150}  // altura mucho menor, imagen más delgada
-                priority
-            />
+            <div style={{ margin: '0 40px' }}>
+                <Image
+                    src="/images/imagen_nosotros.jpg"
+                    alt="Imagen Nosotros"
+                    width={1000}          // valor de referencia
+                    height={200}          // altura delgada
+                    priority
+                    style={{ width: '100%' }} // esto hace que se escale al 100%
+                />
+            </div>
+
+
 
 
             <div>
