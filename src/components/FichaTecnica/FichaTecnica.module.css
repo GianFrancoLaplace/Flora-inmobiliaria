@@ -231,8 +231,6 @@
 }
 
 .inputProperties{
-    width: 100%;
-    height: 100%;
     font-size: 30px;
     font-family: var(--font-weight-normal);
 }

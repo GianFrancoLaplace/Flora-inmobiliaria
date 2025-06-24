@@ -10,9 +10,10 @@ export default function Nav() {
     const isHome = pathname === '/';
     const isLogin = pathname === '/Login';
     const isI_WantSell = pathname === '/QuieroVender';
+    const isOur = pathname === '/Nosotros';
 
     return (
-        <nav className={`${styles.navProperties} ${isHome ? styles.absoluteNav : isLogin ? styles.absoluteNav : isI_WantSell ? styles.absoluteNav : styles.staticNav}`}>
+        <nav className={`${styles.navProperties} ${isHome ? styles.absoluteNav : isLogin ? styles.absoluteNav : isI_WantSell ? styles.absoluteNav : isOur ? styles.absoluteNav : styles.staticNav}`}>
             <ul className={`${styles.logoProperties}`}>
                 <Link href="/">
                     <Image
@@ -27,7 +28,7 @@ export default function Nav() {
             <ul className={`${styles.sectionProperties} ${cactus.className}`}>
                 <li><a href={"/"}>Inicio</a></li>
                 <li><a href={"/Propiedades"}>Propiedades</a></li>
-                <li><a href={"/SobreNosotros"}>Nosotros</a></li>
+                <li><a href={"/Nosotros"}>Nosotros</a></li>
                 <li><a href={"/QuieroVender"}>Quiero vender</a></li>
                 <li><a href={"/Login"}><Image src={'/icons/iconoUser.png'} alt={'minimalist user icon'} className={`${styles.iconoProperties}`}
                     width={35}

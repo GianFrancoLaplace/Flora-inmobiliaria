@@ -1,6 +1,7 @@
 
 import Image from "next/image";
 import styles from './PropertyCard.module.css';
+import Link from "next/link";
 
 
 type PropertyImage = {
@@ -26,12 +27,14 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
 
     return (
         <article className={styles.card}>
+            <Link href={'/Propiedades/Ficha'}>
             <Image
                 src={property.imageUrl}
                 alt={`Imagen de la propiedad en ${property.address}`}
                 fill
                 className={styles.card__image}
             />
+            </Link>
             <div className={styles.card__overlay}>
                 <h3 className={styles['card__price-status']}>
                     USD {formattedPrice} | {property.rentOrSale}

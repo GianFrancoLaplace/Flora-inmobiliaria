@@ -79,5 +79,4 @@ export default function FichaPropiedad() {
     </div>
   </div>
 );
-
 }
