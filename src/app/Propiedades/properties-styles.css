@@ -4,8 +4,9 @@
 .properties-layout {
   display: flex;
   gap: 2rem;
-  padding: 2rem;
   min-height: calc(100vh - 200px);
+  padding: 0px;
+  margin: 0px;
 }
 
 .container-filter-properties {

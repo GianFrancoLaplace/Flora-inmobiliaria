@@ -1,6 +1,6 @@
 "use client"
 import styles from "@/components/Administracion/Administracion.module.css";
-import {cactus} from "@/app/ui/fonts";
+import { cactus } from "@/app/ui/fonts";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -91,46 +91,58 @@ export default function Administracion() {
             </div>
 
             {propiedades.map((prop) => (
-                <Link key={prop.id} href={'/Propiedades/Ficha'} className={styles.linkProperties}>
-                    <div className={`${styles.cardsProperties} ${cactus.className}`}>
-                        <div className={`${styles.cardProperties} ${cactus.className}`}>
-                            <div className={`${styles.imageProperties} ${cactus.className}`}>
-                                <Image
-                                    src={prop.imagen}
-                                    alt={'Imagen interior casa'}
-                                    width={285}
-                                    height={175}
-                                />
-                            </div>
+                <div key={prop.id} className={`${styles.cardsProperties} ${cactus.className}`}>
+                    <div className={`${styles.cardProperties} ${cactus.className}`}>
+                        <div className={`${styles.imageProperties} ${cactus.className}`}>
+                            <Image
+                                src={prop.imagen}
+                                alt="Imagen interior casa"
+                                width={285}
+                                height={175}
+                            />
+                        </div>
+
+                        <Link href="/Propiedades/Ficha" className={styles.linkProperties}>
                             <div className={`${styles.infoProperties} ${cactus.className}`}>
                                 <div className={styles.priceProperties}>
                                     <h5>{prop.precio}</h5>
                                 </div>
-                                <div className={`${styles.restInfoProperties} ${cactus.className}`}>
+                                <div className={styles.restInfoProperties}>
                                     <h5>{prop.direccion}</h5>
                                     <h5>{prop.descripcion}</h5>
                                 </div>
                             </div>
-                            <div className={`${styles.buttonsProperties}`}>
-                                <Link href="/Administracion/FichaVacia"> {/* Ruta corregida */}
-                                    <button>
-                                        <Image src={'/icons/iconoEdit.png'} alt={'Icono para editar'} width={25} height={25} />
-                                    </button>
-                                </Link>
-                                <button
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        handleDeleteClick(prop); // <-- CORRECCIÓN
-                                    }}
-                                    type="button"
-                                >
-                                    <Image src={'/icons/iconoDelete.png'} alt={'Icono para eliminar'} width={25} height={25} />
-                                </button>
+                        </Link>
 
-                            </div>
+                        <div className={styles.buttonsProperties}>
+                            <button
+                                onClick={() => (window.location.href = "/Administracion/FichaEditable")}
+                                type="button"
+                            >
+                                <Image
+                                    src="/icons/iconoEdit.png"
+                                    alt="Editar"
+                                    width={25}
+                                    height={25}
+                                />
+                            </button>
+                            <button
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleDeleteClick(prop);
+                                }}
+                                type="button"
+                            >
+                                <Image
+                                    src="/icons/iconoDelete.png"
+                                    alt="Eliminar"
+                                    width={25}
+                                    height={25}
+                                />
+                            </button>
                         </div>
                     </div>
-                </Link>
+                </div>
             ))}
 
             {/* Cartel de confirmación */}

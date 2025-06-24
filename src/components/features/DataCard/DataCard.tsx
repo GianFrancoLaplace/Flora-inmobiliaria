@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image';
 import styles from './DataCard.module.css'
 
@@ -11,7 +12,7 @@ export default function dataCard() {
                     width={20}
                     height={20}
                 />
-                <h5>120m2</h5>
+                <h5>122mt2</h5>
                 <h5>Sup. Total</h5>
             </div>
         </main>

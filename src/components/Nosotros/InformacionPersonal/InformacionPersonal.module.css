@@ -1,0 +1,78 @@
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px); /* Empieza 20px más abajo */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Termina en su posición original */
+    }
+}
+
+/* --- Estilos del Contenedor Principal --- */
+.container {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    max-width: 1100px;
+    margin: 4rem auto;
+    padding: 2rem;
+    font-family: "Georgia", serif;
+}
+
+/* --- Contenedores para la Animación Escalonada --- */
+.imageContainer {
+
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.textContainer {
+    flex: 1;
+    /* Aplica la animación con un ligero retraso para un efecto más elegante */
+    animation: fadeInUp 0.8s ease-out 0.2s forwards; /* 0.2s de retraso */
+    opacity: 0; /* Empieza invisible hasta que la animación se active */
+}
+
+/* --- Estilo de la Imagen --- */
+.image {
+
+    padding: 5px;
+    background-color: #fff;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* --- Estilos del Texto --- */
+.title {
+    font-size: 2.25rem;
+    font-weight: 400;
+    color: #222;
+    margin-bottom: 1.5rem;
+}
+
+.description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #444;
+    margin-bottom: 1rem;
+}
+
+/* --- Diseño Responsivo para Móviles --- */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Apila la imagen y el texto verticalmente */
+        text-align: center; /* Centra el texto */
+        gap: 2rem; /* Reduce el espacio cuando están apilados */
+    }
+
+    .textContainer {
+        /* El retraso en la animación puede no verse tan bien en móvil, lo ajustamos */
+        animation-delay: 0s;
+    }
+
+    .title {
+        font-size: 1.8rem; /* Reduce el tamaño del título en pantallas pequeñas */
+    }
+}

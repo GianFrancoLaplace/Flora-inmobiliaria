@@ -45,6 +45,7 @@
 
 .priceProperties h5{
     font-size: 22px;
+    margin-top: 15px;
 }
 
 .linkProperties{
@@ -54,9 +55,9 @@
 .infoProperties{
     display: flex;
     flex-direction: column;
-    gap: 40%;
     margin-top: 3%;
     margin-left: 10%;
+    gap: 70px;
     color: var(--primary-color-5);
 }
 
@@ -78,15 +79,6 @@
     box-shadow: none;
     cursor: pointer;
 }
-
-.linkProperties{
-    text-decoration: none;
-}
-
-
-
-
-
 
 .modalOverlay {
     position: fixed;
