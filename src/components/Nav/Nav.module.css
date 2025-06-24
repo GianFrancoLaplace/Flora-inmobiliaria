@@ -43,6 +43,7 @@
     gap: 30px;
     cursor: pointer;
     list-style-type: none;
+    white-space: nowrap;
 }
 
 .sectionProperties li{
