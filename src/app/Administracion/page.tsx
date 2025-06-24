@@ -38,6 +38,11 @@ export default function FichaPropiedad() {
       {/* Filtros a la izquierda */}
       <div className="container-filter-properties">
         {/* Input para valor máximo */}
+          <div className={"container-title-properties"}>
+            <h1 className="title-properties">
+              <span>Publi</span>caciones activas
+            </h1>
+          </div>
         <div className="filter-container">
           <div className="flex-col">
             <label
