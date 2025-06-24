@@ -62,9 +62,9 @@ export default function Properties() {
     return (
         <div>
             <main>
-                <ContactInformation/>
+                <ContactInformation />
             </main>
-            <br/>
+            <br />
             <div className="properties-layout">
                 <div className="container-filter-properties">
                     {/* Input para valor máximo */}
@@ -76,14 +76,19 @@ export default function Properties() {
                             >
                                 Valor máximo
                             </label>
-                            <input
-                                id="maxValueInput"
-                                type="number"
-                                className="max-value-input"
-                                placeholder="Escribe el valor máximo"
-                                value={maxValue}
-                                onChange={handleMaxValueChange}
-                            />
+                            <div className="input-with-search-container">
+                                <input
+                                    id="maxValueInput"
+                                    type="number"
+                                    className="max-value-input"
+                                    placeholder="Escribe el valor máximo"
+                                    value={maxValue}
+                                    onChange={handleMaxValueChange}
+                                />
+                                <button className="search-button" type="button">
+                                    <img src="/icons/search.png" alt="Buscar" className="search-icon" />
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -103,7 +108,7 @@ export default function Properties() {
                 </div>
 
                 <div className={styles['properties-layout__main-content']}>
-                    <PropertyGrid properties={loadImages}/>
+                    <PropertyGrid properties={loadImages} />
                 </div>
             </div>
 
