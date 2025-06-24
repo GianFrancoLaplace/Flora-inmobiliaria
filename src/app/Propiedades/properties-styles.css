@@ -3,28 +3,27 @@
 
 .properties-layout {
   display: flex;
-  justify-content: left;
-  text-align: left;
-  gap: 0rem;
-  padding: 40px;
+ gap: 2rem;
+  min-height: calc(100vh - 200px);
+  padding: 0px;
+  margin: 0px;
 }
 
 .container-filter-properties {
-  justify-content: left;
-  text-align: left;
   flex-basis: 20%;
   max-width: 20%;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   box-sizing: border-box;
+  padding-left: 30px;
 }
 
 .filter-container {
   display: flex;
-  justify-content: left;
-  text-align: left;
   padding: 0;
+  justify-content: flex-start; 
+  margin-left: 20px;
 }
 
 .flex-row {
@@ -126,8 +125,6 @@
 
 .filters-column {
   margin-left: 0;
-  justify-content: left;
-  text-align: left;
 }
 
 .max-value-input {
