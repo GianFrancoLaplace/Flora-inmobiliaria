@@ -14,11 +14,12 @@
 }
 
 .absoluteNav{
-    z-index: 100;
+    z-index: 10000;
     position: absolute;
 }
 
 .staticNav{
+    z-index: 10000;
     position: static;
 }
 

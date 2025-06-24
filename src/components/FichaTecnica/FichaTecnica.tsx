@@ -54,6 +54,7 @@ export default function Ficha() {
                         <input
                             type="text"
                             name="adress"
+                            className={styles.inputProperties}
                             value={formulario.adress}
                             onChange={manejarCambio}
                             onBlur={desactivarEdicion}
@@ -96,6 +97,7 @@ export default function Ficha() {
                             <input
                                 type = "text"
                                 name = "operation"
+                                className={styles.inputProperties}
                                 value = {formulario.operation}
                                 onChange = {manejarCambio}
                                 onBlur = {desactivarEdicion}
@@ -133,6 +135,7 @@ export default function Ficha() {
                         <input
                             type = "text"
                             name = "city"
+                            className={styles.inputProperties}
                             value = {formulario.city}
                             onChange = {manejarCambio}
                             onBlur = {desactivarEdicion}
@@ -240,7 +243,8 @@ export default function Ficha() {
                         <h5>{formulario.description}</h5>
                     )}
                 </h5>
-                <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>Ubicado en una de las zonas más buscadas de la ciudad, este departamento de tres
+                <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>
+                    Ubicado en una de las zonas más buscadas de la ciudad, este departamento de tres
                     ambientes ofrece comodidad, luminosidad y una excelente distribución en sus
                     68 metros cuadrados. Al ingresar, cuenta con un amplio living-comedor con salida a
                     un balcón con vista abierta, ideal para disfrutar al aire libre.

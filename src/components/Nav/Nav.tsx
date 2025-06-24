@@ -10,9 +10,10 @@ export default function Nav() {
     const isHome = pathname === '/';
     const isLogin = pathname === '/Login';
     const isI_WantSell = pathname === '/QuieroVender';
+    const isOur = pathname === '/Nosotros';
 
     return (
-        <nav className={`${styles.navProperties} ${isHome ? styles.absoluteNav : isLogin ? styles.absoluteNav : isI_WantSell ? styles.absoluteNav : styles.staticNav}`}>
+        <nav className={`${styles.navProperties} ${isHome ? styles.absoluteNav : isLogin ? styles.absoluteNav : isI_WantSell ? styles.absoluteNav : isOur ? styles.absoluteNav : styles.staticNav}`}>
             <ul className={`${styles.logoProperties}`}>
                 <Link href="/">
                     <Image
