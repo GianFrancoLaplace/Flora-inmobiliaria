@@ -1,8 +1,10 @@
 /* ========================================
-   🏗️ BLOQUE PRINCIPAL: PROPERTIES SEARCHER
+   🏗️ SEARCHBAR MODULE CSS - MCLOVIN EDITION
+   CSS Modules con nomenclatura simplificada
    ======================================== */
 
-.properties-searcher {
+/* Contenedor principal */
+.searcher {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -16,11 +18,8 @@
     transform: translateY(-50%);
 }
 
-/* ========================================
-   🔘 ELEMENTO: BUTTON GROUP
-   ======================================== */
-
-.properties-searcher__button-group {
+/* Grupo de botones de operación */
+.buttonGroup {
     display: flex;
     justify-content: space-around;
     margin-bottom: var(--space-sm);
@@ -28,11 +27,8 @@
     box-shadow: var(--shadow-sm);
 }
 
-/* ========================================
-   🔘 ELEMENTO: BUTTON
-   ======================================== */
-
-.properties-searcher__button {
+/* Botón individual */
+.button {
     background-color: rgb(253,255,226,0.5);
     border-radius: var(--radius-md);
     color: var(--secondary-color-1);
@@ -44,21 +40,21 @@
     outline: none;
 }
 
-.properties-searcher__button:hover {
+.button:hover {
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
 }
 
-.properties-searcher__button:active {
+.button:active {
     transition: all var(--fast-transition);
 }
 
-.properties-searcher__button:focus {
+.button:focus {
     outline-offset: 2px;
 }
 
 /* Modificador: Botón activo */
-.properties-searcher__button--active {
+.buttonActive {
     font-weight: bolder;
     background-color: var(--secondary-color-5);
     color: var(--primary-color-5);
@@ -66,35 +62,26 @@
     z-index: 1;
 }
 
-/* ========================================
-   🔍 ELEMENTO: SEARCH CONTAINER
-   ======================================== */
-
-.properties-searcher__search-container {
+/* Contenedor de búsqueda */
+.searchContainer {
     display: flex;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);
 }
 
-.properties-searcher__search-wrapper {
+.searchWrapper {
     display: flex;
     flex-direction: column;
 }
 
-/* ========================================
-   📝 ELEMENTO: INPUT-WRAPPER
-   ======================================== */
-
-.properties-searcher__input-wrapper{
+/* Wrapper del input */
+.inputWrapper {
     position: relative;
     flex: 1;
 }
 
-/* ========================================
-   📝 ELEMENTO: INPUT
-   ======================================== */
-
-.properties-searcher__input {
+/* Input de búsqueda */
+.input {
     width: 100%;
     border-radius: var(--radius-md) 0 0 var(--radius-md);
     font-size: var(--text-base);
@@ -105,44 +92,38 @@
     transition: all var(--normal-transition);
 }
 
-.properties-searcher__input::placeholder {
+.input::placeholder {
     color: var(--primary-color-5);
 }
 
-.properties-searcher__input:focus {
+.input:focus {
     border-color: var(--primary-color-1);
 }
 
-/* ========================================
-   👁️ ELEMENTO: PREVIEW
-   ======================================== */
-
-.properties-searcher__preview {
+/* Vista previa de búsqueda */
+.preview {
     width: 100%;
     background-color: var(--primary-color-1);
     border-top: none;
     position: absolute;
     top: 100%;
-    border-radius: 0 0  var(--radius-md) var(--radius-md);
-    animation: fade-in-up 0.3s ease-out;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    animation: fadeInUp 0.3s ease-out;
 }
 
-.properties-searcher__preview-text {
+.previewText {
     margin: 0;
     padding: var(--space-xs);
     font-size: var(--text-sm);
     text-align: left;
 }
 
-.properties-searcher__preview-text:hover {
+.previewText:hover {
     background-color: var(--primary-color-2);
 }
 
-/* ========================================
-   🔍 ELEMENTO: SEARCH BUTTON
-   ======================================== */
-
-.properties-searcher__search-button {
+/* Botón de búsqueda */
+.searchButton {
     background-color: var(--secondary-color-5);
     border-radius: 0 var(--radius-md) var(--radius-md) 0;
     cursor: pointer;
@@ -150,17 +131,17 @@
     display: flex;
 }
 
-.properties-searcher__search-button:hover {
+.searchButton:hover {
     transform: translateY(-1px);
     box-shadow: var(--shadow-lg);
 }
 
-.properties-searcher__search-button:active {
+.searchButton:active {
     transform: translateY(0) scale(0.98);
     transition: all var(--fast-transition);
 }
 
-.properties-searcher__search-button:focus {
+.searchButton:focus {
     outline-offset: 2px;
 }
 
@@ -168,7 +149,7 @@
    🎬 ANIMACIONES
    ======================================== */
 
-@keyframes fade-in-up {
+@keyframes fadeInUp {
     from {
         opacity: 0;
         transform: translateY(-10px);
@@ -185,38 +166,38 @@
 
 /* Móviles pequeños (hasta 480px) */
 @media (max-width: 480px) {
-    .properties-searcher {
+    .searcher {
         padding: 0 var(--space-md);
     }
 
-    .properties-searcher__button {
+    .button {
         padding: var(--space-sm) var(--space-md);
         font-size: 0.75rem; /* 12px */
     }
 
-    .properties-searcher__input {
+    .input {
         padding: var(--space-sm);
         font-size: var(--text-sm);
     }
 
-    .properties-searcher__search-button {
+    .searchButton {
         padding: var(--space-sm) var(--space-md);
     }
 }
 
 /* Tablets (768px+) */
 @media (min-width: 768px) {
-    .properties-searcher {
+    .searcher {
         max-width: 40rem; /* 640px */
     }
 
-    .properties-searcher__input {
+    .input {
         height: 3rem;
         padding: var(--space-md);
         font-size: 1.125rem; /* 18px */
     }
 
-    .properties-searcher__search-button {
+    .searchButton {
         height: 3rem;
         width: 3.125rem;
         margin: 0;
@@ -225,31 +206,30 @@
 
 /* Desktop grande (1024px+) */
 @media (min-width: 1024px) {
-    .properties-searcher {
+    .searcher {
         max-width: 44rem; /* 702px */
     }
 }
 
-/* Desktop grande (1024px+) */
+/* Desktop XL (1440px+) */
 @media (min-width: 1440px) {
-    .properties-searcher {
+    .searcher {
         max-width: 46.25rem; /* 740px */
         height: 7.5rem; /* 120px */
         padding: 0.9rem;
     }
 
-    .properties-searcher__search-container {
+    .searchContainer {
         height: 3rem;
     }
 
-    .properties-searcher__button {
+    .button {
         margin: 0 10px 0 0;
         width: 225px;
         height: 1.75rem;
     }
 
-    .properties-searcher__button:nth-child(3) {
+    .button:nth-child(3) {
         margin: 0;
     }
 }
-
