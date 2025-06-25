@@ -1,14 +1,45 @@
-.navImageProperties{
-    width: 100%;
-    height: 750px;
+/* ====== MOBILE FIRST (por defecto) ====== */
+.navImageProperties {
+    width: 100vw;
+    height: 360px;
+    background-image: url("/backgrounds/homeBackground.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
     display: flex;
     flex-direction: column;
-    background-image: url("/backgrounds/homeBackground.jpg");
     position: absolute;
+    top: 0;
+    left: 0;
 }
 
-.searchBarProperties{
-    padding-top: 20%;
+.searchBarProperties {
+    padding-top: 12%;
     position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
+/* ====== TABLET ====== */
+@media (min-width: 768px) {
+    .navImageProperties {
+        height: 500px;
+    }
+
+    .searchBarProperties {
+        padding-top: 15%;
+    }
+}
+
+/* ====== DESKTOP ====== */
+@media (min-width: 1024px) {
+    .navImageProperties {
+        height: 750px;
+    }
+
+    .searchBarProperties {
+        padding-top: 20%;
+    }
+}

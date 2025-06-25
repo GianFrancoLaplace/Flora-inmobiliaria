@@ -1,7 +1,7 @@
 'use client';
-import Admns from '@/components/Administracion/Administracion'
+import Admns from '@/components/Administracion/Administration'
 import ContactInformation from '@/components/features/ContactInformation/ContactInformation'
-import FilterGroup from '@/components/FilterButtons/filtergroup'
+import FilterGroup from '@/components/FilterButtons/FilterGroup'
 import { useState } from 'react';
 import '../Propiedades/properties-styles.css'
 import '../ui/fonts'
@@ -9,7 +9,7 @@ import { cactus } from '../ui/fonts';
 import './Styles.css';
 
 
-export default function FichaPropiedad() {
+export default function PropertyFile() {
     const [maxValue, setMaxValue] = useState("");
 
     // Opciones de filtros

@@ -1,0 +1,131 @@
+@import url('../../app/globals.css');
+
+.burger-button {
+  display: block;
+  background-color: var(--secondary-color-5, #f0c040); /* Aseguramos fallback */
+  color: #333;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+/* Contenedor oculto por defecto */
+.filter-container {
+  display: none;
+}
+
+/* Contenedor desplegado */
+.filter-container.show {
+  display: flex;
+  position: relative; /* Ya no absolute: ahora empuja el contenido hacia abajo */
+  background-color: #33322f;
+  padding: 1.5rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Dirección vertical */
+.flex-col {
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Dirección horizontal (en desktop más adelante) */
+.flex-row {
+  flex-direction: row;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Botón de filtro con el diseño original */
+.filter-button {
+  background-color: #33322f;
+  color: #f1e9d2;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  justify-content: space-between;
+  transition: background-color 0.3s ease;
+  user-select: none;
+  border: none;
+  font-size: 1rem;
+  width: 240px;
+  box-sizing: border-box;
+}
+
+.filter-button:hover {
+  background-color: #44423e;
+}
+
+/* Toggle visual */
+.toggle {
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 999px;
+  position: relative;
+  transition: background-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.toggle-circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--primary-color-3, gray);
+  position: absolute;
+  top: 3px;
+  left: 2px;
+  transition: left 0.3s ease, background-color 0.3s ease;
+}
+
+.toggle.active {
+  background-color: #ccc;
+}
+
+.toggle.active .toggle-circle {
+  left: 24px;
+  background-color: var(--secondary-color-5, gold);
+}
+
+@media (min-width: 1000px) {
+
+  .burger-button{
+    display: none;
+  }
+
+  .filter-container {
+    /* display: flex;
+    justify-content: center;
+    padding: 2rem 3rem; */
+     position: static;
+    display: flex !important;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 2rem 3rem;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  /* Dirección horizontal */
+  .flex-row {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 2rem;
+  }
+
+}

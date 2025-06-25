@@ -3,12 +3,21 @@
     position: relative;
     overflow: hidden;
     max-width: 550px;
+    min-width: 350px;
     width: 100%;
     height: 415px;
     display: flex;
     flex-direction: column;
     justify-content: end;
     cursor: pointer;
+}
+
+.page h3{
+    font-size: 20px;
+}
+
+.page h5{
+    font-size: 16px;
 }
 
 .cardBackground{
@@ -37,29 +46,44 @@
 /*only grid properties*/
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
-    column-gap: 70px;
-    row-gap: 50px;
-    padding: 20px;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 16px;
     justify-content: center;
-    align-items: start;
 
     max-width: 1300px;
-    margin: 40px auto;
+    margin: 0 auto;
 }
 
 
-@media (max-width: 768px) {
-    .gridContainer {
-        grid-template-columns: 1fr;
-        padding: 15px;
-        gap: 20px;
+/* TABLET */
+@media (min-width: 600px) and (max-width: 1199px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        column-gap: 50px;
+    }
+
+    .page h3 {
+        font-size: 22px;
     }
 }
 
-@media (min-width: 769px) and (max-width: 1200px) {
-    .gridContainer {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 2 o 3 columnas */
-        gap: 25px;
+/* DESKTOP */
+@media (min-width: 1200px) {
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+        column-gap: 40px;
+        row-gap: 40px;
+        padding: 32px;
+        align-items: start;
+    }
+
+    .page {
+        min-width: 550px;
+    }
+
+    .page h3 {
+        font-size: 24px;
     }
 }

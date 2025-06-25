@@ -5,7 +5,7 @@ export default function Footer(){
     return (
         <footer className={styles.footer}>
             <div className={styles.footerSection}>
-                <h2>Redes sociales</h2>
+                <h2>Redes Sociales</h2>
                 <div className={styles.footerImgContent}>
                     <Image
                         src={'/redes/instagram.png'}
@@ -26,21 +26,6 @@ export default function Footer(){
                 </div>
                 <div className={styles.footerImgContent}>
                     <Image
-                        src={'/redes/whatsapp.png'}
-                        alt={'whatsapp logo (social media)'}
-                        width={30}
-                        height={30}
-                    />
-                    <h5>Flora Cordeiro</h5>
-                </div>
-            </div>
-
-            <div className={styles.footerSection}>
-                <h2>Contacto</h2>
-                <h5 className={styles.footerImgContent}>2494 11-2233</h5>
-                <h5 className={styles.footerImgContent}>Alsina 421, Tandil.</h5>
-                <div className={styles.footerImgContent}>
-                    <Image
                         src={'/redes/gmail.png'}
                         alt={'gmail logo (social media)'}
                         width={30}
@@ -51,6 +36,12 @@ export default function Footer(){
             </div>
 
             <div className={styles.footerSection}>
+                <h2>Contacto</h2>
+                <h5 className={styles.footerImgContent}>2494 11-2233</h5>
+                <h5 className={styles.footerImgContent}>Alsina 421, Tandil.</h5>
+            </div>
+
+            <div className={styles.footerSectionDif}>
                 <Image
                     src={'/logos/footerLogo.png'}
                     alt={'minimalist inmobiliaria yellow logo'}

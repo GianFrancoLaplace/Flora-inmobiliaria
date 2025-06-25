@@ -1,10 +1,10 @@
 import styles from "./page.module.css";
 import { cactus } from "@/app/ui/fonts";
 import HomeF from "@/components/Home/Home";
-import FilterGroup from "@/components/FilterButtons/filtergroup";
+import FilterGroup from "@/components/FilterButtons/FilterGroup";
 import BigCardsGrid from "@/components/BigCards/BigCardsGrid";
 
-import PropertyGrid from '@/components/CardsImages/PropertyImagesGrid';
+import PropertyGrid from '@/components/SmallCards/SmallCardsGrid';
 const FiltersSidebar = () => {
     const filterOptions = ['Campos', 'Departamentos', 'Casas', 'Locales', 'Lotes'];
     return (
@@ -39,6 +39,7 @@ export default function Page() {
             </div>
 
             <div className={styles.presentationProperties}>
+                <br/>
                 <br/>
                 <br/>
                 <br/>

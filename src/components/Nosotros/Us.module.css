@@ -1,0 +1,205 @@
+.backgroundNavProperties{
+    width: 100%;
+    height: 400px;
+    background-image: url('/images/imagen_nosotros.jpg');
+    background-size: 100%;
+    position: relative;
+    align-content: center;
+}
+
+.backgroundNavProperties::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.infoImageProperties {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin-left: 36%;
+    margin-top: 25px;
+    color: var(--primary-color-1);
+    font-weight: bold;
+    z-index: 2; /* <-- más alto que el del ::before */
+    position: relative; /* Necesario para que z-index funcione correctamente */
+}
+
+.h5Properties{
+    display: flex;
+    width: fit-content;
+    font-weight: 800;
+    white-space: nowrap;
+    margin-left: 60px;
+}
+
+.generalInfoProperties{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    gap: 8%;
+}
+
+.missionAndVisionProperties{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.infoProperties{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 370px;
+    gap: 15px;
+    color: var(--primary-color-5);
+}
+
+.imgRealStateProperties{
+    width: 1315px;
+    height: 315px;
+    justify-self: center;
+    margin-bottom: 20px;
+    background-color: #FADA4D;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px); /* Empieza 20px más abajo */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Termina en su posición original */
+    }
+}
+
+/* --- Estilos del Contenedor Principal --- */
+.container {
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+    max-width: 1100px;
+    margin-left: 60px;
+    padding: 2rem;
+    font-family: "Georgia", serif;
+}
+
+/* --- Contenedores para la Animación Escalonada --- */
+.imageContainer {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.textContainer {
+    flex: 1;
+    /* Aplica la animación con un ligero retraso para un efecto más elegante */
+    animation: fadeInUp 0.8s ease-out 0.2s forwards; /* 0.2s de retraso */
+    opacity: 0; /* Empieza invisible hasta que la animación se active */
+}
+
+/* --- Estilo de la Imagen --- */
+.image {
+
+    padding: 5px;
+    background-color: #fff;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* --- Estilos del Texto --- */
+.title {
+    font-size: 2.25rem;
+    font-weight: 400;
+    color: #222;
+    margin-bottom: 1.5rem;
+    white-space: nowrap;
+}
+
+.description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #444;
+    margin-bottom: 1rem;
+}
+
+/* --- Diseño Responsivo para Móviles --- */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Apila la imagen y el texto verticalmente */
+        text-align: center; /* Centra el texto */
+        gap: 2rem; /* Reduce el espacio cuando están apilados */
+    }
+
+    .h5Properties{
+        margin-left: 0;
+    }
+
+    .infoImageProperties{
+        width: fit-content;
+        margin-left: 10px;
+        align-items: center;
+    }
+
+    .infoImageProperties h5{
+        font-size: 16px;
+    }
+
+    .generalInfoProperties{
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+    }
+
+    .infoProperties{
+        text-align: justify;
+        font-size: 14px;
+        width: 300px;
+    }
+
+    .infoProperties h1{
+        text-align: center;
+        white-space: nowrap;
+        font-size: 28px;
+    }
+
+    .missionAndVisionProperties{
+        gap: 30px;
+    }
+
+    .textContainer {
+        /* El retraso en la animación puede no verse tan bien en móvil, lo ajustamos */
+        animation-delay: 0s;
+        width: 300px;
+        text-align: justify;
+        align-items: center;
+    }
+
+    .imageProperties{
+        visibility: hidden;
+        width: 0;
+        margin: -100px;
+        padding: 0;
+    }
+
+    .underline{
+        border-bottom: black 1px solid;
+    }
+
+    .container{
+        display: flex;
+        margin-left: 0;
+        margin-top: 0;
+    }
+
+    .title {
+        font-size: 1.8rem; /* Reduce el tamaño del título en pantallas pequeñas */
+        white-space: collapse;
+        text-align: center;
+    }
+}
