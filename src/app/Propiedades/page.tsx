@@ -1,6 +1,6 @@
 'use client';
 import ContactInformation from "@/components/features/ContactInformation/ContactInformation"
-import FilterGroup from "../../components/FilterButtons/filtergroup";
+import FilterGroup from "../../components/FilterButtons/FilterGroup";
 import './properties-styles.css';
 import { useState } from "react";
 import '../ui/fonts';

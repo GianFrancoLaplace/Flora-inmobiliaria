@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import FiltroToggle from './filterbuttons';
+import FiltroToggle from './FilterButtons';
 
 interface Props {
   title: string;

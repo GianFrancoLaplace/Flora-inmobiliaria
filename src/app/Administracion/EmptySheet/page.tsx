@@ -1,4 +1,4 @@
-import FichaV from '@/components/Administracion/FichaVacia/FichaVacia'
+import FichaV from '@/components/Administracion/EmptySheet/EmptySheet'
 
 export default function EmptyFile() {
     return (

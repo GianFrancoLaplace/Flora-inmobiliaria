@@ -1,7 +1,7 @@
-import styles from "@/components/Forms/VenderForm/VenderForm.module.css";
+import styles from "@/components/Forms/SalesForm/SalesForm.module.css";
 import {cactus} from "@/app/ui/fonts";
 
-export default function VenderForm() {
+export default function SalesForm() {
     return (
         <main className={styles.page}>
             <div className={styles.titleProperties}>

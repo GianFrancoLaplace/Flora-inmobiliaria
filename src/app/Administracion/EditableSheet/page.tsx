@@ -1,4 +1,4 @@
-import FichaE from '@/components/Administracion/FichaEditable/FichaEditable'
+import FichaE from '@/components/Administracion/EditableSheet/EditableSheet'
 
 export default function EditableFile() {
     return (

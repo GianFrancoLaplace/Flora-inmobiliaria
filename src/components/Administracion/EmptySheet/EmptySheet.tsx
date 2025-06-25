@@ -1,5 +1,5 @@
 'use client';
-import FichaPropiedad from "@/app/Propiedades/File/page";
+import FichaPropiedad from "@/app/Propiedades/Sheet/page";
 
 export default function Ficha() {
     return(

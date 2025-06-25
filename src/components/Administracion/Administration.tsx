@@ -1,5 +1,5 @@
 "use client"
-import styles from "@/components/Administracion/Administracion.module.css";
+import styles from "@/components/Administracion/Administration.module.css";
 import { cactus } from "@/app/ui/fonts";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,7 +13,7 @@ type Property = {
     imagen: string;
 };
 
-export default function Administracion() {
+export default function Administration() {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [propertyToDelete, setPropertyToDelete] = useState<Property | null>(null);
 
@@ -83,7 +83,7 @@ export default function Administracion() {
         <div>
             <div className={`${styles.sectionProperties} ${cactus.className}`}>
                 <div>
-                    <Link href={'/Administracion/FichaVacia'} className={styles.linkProperties}>
+                    <Link href={'/Administration/FichaVacia'} className={styles.linkProperties}>
                         <button className={`${styles.buttonNewPublication} ${cactus.className}`}>Crear publicación</button>
                     </Link>
                     <button className={`${styles.showInactivePublication} ${cactus.className}`}>Ver publicaciones inactivas</button>
@@ -116,7 +116,7 @@ export default function Administracion() {
 
                         <div className={styles.buttonsProperties}>
                             <button
-                                onClick={() => (window.location.href = "/Administracion/FichaEditable")}
+                                onClick={() => (window.location.href = "/Administration/EditableSheet")}
                                 type="button"
                             >
                                 <Image
