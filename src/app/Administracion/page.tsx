@@ -9,7 +9,7 @@ import { cactus } from '../ui/fonts';
 import './Styles.css';
 
 
-export default function FichaPropiedad() {
+export default function PropertyFile() {
     const [maxValue, setMaxValue] = useState("");
 
     // Opciones de filtros

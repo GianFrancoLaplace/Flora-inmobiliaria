@@ -1,17 +1,17 @@
 'use client';
 
-import styles from './Nav.module.css'
+import styles from './NavBar.module.css'
 import {cactus} from "@/app/ui/fonts";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-export default function Nav() {
+export default function NavBar() {
     const pathname = usePathname();
     const isHome = pathname === '/';
     const isLogin = pathname === '/Login';
     const isI_WantSell = pathname === '/QuieroVender';
-    const isOur = pathname === '/Nosotros';
+    const isOur = pathname === '/Us';
 
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => setIsOpen(!isOpen);
@@ -35,7 +35,7 @@ export default function Nav() {
             <ul className={`${styles.sectionProperties} ${isOpen ? styles.openNav : styles.closeNav} ${cactus.className}`}>
                 <li><a href={"/"}>Inicio</a></li>
                 <li><a href={"/Propiedades"}>Propiedades</a></li>
-                <li><a href={"/Nosotros"}>Nosotros</a></li>
+                <li><a href={"/Us"}>Nosotros</a></li>
                 <li><a href={"/QuieroVender"}>Quiero vender</a></li>
                 <li>
                     <a href={"/Login"}><Image src={'/icons/iconoUser.png'} alt={'minimalist user icon'} className={`${styles.iconoProperties}`}

@@ -1,7 +1,7 @@
-import styles from "@/components/Nosotros/InformacionPersonal/InformacionPersonal.module.css";
+import styles from "@/components/Nosotros/PersonalInformation/PersonalInformation.module.css";
 import Image from "next/image";
 
-export default function InformacionPersonal() {
+export default function PersonalInformation() {
     return (
         <div className={styles.container}>
             <div className={styles.imageContainer}>

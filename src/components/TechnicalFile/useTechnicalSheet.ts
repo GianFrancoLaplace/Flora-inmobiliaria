@@ -25,7 +25,7 @@ function getEmptyProperty() : Property{
 }
 
 
-export const useFichaTecnica = (mode: 'view' | 'create' | 'edit', initialProperty?: Property) => {
+export const useTechnicalSheet = (mode: 'view' | 'create' | 'edit', initialProperty?: Property) => {
     // 🎯 Estado principal
     const [property, setProperty] = useState(initialProperty || getEmptyProperty());
 

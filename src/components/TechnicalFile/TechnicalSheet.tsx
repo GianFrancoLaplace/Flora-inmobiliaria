@@ -1,9 +1,9 @@
 'use client';
 import ContactInformation from "@/components/features/ContactInformation/ContactInformation";
 import DataCard from '@/components/features/DataCard/DataCard'
-import Item from '@/components/FichaTecnica/propertiesItem'
+import Item from '@/components/TechnicalFile/PropertiesItem'
 import Image from 'next/image';
-import styles from './FichaTecnica.module.css'
+import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/ui/fonts";
 import { useState } from "react";
 import { usePathname } from "next/navigation";

@@ -1,4 +1,4 @@
-import styles from "@/components/FichaTecnica/FichaTecnica.module.css";
+import styles from "@/components/TechnicalFile/TechnicalSheet.module.css";
 import Image from "next/image";
 
 type Props = {

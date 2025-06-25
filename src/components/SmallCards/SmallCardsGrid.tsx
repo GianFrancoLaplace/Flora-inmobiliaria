@@ -1,6 +1,6 @@
 'use client';
-import PropertyCard from "@/components/CardsImages/PropertyCard";
-import styles from './PropertyImagesGrid.module.css';
+import SmallCard from "@/components/SmallCards/SmallCard";
+import styles from './SmallCardsGrid.module.css';
 import Link from "next/link";
 import {cactus} from "@/app/ui/fonts";
 import React from "react";
@@ -39,7 +39,7 @@ const PropertyGrid = ({ properties }: PropertyGridProps) => {
 
             <div className={styles['property-grid']}>
                 {properties.map((property) => (
-                    <PropertyCard
+                    <SmallCard
                         key={property.id}
                         property={property}
                     />

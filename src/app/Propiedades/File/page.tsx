@@ -1,4 +1,4 @@
-import FichaTecnica from '@/components/FichaTecnica/FichaTecnica'
+import FichaTecnica from '@/components/TechnicalFile/TechnicalSheet'
 
 export default function FichaPropiedad() {
     return (

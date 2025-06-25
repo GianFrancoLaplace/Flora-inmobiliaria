@@ -1,6 +1,6 @@
 
 import Image from "next/image";
-import styles from './PropertyCard.module.css';
+import styles from './SmallCard.module.css';
 import Link from "next/link";
 
 
@@ -22,7 +22,7 @@ type PropertyCardProps = {
     property: PropertyImage;
 }
 
-const PropertyCard = ({ property }: PropertyCardProps) => {
+const SmallCard = ({ property }: PropertyCardProps) => {
     const formattedPrice = new Intl.NumberFormat('es-AR').format(property.price);
 
     return (
@@ -53,4 +53,4 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
     );
 }
 
-export default PropertyCard;
+export default SmallCard;

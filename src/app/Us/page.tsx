@@ -1,4 +1,4 @@
-import SeccionNosotros from '@/components/Nosotros/Nosotros'
+import SeccionNosotros from '@/components/Nosotros/Us'
 
     export default function Nosotros() {
     return (

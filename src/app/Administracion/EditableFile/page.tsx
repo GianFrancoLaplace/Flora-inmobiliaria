@@ -1,6 +1,6 @@
 import FichaE from '@/components/Administracion/FichaEditable/FichaEditable'
 
-export default function FichaVacia() {
+export default function EditableFile() {
     return (
         <main>
             <div>

@@ -1,7 +1,7 @@
-import styles from './Nosotros.module.css'
+import styles from './Us.module.css'
 import Image from "next/image";
 
-export default function Nosotros() {
+export default function Us() {
     return (
         <main>
             <div className={`${styles.backgroundNavProperties}`}>
@@ -40,7 +40,7 @@ export default function Nosotros() {
             <div className={styles.imageProperties}>
                 <Image
                     src="/images/imagen_nosotros.jpg"
-                    alt="Imagen Nosotros"
+                    alt="Imagen Us"
                     width={1000}          // valor de referencia
                     height={200}          // altura delgada
                     priority
