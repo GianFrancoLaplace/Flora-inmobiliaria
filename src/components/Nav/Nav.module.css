@@ -10,7 +10,7 @@
     height: 150px;
     width: 100%;
     color: rgb(253, 255, 226);
-    gap: 20%;
+    gap: 10%;
 }
 
 .absoluteNav{
@@ -44,6 +44,7 @@
     gap: 30px;
     cursor: pointer;
     list-style-type: none;
+    white-space: nowrap;
 }
 
 .sectionProperties li{
@@ -67,4 +68,61 @@
     width: 35px;
     height: 35px;
     color: rgb(253, 255, 226);
+}
+
+.btnBurgerProperties{
+    margin: 0;
+    padding: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+@media (max-width: 768px) {
+    .navProperties{
+        flex-direction: column;
+        gap: 1px;
+    }
+    .btnBurgerProperties{
+        visibility: visible;
+        display: flex;
+        margin-left: 25px;
+        margin-top: -40px;
+    }
+
+    .btnBurgerProperties button{
+        background-color: transparent;
+        border-style: none;
+    }
+
+    .sectionProperties{
+        flex-direction: column;
+        gap: 20px;
+        background-color: var(--primary-color-1);
+        list-style-type: none;
+        white-space: nowrap;
+        width: fit-content;
+        height: fit-content;
+        margin-left: 25px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .logoProperties{
+        margin: -20px;
+        padding: 0;
+        width: 0;
+        visibility: hidden;
+    }
+
+    .openNav{
+        visibility: visible;
+    }
+
+    .closeNav{
+        visibility: hidden;
+    }
+
+    .sectionProperties a{
+        color: var(--primary-color-4);
+    }
 }
