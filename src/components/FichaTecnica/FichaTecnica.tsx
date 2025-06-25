@@ -1,11 +1,12 @@
 'use client';
 import ContactInformation from "@/components/features/ContactInformation/ContactInformation";
 import DataCard from '@/components/features/DataCard/DataCard'
+import Item from '@/components/FichaTecnica/propertiesItem'
 import Image from 'next/image';
 import styles from './FichaTecnica.module.css'
-import {cactus} from "@/app/ui/fonts";
-import {useState} from "react";
-import {usePathname} from "next/navigation";
+import { cactus } from "@/app/ui/fonts";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Ficha() {
     const [modoEdicion, setModoEdicion] = useState(false);
@@ -32,10 +33,10 @@ export default function Ficha() {
 
     const activarEdicion = (): void => setModoEdicion(true);
     const desactivarEdicion = (): void => setModoEdicion(false);
-    return(
+    return (
         <main className={styles.page}>
             <div>
-                <ContactInformation/>
+                <ContactInformation />
             </div>
 
             <div className={styles.mainAdressProperties}>
@@ -94,12 +95,12 @@ export default function Ficha() {
                     <div className={styles.editProperties}>
                         {modoEdicion ? (
                             <input
-                                type = "text"
-                                name = "operation"
+                                type="text"
+                                name="operation"
                                 className={styles.inputProperties}
-                                value = {formulario.operation}
-                                onChange = {manejarCambio}
-                                onBlur = {desactivarEdicion}
+                                value={formulario.operation}
+                                onChange={manejarCambio}
+                                onBlur={desactivarEdicion}
                             />
                         ) : (
                             <h1>{formulario.operation}</h1>
@@ -108,7 +109,7 @@ export default function Ficha() {
                             src={'/icons/iconoEdit.png'}
                             alt={'Icono para editar'}
                             width={30}
-                            height={30}/>
+                            height={30} />
                         </button>
                     </div>
                 </div>
@@ -132,12 +133,12 @@ export default function Ficha() {
                 <div className={`${isEmptyFile ? styles.editProperties : styles.notShowProperties}`}>
                     {modoEdicion ? (
                         <input
-                            type = "text"
-                            name = "city"
+                            type="text"
+                            name="city"
                             className={styles.inputProperties}
-                            value = {formulario.city}
-                            onChange = {manejarCambio}
-                            onBlur = {desactivarEdicion}
+                            value={formulario.city}
+                            onChange={manejarCambio}
+                            onBlur={desactivarEdicion}
                         />
                     ) : (
                         <h1>{formulario.city}</h1>
@@ -146,7 +147,7 @@ export default function Ficha() {
                         src={'/icons/iconoEdit.png'}
                         alt={'Icono para editar'}
                         width={30}
-                        height={30}/>
+                        height={30} />
                     </button>
                 </div>
                 <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>Ciudad de Tandil</h5>
@@ -154,41 +155,61 @@ export default function Ficha() {
 
             <div className={styles.mainBoxesGridProperties}>
                 <div>
-                    <DataCard/>
+                    <DataCard
+                        imgSrc="/icons/sup.png"
+                        label="Sup. Total"
+                        value="4"
+                    />
                 </div>
                 <div>
-                    <DataCard/>
+                    <DataCard
+                        imgSrc="/icons/ambiente.png"
+                        label="Ambientes"
+                        value="4"
+                    />
                 </div>
                 <div>
-                    <DataCard/>
+                    <DataCard
+                        imgSrc="/icons/dorms.png"
+                        label="Dormitorios"
+                        value="4"
+                    />
                 </div>
                 <div>
-                    <DataCard/>
+                    <DataCard
+                        imgSrc="/icons/baños.png"
+                        label="Baños"
+                        value="4"
+                    />
                 </div>
                 <div>
-                    <DataCard/>
+                    <DataCard
+                        imgSrc="/icons/cochera.png"
+                        label="Cochera"
+                        value="4"
+                    />
                 </div>
             </div>
 
             <div className={styles.mainInfoPrice}>
                 <div className={`${styles.priceEditionProperties} ${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
-                        {modoEdicion ? (
-                            <input
-                                type = "text"
-                                name = "price"
-                                className={styles.inputProperties}
-                                value = {formulario.price}
-                                onChange = {manejarCambio}
-                                onBlur = {desactivarEdicion}
-                            />
-                        ) : (
-                            <h1>{formulario.price}</h1>
-                        )}
+                    {modoEdicion ? (
+                        <input
+                            type="text"
+                            name="price"
+                            className={styles.inputProperties}
+                            value={formulario.price}
+                            onChange={manejarCambio}
+                            onBlur={desactivarEdicion}
+                        />
+                    ) : (
+                        <h1>{formulario.price}</h1>
+                    )}
                     <button onClick={activarEdicion} className={styles.editButtonProperties}><Image
                         src={'/icons/iconoEdit.png'}
                         alt={'Icono para editar'}
                         width={30}
-                        height={30}/>
+                        height={30} />
                     </button>
                 </div>
                 <h1 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>USD 550.000</h1>
@@ -218,10 +239,11 @@ export default function Ficha() {
                             onChange={manejarCambio}
                             onBlur={desactivarEdicion}
                         />
-                    ):(
-                        <h5>{formulario.description}</h5>
+                    ) : (
+                        <span>{formulario.description}</span>
                     )}
                 </h5>
+
                 <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>
                     Ubicado en una de las zonas más buscadas de la ciudad, este departamento de tres
                     ambientes ofrece comodidad, luminosidad y una excelente distribución en sus
@@ -245,206 +267,118 @@ export default function Ficha() {
                 </div>
                 <div className={styles.dataGridProperties}>
                     <div className={styles.sectionProperties}>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Superficie Total: 500m2</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Superficie Descubierta: 322.57m2</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Superficie Semicubierta: 322.57m2</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Superficie Cubierta: 322.57m2</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Ambientes: 30</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Dormitorios: 10</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Dormitorios en Suite: 5</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Baños: 8</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Cocheras: 4</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Cobertura Cochera: Cubierta</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Tipo de Cochera: Fija</h5>
-                        </div>
+                        <Item
+                            imgSrc="/icons/sup.png"
+                            label="Superficie Total"
+                            value="4"
+                        />
+                        <Item
+                            imgSrc="/icons/supDesc.png"
+                            label="Superficie Descubierta"
+                            value="4"
+                        />
+                        <Item
+                            imgSrc="/icons/sup.png"
+                            label="Superficie Semicubierta"
+                            value="4"
+                        />
+                        <Item
+                            imgSrc="/icons/supCub.png"
+                            label="Superficie Cubierta"
+                            value="4"
+                        />
+                        <Item
+                            imgSrc="/icons/ambiente.png"
+                            label="Ambientes"
+                            value="4"
+                        />
+                        <Item
+                            imgSrc="/icons/dorms.png"
+                            label="Dormitorios"
+                            value="4"
+                        />
+                        <Item
+                            imgSrc="/icons/suite.png"
+                            label="Dormitorios en Suite"
+                            value="4"
+                        />
+                        <Item
+                            imgSrc="/icons/baños.png"
+                            label="Baños"
+                            value="4"
+                        />
+                        <Item
+                            imgSrc="/icons/cochera.png"
+                            label="Cocheras"
+                            value="4"
+                        />
+                        <Item
+                            imgSrc="/icons/cobertura.png"
+                            label="Cobertura Cochera"
+                            value="Cubierta"
+                        />
+                        <Item
+                            imgSrc="/icons/balcon.png"
+                            label="Balcón/Terraza"
+                            value="Fija"
+                        />
                     </div>
                     <div className={styles.sectionProperties}>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Expensas: $120.000</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Fecha de la Expensa: 2025-10-02</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Agua: $60.000</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Tipo de Baulera: Individual</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Tipo de Piso: Roble</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Estado Inmueble: A Refaccionar</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Orientación: Norte</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Luminosidad: Muy Luminoso</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Disposición: Frente</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Antiguedad: 5 Años</h5>
-                        </div>
-                        <div className={styles.itemProperties}>
-                            <Image
-                                src={'/icons/share.png'}
-                                alt={'icono acorde a la informacion proporcionada'}
-                                width={20}
-                                height={20}
-                            />
-                            <h5>Ubicación en la Cuadra: Esquina</h5>
-                        </div>
+                        <Item
+                            imgSrc="/icons/expensas.png"
+                            label="Expensas"
+                            value="40000"
+                        />
+                        <Item
+                            imgSrc="/icons/fecha.png"
+                            label="Fecha de la Expensa"
+                            value="04-12-2025"
+                        />
+                        <Item
+                            imgSrc="/icons/agua.png"
+                            label="Agua"
+                            value="4"
+                        />
+                        <Item
+                            imgSrc="/icons/plantas.png"
+                            label="Cantidad de Plantas"
+                            value="4"
+                        />
+                        <Item
+                            imgSrc="/icons/piso.png"
+                            label="Tipo de Piso"
+                            value="4"
+                        />
+                        <Item
+                            imgSrc="/icons/estado.png"
+                            label="Estado de Inmueble"
+                            value="4"
+                        />
+                        <Item
+                            imgSrc="/icons/orientacion.png"
+                            label="Orientación"
+                            value="4"
+                        />
+                        <Item
+                            imgSrc="/icons/luminosidad.png"
+                            label="Luminosidad"
+                            value="4"
+                        />
+                        <Item
+                            imgSrc="/icons/disposicion.png"
+                            label="Disposición"
+                            value="4"
+                        />
+                        <Item
+                            imgSrc="/icons/antiguedad.png"
+                            label="Antigüedad"
+                            value="4"
+                        />
+                        <Item
+                            imgSrc="/icons/ubi.png"
+                            label="Ubicación en la Cuadra"
+                            value="4"
+                        />
                     </div>
                 </div>
             </div>
@@ -481,14 +415,15 @@ export default function Ficha() {
                             onChange={manejarCambio}
                             onBlur={desactivarEdicion}
                         />
-                    ):(
-                        <h5>{formulario.ubicationDescription}</h5>
+                    ) : (
+                        <span>{formulario.ubicationDescription}</span> // <-- Cambié <h5> por <span>
                     )}
                 </h5>
+
                 <div className={styles.mapaInteractivo}>
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6345.872814972624!2d-59.128316!3d-37.320334!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95911f92a1699e0f%3A0xb7acb39bd2ed6d7!2sMitre%201247%2C%20B7000%20Tandil%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1750441385483!5m2!1ses!2sar"
-                        width="600"
+                        width="1300"
                         height="400"
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade">

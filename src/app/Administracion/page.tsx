@@ -38,6 +38,11 @@ export default function FichaPropiedad() {
       {/* Filtros a la izquierda */}
       <div className="container-filter-properties">
         {/* Input para valor máximo */}
+          <div className={"container-title-properties"}>
+            <h1 className="title-properties">
+              <span>Publi</span>caciones activas
+            </h1>
+          </div>
         <div className="filter-container">
           <div className="flex-col">
             <label
@@ -46,16 +51,21 @@ export default function FichaPropiedad() {
             >
               Valor máximo
             </label>
-            <input
-              id="maxValueInput"
-              type="number"
-              className="max-value-input"
-              placeholder="Escribe el valor máximo"
-              value={maxValue}
-              onChange={handleMaxValueChange}
-            />
+              <div className="input-with-search-container">
+                  <input
+                      id="maxValueInput"
+                      type="number"
+                      className="max-value-input"
+                      placeholder="Escribe el valor máximo"
+                      value={maxValue}
+                      onChange={handleMaxValueChange}
+                  />
+                  <button className="search-button" type="button">
+                      <img src="/icons/search.png" alt="Buscar" className="search-icon" />
+                  </button>
+              </div>
+            </div>
           </div>
-        </div>
 
         <div className="filters-column">
           <FilterGroup
