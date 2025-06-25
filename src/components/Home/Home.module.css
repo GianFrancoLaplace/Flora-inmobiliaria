@@ -1,14 +1,47 @@
 .navImageProperties{
-    width: 100%;
+    width: 100vw;
     height: 750px;
     display: flex;
     flex-direction: column;
     background-image: url("/backgrounds/homeBackground.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     position: absolute;
 }
 
 .searchBarProperties{
     padding-top: 20%;
     position: relative;
+}
+
+@media (max-width: 1024px) {
+    .navImageProperties {
+        height: 600px;
+    }
+
+    .searchBarProperties {
+        padding-top: 15%;
+    }
+}
+
+@media (max-width: 768px) {
+    .navImageProperties {
+        height: 450px;
+    }
+
+    .searchBarProperties {
+        padding-top: 12%;
+    }
+}
+
+@media (max-width: 480px) {
+    .navImageProperties {
+        height: 360px;
+    }
+
+    .searchBarProperties {
+        padding-top: 10%;
+    }
 }
 
