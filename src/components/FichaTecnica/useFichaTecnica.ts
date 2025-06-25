@@ -2,9 +2,10 @@
 import {useCallback, useState} from "react";
 
 const States : { [key: string]: string } = {
+    sale: "EN VENTA",
     sold : "VENDIDA",
-    rent : "ALQUILADA",
-    buy: "EN VENTA"
+    rent : "EN ALQUILER",
+    rented: "ALQUILADA",
 };
 
 console.log(States);
@@ -34,7 +35,8 @@ export const useFichaTecnica = (mode: 'view' | 'create' | 'edit', initialPropert
     // const [errors, setErrors] = useState('');
 
     // ✏️ Activar edición de un campo específico
-    const startEditing = useCallback((fieldName: string) => {
+    const startEditing = useCallback((fieldName: string) => { // fielName puede ser cualquie campo
+        // prev, mantiene todos lo datos previos, se especifica solo que cambiar
         setEditingFields(prev => ({ ...prev, [fieldName]: true }));
     }, []);
 
