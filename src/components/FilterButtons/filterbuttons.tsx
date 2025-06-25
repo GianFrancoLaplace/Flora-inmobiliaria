@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import './filterbuttons.css'; 
+import './filterbuttons.css';
 
 interface Props {
   label: string;
@@ -10,13 +10,16 @@ interface Props {
 
 const FiltroToggle: React.FC<Props> = ({ label, isActive, onToggle }) => {
   return (
-  <button className="filter-button" onClick={onToggle}>
-    {label}
-    <span className={`toggle ${isActive ? 'active' : ''}`}>
-      <span className="toggle-circle"></span>
-    </span>
-  </button>
-);
+    <div>
+      <button className="filter-button" onClick={onToggle}>
+        {label}
+        <span className={`toggle ${isActive ? 'active' : ''}`}>
+          <span className="toggle-circle"></span>
+        </span>
+      </button>
+    </div>
+  );
 };
+
 
 export default FiltroToggle;
