@@ -12,7 +12,6 @@ export default function PropertiesSearchBar() {
 
     const [selectedType, setSelectedType] = useState('buy');
     const [searchTerm, setSearchTerm] = useState('');
-    let firstSearchTerm = '';
     const searchMock = ["A1", "B2", "C3"] ;
 
     const operationTypes = [
