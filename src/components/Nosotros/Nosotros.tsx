@@ -1,7 +1,5 @@
-import { Maximize } from 'lucide-react';
 import styles from './Nosotros.module.css'
 import Image from "next/image";
-import { maxHeaderSize } from 'node:http';
 
 export default function Nosotros() {
     return (
@@ -39,7 +37,7 @@ export default function Nosotros() {
                 </div>
             </div>
 
-            <div style={{ margin: '0 40px' }}>
+            <div className={styles.imageProperties}>
                 <Image
                     src="/images/imagen_nosotros.jpg"
                     alt="Imagen Nosotros"
@@ -50,8 +48,7 @@ export default function Nosotros() {
                 />
             </div>
 
-
-
+            <div className={styles.underline}/>
 
             <div>
                 <div className={styles.container}>

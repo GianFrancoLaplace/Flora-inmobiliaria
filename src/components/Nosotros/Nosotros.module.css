@@ -27,12 +27,12 @@
     position: relative; /* Necesario para que z-index funcione correctamente */
 }
 
-
 .h5Properties{
     display: flex;
     width: fit-content;
-    margin-left: 20%;
     font-weight: 800;
+    white-space: nowrap;
+    margin-left: 60px;
 }
 
 .generalInfoProperties{
@@ -136,12 +136,70 @@
         gap: 2rem; /* Reduce el espacio cuando están apilados */
     }
 
+    .h5Properties{
+        margin-left: 0;
+    }
+
+    .infoImageProperties{
+        width: fit-content;
+        margin-left: 10px;
+        align-items: center;
+    }
+
+    .infoImageProperties h5{
+        font-size: 16px;
+    }
+
+    .generalInfoProperties{
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+    }
+
+    .infoProperties{
+        text-align: justify;
+        font-size: 14px;
+        width: 300px;
+    }
+
+    .infoProperties h1{
+        text-align: center;
+        white-space: nowrap;
+        font-size: 28px;
+    }
+
+    .missionAndVisionProperties{
+        gap: 30px;
+    }
+
     .textContainer {
         /* El retraso en la animación puede no verse tan bien en móvil, lo ajustamos */
         animation-delay: 0s;
+        width: 300px;
+        text-align: justify;
+        align-items: center;
+    }
+
+    .imageProperties{
+        visibility: hidden;
+        width: 0;
+        margin: -100px;
+        padding: 0;
+    }
+
+    .underline{
+        border-bottom: black 1px solid;
+    }
+
+    .container{
+        display: flex;
+        margin-left: 0;
+        margin-top: 0;
     }
 
     .title {
         font-size: 1.8rem; /* Reduce el tamaño del título en pantallas pequeñas */
+        white-space: collapse;
+        text-align: center;
     }
 }
