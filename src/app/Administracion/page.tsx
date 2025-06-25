@@ -51,16 +51,21 @@ export default function FichaPropiedad() {
             >
               Valor máximo
             </label>
-            <input
-              id="maxValueInput"
-              type="number"
-              className="max-value-input"
-              placeholder="Escribe el valor máximo"
-              value={maxValue}
-              onChange={handleMaxValueChange}
-            />
+              <div className="input-with-search-container">
+                  <input
+                      id="maxValueInput"
+                      type="number"
+                      className="max-value-input"
+                      placeholder="Escribe el valor máximo"
+                      value={maxValue}
+                      onChange={handleMaxValueChange}
+                  />
+                  <button className="search-button" type="button">
+                      <img src="/icons/search.png" alt="Buscar" className="search-icon" />
+                  </button>
+              </div>
+            </div>
           </div>
-        </div>
 
         <div className="filters-column">
           <FilterGroup

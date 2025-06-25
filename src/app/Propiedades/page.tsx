@@ -14,32 +14,32 @@ export default function Properties() {
 
     const loadImages = [
         {
-            id: 1, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+            id: 1, imageUrl: '/backgrounds/fichaBackground.jpg', price: 340000, rentOrSale: 'VENTA',
             address: 'San Martin 567', city: 'Tandil', state: 'disponible',
             features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
         },
         {
-            id: 2, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+            id: 2, imageUrl: '/backgrounds/fichaBackground.jpg', price: 340000, rentOrSale: 'VENTA',
             address: 'San Martin 567', city: 'Tandil', state: 'disponible',
             features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
         },
         {
-            id: 3, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+            id: 3, imageUrl: '/backgrounds/fichaBackground.jpg', price: 340000, rentOrSale: 'VENTA',
             address: 'San Martin 567', city: 'Tandil', state: 'disponible',
             features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
         },
         {
-            id: 4, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+            id: 4, imageUrl: '/backgrounds/fichaBackground.jpg', price: 340000, rentOrSale: 'VENTA',
             address: 'San Martin 567', city: 'Tandil', state: 'disponible',
             features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
         },
         {
-            id: 5, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+            id: 5, imageUrl: '/backgrounds/fichaBackground.jpg', price: 340000, rentOrSale: 'VENTA',
             address: 'San Martin 567', city: 'Tandil', state: 'disponible',
             features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
         },
         {
-            id: 6, imageUrl: '/images/casaEjemplo.png', price: 340000, rentOrSale: 'VENTA',
+            id: 6, imageUrl: '/backgrounds/fichaBackground.jpg', price: 340000, rentOrSale: 'VENTA',
             address: 'San Martin 567', city: 'Tandil', state: 'disponible',
             features: { rooms: 7, bedrooms: 3, bathrooms: 2 },
         },
@@ -62,9 +62,9 @@ export default function Properties() {
     return (
         <div>
             <main>
-                <ContactInformation/>
+                <ContactInformation />
             </main>
-            <br/>
+            <br />
             <div className="properties-layout">
                 <div className="container-filter-properties">
                     {/* Input para valor máximo */}
@@ -76,14 +76,19 @@ export default function Properties() {
                             >
                                 Valor máximo
                             </label>
-                            <input
-                                id="maxValueInput"
-                                type="number"
-                                className="max-value-input"
-                                placeholder="Escribe el valor máximo"
-                                value={maxValue}
-                                onChange={handleMaxValueChange}
-                            />
+                            <div className="input-with-search-container">
+                                <input
+                                    id="maxValueInput"
+                                    type="number"
+                                    className="max-value-input"
+                                    placeholder="Escribe el valor máximo"
+                                    value={maxValue}
+                                    onChange={handleMaxValueChange}
+                                />
+                                <button className="search-button" type="button">
+                                    <img src="/icons/search.png" alt="Buscar" className="search-icon" />
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -102,10 +107,8 @@ export default function Properties() {
                     </div>
                 </div>
 
-                <div className={styles['properties-layout']}>
-                    <main className={styles['properties-layout__main-content']}>
-                        <PropertyGrid properties={loadImages}/>
-                    </main>
+                <div className={styles['properties-layout__main-content']}>
+                    <PropertyGrid properties={loadImages} />
                 </div>
             </div>
 
