@@ -30,7 +30,6 @@
   margin-bottom: 1rem;
 }
 
-
 .presentationProperties{
   width: 80%;
   height: fit-content;
@@ -45,6 +44,13 @@
   position: relative;
 }
 
+.presentationProperties h1{
+  font-size: 24px;
+}
+.presentationProperties h5{
+  font-size: 14px;
+}
+
 .mainCardsGridProperties{
   width: 100%;
 }
@@ -54,3 +60,22 @@
   background-color: var(--secondary-color-4);
 }
 
+/*TABLET*/
+@media (min-width: 768px){
+  .presentationProperties h1{
+    font-size: 26px;
+  }
+  .presentationProperties h5{
+    font-size: 14px;
+  }
+}
+
+/*DESKTOP*/
+@media (min-width: 1024px){
+  .presentationProperties h1{
+    font-size: 34px;
+  }
+  .presentationProperties h5{
+    font-size: 18px;
+  }
+}

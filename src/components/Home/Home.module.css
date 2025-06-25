@@ -1,23 +1,31 @@
-.navImageProperties{
+/* ====== MOBILE FIRST (por defecto) ====== */
+.navImageProperties {
     width: 100vw;
-    height: 750px;
-    display: flex;
-    flex-direction: column;
+    height: 360px;
     background-image: url("/backgrounds/homeBackground.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    display: flex;
+    flex-direction: column;
     position: absolute;
+    top: 0;
+    left: 0;
 }
 
-.searchBarProperties{
-    padding-top: 20%;
+.searchBarProperties {
+    padding-top: 12%;
     position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
-@media (max-width: 1024px) {
+/* ====== TABLET ====== */
+@media (min-width: 768px) {
     .navImageProperties {
-        height: 600px;
+        height: 500px;
     }
 
     .searchBarProperties {
@@ -25,23 +33,13 @@
     }
 }
 
-@media (max-width: 768px) {
+/* ====== DESKTOP ====== */
+@media (min-width: 1024px) {
     .navImageProperties {
-        height: 450px;
+        height: 750px;
     }
 
     .searchBarProperties {
-        padding-top: 12%;
+        padding-top: 20%;
     }
 }
-
-@media (max-width: 480px) {
-    .navImageProperties {
-        height: 360px;
-    }
-
-    .searchBarProperties {
-        padding-top: 10%;
-    }
-}
-
