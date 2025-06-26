@@ -1,148 +1,72 @@
 /* ========================================
-   🏗️ SEARCHBAR MODULE CSS - MCLOVIN EDITION
-   CSS Modules con nomenclatura simplificada
+   📱 BASE STYLES - MOBILE FIRST (320px+)
    ======================================== */
 
-/* Contenedor principal */
+/* Contenedor principal - Mobile base */
 .searcher {
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-family: var(--primary-font);
     background-color: rgba(21, 21, 21, 0.60);
-    padding: var(--space-lg);
-    border-radius: 10px;
+    padding: var(--space-sm);
+    border-radius: 8px;
     position: relative;
-    margin: 0 auto;
-    margin-top: 5%;
-    transform: translateY(-50%);
+    top: 50%;
+    margin: 0 var(--space-sm);
+    max-width: 100%; /* Prevenir overflow en móviles pequeños */
 }
 
-/* Grupo de botones de operación */
+/* Grupo de botones - Mobile base */
 .buttonGroup {
     display: flex;
-    justify-content: space-around;
-    margin-bottom: var(--space-sm);
+    flex-direction: column;
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
+    box-shadow: none; 
 }
 
-/* Botón individual */
+/* Botón individual - Mobile base */
 .button {
-    background-color: rgb(253,255,226,0.5);
-    border-radius: var(--radius-md);
+    margin: 5px auto;
+    background-color: rgb(253,255,226,0.7); /* 🚨 APROXIMADO - Aumenté opacidad para mobile */
+    border-radius: var(--radius-sm); /* 🚨 APROXIMADO - Era var(--radius-md), reduje */
     color: var(--secondary-color-1);
     border: none;
-    font-size: 18px;
+    font-size: 0.875rem; /* 🚨 APROXIMADO - Era 18px, reduje para mobile */
+    padding: 0.5rem; /* 🚨 APROXIMADO - Agregué padding mobile */
     cursor: pointer;
     transition: all var(--normal-transition);
     position: relative;
     outline: none;
+    width: 100%; /* 🚨 CAMBIO - Full width en mobile */
+    text-align: center;
 }
 
 .button:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
+    background-color: rgb(253,255,226,0.9); /* 🚨 APROXIMADO - Hover sutil en mobile */
 }
 
 .button:active {
+    transform: scale(0.98); /* 🚨 CAMBIO - Feedback táctil para mobile */
     transition: all var(--fast-transition);
 }
 
 .button:focus {
+    outline: 2px solid var(--primary-color-3); /* 🚨 APROXIMADO - Mejor accesibilidad */
     outline-offset: 2px;
 }
 
-/* Modificador: Botón activo */
+/* Modificador: Botón activo - Mobile optimizado */
 .buttonActive {
-    font-weight: bolder;
+    font-weight: bold;
     background-color: var(--secondary-color-5);
     color: var(--primary-color-5);
-    box-shadow: var(--shadow-lg);
-    z-index: 1;
+    transform: scale(1.02); /* 🚨 CAMBIO - Feedback visual en lugar de shadow */
 }
 
-/* Contenedor de búsqueda */
+/* Contenedor de búsqueda - Mobile base */
 .searchContainer {
-    display: flex;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-md);
-}
-
-.searchWrapper {
-    display: flex;
-    flex-direction: column;
-}
-
-/* Wrapper del input */
-.inputWrapper {
-    position: relative;
-    flex: 1;
-}
-
-/* Input de búsqueda */
-.input {
-    width: 100%;
-    border-radius: var(--radius-md) 0 0 var(--radius-md);
-    font-size: var(--text-base);
-    font-family: inherit;
-    color: var(--primary-color-5);
-    background-color: var(--primary-color-1);
-    outline: none;
-    transition: all var(--normal-transition);
-}
-
-.input::placeholder {
-    color: var(--primary-color-5);
-}
-
-.input:focus {
-    border-color: var(--primary-color-1);
-}
-
-/* Vista previa de búsqueda */
-.preview {
-    width: 100%;
-    background-color: var(--primary-color-1);
-    border-top: none;
-    position: absolute;
-    top: 100%;
-    border-radius: 0 0 var(--radius-md) var(--radius-md);
-    animation: fadeInUp 0.3s ease-out;
-}
-
-.previewText {
-    margin: 0;
-    padding: var(--space-xs);
-    font-size: var(--text-sm);
-    text-align: left;
-}
-
-.previewText:hover {
-    background-color: var(--primary-color-2);
-}
-
-/* Botón de búsqueda */
-.searchButton {
-    background-color: var(--secondary-color-5);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    cursor: pointer;
-    transition: all var(--normal-transition);
-    display: flex;
-}
-
-.searchButton:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-lg);
-}
-
-.searchButton:active {
-    transform: translateY(0) scale(0.98);
-    transition: all var(--fast-transition);
-}
-
-.searchButton:focus {
-    outline-offset: 2px;
+    display: none;
 }
 
 /* ========================================
@@ -152,7 +76,7 @@
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(-10px);
+        transform: translateY(-5px); /* 🚨 APROXIMADO - Reducido para mobile */
     }
     to {
         opacity: 1;
@@ -161,53 +85,103 @@
 }
 
 /* ========================================
-   📱 RESPONSIVE DESIGN - MOBILE FIRST
+   📱 RESPONSIVE BREAKPOINTS - PROGRESSIVE ENHANCEMENT
    ======================================== */
 
-/* Móviles pequeños (hasta 480px) */
-@media (max-width: 480px) {
+/* Móviles grandes / Phablets (480px+) */
+@media (min-width: 480px) {
     .searcher {
-        padding: 0 var(--space-md);
+        padding: var(--space-lg);
+        margin: 0 var(--space-md);
+        max-width: 28rem; /* 🚨 APROXIMADO - 448px max-width */
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .button {
-        padding: var(--space-sm) var(--space-md);
-        font-size: 0.75rem; /* 12px */
+        font-size: 15px; /* 🚨 APROXIMADO - Ligero aumento */
     }
 
     .input {
-        padding: var(--space-sm);
-        font-size: var(--text-sm);
-    }
-
-    .searchButton {
-        padding: var(--space-sm) var(--space-md);
+        font-size: 16px; /* Mantener 16px para evitar zoom */
     }
 }
 
-/* Tablets (768px+) */
+/* Tablets pequeñas (600px+) */
+@media (min-width: 600px) {
+    .buttonGroup {
+        flex-direction: row; /* 🚨 CAMBIO MAYOR - Horizontal en tablets */
+        gap: var(--space-sm);
+    }
+
+    .button {
+        flex: 1; /* 🚨 CAMBIO - Distribuir espacio equitativamente */
+        font-size: 16px;
+    }
+
+    .searchContainer {
+        flex-direction: row; /* 🚨 CAMBIO MAYOR - Horizontal en tablets */
+        gap: 0; /* Eliminar gap, usar border-radius compartido */
+    }
+
+    .input {
+        border-radius: var(--radius-md) 0 0 var(--radius-md); /* 🚨 CAMBIO - Conectar con botón */
+    }
+
+    .searchButton {
+        border-radius: 0 var(--radius-md) var(--radius-md) 0; /* 🚨 CAMBIO - Conectar con input */
+        width: auto;
+        min-width: 60px; /* 🚨 APROXIMADO - Ancho mínimo del botón */
+    }
+}
+
+/* Tablets grandes (768px+) */
 @media (min-width: 768px) {
     .searcher {
         max-width: 40rem; /* 640px */
+        padding: var(--space-xl); /* 🚨 APROXIMADO - Más padding en tablets grandes */
+    }
+
+    .button {
+        font-size: 17px; /* 🚨 APROXIMADO */
+        padding: var(--space-md) var(--space-lg);
     }
 
     .input {
         height: 3rem;
-        padding: var(--space-md);
-        font-size: 1.125rem; /* 18px */
+        padding: var(--space-md) var(--space-lg);
+        font-size: 18px; /* 🚨 APROXIMADO - Era 1.125rem */
     }
 
     .searchButton {
         height: 3rem;
         width: 3.125rem;
-        margin: 0;
+        padding: 0; /* Reset padding, usar dimensiones fijas */
     }
 }
 
-/* Desktop grande (1024px+) */
+/* Desktop (1024px+) */
 @media (min-width: 1024px) {
     .searcher {
         max-width: 44rem; /* 702px */
+        transform: translateY(-50%);
+    }
+
+    .button {
+        font-size: 18px; /* Restaurar tamaño original */
+        padding: var(--space-md) var(--space-xl);
+    }
+
+    .input {
+        font-size: 18px;
+    }
+
+    .buttonGroup {
+        box-shadow: var(--shadow-sm); /* Restaurar shadow en desktop */
+    }
+
+    .searchContainer {
+        box-shadow: var(--shadow-md); /* Restaurar shadow original */
     }
 }
 
@@ -217,6 +191,7 @@
         max-width: 46.25rem; /* 740px */
         height: 7.5rem; /* 120px */
         padding: 0.9rem;
+        margin-top: 5%; /* 🚨 RESTAURAR - Valor original para desktop XL */
     }
 
     .searchContainer {
@@ -227,6 +202,7 @@
         margin: 0 10px 0 0;
         width: 225px;
         height: 1.75rem;
+        font-size: 18px;
     }
 
     .button:nth-child(3) {

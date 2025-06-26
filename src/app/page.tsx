@@ -39,10 +39,6 @@ export default function Page() {
             </div>
 
             <div className={styles.presentationProperties}>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
                 <h1>Tu próxima propiedad, nuestra prioridad</h1>
                 <h5>
                     Combinamos experiencia, compromiso y un trato cercano para ayudarte a encontrar el lugar que estás

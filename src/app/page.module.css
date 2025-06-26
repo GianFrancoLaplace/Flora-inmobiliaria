@@ -33,18 +33,18 @@
 .presentationProperties{
   width: 80%;
   height: fit-content;
-  margin: 50px auto;
+  margin: 0 auto 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   gap: 10px;
-  margin-top: 20%;
   position: relative;
 }
 
 .presentationProperties h1{
+  margin-top: 24px;
   font-size: 24px;
 }
 .presentationProperties h5{
