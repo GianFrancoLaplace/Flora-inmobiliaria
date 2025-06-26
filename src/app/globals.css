@@ -56,6 +56,12 @@
   --normal-transition: 200ms ease-in-out;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
 h1{
   font-size: 34px;
   font-weight: lighter;

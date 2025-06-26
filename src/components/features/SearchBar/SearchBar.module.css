@@ -1,0 +1,150 @@
+/* ========================================
+   📱 BASE STYLES - MOBILE FIRST (320px+)
+   ======================================== */
+
+/* Contenedor principal - Mobile base */
+.searcher {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: var(--primary-font);
+    background-color: rgba(21, 21, 21, 0.60);
+    padding: var(--space-sm);
+    border-radius: 8px;
+    /*position: relative;*/
+    /*top: 50%;*/
+    max-width: 100%; /* Prevenir overflow en móviles pequeños */
+}
+
+/* Grupo de botones - Mobile base */
+.buttonGroup {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: none; 
+}
+
+/* Botón individual - Mobile base */
+.button {
+    margin: 5px auto;
+    background-color: rgb(253,255,226,0.7); /* 🚨 APROXIMADO - Aumenté opacidad para mobile */
+    border-radius: var(--radius-sm); /* 🚨 APROXIMADO - Era var(--radius-md), reduje */
+    color: var(--secondary-color-1);
+    border: none;
+    font-size: 0.875rem; /* 🚨 APROXIMADO - Era 18px, reduje para mobile */
+    padding: 0.5rem; /* 🚨 APROXIMADO - Agregué padding mobile */
+    cursor: pointer;
+    transition: all var(--normal-transition);
+    position: relative;
+    outline: none;
+    width: 100%; /* 🚨 CAMBIO - Full width en mobile */
+    text-align: center;
+}
+
+.button:hover {
+    background-color: rgb(253,255,226,0.9); /* 🚨 APROXIMADO - Hover sutil en mobile */
+}
+
+.button:active {
+    transform: scale(0.98); /* 🚨 CAMBIO - Feedback táctil para mobile */
+    transition: all var(--fast-transition);
+}
+
+.button:focus {
+    outline: 2px solid var(--primary-color-3); /* 🚨 APROXIMADO - Mejor accesibilidad */
+    outline-offset: 2px;
+}
+
+/* Modificador: Botón activo - Mobile optimizado */
+.buttonActive {
+    font-weight: bold;
+    background-color: var(--secondary-color-5);
+    color: var(--primary-color-5);
+    transform: scale(1.02); /* 🚨 CAMBIO - Feedback visual en lugar de shadow */
+}
+
+/* Contenedor de búsqueda - Mobile base */
+.searchContainer {
+    display: none;
+}
+
+/* ========================================
+   🎬 ANIMACIONES
+   ======================================== */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(-5px); /* 🚨 APROXIMADO - Reducido para mobile */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   📱 RESPONSIVE BREAKPOINTS - PROGRESSIVE ENHANCEMENT
+   ======================================== */
+
+
+/* Tablets pequeñas (600px+) */
+@media (min-width: 640px) {
+    .buttonGroup {
+        flex-direction: row; /* 🚨 CAMBIO MAYOR - Horizontal en tablets */
+        gap: var(--space-sm);
+    }
+
+    .button {
+        flex: 1; /* 🚨 CAMBIO - Distribuir espacio equitativamente */
+        text-wrap: nowrap;
+        font-size: 16px;
+    }
+
+    .searchContainer {
+        flex-direction: row;
+    }
+}
+
+/* Tablets grandes (768px+) */
+@media (min-width: 768px) {
+    .searcher {
+        max-width: 40rem;
+    }
+
+    .button {
+        font-size: 17px;
+        padding: var(--space-md) var(--space-lg)
+    }
+}
+
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+    .searcher {
+        max-width: 44rem; /* 702px */
+    }
+
+    .button {
+        font-size: 18px; /* Restaurar tamaño original */
+        padding: var(--space-md) var(--space-xl);
+    }
+
+    .input {
+        font-size: 18px;
+    }
+
+    .buttonGroup {
+        box-shadow: var(--shadow-sm); /* Restaurar shadow en desktop */
+    }
+
+    .searchContainer {
+        box-shadow: var(--shadow-md); /* Restaurar shadow original */
+    }
+}
+
+/* Desktop XL (1440px+) */
+@media (min-width: 1440px) {
+    .searcher {
+        max-width: 46.25rem; /* 740px */
+    }
+}

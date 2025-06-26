@@ -1,14 +1,33 @@
-.navImageProperties{
-    width: 100%;
-    height: 750px;
-    display: flex;
-    flex-direction: column;
+/* ====== MOBILE FIRST (por defecto) ====== */
+.navImageProperties {
+    width: 100vw;
+    height: 360px;
     background-image: url("/backgrounds/homeBackground.jpg");
-    position: absolute;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    align-items: center;
 }
 
-.searchBarProperties{
-    padding-top: 20%;
+.searchBarProperties {
     position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
+/* ====== TABLET ====== */
+@media (min-width: 768px) {
+    .navImageProperties {
+        height: 500px;
+    }
+}
+
+/* ====== DESKTOP ====== */
+@media (min-width: 1024px) {
+    .navImageProperties {
+        height: 750px;
+    }
+}
