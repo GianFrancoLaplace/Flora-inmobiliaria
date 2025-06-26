@@ -1,26 +1,58 @@
-/*footerStyles*/
-.footer{
+.footer {
     width: 100%;
-    height: 200px;
+    height: auto; /* CRÍTICO: La altura ahora es automática para adaptarse al contenido apilado */
     background-color: var(--primary-color-5);
     display: flex;
-    justify-content: space-around;
+    flex-direction: column; /* CRÍTICO: Apilamos las secciones verticalmente */
+    align-items: center;   /* Centramos las secciones horizontalmente */
+    gap: 2.5rem;           /* Espacio generoso entre cada sección apilada */
+    padding: 2.5rem 1rem;  /* Damos buen espacio arriba/abajo y a los lados */
     color: var(--secondary-color-4);
-    align-items: center;
 }
 
-.footerSection{
-    text-align: left;
-    height: fit-content;
-    background-color: transparent;
+.footerSection {
+    text-align: center; /* CRÍTICO: El texto centrado se ve mejor en móvil cuando está apilado */
+    width: 100%;
+    max-width: 350px; /* Evita que las líneas de texto sean demasiado largas */
 }
 
-.footerImgContent{
+.footerSection h2 {
+    margin-bottom: 1rem; /* Espacio debajo de los títulos "Redes sociales" y "Contacto" */
+}
+
+/* Contenedor para un ícono y su texto (ej. Instagram) */
+.footerImgContent {
     display: flex;
     align-items: center;
-    margin-bottom: 4px;
-    background-color: transparent;
+    justify-content: center; /* Centramos el ícono y el texto como un bloque */
+    gap: 12px;               /* Espacio entre el ícono y el texto */
+    margin-bottom: 0.75rem;
 }
-.footerImgContent img{
-    margin-right: 10px;
+
+/* Quitamos el margen específico de la imagen, ya que ahora usamos 'gap' en el contenedor */
+.footerImgContent img {
+    margin-right: 0;
+}
+
+
+/* ==========================================================================
+   TABLET Y DESKTOP - Para pantallas de 768px en adelante
+   ========================================================================== */
+@media (min-width: 768px) {
+    .footer {
+        flex-direction: row; /* Volvemos a la disposición horizontal */
+        justify-content: space-around; /* Distribuimos las columnas */
+        height: 200px; /* Restauramos la altura fija para el diseño de escritorio */
+        padding: 1rem 2rem; /* Ajustamos el padding */
+    }
+
+    .footerSection {
+        text-align: left; /* Volvemos a alinear el texto a la izquierda */
+        width: auto;
+        max-width: none;
+    }
+
+    .footerImgContent {
+        justify-content: flex-start; /* Alineamos el ícono y el texto a la izquierda */
+    }
 }
