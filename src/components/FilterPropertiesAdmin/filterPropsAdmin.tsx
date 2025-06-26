@@ -1,7 +1,7 @@
 // components/UnifiedFilter.tsx
 import { useState } from 'react';
 import styles from './filterPropsAdmin.module.css';
-import FiltroToggle from '../FilterButtons/filterbuttons';
+import FiltroToggle from '../FilterButtons/FilterButtons';
 
 interface Props {
   maxValue: string;
