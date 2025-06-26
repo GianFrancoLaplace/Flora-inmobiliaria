@@ -33,7 +33,7 @@ export default function Page() {
         "Campos",
     ];
     return (
-        <div className={`${styles.page} ${cactus.className}`}>
+        <div className={`${styles.page} ${cactus.className} ${styles.container}`}>
             <HomeF />
 
             <div className={styles.presentationProperties}>

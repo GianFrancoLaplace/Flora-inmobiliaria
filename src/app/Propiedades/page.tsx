@@ -3,7 +3,6 @@ import ContactInformation from "@/components/features/ContactInformation/Contact
 import filterstyles from './propertiesstyles.module.css';
 import { useState } from "react";
 import '../ui/fonts';
-import { cactus } from "../ui/fonts";
 import styles from "@/app/page.module.css";
 import UnifiedFilter from "../../components/FilterPropertiesAdmin/UnifiedFilter";
 import PropertyGrid from "@/components/SmallCards/SmallCardsGrid";
@@ -60,7 +59,7 @@ export default function Properties() {
     }
 
     return (
-        <div className={"conteinerPropiedades"}>
+        <div className={filterstyles["container-properties"]}>
             <main>
                 <ContactInformation />
             </main>

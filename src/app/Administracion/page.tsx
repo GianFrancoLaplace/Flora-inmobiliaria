@@ -27,7 +27,7 @@ export default function FichaPropiedad() {
   }
 
   return (
-    <div>
+    <div className={styles['container']}>
       <main>
         <ContactInformation />
       </main>

@@ -1,6 +1,10 @@
 /*@import url(../ui/fonts.ts);*/
 @import url(../ui/globals.css);
 
+.container-properties{
+margin-top: 130px;
+}
+
 .properties-layout {
   display: flex;
   flex-direction: row;
