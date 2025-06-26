@@ -1,6 +1,6 @@
 'use client';
 import ContactInformation from "@/components/features/ContactInformation/ContactInformation"
-// import './properties-styles.css';
+import filterstyles from './propertiesstyles.module.css';
 import { useState } from "react";
 import '../ui/fonts';
 import { cactus } from "../ui/fonts";
@@ -65,9 +65,9 @@ export default function Properties() {
                 <ContactInformation />
             </main>
             <br />
-            <div className="properties-layout">
+            <div className={filterstyles['properties-layout']}>
 
-                <div>
+                <div className={filterstyles['properties-layout-filter']}>
                     <UnifiedFilter
                         maxValue={maxValue}
                         onMaxValueChange={handleMaxValueChange}
