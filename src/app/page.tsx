@@ -48,7 +48,6 @@ export default function Page() {
                     <FilterGroup
                         title=""
                         filters={filtrosTipoPropiedad}
-                        direction="row"
                     />
                 </div>
 
