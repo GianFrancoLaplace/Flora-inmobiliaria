@@ -1,0 +1,121 @@
+.unified-filter-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-left: 30px;
+}
+
+.burger-button {
+  display: block;
+  background-color: var(--secondary-color-5, #f0c040);
+  color: #333;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+.filter-container {
+  display: none;
+}
+
+.filter-container.show {
+  display: flex;
+}
+
+.vertical {
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #33322f;
+  padding: 1.5rem 1rem;
+  border-radius: 10px;
+  gap: 2rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: flex-start;
+}
+
+.filter-section-title {
+  color: #33322f;
+  font-size: 1.5rem;
+  font-weight: 100;
+  text-align: left;
+}
+
+.input-with-search-container {
+  display: flex;
+  gap: 0;
+  max-height: fit-content;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
+.max-value-input {
+  background-color: #33322f;
+  color: #f1e9d2;
+  border: none;
+  border-radius: 10px 0 0 10px;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  outline: none;
+  flex: 1;
+  box-sizing: border-box;
+  text-align: left;
+  margin: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.max-value-input::placeholder {
+  color: #e8ddbf;
+}
+
+.max-value-input:focus {
+  box-shadow: 0 0 0 2px #a7956f, 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-button {
+  background-color: var(--secondary-color-5);
+  border: none;
+  border-radius: 0 10px 10px 0;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.search-button:hover {
+  opacity: 0.8;
+}
+
+.search-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+@media (min-width: 1000px) {
+  .burger-button {
+    display: none;
+  }
+
+  .filter-container.vertical {
+    display: flex !important;
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+    gap: 2rem;
+  }
+}

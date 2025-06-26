@@ -1,12 +1,12 @@
 'use client';
 import ContactInformation from "@/components/features/ContactInformation/ContactInformation"
-import FilterGroup from "../../components/FilterButtons/filtergroup";
-import './properties-styles.css';
+// import './properties-styles.css';
 import { useState } from "react";
 import '../ui/fonts';
 import { cactus } from "../ui/fonts";
 import styles from "@/app/page.module.css";
 import PropertyGrid from "@/components/CardsImages/PropertyImagesGrid";
+import UnifiedFilter from "../../components/FilterPropertiesAdmin/filterPropsAdmin";
 
 
 export default function Properties() {
@@ -66,45 +66,15 @@ export default function Properties() {
             </main>
             <br />
             <div className="properties-layout">
-                <div className="container-filter-properties">
-                    {/* Input para valor máximo */}
-                    <div className="filter-container">
-                        <div className="flex-col">
-                            <label
-                                htmlFor="maxValueInput"
-                                className={`filter-section-title ${cactus.className} antialiased`}
-                            >
-                                Valor máximo
-                            </label>
-                            <div className="input-with-search-container">
-                                <input
-                                    id="maxValueInput"
-                                    type="number"
-                                    className="max-value-input"
-                                    placeholder="Escribe el valor máximo"
-                                    value={maxValue}
-                                    onChange={handleMaxValueChange}
-                                />
-                                <button className="search-button" type="button">
-                                    <img src="/icons/search.png" alt="Buscar" className="search-icon" />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div className="filters-column">
-                        <FilterGroup
-                            title="Filtrar por operación"
-                            filters={filtrosTipoTransaccion}
-                            direction="column"
-                        />
+                <div>
+                    <UnifiedFilter
+                        maxValue={maxValue}
+                        onMaxValueChange={handleMaxValueChange}
+                        filtrosOperacion={filtrosTipoTransaccion}
+                        filtrosPropiedad={filtrosTipoPropiedad}
+                    />
 
-                        <FilterGroup
-                            title="Filtrar por inmueble"
-                            filters={filtrosTipoPropiedad}
-                            direction="column"
-                        />
-                    </div>
                 </div>
 
                 <div className={styles['properties-layout__main-content']}>
