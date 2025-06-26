@@ -5,7 +5,7 @@ import { useState } from "react";
 import '../ui/fonts';
 import { cactus } from "../ui/fonts";
 import styles from "@/app/page.module.css";
-import PropertyGrid from "@/components/CardsImages/PropertyImagesGrid";
+// import PropertyGrid from "@/components/CardsImages/PropertyImagesGrid";
 import UnifiedFilter from "../../components/FilterPropertiesAdmin/filterPropsAdmin";
 
 
@@ -60,7 +60,7 @@ export default function Properties() {
     }
 
     return (
-        <div>
+        <div className={"conteinerPropiedades"}>
             <main>
                 <ContactInformation />
             </main>
@@ -77,9 +77,9 @@ export default function Properties() {
 
                 </div>
 
-                <div className={styles['properties-layout__main-content']}>
+                {/* <div className={styles['properties-layout__main-content']}>
                     <PropertyGrid properties={loadImages} />
-                </div>
+                </div> */}
             </div>
 
         </div>

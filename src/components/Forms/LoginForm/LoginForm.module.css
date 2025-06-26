@@ -1,7 +1,4 @@
-
 .loginContainer {
-    width: 370px;
-    height: 385px;
     display: flex;
     flex-direction: column;
     border-radius: 5px;
@@ -9,7 +6,6 @@
     justify-content: normal;
     align-items: normal;
     color: var(--secondary-color-1);
-    margin-top: 5%;
 }
 
 .loginContainer h2 {
@@ -30,15 +26,15 @@
 }
 
 .fieldProperties {
-    width: 280px;
     margin: 12px auto;
+    padding: var(--space-sm);
 }
 
 .fieldProperties label {
     display: block;
     text-align: left;
-    margin: 2px;
-    font-size: 16px;
+    margin: 0 0 2px 2px;
+    font-size: var(--text-sm);
     font-weight: lighter;
     letter-spacing: 1px;
 }
@@ -65,4 +61,18 @@
     margin-bottom: 10px;
     background-color: var(--secondary-color-4);
     cursor: pointer;
+}
+
+@media (min-width: 641px) {
+    .loginContainer {
+        width: 371px;
+        height: 384px;
+        justify-content: center;
+    }
+
+    .loginContainer form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 }

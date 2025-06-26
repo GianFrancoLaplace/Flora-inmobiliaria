@@ -1,5 +1,5 @@
 'use client';
-import Admns from '@/components/Administracion/Administracion'
+import Admns from '@/components/Administracion/Administration'
 import ContactInformation from '@/components/features/ContactInformation/ContactInformation'
 import { useState } from 'react';
 import '../ui/fonts'

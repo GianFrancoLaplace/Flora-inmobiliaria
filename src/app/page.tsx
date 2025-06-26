@@ -1,10 +1,10 @@
 import styles from "./page.module.css";
 import { cactus } from "@/app/ui/fonts";
 import HomeF from "@/components/Home/Home";
-import FilterGroup from "@/components/FilterButtons/filtergroup";
+import FilterGroup from "@/components/FilterButtons/FilterGroup";
 import BigCardsGrid from "@/components/BigCards/BigCardsGrid";
 
-import PropertyGrid from '@/components/CardsImages/PropertyImagesGrid';
+import PropertyGrid from '@/components/SmallCards/SmallCardsGrid';
 const FiltersSidebar = () => {
     const filterOptions = ['Campos', 'Departamentos', 'Casas', 'Locales', 'Lotes'];
     return (
@@ -34,15 +34,9 @@ export default function Page() {
     ];
     return (
         <div className={`${styles.page} ${cactus.className}`}>
-            <div>
-                <HomeF />
-            </div>
+            <HomeF />
 
             <div className={styles.presentationProperties}>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
                 <h1>Tu próxima propiedad, nuestra prioridad</h1>
                 <h5>
                     Combinamos experiencia, compromiso y un trato cercano para ayudarte a encontrar el lugar que estás
@@ -61,10 +55,7 @@ export default function Page() {
                 <div>
                     <BigCardsGrid/>
                 </div>
-
             </div>
-
-
         </div>
     );
 }

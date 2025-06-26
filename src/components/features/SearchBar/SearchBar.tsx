@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import "./SearchBar.css";
+import styles from "./SearchBar.module.css";
 import Image from 'next/image'
 import {cactus} from "@/app/ui/fonts";
 
@@ -32,9 +32,9 @@ export default function PropertiesSearchBar() {
     };
 
     return (
-        <div className="properties-searcher">
+        <div className={styles.searcher}>
             {/* Botonera de tipo de operación */}
-            <div className="properties-searcher__button-group">
+            <div className={styles.buttonGroup}>
                 {operationTypes.map((type) => (
                     <button
                         key={type.id}
@@ -46,8 +46,8 @@ export default function PropertiesSearchBar() {
                         }}
                         className={`
                             ${cactus.className}
-                            properties-searcher__button
-                            ${selectedType === type.id ? 'properties-searcher__button--active' : ''}
+                            ${styles.button}
+                            ${selectedType === type.id ? styles.buttonActive : ''}
                         `}
                     >
                         {type.label}
@@ -56,45 +56,43 @@ export default function PropertiesSearchBar() {
             </div>
 
             {/* Contenedor de búsqueda */}
-
-                <div className="properties-searcher__search-container">
-                    <div className={ "properties-searcher__input-wrapper" }>
-                        <input
-                            type="text"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            onKeyPress={handleKeyPress}
-                            placeholder="Buscá por barrio o calle"
-                            className="properties-searcher__input"
-                            aria-label="Campo de búsqueda de propiedades"
-                        />
-                        {searchTerm && (
-                            <div className="properties-searcher__preview">
-
-                                <p className={"properties-searcher__preview-text"}>
-                                    {searchTerm}
+            <div className={styles.searchContainer}>
+                <div className={styles.inputWrapper}>
+                    <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                        placeholder="Buscá por barrio o calle"
+                        className={styles.input}
+                        aria-label="Campo de búsqueda de propiedades"
+                    />
+                    {searchTerm && (
+                        <div className={styles.preview}>
+                            <p className={styles.previewText}>
+                                {searchTerm}
+                            </p>
+                            {searchMock.map(item => (
+                                <p className={styles.previewText} key={item}>
+                                    {item}
                                 </p>
-                                {searchMock.map(item =>
-                                    <p className={"properties-searcher__preview-text"} key={item}>
-                                        {item}
-                                    </p>
-                                )}
-                            </div>
-                        )}
-                    </div>
-                    <button
-                        onClick={handleSearch}
-                        className="properties-searcher__search-button"
-                        aria-label="Buscar propiedades"
-                    >
-                        <Image
-                            src={'/icons/search.png'}
-                            alt={'search icon'}
-                            width={24}
-                            height={24}
-                        />
-                    </button>
+                            ))}
+                        </div>
+                    )}
                 </div>
+                <button
+                    onClick={handleSearch}
+                    className={styles.searchButton}
+                    aria-label="Buscar propiedades"
+                >
+                    <Image
+                        src="/icons/search.png"
+                        alt="search icon"
+                        width={24}
+                        height={24}
+                    />
+                </button>
+            </div>
         </div>
     );
 }

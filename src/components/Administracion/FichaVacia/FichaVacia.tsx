@@ -1,8 +1,0 @@
-'use client';
-import FichaPropiedad from "@/app/Propiedades/Ficha/page";
-
-export default function Ficha() {
-    return(
-        <FichaPropiedad></FichaPropiedad>
-    )
-}
