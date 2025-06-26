@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
 import React, { useState } from 'react';
 import FiltroToggle from './FilterButtons';
+import styles from './FilterButtons.module.css';
 
 interface Props {
   title: string;
   filters: string[];
-  direction?: 'row' | 'column';
 }
 
-const FilterGroup: React.FC<Props> = ({ title, filters, direction = 'row' }) => {
+const FilterGroup: React.FC<Props> = ({ title, filters }) => {
   const [activos, setActivos] = useState<string[]>([]);
 
   const toggleFiltro = (label: string) => {
@@ -18,25 +18,10 @@ const FilterGroup: React.FC<Props> = ({ title, filters, direction = 'row' }) => 
     );
   };
 
-  const [showFilters, setShowFilters] = useState<boolean>(false);
-
-  const displayFilters = () => {
-    setShowFilters(prev => !prev);
-  };
-
   return (
-    <div className={`filter-group-wrapper`}>
-      {/* Botón hamburguesa (solo visible en mobile) */}
-      <button className="burger-button" onClick={displayFilters}>
-        ☰ Filtrar
-      </button>
-
-      <div
-        className={`filter-container ${direction === 'column' ? 'flex-col' : 'flex-row'} ${showFilters ? 'show' : ''}`}
-        style={{ marginBottom: '1rem' }}
-      >
-        <h3 style={{ marginBottom: '0.5rem' }}>{title}</h3>
-
+    <div className={styles['filter-group-wrapper']}>
+      <h3 className={styles['filter-group-title']}>{title}</h3>
+      <div className={styles['filter-container']}>
         {filters.map((item) => (
           <FiltroToggle
             key={item}
