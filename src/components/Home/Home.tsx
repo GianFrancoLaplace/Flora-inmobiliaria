@@ -6,9 +6,10 @@ export default function Home()
     return (
         <div className={styles.imageProperties}>
             <div className={styles.navImageProperties}>
-                <div className={styles.searchBarProperties}><PropertiesSearchBar/></div>
+                <div className={styles.searchBarProperties}>
+                    <PropertiesSearchBar/>
+                </div>
             </div>
         </div>
-
     );
 }

@@ -8,10 +8,7 @@
     background-repeat: no-repeat;
 
     display: flex;
-    flex-direction: column;
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*left: 0;*/
+    align-items: center;
 }
 
 .searchBarProperties {
@@ -26,19 +23,11 @@
     .navImageProperties {
         height: 500px;
     }
-
-    .searchBarProperties {
-        padding-top: 15%;
-    }
 }
 
 /* ====== DESKTOP ====== */
 @media (min-width: 1024px) {
     .navImageProperties {
         height: 750px;
-    }
-
-    .searchBarProperties {
-        padding-top: 20%;
     }
 }

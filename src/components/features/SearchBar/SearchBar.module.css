@@ -11,9 +11,8 @@
     background-color: rgba(21, 21, 21, 0.60);
     padding: var(--space-sm);
     border-radius: 8px;
-    position: relative;
-    top: 50%;
-    margin: 0 var(--space-sm);
+    /*position: relative;*/
+    /*top: 50%;*/
     max-width: 100%; /* Prevenir overflow en móviles pequeños */
 }
 
@@ -88,27 +87,9 @@
    📱 RESPONSIVE BREAKPOINTS - PROGRESSIVE ENHANCEMENT
    ======================================== */
 
-/* Móviles grandes / Phablets (480px+) */
-@media (min-width: 480px) {
-    .searcher {
-        padding: var(--space-lg);
-        margin: 0 var(--space-md);
-        max-width: 28rem; /* 🚨 APROXIMADO - 448px max-width */
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .button {
-        font-size: 15px; /* 🚨 APROXIMADO - Ligero aumento */
-    }
-
-    .input {
-        font-size: 16px; /* Mantener 16px para evitar zoom */
-    }
-}
 
 /* Tablets pequeñas (600px+) */
-@media (min-width: 600px) {
+@media (min-width: 640px) {
     .buttonGroup {
         flex-direction: row; /* 🚨 CAMBIO MAYOR - Horizontal en tablets */
         gap: var(--space-sm);
@@ -116,47 +97,24 @@
 
     .button {
         flex: 1; /* 🚨 CAMBIO - Distribuir espacio equitativamente */
+        text-wrap: nowrap;
         font-size: 16px;
     }
 
     .searchContainer {
-        flex-direction: row; /* 🚨 CAMBIO MAYOR - Horizontal en tablets */
-        gap: 0; /* Eliminar gap, usar border-radius compartido */
-    }
-
-    .input {
-        border-radius: var(--radius-md) 0 0 var(--radius-md); /* 🚨 CAMBIO - Conectar con botón */
-    }
-
-    .searchButton {
-        border-radius: 0 var(--radius-md) var(--radius-md) 0; /* 🚨 CAMBIO - Conectar con input */
-        width: auto;
-        min-width: 60px; /* 🚨 APROXIMADO - Ancho mínimo del botón */
+        flex-direction: row;
     }
 }
 
 /* Tablets grandes (768px+) */
 @media (min-width: 768px) {
     .searcher {
-        max-width: 40rem; /* 640px */
-        padding: var(--space-xl); /* 🚨 APROXIMADO - Más padding en tablets grandes */
+        max-width: 40rem;
     }
 
     .button {
-        font-size: 17px; /* 🚨 APROXIMADO */
-        padding: var(--space-md) var(--space-lg);
-    }
-
-    .input {
-        height: 3rem;
-        padding: var(--space-md) var(--space-lg);
-        font-size: 18px; /* 🚨 APROXIMADO - Era 1.125rem */
-    }
-
-    .searchButton {
-        height: 3rem;
-        width: 3.125rem;
-        padding: 0; /* Reset padding, usar dimensiones fijas */
+        font-size: 17px;
+        padding: var(--space-md) var(--space-lg)
     }
 }
 
@@ -164,7 +122,6 @@
 @media (min-width: 1024px) {
     .searcher {
         max-width: 44rem; /* 702px */
-        transform: translateY(-50%);
     }
 
     .button {
@@ -189,23 +146,5 @@
 @media (min-width: 1440px) {
     .searcher {
         max-width: 46.25rem; /* 740px */
-        height: 7.5rem; /* 120px */
-        padding: 0.9rem;
-        margin-top: 5%; /* 🚨 RESTAURAR - Valor original para desktop XL */
-    }
-
-    .searchContainer {
-        height: 3rem;
-    }
-
-    .button {
-        margin: 0 10px 0 0;
-        width: 225px;
-        height: 1.75rem;
-        font-size: 18px;
-    }
-
-    .button:nth-child(3) {
-        margin: 0;
     }
 }

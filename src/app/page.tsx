@@ -34,9 +34,7 @@ export default function Page() {
     ];
     return (
         <div className={`${styles.page} ${cactus.className}`}>
-            <div>
-                <HomeF />
-            </div>
+            <HomeF />
 
             <div className={styles.presentationProperties}>
                 <h1>Tu próxima propiedad, nuestra prioridad</h1>
@@ -57,10 +55,7 @@ export default function Page() {
                 <div>
                     <BigCardsGrid/>
                 </div>
-
             </div>
-
-
         </div>
     );
 }
