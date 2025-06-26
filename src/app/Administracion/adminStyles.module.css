@@ -1,8 +1,11 @@
 /* Layout general */
 
+@media (max-width: 720px){
 .container{
   margin-top: 120px;
 }
+}
+
 
 .properties-layout-filter {
   display: flex;

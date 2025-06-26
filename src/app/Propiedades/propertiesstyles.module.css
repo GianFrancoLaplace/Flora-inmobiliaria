@@ -1,8 +1,10 @@
 /*@import url(../ui/fonts.ts);*/
 @import url(../ui/globals.css);
 
-.container-properties{
-margin-top: 120px;
+@media (max-width: 720px){
+.container{
+  margin-top: 120px;
+}
 }
 
 .properties-layout {
