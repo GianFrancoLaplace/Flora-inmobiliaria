@@ -6,7 +6,7 @@ import '../ui/fonts';
 import { cactus } from "../ui/fonts";
 import styles from "@/app/page.module.css";
 // import PropertyGrid from "@/components/CardsImages/PropertyImagesGrid";
-import UnifiedFilter from "../../components/FilterPropertiesAdmin/filterPropsAdmin";
+import UnifiedFilter from "../../components/FilterPropertiesAdmin/UnifiedFilter";
 
 
 export default function Properties() {

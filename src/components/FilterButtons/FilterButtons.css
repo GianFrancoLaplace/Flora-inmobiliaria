@@ -23,7 +23,7 @@
 .filter-container.show {
   display: flex;
   position: relative; /* Ya no absolute: ahora empuja el contenido hacia abajo */
-  background-color: #33322f;
+  background-color: var(--primary-color-4);
   padding: 1.5rem 1rem;
   border-radius: 10px;
   margin-bottom: 1rem;
@@ -50,7 +50,7 @@
 
 /* Botón de filtro con el diseño original */
 .filter-button {
-  background-color: #33322f;
+  background-color: var(--primary-color-5);
   color: #f1e9d2;
   padding: 0.8rem 1.2rem;
   border-radius: 10px;
