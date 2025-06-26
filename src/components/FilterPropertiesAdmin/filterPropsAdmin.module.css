@@ -116,10 +116,26 @@
 
   .filter-container.vertical {
     display: flex !important;
-    background-color: #f2f2f2;
-    padding: 2rem;
+    background-color: transparent; /* Fondo transparente en desktop */
+    padding: 0; /* Quitamos el padding del bloque gris */
     box-shadow: none;
     gap: 2rem;
-    align-items: center;
+    align-items: flex-start; /* Alinea todo a la izquierda */
+  }
+
+  .unified-filter-wrapper {
+    max-width: 100%;
+    margin: 0;
+    padding-left: 30px; /* margen izquierdo consistente */
+  }
+
+  .flex-col {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .filter-section-title {
+    text-align: left;
   }
 }
+
