@@ -6,13 +6,14 @@
     position: relative;
     align-content: center;
     background-position: center;
+    z-index: 1;
 }
 
 .backgroundNavProperties::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 1;
 }
 
@@ -24,8 +25,8 @@
     margin-top: 25px;
     color: var(--primary-color-1);
     font-weight: bold;
-    z-index: 2; /* <-- más alto que el del ::before */
-    position: relative; /* Necesario para que z-index funcione correctamente */
+    z-index: 2; 
+    position: relative; 
 }
 
 .h5Properties{
