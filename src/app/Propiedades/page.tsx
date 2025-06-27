@@ -58,7 +58,7 @@ export default function Properties() {
     }
 
     return (
-        <div className={"conteinerPropiedades"}>
+        <div className={styles["conteinerPropiedades"]}>
             <main>
                 <ContactInformation />
             </main>
