@@ -1,4 +1,4 @@
-.property-grid {
+.propertyGrid {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -26,9 +26,9 @@
     margin-top: 5%;
 }
 @media(min-width:641px) {
-    .property-grid {
+    .propertyGrid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+        grid-template-columns: repeat(2, minmax(330px, 1fr));
         row-gap: 50px;
         column-gap: 40px;
         padding: 20px;
@@ -57,6 +57,29 @@
      }
 
 
+
+
+}
+@media(min-width:1000px) {
+    .propertyGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+        row-gap: 50px;
+        column-gap: 40px;
+        padding: 20px;
+        justify-content: center;
+        align-items: start;
+
+        max-width: 1300px;
+        margin: 0px auto;
+    }
+
+    .cardAddress {
+        margin-top: 25px;
+        margin-bottom: 5px;
+        font-weight: lighter;
+        font-size: 18px;
+    }
 
 
 }
