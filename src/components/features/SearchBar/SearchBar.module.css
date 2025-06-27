@@ -20,47 +20,43 @@
 .buttonGroup {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    /*overflow: hidden;*/
     box-shadow: none; 
 }
 
 /* Botón individual - Mobile base */
 .button {
     margin: 5px auto;
-    background-color: rgb(253,255,226,0.7); /* 🚨 APROXIMADO - Aumenté opacidad para mobile */
-    border-radius: var(--radius-sm); /* 🚨 APROXIMADO - Era var(--radius-md), reduje */
+    background-color: rgb(253,255,226,0.7);
+    border-radius: var(--radius-sm);
     color: var(--secondary-color-1);
     border: none;
-    font-size: 0.875rem; /* 🚨 APROXIMADO - Era 18px, reduje para mobile */
-    padding: 0.5rem; /* 🚨 APROXIMADO - Agregué padding mobile */
+    font-size: 0.875rem;
+    padding: 0.5rem;
     cursor: pointer;
     transition: all var(--normal-transition);
     position: relative;
     outline: none;
-    width: 100%; /* 🚨 CAMBIO - Full width en mobile */
+    width: 100%;
     text-align: center;
 }
 
 .button:hover {
-    background-color: rgb(253,255,226,0.9); /* 🚨 APROXIMADO - Hover sutil en mobile */
+    /*background-color: rgb(255,235,0,0.9);*/
 }
 
 .button:active {
-    transform: scale(0.98); /* 🚨 CAMBIO - Feedback táctil para mobile */
+    transform: scale(0.98);
     transition: all var(--fast-transition);
 }
 
-.button:focus {
-    outline: 2px solid var(--primary-color-3); /* 🚨 APROXIMADO - Mejor accesibilidad */
-    outline-offset: 2px;
-}
 
 /* Modificador: Botón activo - Mobile optimizado */
 .buttonActive {
     font-weight: bold;
     background-color: var(--secondary-color-5);
     color: var(--primary-color-5);
-    transform: scale(1.02); /* 🚨 CAMBIO - Feedback visual en lugar de shadow */
+    transform: scale(1.02);
 }
 
 /* Contenedor de búsqueda - Mobile base */
@@ -75,7 +71,7 @@
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(-5px); /* 🚨 APROXIMADO - Reducido para mobile */
+        transform: translateY(-5px);
     }
     to {
         opacity: 1;
@@ -122,6 +118,7 @@
 @media (min-width: 1024px) {
     .searcher {
         max-width: 44rem; /* 702px */
+        padding: var(--space-sm) var(--space-md);
     }
 
     .button {
@@ -135,6 +132,7 @@
 
     .buttonGroup {
         box-shadow: var(--shadow-sm); /* Restaurar shadow en desktop */
+        gap: var(--space-md);
     }
 
     .searchContainer {

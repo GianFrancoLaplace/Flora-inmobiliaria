@@ -1,6 +1,6 @@
 // components/UnifiedFilter.tsx
 import { useState } from 'react';
-import styles from './FilterPropsAdmin.module.css';
+import styles from './filterPropsAdmin.module.css';
 import FiltroToggle from '../FilterButtons/FilterButtons';
 
 interface Props {
