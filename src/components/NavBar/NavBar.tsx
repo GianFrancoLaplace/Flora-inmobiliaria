@@ -39,8 +39,8 @@ export default function NavBar() {
                 <li><a href={"/QuieroVender"}>Quiero vender</a></li>
                 <li>
                     <a href={"/Login"}><Image src={'/icons/iconoUser.png'} alt={'minimalist user icon'} className={`${styles.iconoProperties}`}
-                    width={35}
-                    height={35}/>
+                    width={20}
+                    height={20}/>
                     </a>
                 </li>
             </ul>
