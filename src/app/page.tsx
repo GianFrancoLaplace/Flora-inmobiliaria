@@ -33,7 +33,7 @@ export default function Page() {
         "Campos",
     ];
     return (
-        <div className={`${styles.page} ${cactus.className}`}>
+        <div className={`${styles.page} ${cactus.className} ${styles.container}`}>
             <HomeF />
 
             <div className={styles.presentationProperties}>
@@ -48,7 +48,6 @@ export default function Page() {
                     <FilterGroup
                         title=""
                         filters={filtrosTipoPropiedad}
-                        direction="row"
                     />
                 </div>
 

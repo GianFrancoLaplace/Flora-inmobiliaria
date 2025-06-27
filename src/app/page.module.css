@@ -1,6 +1,5 @@
 
 
-
   .linkProperties {
     text-decoration: none;
   }
@@ -55,6 +54,13 @@
     width: 450px;
     background-color: var(--secondary-color-4);
   }
+
+  
+@media (max-width: 720px){
+  .container{
+  margin-top: 115px;
+}
+}
 
   /*TABLET*/
   @media (min-width: 768px) {

@@ -4,7 +4,7 @@ import ContactInformation from '@/components/features/ContactInformation/Contact
 import { useState } from 'react';
 import '../ui/fonts'
 import styles from './adminStyles.module.css';
-import UnifiedFilter from '@/components/FilterPropertiesAdmin/filterPropsAdmin';
+import UnifiedFilter from '@/components/FilterPropertiesAdmin/UnifiedFilter';
 
 
 export default function FichaPropiedad() {
@@ -27,7 +27,7 @@ export default function FichaPropiedad() {
   }
 
   return (
-    <div>
+    <div className={styles['container']}>
       <main>
         <ContactInformation />
       </main>

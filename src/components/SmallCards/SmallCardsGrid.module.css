@@ -1,4 +1,4 @@
-.property-grid {
+.propertyGrid {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -26,7 +26,7 @@
     margin-top: 5%;
 }
 @media(min-width:641px) {
-    .property-grid {
+    .propertyGrid {
         display: grid;
         grid-template-columns: repeat(2, minmax(330px, 1fr));
         row-gap: 50px;
@@ -61,7 +61,7 @@
 
 }
 @media(min-width:1000px) {
-    .property-grid {
+    .propertyGrid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
         row-gap: 50px;
@@ -74,7 +74,7 @@
         margin: 0px auto;
     }
 
-    .card__address {
+    .cardAddress {
         margin-top: 25px;
         margin-bottom: 5px;
         font-weight: lighter;

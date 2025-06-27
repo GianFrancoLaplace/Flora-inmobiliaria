@@ -1,16 +1,17 @@
-"use client";
+'use client';
 
 import React, { useState } from 'react';
 import FiltroToggle from './FilterButtons';
+import styles from './FilterButtons.module.css';
 
 interface Props {
   title: string;
   filters: string[];
-  direction?: 'row' | 'column';
 }
 
-const FilterGroup: React.FC<Props> = ({ title, filters, direction = 'row' }) => {
+const FilterGroup: React.FC<Props> = ({ title, filters }) => {
   const [activos, setActivos] = useState<string[]>([]);
+  const [showFilters, setShowFilters] = useState(false); // Estado para mobile
 
   const toggleFiltro = (label: string) => {
     setActivos((prev) =>
@@ -18,25 +19,18 @@ const FilterGroup: React.FC<Props> = ({ title, filters, direction = 'row' }) => 
     );
   };
 
-  const [showFilters, setShowFilters] = useState<boolean>(false);
-
-  const displayFilters = () => {
-    setShowFilters(prev => !prev);
-  };
-
   return (
-    <div className={`filter-group-wrapper`}>
-      {/* Botón hamburguesa (solo visible en mobile) */}
-      <button className="burger-button" onClick={displayFilters}>
+    <div className={styles['filter-group-wrapper']}>
+      {/* Botón burger para mobile */}
+      <button className={styles['burger-button']} onClick={() => setShowFilters((prev) => !prev)}>
         ☰ Filtrar
       </button>
-
-      <div
-        className={`filter-container ${direction === 'column' ? 'flex-col' : 'flex-row'} ${showFilters ? 'show' : ''}`}
-        style={{ marginBottom: '1rem' }}
-      >
-        <h3 style={{ marginBottom: '0.5rem' }}>{title}</h3>
-
+      
+      {/* Título para desktop */}
+      <h3 className={styles['filter-group-title']}>{title}</h3>
+      
+      {/* Container de filtros con lógica show/hide */}
+      <div className={`${styles['filter-container']} ${showFilters ? styles['show'] : ''}`}>
         {filters.map((item) => (
           <FiltroToggle
             key={item}
