@@ -4,8 +4,7 @@
 @media(min-width:641px){
   .properties-layout {
     display: flex;
-    flex-direction: column;
-     gap: 2rem;
+   gap: 2rem;
     min-height: calc(100vh - 200px);
     padding: 0px;
     margin: 0px;
@@ -208,30 +207,4 @@
     height: 16px;
     object-fit: contain;
   }
-}
-@media (min-width: 1000px) {
-  .properties-layout {
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
-    min-height: calc(100vh - 200px);
-    padding: 0px;
-    margin: 0px;
-  }
-
-  /* Columna izquierda - filtros */
-  .properties-layout__filters {
-    flex: 1 1 25%;
-    max-width: 25%;
-  }
-
-  /* Columna derecha - cards */
-  .properties-layout__main-content {
-    flex: 1 1 75%;
-    max-width: 75%;
-    padding-right: 2rem;
-    box-sizing: border-box;
-  }
-
-
 }

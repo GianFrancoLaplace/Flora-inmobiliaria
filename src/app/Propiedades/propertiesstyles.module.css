@@ -1,0 +1,44 @@
+/*@import url(../ui/fonts.ts);*/
+@import url(../ui/globals.css);
+
+.properties-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  min-height: calc(100vh - 200px);
+  padding: 0px;
+  margin: 0px;
+}
+
+/* Columna izquierda - filtros */
+.properties-layout__filters {
+  flex: 1 1 25%;
+  max-width: 25%;
+}
+
+/* Columna derecha - cards */
+.properties-layout__main-content {
+  flex: 1 1 75%;
+  max-width: 75%;
+  padding-right: 2rem;
+  box-sizing: border-box;
+}
+
+/* En mobile: apilar verticalmente */
+@media (max-width: 900px) {
+  .properties-layout {
+    flex-direction: column;
+  }
+
+  .properties-layout__filters,
+  .properties-layout__main-content {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .properties-layout__main-content {
+    padding-right: 0;
+  }
+}
+
+
