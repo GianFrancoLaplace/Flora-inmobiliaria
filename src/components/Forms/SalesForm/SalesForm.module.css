@@ -4,7 +4,9 @@
     justify-content: center;
     align-items: center;
     color: var(--secondary-color-1);
-    /*text-align: center;*/
+    min-height: calc(100vh - 150px); /*Ancho del nav: 150px */
+    padding-top: 150px;
+    position: relative;
 }
 
 .titleProperties {
