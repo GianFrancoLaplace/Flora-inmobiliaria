@@ -1,13 +1,14 @@
 .card {
     position: relative;
-    width: 330px;
+    width: 100%;
     height: 422px;
     overflow: hidden;
     background-color: #e5e7eb;
-    justify-content: left;
-    text-align: left;
-}
+    justify-content: center;
+    text-align: center;
+    Column-gap : 1rem;
 
+}
 .card__image {
     object-fit: cover;
 }
@@ -22,22 +23,38 @@
     color: white;
     transition: background-color 0.3s ease;
 }
-
 .card:hover .card__overlay {
     background-color: rgba(26, 26, 25, 0.95);
 }
-
 .card__price-status {
     margin-bottom: 0.25rem;
 }
-
 .card__address {
-    margin-top: 25px;
+    margin-top: 40px;
     margin-bottom: 5px;
     font-weight: lighter;
     font-size: 18px;
 }
-
 .card__features {
     color: #d1d5db;
+}
+@media(min-width:641px) {
+    .card {
+        position: relative;
+        width: 330px;
+        height: 422px;
+        overflow: hidden;
+        background-color: #e5e7eb;
+        justify-content: left;
+        text-align: left;
+    }
+
+    .card__address {
+        margin-top: 25px;
+        margin-bottom: 5px;
+        font-weight: lighter;
+        font-size: 18px;
+    }
+
+
 }

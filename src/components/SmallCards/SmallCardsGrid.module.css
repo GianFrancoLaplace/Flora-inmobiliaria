@@ -1,44 +1,62 @@
 .property-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-    row-gap: 50px;
-    column-gap: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     padding: 20px;
     justify-content: center;
     align-items: start;
-
-    max-width: 1300px;
-    margin: 0px auto;
+    margin: 20px;
 }
-
-.cardsProperties{
-    display: flex;
-    flex-direction: column;
-}
-
-.linkProperties{
-    text-decoration: none;
-}
-
 .allPropertiesBtn{
     width: 450px;
     background-color: var(--secondary-color-4);
     margin-bottom: 5%;
 }
-
-.messageBtn {
-    width: 265px;
-    background-color: var(--primary-color-1);
- }
-
-.messageButtonProperties{
-    margin-top: 5%;
+.linkProperties{
+    text-decoration: none;
 }
-
 .viewButton{
     visibility: visible;
 }
 
 .notViewButton{
     visibility: hidden;
+}
+.messageButtonProperties{
+    margin-top: 5%;
+}
+@media(min-width:641px) {
+    .property-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+        row-gap: 50px;
+        column-gap: 40px;
+        padding: 20px;
+        justify-content: center;
+        align-items: start;
+
+        max-width: 1300px;
+        margin: 0px auto;
+    }
+
+    .cardsProperties{
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .allPropertiesBtn{
+        width: 450px;
+        background-color: var(--secondary-color-4);
+        margin-bottom: 5%;
+    }
+
+    .messageBtn {
+        width: 265px;
+        background-color: var(--primary-color-1);
+     }
+
+
+
+
 }

@@ -1,0 +1,119 @@
+@import url('../../app/globals.css');
+.filter-group-wrapper {
+  width: 100%;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.filter-group-title {
+  margin-bottom: 0.8rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #33322f;
+  text-align: center;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+/* Botón burger - oculto en desktop */
+.burger-button {
+  display: none;
+}
+
+/* En mobile: comportamiento similar al UnifiedFilter */
+@media (max-width: 999px) {
+  /* Mostrar botón burger en mobile */
+  .burger-button {
+    display: block;
+    background-color: var(--secondary-color-5, #f0c040);
+    color: #333;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    z-index: 1000;
+    align-self: center;
+    margin-bottom: 1rem;
+  }
+
+  /* Ocultar título en mobile */
+  .filter-group-title {
+    display: none;
+  }
+
+  /* Filtros ocultos por defecto en mobile */
+  .filter-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: var(--primary-color-4);
+    padding: 1.5rem 1rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Mostrar filtros cuando se activa el toggle */
+  .filter-container.show {
+    display: flex;
+  }
+}
+
+.filter-button {
+  background-color: var(--primary-color-5);
+  color: #f1e9d2;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  justify-content: space-between;
+  transition: background-color 0.3s ease;
+  user-select: none;
+  border: none;
+  font-size: 1rem;
+  width: 240px;
+  box-sizing: border-box;
+}
+
+.filter-button:hover {
+  background-color: #44423e;
+}
+
+.toggle {
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 999px;
+  position: relative;
+  transition: background-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.toggle-circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--primary-color-3, gray);
+  position: absolute;
+  top: 3px;
+  left: 2px;
+  transition: left 0.3s ease, background-color 0.3s ease;
+}
+
+.active .toggle-circle {
+  left: 24px;
+  background-color: var(--secondary-color-5, gold);
+}
