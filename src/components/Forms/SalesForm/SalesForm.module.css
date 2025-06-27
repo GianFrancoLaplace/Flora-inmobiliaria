@@ -1,3 +1,10 @@
+@media (max-width: 720px){
+.container{
+    margin-top: 115px;
+}
+}
+
+
 .page{
     display: flex;
     flex-direction: column;

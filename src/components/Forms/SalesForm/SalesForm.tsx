@@ -3,9 +3,9 @@ import {cactus} from "@/app/ui/fonts";
 
 export default function SalesForm() {
     return (
-        <main className={styles.page}>
+        <main className={`${styles.page} ${styles.container}`}>
             <div className={styles.titleProperties}>
-                <h2>Vende tu propiedad</h2>
+                <h2>Vendé tu propiedad</h2>
                 <h6>Completá el formulario con tus datos y nos contactaremos a la brevedad para continuar con el proceso</h6>
             </div>
             <div className={styles.loginContainer}>
