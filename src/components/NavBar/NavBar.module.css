@@ -77,22 +77,23 @@
     visibility: hidden;
 }
 @media (max-width: 768px) {
-    .navProperties{
+      .navProperties{
         flex-direction: column;
         gap: 1px;
         background: linear-gradient(
             to bottom,
-            #2d2d2d 0%,
-            #1a1a1a 100%
+            rgba(45, 45, 45, 1) 0%,      /* 100% opacidad arriba */
+            rgba(45, 45, 45, 0.8) 40%,   /* 80% opacidad más arriba */
+            rgba(45, 45, 45, 0.3) 70%,   /* 30% opacidad */
+            rgba(45, 45, 45, 0) 85%      /* Transparente antes del final */
         );
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        height: auto; /* Permitir altura automática */
-        padding-bottom: 10px; /* Espacio inferior mínimo */
-        position: fixed; /* Fijo en la parte superior */
+        height: auto;
+        padding-bottom: 30px; /* Más espacio para el degradado */
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        z-index: 10000; /* Por encima de todo */
+        z-index: 10000;
     }
     
     .btnBurgerProperties{

@@ -1,11 +1,10 @@
 'use client';
 import ContactInformation from "@/components/features/ContactInformation/ContactInformation"
-import filterstyles from './propertiesstyles.module.css';
+import styles from './propertiesstyles.module.css';
 import { useState } from "react";
 import '../ui/fonts';
-import styles from "@/app/page.module.css";
-import UnifiedFilter from "../../components/FilterPropertiesAdmin/UnifiedFilter";
 import PropertyGrid from "@/components/SmallCards/SmallCardsGrid";
+import UnifiedFilter from "../../components/FilterPropertiesAdmin/UnifiedFilter";
 
 
 export default function Properties() {
@@ -59,14 +58,14 @@ export default function Properties() {
     }
 
     return (
-        <div className={filterstyles["container-properties"]}>
+        <div className={styles["conteinerPropiedades"]}>
             <main>
                 <ContactInformation />
             </main>
             <br />
-            <div className={filterstyles['properties-layout']}>
+            <div className={styles['properties-layout']}>
 
-                <div className={filterstyles['properties-layout-filter']}>
+                <div className={styles['properties-layout-filter']}>
                     <UnifiedFilter
                         maxValue={maxValue}
                         onMaxValueChange={handleMaxValueChange}
@@ -76,7 +75,7 @@ export default function Properties() {
 
                 </div>
 
-                <div className={styles['properties-layout__main-content']}>
+                 <div className={styles['properties-layout__main-content']}>
                     <PropertyGrid properties={loadImages} />
                 </div>
             </div>

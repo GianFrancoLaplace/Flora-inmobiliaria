@@ -9,11 +9,11 @@
     Column-gap : 1rem;
 
 }
-.card__image {
+.cardImage {
     object-fit: cover;
 }
 
-.card__overlay {
+.cardOverlay {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -23,19 +23,19 @@
     color: white;
     transition: background-color 0.3s ease;
 }
-.card:hover .card__overlay {
+.card:hover .cardOverlay {
     background-color: rgba(26, 26, 25, 0.95);
 }
-.card__price-status {
+.cardPriceStatus {
     margin-bottom: 0.25rem;
 }
-.card__address {
+.cardAddress {
     margin-top: 40px;
     margin-bottom: 5px;
     font-weight: lighter;
     font-size: 18px;
 }
-.card__features {
+.cardFeatures {
     color: #d1d5db;
 }
 @media(min-width:641px) {
@@ -49,7 +49,7 @@
         text-align: left;
     }
 
-    .card__address {
+    .cardAddress {
         margin-top: 25px;
         margin-bottom: 5px;
         font-weight: lighter;

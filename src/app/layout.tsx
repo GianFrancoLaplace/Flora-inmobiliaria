@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./ui/globals.css";
+import './ui/globals.css';
 import {cactus} from "@/app/ui/fonts";
 import NavBar from "@/components/NavBar/NavBar";
 import Footer from "@/components/Footer/Footer";

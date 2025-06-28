@@ -32,20 +32,20 @@ const SmallCard = ({ property }: PropertyCardProps) => {
                 src={property.imageUrl}
                 alt={`Imagen de la propiedad en ${property.address}`}
                 fill
-                className={styles.card__image}
+                className={styles.cardImage}
             />
             </Link>
-            <div className={styles.card__overlay}>
-                <h3 className={styles['card__price-status']}>
+            <div className={styles.cardOverlay}>
+                <h3 className={styles['cardPriceStatus']}>
                     USD {formattedPrice} | {property.rentOrSale}
                 </h3>
-                <h5 className={styles.card__address}>
+                <h5 className={styles.cardAddress}>
                     {property.address}, {property.city}
                 </h5>
-                <h6 className={styles.card__features}>
+                <h6 className={styles.cardFeatures}>
                     {property.features.rooms} ambientes
                 </h6>
-                <h6 className={styles.card__features}>
+                <h6 className={styles.cardFeatures}>
                     {property.features.bedrooms} dormitorios | {property.features.bathrooms} baños
                 </h6>
             </div>
