@@ -3,7 +3,7 @@ import {cactus} from "@/app/ui/fonts";
 
 export default function SalesForm() {
     return (
-        <main className={styles.page}>
+        <section className={styles.page}>
             <div className={styles.titleProperties}>
                 <h2>Vende tu propiedad</h2>
                 <h6>Completá el formulario con tus datos y nos contactaremos a la brevedad para continuar con el proceso</h6>
@@ -63,6 +63,6 @@ export default function SalesForm() {
                     <button type="submit" className={`${styles.loginBtn} ${cactus.className}`}>Enviar propuesta</button>
                 </form>
             </div>
-        </main>
+        </section>
     )
 }

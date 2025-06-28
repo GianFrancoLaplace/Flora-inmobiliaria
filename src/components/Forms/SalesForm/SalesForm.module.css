@@ -4,8 +4,8 @@
     justify-content: center;
     align-items: center;
     color: var(--secondary-color-1);
-    min-height: calc(100vh - 150px); /*Ancho del nav: 150px */
-    padding-top: 150px;
+    min-height: calc(100vh - 120px); /* Ancho del nav en mobile: 120px */
+    margin-top: 120px;
     position: relative;
 }
 

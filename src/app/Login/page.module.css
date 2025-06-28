@@ -1,5 +1,6 @@
 .page{
     background-color: var(--secondary-color-4);
+
 }
 
 .formContainerProperties{
@@ -10,4 +11,7 @@
     justify-content: center;
     align-items: center;
     background-image: url("/backgrounds/quieroVenderBackground.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
