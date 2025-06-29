@@ -27,7 +27,7 @@ export default function LoginForm() {
                         className={styles.input}
                     />
                 </div>
-                <Link href={"/Administration"} className={styles.linkProperties}>
+                <Link href={"/Administracion"} className={styles.linkProperties}>
                     <button type="submit" className={`${styles.loginBtn} ${cactus.className}`}>Iniciar sesión</button>
                 </Link>
 

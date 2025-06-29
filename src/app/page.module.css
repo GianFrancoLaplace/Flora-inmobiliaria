@@ -1,15 +1,13 @@
-
-
-  .linkProperties {
+.linkProperties {
     text-decoration: none;
   }
 
-  .filter-menu__title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: #1f2937;
-  }
+.filter-menu__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+}
 
   .filter-menu__option {
     display: flex;
