@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-import { cactus } from "@/app/ui/fonts";
+import { cactus } from "@/app/(views)/ui/fonts";
 import HomeF from "@/components/Home/Home";
 import FilterGroup from "@/components/FilterButtons/FilterGroup";
 import BigCardsGrid from "@/components/BigCards/BigCardsGrid";

@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './NavBar.module.css'
-import {cactus} from "@/app/ui/fonts";
+import {cactus} from "@/app/(views)/ui/fonts";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from 'react';

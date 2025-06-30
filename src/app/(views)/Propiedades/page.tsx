@@ -4,7 +4,7 @@ import styles from './propertiesstyles.module.css';
 import { useState } from "react";
 import '../ui/fonts';
 import PropertyGrid from "@/components/SmallCards/SmallCardsGrid";
-import UnifiedFilter from "../../components/FilterPropertiesAdmin/UnifiedFilter";
+import UnifiedFilter from "../../../components/FilterPropertiesAdmin/UnifiedFilter";
 
 
 export default function Properties() {

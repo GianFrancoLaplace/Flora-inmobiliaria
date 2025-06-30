@@ -1,5 +1,5 @@
 import styles from './BigCard.module.css'
-import {cactus} from "@/app/ui/fonts";
+import {cactus} from "@/app/(views)/ui/fonts";
 import BigCard from "@/components/BigCards/BigCard";
 
 export default function BigCardsGrid() {
