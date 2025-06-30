@@ -9,13 +9,11 @@ export async function GET(
     try {
         const { id } = params;
         
-        // Convierte a número si tu ID es numérico
         const propertyId = parseInt(id);
         
-        // Si tu ID es string, usa directamente: id
         const propiedad = await prisma.property.findUnique({
             where: {
-                id_property: propertyId // o id: id si es string
+                id_property: propertyId 
             }
         });
 
