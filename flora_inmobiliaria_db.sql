@@ -157,9 +157,8 @@ ALTER TABLE ONLY public.property ALTER COLUMN id_property SET DEFAULT nextval('p
 -- Data for Name: admin; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.admin (id_admin, admin_email, admin_password) FROM stdin;
-1	admin@inmobiliaria.com	password123
-\.
+INSERT INTO public.admin (id_admin, admin_email, admin_password) VALUES
+(1, 'admin@inmobiliaria.com', 'password123');
 
 
 --
@@ -168,13 +167,12 @@ COPY public.admin (id_admin, admin_email, admin_password) FROM stdin;
 -- Data for Name: property; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.property (id_property, direction, description, price, property_type_id_property_type, categoria_id_category, characteristics) FROM stdin;
-1	Av. Libertador 1234, San Isidro	Casa familiar con jardín amplio	285000	casa	venta	\N
-2	Gorriti 4567, Palermo	Departamento moderno 2 ambientes	120000	departamento	alquiler	\N
-3	Ruta Provincial 41 Km 15, Chascomús	Campo de 5 hectáreas con casa	450000	campo	venta	\N
-4	Los Jazmines 890, Pilar	Duplex en barrio cerrado	195000	duplex	venta	\N
-5	San Martín 2234, Tandil	Local comercial céntrico	85000	local_comercial	alquiler	\N
-\.
+INSERT INTO public.property (id_property, direction, description, price, property_type_id_property_type, categoria_id_category, characteristics) VALUES
+(1, 'Av. Libertador 1234, San Isidro', 'Casa familiar con jardín amplio', 285000, 'casa', 'venta', NULL),
+(2, 'Gorriti 4567, Palermo', 'Departamento moderno 2 ambientes', 120000, 'departamento', 'alquiler', NULL),
+(3, 'Ruta Provincial 41 Km 15, Chascomús', 'Campo de 5 hectáreas con casa', 450000, 'campo', 'venta', NULL),
+(4, 'Los Jazmines 890, Pilar', 'Duplex en barrio cerrado', 195000, 'duplex', 'venta', NULL),
+(5, 'San Martín 2234, Tandil', 'Local comercial céntrico', 85000, 'local_comercial', 'alquiler', NULL);
 
 
 --
