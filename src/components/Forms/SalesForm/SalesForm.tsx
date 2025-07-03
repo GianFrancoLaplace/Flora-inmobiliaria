@@ -1,5 +1,5 @@
 import styles from "@/components/Forms/SalesForm/SalesForm.module.css";
-import {cactus} from "@/app/ui/fonts";
+import {cactus} from "@/app/(views)/ui/fonts";
 
 export default function SalesForm() {
     return (

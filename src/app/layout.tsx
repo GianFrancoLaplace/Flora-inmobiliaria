@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import './ui/globals.css';
-import {cactus} from "@/app/ui/fonts";
+import './(views)/ui/globals.css';
+import {cactus} from "@/app/(views)/ui/fonts";
 import NavBar from "@/components/NavBar/NavBar";
 import Footer from "@/components/Footer/Footer";
 import WhatsAppRedirection from "@/components/WhatsAppRedirection/WhatsAppRedirection";

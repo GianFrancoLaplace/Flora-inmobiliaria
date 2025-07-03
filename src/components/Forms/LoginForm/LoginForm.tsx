@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './LoginForm.module.css';
-import { cactus } from "@/app/ui/fonts";
+import { cactus } from "@/app/(views)/ui/fonts";
 import { useActionState } from 'react'; // 1. Importa el hook para manejar el estado de la acción
 import { authenticate } from '@/lib/actions'; // 2. Importa tu Server Action (asegúrate de que la ruta sea correcta)
 

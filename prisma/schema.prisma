@@ -32,7 +32,6 @@ enum OperationEnum {
   @@map("operation_enum")
 }
 
-// Modelo Property (exacto como tu DER)
 model Property {
   id_property                    Int              @id @default(autoincrement())
   direction                      String?          @db.Text
@@ -44,7 +43,6 @@ model Property {
   @@map("property")
 }
 
-// Modelo Admin (simple)
 model Admin {
   id_admin       Int    @id @default(autoincrement())
   admin_email    String @db.VarChar(255)

@@ -1,6 +1,6 @@
 import SalesForm from '@/components/Forms/SalesForm/SalesForm'
-import styles from "@/app/QuieroVender/page.module.css";
-import {cactus} from "@/app/public/ui/fonts";
+import styles from "./page.module.css";
+import {cactus} from "../ui/fonts";
 
 export default function Venta() {
     return (

@@ -1,6 +1,6 @@
 "use client"
 import styles from "@/components/Administracion/Administration.module.css";
-import { cactus } from "@/app/ui/fonts";
+import { cactus } from "@/app/(views)/ui/fonts";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -83,7 +83,7 @@ export default function Administration() {
         <div>
             <div className={`${styles.sectionProperties} ${cactus.className}`}>
                 <div>
-                    <Link href={'/Administration/FichaVacia'} className={styles.linkProperties}>
+                    <Link href={'/Administracion/EmptySheet'} className={styles.linkProperties}>
                         <button className={`${styles.buttonNewPublication} ${cactus.className}`}>Crear publicación</button>
                     </Link>
                     <button className={`${styles.showInactivePublication} ${cactus.className}`}>Ver publicaciones inactivas</button>
@@ -102,7 +102,7 @@ export default function Administration() {
                             />
                         </div>
 
-                        <Link href="/Propiedades/Ficha" className={styles.linkProperties}>
+                        <Link href="/Propiedades/Sheet" className={styles.linkProperties}>
                             <div className={`${styles.infoProperties} ${cactus.className}`}>
                                 <div className={styles.priceProperties}>
                                     <h5>{prop.precio}</h5>
@@ -116,7 +116,7 @@ export default function Administration() {
 
                         <div className={styles.buttonsProperties}>
                             <button
-                                onClick={() => (window.location.href = "/Administration/EditableSheet")}
+                                onClick={() => (window.location.href = "/Administracion/EditableSheet")}
                                 type="button"
                             >
                                 <Image
@@ -134,7 +134,7 @@ export default function Administration() {
                                 type="button"
                             >
                                 <Image
-                                    src="/icons/iconoDelete.png"
+                                    src="/icons/deleteIcon.png"
                                     alt="Eliminar"
                                     width={25}
                                     height={25}

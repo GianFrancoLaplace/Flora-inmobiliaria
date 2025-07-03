@@ -4,7 +4,7 @@ import DataCard from '@/components/features/DataCard/DataCard'
 import Item from '@/components/TechnicalFile/PropertiesItem'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
-import { cactus } from "@/app/ui/fonts";
+import { cactus } from "@/app/(views)/ui/fonts";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 
@@ -20,8 +20,8 @@ export default function Ficha() {
         ficha: ''
     });
     const pathname = usePathname();
-    const isEmptyFile = pathname === '/Administration/FichaVacia';
-    const isEditableFile = pathname === '/Administration/EditableSheet'
+    const isEmptyFile = pathname === '/Administracion/EmptySheet';
+    const isEditableFile = pathname === '/Administracion/EditableSheet'
 
     const manejarCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
