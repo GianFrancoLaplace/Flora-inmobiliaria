@@ -1,7 +1,7 @@
 import { PropertyTypeEnum, OperationEnum, Prisma } from '@prisma/client';
 
 export class PropertyService {
-  private rawTipos: string[] | undefined;
+  private rawTipos: string[] | undefined; //defino mis array de operaciones y tipos para los filtros
   private rawOperaciones: string[] | undefined;
 
   constructor(tipos: string[] | undefined, operaciones: string[] | undefined) {
@@ -23,8 +23,8 @@ export class PropertyService {
     return this.rawOperaciones.filter(op => this.isValidEnumValue(op, OperationEnum)) as OperationEnum[];
   }
 
-  public buildWhereClause(): Prisma.PropertyWhereInput {
-    const tipos = this.parseTipos();
+  public buildWhereClause(): Prisma.PropertyWhereInput { //construyo clausula where por si hay filtros, si los hay los devuelve y sino
+    const tipos = this.parseTipos();                     // un where vacio para que obtenga todas las propiedades
     const operaciones = this.parseOperaciones();
 
     const filters: Prisma.PropertyWhereInput = {};
