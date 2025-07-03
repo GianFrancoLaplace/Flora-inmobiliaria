@@ -22,9 +22,7 @@
 .notViewButton{
     visibility: hidden;
 }
-.messageButtonProperties{
-    margin-top: 5%;
-}
+
 @media(min-width:641px) {
     .propertyGrid {
         display: grid;
