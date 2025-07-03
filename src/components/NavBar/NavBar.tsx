@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { signOut } from '@/auth';
 export default function NavBar() {
     const pathname = usePathname();
     const isHome = pathname === '/';
@@ -43,6 +44,7 @@ export default function NavBar() {
                     height={20}/>
                     </a>
                 </li>
+
             </ul>
         </nav>
     );
