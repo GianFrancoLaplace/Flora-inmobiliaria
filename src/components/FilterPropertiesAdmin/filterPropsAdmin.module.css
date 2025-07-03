@@ -137,7 +137,7 @@
   }
 
   .flex-col {
-    align-items: flex-start;
+    align-items: start;
     width: 100%;
   }
 
