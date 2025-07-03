@@ -38,6 +38,8 @@
     position: relative;
     outline: none;
     width: 100%;
+    height: fit-content;
+    line-height: 1;
     text-align: center;
 }
 
@@ -95,6 +97,9 @@
         flex: 1; /* 🚨 CAMBIO - Distribuir espacio equitativamente */
         text-wrap: nowrap;
         font-size: 16px;
+        height: fit-content;
+        line-height: 1;
+        padding: 0.5rem;
     }
 
     .searchContainer {
@@ -110,7 +115,10 @@
 
     .button {
         font-size: 17px;
-        padding: var(--space-md) var(--space-lg)
+        padding: var(--space-md) var(--space-lg);
+        height: fit-content;
+        line-height: 1;
+        padding: 0.8rem;
     }
 }
 
@@ -124,6 +132,9 @@
     .button {
         font-size: 18px; /* Restaurar tamaño original */
         padding: var(--space-md) var(--space-xl);
+        height: fit-content;
+        line-height: 1;
+        padding: 0.8rem;
     }
 
     .input {
