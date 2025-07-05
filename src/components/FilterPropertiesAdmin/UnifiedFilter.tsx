@@ -2,9 +2,8 @@
 import { useState } from 'react';
 import styles from './FilterPropsAdmin.module.css';
 import FiltroToggle from '../FilterButtons/FilterButtons';
-import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-
+import { useRouter, usePathname } from 'next/navigation';
 
 interface Props {
   maxValue: string;
@@ -33,7 +32,9 @@ const UnifiedFilter: React.FC<Props> = ({
     );
   };
 
+
 const router = useRouter();
+const pathname = usePathname();
 
 useEffect(() => {
   const mapOperacion: Record<string, string> = {
@@ -65,9 +66,9 @@ useEffect(() => {
     params.set('maxValue', maxValue);
   }
 
-  router.push(`/Propiedades?${params.toString()}`);
+  // ✅ Redirige a la página actual con filtros aplicados
+  router.push(`${pathname}?${params.toString()}`);
 }, [activosOperacion, activosPropiedad, maxValue]);
-
 
   return (
     <div className={styles['unified-filter-wrapper']}>
