@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import styles from './FilterPropsAdmin.module.css';
 import FiltroToggle from '../FilterButtons/FilterButtons';
+import { useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 
 interface Props {
   maxValue: string;
@@ -29,6 +31,44 @@ const UnifiedFilter: React.FC<Props> = ({
       prev.includes(label) ? prev.filter((x) => x !== label) : [...prev, label]
     );
   };
+
+
+const router = useRouter();
+const pathname = usePathname();
+
+useEffect(() => {
+  const mapOperacion: Record<string, string> = {
+    "Quiero comprar": "VENTA",
+    "Quiero alquilar": "ALQUILER"
+  };
+
+  const mapPropiedad: Record<string, string> = {
+    "Casas": "Casa",
+    "Departamentos": "Departamento",
+    "Locales": "Local",
+    "Lotes": "Lote",
+    "Campos": "Campo"
+  };
+
+  const operacionValues = activosOperacion.map(op => mapOperacion[op]).filter(Boolean);
+  const tipoValues = activosPropiedad.map(tp => mapPropiedad[tp]).filter(Boolean);
+
+  const params = new URLSearchParams();
+
+  if (operacionValues.length > 0) {
+    params.set('operacion', operacionValues.join(','));
+  }
+  if (tipoValues.length > 0) {
+    params.set('tipo', tipoValues.join(','));
+  }
+
+  if (maxValue) {
+    params.set('maxValue', maxValue);
+  }
+
+  // ✅ Redirige a la página actual con filtros aplicados
+  router.push(`${pathname}?${params.toString()}`);
+}, [activosOperacion, activosPropiedad, maxValue]);
 
   return (
     <div className={styles['unified-filter-wrapper']}>

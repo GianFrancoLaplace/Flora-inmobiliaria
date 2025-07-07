@@ -20,8 +20,8 @@ export default function Ficha() {
         ficha: ''
     });
     const pathname = usePathname();
-    const isEmptyFile = pathname === '/Administracion/EmptySheet';
-    const isEditableFile = pathname === '/Administracion/EditableSheet'
+    const isEmptyFile = pathname === '/administracion/fichavacia';
+    const isEditableFile = pathname === '/administracion/fichaeditable'
 
     const manejarCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
