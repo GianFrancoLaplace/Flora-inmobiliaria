@@ -1,14 +1,17 @@
 .page{
-    background-color: var(--primary-color-1);
-    color: var(--primary-color-5);
-    width: 100%;
     position: relative;
     z-index: 10;
+
+    width: 100%;
+
+    background-color: var(--primary-color-1);
+    color: var(--primary-color-5);
 }
 .mapaInteractivo{
     display: flex;
     justify-content: center;
     align-items: center;
+
     margin: 40px 0;
     padding: 20px 0;
 }
@@ -21,8 +24,10 @@
 .mainAdressProperties{
     display: flex;
     flex-direction: row;
+
     margin-top: 20px;
     margin-bottom: 20px;
+
     box-sizing: border-box;
 }
 
@@ -58,37 +63,36 @@
 .mainInfo{
     display: flex;
     flex-direction: row;
+
     gap: 70%;
     white-space: nowrap;
 }
 
-/*.operationProperties{
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    margin-left: 15px;
-}*/
-
 .mainInfoH1{
     display: flex;
     flex-direction: row;
+
     gap: 10px;
     margin-left: 20px;
 }
 
 .askBtn{
     width: 340px;
+
     background-color: var(--secondary-color-4);
 }
 
 .cityProperties{
-    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: left;
-    color: var(--secondary-color-5);
+
+    width: 100%;
+
     margin-inline: 40px;
     margin-top: 10px;
+
+    color: var(--secondary-color-5);
     white-space: nowrap;
 }
 
@@ -96,6 +100,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+
     margin-top: 20px;
     margin-left: 20px;
 }
@@ -108,6 +113,7 @@
     display: flex;
     flex-direction: column;
     text-align: justify;
+
     width: 880px;
     margin: 30px;
     margin-inline: 40px;
@@ -121,8 +127,11 @@
 .titleProperties{
     display: flex;
     flex-direction: row;
-    gap: 10px;
+
     height: 40px;
+
+    gap: 10px;
+
     border-bottom: 1px solid var(--primary-color-5);
 }
 
@@ -135,14 +144,16 @@
 .sectionProperties{
     display: flex;
     flex-direction: column;
-    width: 45%;
     justify-content: left;
     text-align: left;
+
+    width: 45%;
 }
 
 .itemProperties{
     display: flex;
     flex-direction: row;
+
     width: 100%;
 }
 
@@ -150,54 +161,66 @@
     margin-left: 30px;
 }
 
-/*PROPERTIE´S EMPTY FILE*/
 
+
+
+/*properties for empty sheet*/
 .showProperties{
     visibility: visible;
 }
 
 .notShowProperties{
     visibility: hidden;
+    position: absolute;
+
     width: 0;
+    height: 0;
+
     padding: 0;
     margin: 0;
-    height: 0;
-    position: absolute;
 }
 
 .adressProperties{
     display: flex;
     flex-direction: row;
     white-space: nowrap;
-    border-bottom: #0a0a0a 1px solid;
+
     margin-left: 10px;
     gap: 10%;
+
+    border-bottom: #0a0a0a 1px solid;
 }
 
 .mainAdressProperties button, .editButtonProperties{
+    padding-bottom: 20px;
+
     background-color: transparent;
     border: none;
     box-shadow: none;
+
     cursor: pointer;
-    padding-bottom: 20px;
 }
 
 #imageIconoEditPhoto{
     display: flex;
     position: relative;
+
     margin-top: 35%;
     margin-right: 3%;
 }
 
 .cityProperties{
-    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: left;
-    color: var(--secondary-color-5);
+    white-space: nowrap;
+
+    width: 100%;
+
     margin-inline: 40px;
     margin-top: 10px;
-    white-space: nowrap;
+
+    color: var(--secondary-color-5);
 }
 
 .cityProperties button{
@@ -205,28 +228,34 @@
 }
 
 .mainInfoPrice{
+    width: fit-content;
+
     margin-left: 34px;
     margin-top: 20px;
-    width: fit-content;
 }
 
 .priceEditionProperties{
     display: flex;
     flex-direction: row;
+
     gap: 10px;
 }
 
 .editProperties{
     display: flex;
     flex-direction: row;
+
     width: min-content;
+
     gap: 20px;
 }
 
 .ubicationEditProperties{
     display: flex;
     flex-direction: row;
+
     width: min-content;
+
     gap: 20px;
 }
 
