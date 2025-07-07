@@ -71,34 +71,34 @@ useEffect(() => {
 }, [activosOperacion, activosPropiedad, maxValue]);
 
   return (
-    <div className={styles['unified-filter-wrapper']}>
-      <button className={styles['burger-button']} onClick={() => setShowFilters((prev) => !prev)}>
+    <div className={styles.unifiedFilterWrapper}>
+      <button className={styles.burgerButton} onClick={() => setShowFilters((prev) => !prev)}>
         ☰ Filtrar
       </button>
 
-      <div className={`${styles['filter-container']} ${styles['vertical']} ${showFilters ? styles['show'] : ''}`}>
+      <div className={`${styles.filterContainer} ${styles.vertical} ${showFilters ? styles.show : ''}`}>
         {/* Input valor máximo */}
-        <div className={styles['flex-col']}>
-          <label htmlFor="maxValueInput" className={styles['filter-section-title']}>
+        <div className={styles.flexCol}>
+          <label htmlFor="maxValueInput" className={styles.filterSectionTitle}>
             Valor máximo
           </label>
-          <div className={styles['input-with-search-container']}>
+          <div className={styles.inputWithSearchContainer}>
             <input
               id="maxValueInput"
               type="number"
-              className={styles['max-value-input']}
+              className={styles.maxValueInput}
               placeholder="Escribe el valor máximo"
               value={maxValue}
               onChange={onMaxValueChange}
             />
-            <button className={styles['search-button']} type="button">
-              <img src="/icons/search.png" alt="Buscar" className={styles['search-icon']} />
+            <button className={styles.searchButton} type="button">
+              <img src="/icons/search.png" alt="Buscar" className={styles.searchIcon} />
             </button>
           </div>
         </div>
 
         {/* Filtros operación */}
-        <div className={styles['flex-col']}>
+        <div className={styles.flexCol}>
           <h3>Filtrar por operación</h3>
           {filtrosOperacion.map((item) => (
             <FiltroToggle

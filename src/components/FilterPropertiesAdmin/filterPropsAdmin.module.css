@@ -1,150 +1,172 @@
-.unified-filter-wrapper {
+.unifiedFilterWrapper {
   display: flex;
   flex-direction: column;
+
+  max-width: 700px;
+
   gap: 1.5rem;
   padding: 0 1rem;
-  max-width: 700px;
   margin: 0 auto; /* centrado horizontal */
 }
 
-.burger-button {
+.burgerButton {
   display: block;
+  z-index: 1000;
+  align-self: center;
+
+  padding: 0.6rem 1.2rem;
+
   background-color: var(--secondary-color-5, #f0c040);
   color: #333;
-  padding: 0.6rem 1.2rem;
   border: none;
   font-size: 1.1rem;
   font-weight: bold;
-  cursor: pointer;
   border-radius: 8px;
-  z-index: 1000;
-  align-self: center;
+
+  cursor: pointer;
 }
 
-.filter-container {
+.filterContainer {
   display: none;
 }
 
-.filter-container.show {
+.filterContainer.show {
   display: flex;
 }
 
 .vertical {
   flex-direction: column;
   align-items: center;
-  background-color: var(--primary-color-4); /* gris claro */
+
   padding: 2rem 1.5rem;
-  border-radius: 5px;
   gap: 2rem;
+
+  background-color: var(--primary-color-4); /* gris claro */
+  border-radius: 5px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.flex-col {
+.flexCol {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
   align-items: center;
+
   width: 100%;
+
+  gap: 0.8rem;
 }
 
-.filter-section-title {
+.filterSectionTitle {
   color: black;
   font-size: 1.4rem;
   font-weight: 500;
   text-align: center;
 }
 
-.input-with-search-container {
+.inputWithSearchContainer {
   display: flex;
+  align-self: center;
+
+  width: 100%;
+  max-width: 280px;
+
+  margin-top: 10px;
+
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
-  margin-top: 10px;
-  /* Limitar el ancho en mobile para evitar que sea excesivamente largo */
-  width: 100%;
-  max-width: 280px; /* Ancho máximo apropiado */
-  align-self: center; /* Centrar el contenedor */
 }
 
-/* Cambios en .max-value-input */
-.max-value-input {
+.maxValueInput {
+  text-align: left;
+  flex: 1;
+
+  width: 100%;
+  min-width: 0;
+
+  padding: 0.6rem 1rem;
+  margin: 0;
+
   background-color: #33322f;
   color: #f1e9d2;
   border: none;
   border-radius: 10px 0 0 10px;
-  padding: 0.6rem 1rem;
   font-size: 1rem;
   outline: none;
-  /* El input ocupa todo el espacio disponible del contenedor */
-  flex: 1;
-  width: 100%;
-  min-width: 0;
   box-sizing: border-box;
-  text-align: left;
-  margin: 0;
   box-shadow: none;
 }
 
-.max-value-input::placeholder {
+.maxValueInput::placeholder {
   color: #e8ddbf;
 }
 
-.max-value-input:focus {
+.maxValueInput:focus {
   box-shadow: 0 0 0 2px #a7956f, 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.search-button {
-  background-color: var(--secondary-color-5);
-  border: none;
-  border-radius: 0 10px 10px 0;
-  padding: 0.6rem 1rem;
-  cursor: pointer;
+.searchButton {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  margin: 0;
+
+  padding: 0.6rem 1rem;
+
+  background-color: var(--secondary-color-5);
+  border: none;
+  border-radius: 0 10px 10px 0;
+
+  cursor: pointer;
+
   transition: opacity 0.2s ease;
   flex-shrink: 0;
-  margin: 0;
 }
 
-.search-button:hover {
+.searchButton:hover {
   opacity: 0.8;
 }
 
-.search-icon {
+.searchIcon {
   width: 16px;
   height: 16px;
+
   object-fit: contain;
 }
 
 @media (min-width: 1000px) {
-  .burger-button {
+  .burgerButton {
     display: none;
   }
 
-  .filter-container.vertical {
-    display: flex !important;
-    background-color: transparent; /* Fondo transparente en desktop */
-    padding: 0; /* Quitamos el padding del bloque gris */
-    box-shadow: none;
-    gap: 2rem;
-    align-items: flex-start; /* Alinea todo a la izquierda */
-  }
-
-  .unified-filter-wrapper {
-    max-width: 100%;
-    margin: 0;
-    padding-left: 30px; /* margen izquierdo consistente */
-  }
-
-  .flex-col {
+  .filterContainer.vertical {
+    display: flex;
     align-items: flex-start;
+
+    padding: 0;
+    gap: 2rem;
+
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .unifiedFilterWrapper {
+    max-width: 100%;
+
+    margin: 0;
+    padding-left: 30px;
+  }
+
+  .flexCol {
+    align-items: flex-start;
+
     width: 100%;
   }
 
-  .filter-section-title {
+  .filterSectionTitle {
     text-align: left;
   }
-  .input-with-search-container {
+  .inputWithSearchContainer {
     max-width: 350px;
   }
 }
