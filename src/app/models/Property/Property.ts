@@ -5,9 +5,7 @@ export interface Property {
     state: PropertyState;
     price: number;
     description: string;
-    bedrooms: number;
-    bathrooms: number;
-    squareMeters: number;
+    characteristic: Characteristic[]; //usar push para agregar
     type: PropertyType;
 }
 
@@ -20,6 +18,12 @@ export enum PropertyState {
 
 export enum PropertyType {
     HOME = "HOME"
+}
+
+export interface Characteristic {
+    id: number;
+    characteristic: string;
+    amount: number;
 }
 
 export type PropertyMode = 'view' | 'create' | 'edit';
