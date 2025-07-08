@@ -81,6 +81,7 @@ export default function Administration() {
 
     return (
         <div>
+
             <div className={`${styles.sectionProperties} ${cactus.className}`}>
                 <div>
                     <Link href={'/Administracion/EmptySheet'} className={styles.linkProperties}>
@@ -142,7 +143,10 @@ export default function Administration() {
                             </button>
                         </div>
                     </div>
+
                 </div>
+
+
             ))}
 
             {/* Cartel de confirmación */}
@@ -170,6 +174,7 @@ export default function Administration() {
                     </div>
                 </div>
             )}
+
         </div>
     );
 }

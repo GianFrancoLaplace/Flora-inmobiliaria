@@ -5,6 +5,7 @@ import { useState } from 'react';
 import '../ui/fonts'
 import styles from './adminStyles.module.css';
 import UnifiedFilter from '@/components/FilterPropertiesAdmin/UnifiedFilter';
+import SignOutButton from '@/components/botonSingOut/SignOutButton';
 
 
 export default function FichaPropiedad() {
@@ -27,7 +28,14 @@ export default function FichaPropiedad() {
   }
 
   return (
+
     <div className={styles['container']}>
+
+        <div className="mt-4">
+          {/* Aquí simplemente renderizas el botón */}
+          <SignOutButton />
+        </div>
+
       <main>
         <ContactInformation />
       </main>
