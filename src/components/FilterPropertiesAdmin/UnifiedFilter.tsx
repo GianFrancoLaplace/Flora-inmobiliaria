@@ -1,6 +1,6 @@
 // components/UnifiedFilter.tsx
 import { useState } from 'react';
-import styles from './filterPropsAdmin.module.css';
+import styles from './filterPropAdmin.module.css';
 import FiltroToggle from '../FilterButtons/FilterButtons';
 import { useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
