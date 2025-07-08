@@ -43,8 +43,8 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
     } = usePropertyEditor(mode);
 
     const pathname = usePathname();
-    const isEmptyFile = pathname === '/Administracion/EmptySheet';
-    const isEditableFile = pathname === '/Administracion/EditableSheet'
+    const isEmptyFile = pathname === '/administracion/fichavacia';
+    const isEditableFile = pathname === '/administracion/fichaeditable'
 
     const handleFieldEdit = (fieldName: keyof Property) => {
         startEditing(fieldName);

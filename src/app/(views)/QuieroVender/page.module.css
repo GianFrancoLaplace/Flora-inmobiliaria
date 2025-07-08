@@ -3,14 +3,16 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+
     padding-top: 10px;
     padding-bottom: 30px;
 }
 
 .formContainerProperties{
-    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    width: 100%;
 }

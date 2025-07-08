@@ -32,9 +32,10 @@
     position: relative;
     outline: none;
     width: 100%;
+    height: fit-content;
+    line-height: 1;
     text-align: center;
 }
-
 
 .button:active {
     transform: scale(0.98);
@@ -54,7 +55,6 @@
 .searchContainer {
     display: none;
 }
-
 
 
 @keyframes fadeInUp {
@@ -80,6 +80,9 @@
         flex: 1;
         text-wrap: nowrap;
         font-size: 16px;
+        height: fit-content;
+        line-height: 1;
+        padding: 0.5rem;
     }
 
     .searchContainer {
@@ -95,7 +98,9 @@
 
     .button {
         font-size: 17px;
-        padding: var(--space-md) var(--space-lg)
+        padding: var(--space-md) var(--space-lg);
+        height: fit-content;
+        line-height: 1;
     }
 }
 
@@ -109,6 +114,8 @@
     .button {
         font-size: 18px;
         padding: var(--space-md) var(--space-xl);
+        height: fit-content;
+        line-height: 1;
     }
 
     .buttonGroup {

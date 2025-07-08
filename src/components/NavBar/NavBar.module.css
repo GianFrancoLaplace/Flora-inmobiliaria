@@ -7,10 +7,13 @@
             #16161600 0%,   /* 0% opacidad */
             #161616ff 95%   /* 100% opacidad */
     );
+
     height: 150px;
     width: 100%;
-    color: rgb(253, 255, 226);
+
     gap: 10%;
+
+    color: rgb(253, 255, 226);
 }
 
 .absoluteNav{
@@ -26,6 +29,7 @@
 .nameProperties{
     display: flex;
     flex-direction: column;
+
     padding-top: 20px;
     gap: 0;
 }
@@ -33,16 +37,21 @@
 .logoProperties{
     display: flex;
     flex-direction: row;
+
     padding-top: 20px;
+
     cursor: pointer;
 }
 
 .sectionProperties{
     display: flex;
     flex-direction: row;
+
     padding-top: 50px;
     gap: 30px;
+
     cursor: pointer;
+
     list-style-type: none;
     white-space: nowrap;
 }
@@ -67,60 +76,63 @@
 .iconoProperties{
     width: 35px;
     height: 35px;
+
     color: rgb(253, 255, 226);
 }
 
 .btnBurgerProperties{
+    width: 0;
+
     margin: 0;
     padding: 0;
-    width: 0;
+
     visibility: hidden;
 }
 @media (max-width: 768px) {
       .navProperties{
-        flex-direction: column;
-        gap: 1px;
-        background: linear-gradient(
-            to bottom,
-            rgba(45, 45, 45, 1) 0%,      /* 100% opacidad arriba */
-            rgba(45, 45, 45, 0.8) 40%,   /* 80% opacidad más arriba */
-            rgba(45, 45, 45, 0.3) 70%,   /* 30% opacidad */
-            rgba(45, 45, 45, 0) 85%      /* Transparente antes del final */
-        );
-        height: auto;
-        padding-bottom: 30px; /* Más espacio para el degradado */
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 10000;
+          position: fixed;
+          z-index: 10000;
+          flex-direction: column;
+          background: linear-gradient(
+                  to top,
+                  #16161600 0%,   /* 0% opacidad */
+                  #161616ff 95%   /* 100% opacidad */
+          );
+
+          height: auto;
+
+          gap: 1px;
+          top: 0;
+          left: 0;
+          right: 0;
     }
     
     .btnBurgerProperties{
         visibility: visible;
         display: flex;
-        justify-content: flex-start; /* Alinear a la izquierda */
+        justify-content: flex-start;
+        z-index: 10002;
+
         margin-left: 25px;
-        margin-top: -50px; /* Ajustar posición */
-        margin-bottom: 5px; /* Reducir espacio inferior */
-        z-index: 10002; /* Por encima del menú */
+        margin-top: -50px;
+        margin-bottom: 5px;
     }
 
     .btnBurgerProperties button{
-        background: linear-gradient(135deg, #f0c040 0%, #d4a836 100%);
         border: none;
-        border-radius: 6px; /* Más pequeño */
-        padding: 6px 8px; /* Padding más compacto */
-        box-shadow: 0 2px 6px rgba(240, 192, 64, 0.3);
-        transition: all 0.3s ease;
+
+        width: auto;
+        height: auto;
+
+        background-color: transparent;
+
         cursor: pointer;
-        width: auto; /* Ancho automático */
-        height: auto; /* Altura automática */
+
+        transition: all 0.3s ease;
     }
 
     .btnBurgerProperties button:hover{
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(240, 192, 64, 0.4);
     }
 
     .btnBurgerProperties button:active{
@@ -128,35 +140,41 @@
     }
 
     .sectionProperties{
+        position: relative;
         flex-direction: column;
-        gap: 0;
         background: linear-gradient(
             to bottom,
             #f5f5f5 0%,
             #e8e8e8 100%
         );
-        list-style-type: none;
-        white-space: nowrap;
+        overflow: hidden;
+        z-index: 10001;
+
         width: calc(100% - 50px);
+
+        gap: 0;
         margin-left: 25px;
         margin-top: 10px;
         padding: 0;
+
+        list-style-type: none;
+        white-space: nowrap;
+
         border-radius: 12px;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-        overflow: hidden;
-        /* Animación */
+
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         transform-origin: top;
-        z-index: 10001; /* Por encima del contenido */
-        position: relative;
     }
 
     .sectionProperties li{
         padding: 16px 20px;
+
         border-bottom: 1px solid #d0d0d0;
-        transition: all 0.3s ease;
         font-size: 18px;
         font-weight: 500;
+
+        transition: all 0.3s ease;
     }
 
     .sectionProperties li:last-child{
@@ -169,38 +187,48 @@
             #f0c040 0%,
             #d4a836 100%
         );
-        transform: translateX(8px);
+
         color: #2d2d2d;
+
+        transform: translateX(8px);
     }
 
     .logoProperties{
+        visibility: hidden;
+
+        width: 0;
+
         margin: -20px;
         padding: 0;
-        width: 0;
-        visibility: hidden;
     }
 
-    /* Estados de animación */
     .openNav{
         visibility: visible;
         opacity: 1;
+
+        max-height: 400px;
+
         transform: scaleY(1) translateY(0);
-        max-height: 400px; /* Aumentar altura máxima */
     }
 
     .closeNav{
         visibility: hidden;
         opacity: 0;
-        transform: scaleY(0) translateY(-10px);
+
         max-height: 0;
+
+        transform: scaleY(0) translateY(-10px);
     }
 
     .sectionProperties a{
-        color: #2d2d2d;
-        text-decoration: none;
         display: block;
+
         width: 100%;
         height: 100%;
+
+        color: #2d2d2d;
+        text-decoration: none;
+
         transition: color 0.3s ease;
     }
 
@@ -208,27 +236,32 @@
         color: #1a1a1a;
     }
 
-    /* Icono de usuario con estilo especial */
     .sectionProperties li:last-child{
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 100%);
+
         margin: 8px;
+
+        background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 100%);
         border-radius: 8px;
     }
 
     .sectionProperties li:last-child:hover{
         background: linear-gradient(135deg, #f0c040 0%, #d4a836 100%);
+
         transform: translateX(0) scale(1.05);
     }
 
     .iconoProperties{
         width: 28px;
         height: 28px;
+
         filter: brightness(0) saturate(100%) invert(13%) sepia(10%) saturate(1000%) hue-rotate(0deg); /* Color oscuro por defecto */
+
+        margin-right: 8px;
+
         transition: filter 0.3s ease;
-        margin-right: 8px; /* Espacio entre ícono y texto si hubiera */
     }
 
     .sectionProperties li:last-child:hover .iconoProperties{

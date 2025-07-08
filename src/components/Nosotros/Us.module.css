@@ -1,46 +1,55 @@
 .backgroundNavProperties{
-    width: 100%;
-    height: 400px;
     background-image: url('../../../public/backgrounds/tandil-us.webp');
     background-size: 100%;
     position: relative;
     align-content: center;
     background-position: center;
     z-index: 1;
+
+    width: 100%;
+    height: 400px;
 }
 
 .backgroundNavProperties::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 1;
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .infoImageProperties {
     display: flex;
     flex-direction: column;
+    z-index: 2;
+    position: relative;
+
     width: fit-content;
+
     margin-left: 36%;
     margin-top: 25px;
+
     color: var(--primary-color-1);
     font-weight: bold;
-    z-index: 2; 
-    position: relative; 
 }
 
 .h5Properties{
     display: flex;
+
     width: fit-content;
+
+    margin-left: 60px;
+
     font-weight: 800;
     white-space: nowrap;
-    margin-left: 60px;
 }
 
 .generalInfoProperties{
     display: flex;
     flex-direction: row;
     justify-content: center;
+
     margin-top: 50px;
     margin-bottom: 20px;
     gap: 8%;
@@ -49,6 +58,7 @@
 .missionAndVisionProperties{
     display: flex;
     flex-direction: column;
+
     gap: 20px;
 }
 
@@ -56,16 +66,22 @@
     display: flex;
     flex-direction: column;
     text-align: center;
+
     width: 370px;
+
     gap: 15px;
+
     color: var(--primary-color-5);
 }
 
 .imgRealStateProperties{
+    justify-self: center;
+
     width: 1315px;
     height: 315px;
-    justify-self: center;
+
     margin-bottom: 20px;
+
     background-color: #FADA4D;
 }
 
@@ -80,70 +96,74 @@
     }
 }
 
-/* --- Estilos del Contenedor Principal --- */
 .container {
     display: flex;
     align-items: center;
-    gap: 5rem;
+
     max-width: 1100px;
+
+    gap: 5rem;
     margin-left: 60px;
     padding: 2rem;
+
     font-family: "Georgia", serif;
 }
 
-/* --- Contenedores para la Animación Escalonada --- */
 .imageContainer {
     animation: fadeInUp 0.8s ease-out forwards;
 }
 
 .textContainer {
     flex: 1;
-    /* Aplica la animación con un ligero retraso para un efecto más elegante */
-    animation: fadeInUp 0.8s ease-out 0.2s forwards; /* 0.2s de retraso */
-    opacity: 0; /* Empieza invisible hasta que la animación se active */
+    opacity: 0;
+
+    animation: fadeInUp 0.8s ease-out 0.2s forwards;
 }
 
-/* --- Estilo de la Imagen --- */
 .image {
-
-    padding: 5px;
-    background-color: #fff;
+    object-fit: cover;
     display: block;
+
     max-width: 100%;
     height: auto;
-    object-fit: cover;
+
+    padding: 5px;
+
+    background-color: #fff;
 }
 
-/* --- Estilos del Texto --- */
 .title {
+    margin-bottom: 1.5rem;
+
     font-size: 2.25rem;
     font-weight: 400;
     color: #222;
-    margin-bottom: 1.5rem;
     white-space: nowrap;
 }
 
 .description {
+    margin-bottom: 1rem;
+
     font-size: 1.1rem;
     line-height: 1.7;
     color: #444;
-    margin-bottom: 1rem;
 }
 
-/* --- Diseño Responsivo para Móviles --- */
 @media (max-width: 768px) {
 
     .backgroundNavProperties {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 300px; /* o ajustá el alto según necesidad */
-  }
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+
+        height: 300px;
+        }
 
     .container {
-        flex-direction: column; /* Apila la imagen y el texto verticalmente */
-        text-align: center; /* Centra el texto */
-        gap: 2rem; /* Reduce el espacio cuando están apilados */
+        flex-direction: column;
+        text-align: center;
+
+        gap: 2rem;
     }
 
     .h5Properties{
@@ -151,9 +171,11 @@
     }
 
     .infoImageProperties{
-        width: fit-content;
-        margin-left: 10px;
         align-items: center;
+
+        width: fit-content;
+
+        margin-left: 10px;
     }
 
     .infoImageProperties h5{
@@ -162,14 +184,17 @@
 
     .generalInfoProperties{
         flex-direction: column;
-        gap: 30px;
         align-items: center;
+
+        gap: 30px;
     }
 
     .infoProperties{
         text-align: justify;
-        font-size: 14px;
+
         width: 300px;
+
+        font-size: 14px;
     }
 
     .infoProperties h1{
@@ -183,16 +208,19 @@
     }
 
     .textContainer {
-        /* El retraso en la animación puede no verse tan bien en móvil, lo ajustamos */
-        animation-delay: 0s;
-        width: 300px;
-        text-align: justify;
         align-items: center;
+        text-align: justify;
+
+        width: 300px;
+
+        animation-delay: 0s;
     }
 
     .imageProperties{
         visibility: hidden;
+
         width: 0;
+
         margin: -100px;
         padding: 0;
     }
@@ -203,13 +231,15 @@
 
     .container{
         display: flex;
+
         margin-left: 0;
         margin-top: 0px;
     }
 
     .title {
-        font-size: 1.8rem; /* Reduce el tamaño del título en pantallas pequeñas */
-        white-space: collapse;
         text-align: center;
+
+        font-size: 1.8rem;
+        white-space: collapse;
     }
 }

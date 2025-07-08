@@ -3,81 +3,110 @@
   }
 
 .filter-menu__title {
+  margin-bottom: 1.5rem;
+
   font-size: 1.25rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
   color: #1f2937;
 }
 
-  .filter-menu__option {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #3c3c3b;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
+.filter-menu__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  .presentationProperties {
-    width: 80%;
-    height: fit-content;
-    margin: 0 auto 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 10px;
-    position: relative;
-  }
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
 
-  .presentationProperties h1 {
-    margin-top: 24px;
-    font-size: 24px;
-  }
+  background-color: #3c3c3b;
+  color: white;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
 
-  .presentationProperties h5 {
-    font-size: 14px;
-  }
+.presentationProperties {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
 
-  .mainCardsGridProperties {
-    width: 100%;
-  }
+  width: 80%;
+  height: fit-content;
+
+  margin: 0 auto 50px;
+  gap: 10px;
+}
+
+.presentationProperties h1 {
+  margin-top: 24px;
+
+  font-size: 24px;
+}
+
+.presentationProperties h5 {
+  font-size: 14px;
+}
+
+.mainCardsGridProperties {
+  width: 100%;
+}
+
+.messageBtn {
+  width: 265px;
+
+  background-color: var(--primary-color-1);
+}
+
+.allPropertiesBtn{
+  width: 450px;
+
+  margin-bottom: 5%;
+
+  background-color: var(--secondary-color-4);
+}
 
   .allPropertiesBtn {
     width: 450px;
+
     background-color: var(--secondary-color-4);
   }
 
   
 @media (max-width: 720px){
   .container{
-  margin-top: 0px;
-}
-}
-
-  /*TABLET*/
-  @media (min-width: 768px) {
-    .presentationProperties h1 {
-      font-size: 26px;
-    }
-
-    .presentationProperties h5 {
-      font-size: 14px;
-    }
+    margin-top: 0px;
   }
 
-  /*DESKTOP*/
-  @media (min-width: 1024px) {
-    .presentationProperties h1 {
-      font-size: 34px;
-    }
+  .allPropertiesBtn{
+    width: 90%;
 
-    .presentationProperties h5 {
-      font-size: 18px;
-    }
+    margin-bottom: 5%;
+
+    background-color: var(--secondary-color-4);
   }
+}
+
+/*responsive for Tablet*/
+@media (min-width: 768px) {
+  .presentationProperties h1 {
+    font-size: 26px;
+  }
+
+  .presentationProperties h5 {
+    font-size: 14px;
+  }
+}
+
+/*responsive for Desktop*/
+@media (min-width: 1024px) {
+  .presentationProperties h1 {
+    font-size: 34px;
+  }
+
+  .presentationProperties h5 {
+    font-size: 18px;
+  }
+}

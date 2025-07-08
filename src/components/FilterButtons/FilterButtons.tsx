@@ -10,10 +10,10 @@ interface Props {
 
 const FiltroToggle: React.FC<Props> = ({ label, isActive, onToggle }) => {
   return (
-    <button className={styles['filter-button']} onClick={onToggle}>
+    <button className={styles.filterButton} onClick={onToggle}>
       {label}
       <span className={`${styles.toggle} ${isActive ? styles.active : ''}`}>
-        <span className={styles['toggle-circle']}></span>
+        <span className={styles.toggleCircle}></span>
       </span>
     </button>
   );
