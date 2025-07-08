@@ -20,17 +20,17 @@ const FilterGroup: React.FC<Props> = ({ title, filters }) => {
   };
 
   return (
-    <div className={styles['filter-group-wrapper']}>
+    <div className={styles.filterGroupWrapper}>
       {/* Botón burger para mobile */}
-      <button className={styles['burger-button']} onClick={() => setShowFilters((prev) => !prev)}>
+      <button className={styles.burgerButton} onClick={() => setShowFilters((prev) => !prev)}>
         ☰ Filtrar
       </button>
       
       {/* Título para desktop */}
-      <h3 className={styles['filter-group-title']}>{title}</h3>
+      <h3 className={styles.filterGroupTitle}>{title}</h3>
       
       {/* Container de filtros con lógica show/hide */}
-      <div className={`${styles['filter-container']} ${showFilters ? styles['show'] : ''}`}>
+      <div className={`${styles.filterContainer} ${showFilters ? styles.show : ''}`}>
         {filters.map((item) => (
           <FiltroToggle
             key={item}

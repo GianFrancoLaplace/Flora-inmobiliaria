@@ -1,8 +1,6 @@
 'use client';
 import SmallCard from "@/components/SmallCards/SmallCard";
 import styles from './SmallCardsGrid.module.css';
-import Link from "next/link";
-import {cactus} from "@/app/(views)/ui/fonts";
 import React from "react";
 import { usePathname } from 'next/navigation';
 

@@ -58,14 +58,14 @@ export default function Properties() {
     }
 
     return (
-        <div className={styles["conteinerPropiedades"]}>
+        <div className={styles.conteinerPropiedades}>
             <main>
                 <ContactInformation />
             </main>
             <br />
-            <div className={styles['properties-layout']}>
+            <div className={styles.propertiesLayout}>
 
-                <div className={styles['properties-layout-filter']}>
+                <div className={styles.propertiesLayoutFilter}>
                     <UnifiedFilter
                         maxValue={maxValue}
                         onMaxValueChange={handleMaxValueChange}
@@ -75,7 +75,7 @@ export default function Properties() {
 
                 </div>
 
-                 <div className={styles['properties-layout__main-content']}>
+                 <div className={styles.propertiesLayoutMainContent}>
                     <PropertyGrid properties={loadImages} />
                 </div>
             </div>

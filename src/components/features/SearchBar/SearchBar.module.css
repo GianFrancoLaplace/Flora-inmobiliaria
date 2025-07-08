@@ -1,7 +1,3 @@
-/* ========================================
-   📱 BASE STYLES - MOBILE FIRST (320px+)
-   ======================================== */
-
 /* Contenedor principal - Mobile base */
 .searcher {
     display: flex;
@@ -11,8 +7,6 @@
     background-color: rgba(21, 21, 21, 0.60);
     padding: var(--space-sm);
     border-radius: 8px;
-    /*position: relative;*/
-    /*top: 50%;*/
     max-width: 100%; /* Prevenir overflow en móviles pequeños */
 }
 
@@ -43,10 +37,6 @@
     text-align: center;
 }
 
-.button:hover {
-    /*background-color: rgb(255,235,0,0.9);*/
-}
-
 .button:active {
     transform: scale(0.98);
     transition: all var(--fast-transition);
@@ -66,9 +56,6 @@
     display: none;
 }
 
-/* ========================================
-   🎬 ANIMACIONES
-   ======================================== */
 
 @keyframes fadeInUp {
     from {
@@ -81,20 +68,16 @@
     }
 }
 
-/* ========================================
-   📱 RESPONSIVE BREAKPOINTS - PROGRESSIVE ENHANCEMENT
-   ======================================== */
-
 
 /* Tablets pequeñas (600px+) */
 @media (min-width: 640px) {
     .buttonGroup {
-        flex-direction: row; /* 🚨 CAMBIO MAYOR - Horizontal en tablets */
+        flex-direction: row;
         gap: var(--space-sm);
     }
 
     .button {
-        flex: 1; /* 🚨 CAMBIO - Distribuir espacio equitativamente */
+        flex: 1;
         text-wrap: nowrap;
         font-size: 16px;
         height: fit-content;
@@ -118,7 +101,6 @@
         padding: var(--space-md) var(--space-lg);
         height: fit-content;
         line-height: 1;
-        padding: 0.8rem;
     }
 }
 
@@ -130,15 +112,10 @@
     }
 
     .button {
-        font-size: 18px; /* Restaurar tamaño original */
+        font-size: 18px;
         padding: var(--space-md) var(--space-xl);
         height: fit-content;
         line-height: 1;
-        padding: 0.8rem;
-    }
-
-    .input {
-        font-size: 18px;
     }
 
     .buttonGroup {

@@ -29,20 +29,21 @@ export default function FichaPropiedad() {
 
   return (
 
-    <div className={styles['container']}>
 
+
+
+    <div className={styles.container}>
         <div className="mt-4">
-          {/* Aquí simplemente renderizas el botón */}
-          <SignOutButton />
+            {/* Aquí simplemente renderizas el botón */}
+            <SignOutButton />
         </div>
-
       <main>
         <ContactInformation />
       </main>
       <br />
       <div>
-        <div className={styles['properties-layout-filter']}>
-          <div className={styles['properties-layout__filters']}>
+        <div className={styles.propertiesLayoutFilter}>
+          <div className={styles.propertiesLayoutFilters}>
             <UnifiedFilter
               maxValue={maxValue}
               onMaxValueChange={handleMaxValueChange}
@@ -51,7 +52,7 @@ export default function FichaPropiedad() {
             />
           </div>
 
-          <div className={styles['container-content-right']}>
+          <div className={styles.containerContentRight}>
             <Admns />
           </div>
         </div>

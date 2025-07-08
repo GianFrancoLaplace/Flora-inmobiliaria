@@ -1,49 +1,56 @@
 /* Layout general */
-
-@media (max-width: 720px){
-.container{
-  margin-top: 110px;
-}
-}
-
-
-.properties-layout-filter {
+.propertiesLayoutFilter {
   display: flex;
   flex-direction: row;
-  gap: 2rem;
+
   min-height: calc(100vh - 200px);
+
+  gap: 2rem;
   padding: 0;
   margin: 0;
 }
 
 /* Columna izquierda: filtros */
-.properties-layout__filters {
+.propertiesLayoutFilters {
+  display: flex;
+  justify-content: flex-start;
   flex: 1 1 25%;
-  max-width: 25%;
+
+  max-width: 25%
+;
   box-sizing: border-box;
-  display: flex; /* <-- NUEVO */
-  justify-content: flex-start; /* <-- NUEVO */
 }
 
 /* Columna derecha: cards de administración */
-.container-content-right {
+.containerContentRight {
   flex: 1 1 75%;
+
   max-width: 75%;
+
   padding-right: 2rem;
+
   box-sizing: border-box;
 }
 
 /* En mobile: apilar verticalmente */
 @media (max-width: 900px) {
-  .properties-layout-filter {
+  .propertiesLayoutFilter {
     flex-direction: column;
   }
 
-  .properties-layout__filters,
-  .container-content-right {
-    max-width: 100%;
+  .propertiesLayoutFilter,
+  .containerContentRight {
     flex: 1 1 100%;
+
+    max-width: 100%;
+
     padding-right: 0;
+  }
+}
+
+@media (max-width: 720px){
+  .container{
+    margin-top: 110px;
   }
 }
 

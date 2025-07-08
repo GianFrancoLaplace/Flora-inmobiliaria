@@ -1,26 +1,25 @@
-/* Variables CSS para mantener consistencia */
 :root {
-  /* Colores principales - CONSERVANDO TUS COLORES ORIGINALES */
-  --primary-color-1: #FDFFE2;        /* Amarillo dorado */
+
+  --primary-color-1: #FDFFE2;
   --primary-color-2: #D3D3D3;
   --primary-color-3: #8D8D8D;
   --primary-color-4: #626262;
   --primary-color-5: #353535;
 
-  --primary-hover-color: #f59e0b;     /* Amarillo más oscuro */
+  --primary-hover-color: #f59e0b;
 
-  --secondary-color-1: #FFFEF9;       /* Gris medio */
+  --secondary-color-1: #FFFEF9;
   --secondary-color-2: #FFF5C5;
   --secondary-color-3: #FFEA81;
   --secondary-color-4: #FADA4D;
   --secondary-color-5: #FFDC2B;
 
-  --secondary-hover-color: #4b5563;   /* Gris más oscuro */
-  --primary-text-color: #374151;      /* Gris oscuro */
-  --secondary-text-color: #9ca3af;    /* Gris claro */
-  --background-color: #ffffff;        /* Blanco */
-  --border-color: #d1d5db;           /* Gris muy claro */
-  --focus-color: #fef3c7;            /* Amarillo muy claro */
+  --secondary-hover-color: #4b5563;
+  --primary-text-color: #374151;
+  --secondary-text-color: #9ca3af;
+  --background-color: #ffffff;
+  --border-color: #d1d5db;
+  --focus-color: #fef3c7;
 
   /* Espaciado */
   --space-xs: 0.25rem;    /* 4px */
@@ -76,27 +75,30 @@ h7{
 }
 
 
+button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 40px;
+
+  margin: 10px auto;
+
+  font-size: 14px;
+  color: var(--primary-color-5);
+  border: 1.5px solid var(--primary-color-5);
+  border-radius: 100px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.30);
+
+  transition: box-shadow 1s ease-in-out;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
-
 /*buttons general properties (for specific ones, modify them in an apart className)*/
-button{
-  height: 40px;
-  font-size: 14px;
-  color: var(--primary-color-5);
-  border: 1.5px solid var(--primary-color-5);
-  border-radius: 100px;
-  margin: 10px auto;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.30);
-  transition: box-shadow 1s ease-in-out;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 button:hover {
   box-shadow: inset 0px 4px 12px rgba(0, 0, 0, 0.2);
