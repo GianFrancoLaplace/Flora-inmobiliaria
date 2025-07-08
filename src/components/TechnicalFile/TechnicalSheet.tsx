@@ -7,7 +7,7 @@ import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
 import { usePathname } from "next/navigation";
 import { usePropertyEditor} from "@/components/TechnicalFile/usePropertyEditor";
-import {Property} from "@/components/TechnicalFile/Property";
+import {Property} from "@/app/models/Property/Property";
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
@@ -82,7 +82,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                     className={className}
                     value={value}
                     onChange={(e) => handleFieldChange(fieldName, e.target.value)}
-                    onBlur={() => handleFieldSave(fieldName)}
+                    onBlur={() => handleFieldSave(fieldName)} // onBlur se activa si se hace click fuera del input
                     onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                             handleFieldSave(fieldName);
@@ -175,7 +175,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                 <div className={`${isEmptyFile ? styles.mainInfo : styles.notShowProperties}`}>
                     <div className={styles.editProperties}>
                         <h1>
-                            {/* 🚨 NOTA: Este campo necesita mapearse al enum PropertyState */}
                             <EditableField
                                 fieldName="address"
                                 value={`${property.address || "Dirección"} | ${property.state}`}
