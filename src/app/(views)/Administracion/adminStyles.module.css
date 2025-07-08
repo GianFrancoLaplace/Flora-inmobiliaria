@@ -1,0 +1,57 @@
+/* Layout general */
+.propertiesLayoutFilter {
+  display: flex;
+  flex-direction: row;
+
+  min-height: calc(100vh - 200px);
+
+  gap: 2rem;
+  padding: 0;
+  margin: 0;
+}
+
+/* Columna izquierda: filtros */
+.propertiesLayoutFilters {
+  display: flex;
+  justify-content: flex-start;
+  flex: 1 1 25%;
+
+  max-width: 25%
+;
+  box-sizing: border-box;
+}
+
+/* Columna derecha: cards de administración */
+.containerContentRight {
+  flex: 1 1 75%;
+
+  max-width: 75%;
+
+  padding-right: 2rem;
+
+  box-sizing: border-box;
+}
+
+/* En mobile: apilar verticalmente */
+@media (max-width: 900px) {
+  .propertiesLayoutFilter {
+    flex-direction: column;
+  }
+
+  .propertiesLayoutFilter,
+  .containerContentRight {
+    flex: 1 1 100%;
+
+    max-width: 100%;
+
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 720px){
+  .container{
+    margin-top: 110px;
+  }
+}
+
+

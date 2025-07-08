@@ -18,6 +18,22 @@
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+.mainAdressProperties{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.viewInfoAdress{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 70%;
+    white-space: nowrap;
+}
+
 .mediaCarouselProperties{
     display: flex;
     flex-direction: row;
@@ -37,6 +53,27 @@
     position: relative;
     z-index: 10;
     margin-right: 40px;
+}
+
+.mainInfo{
+    display: flex;
+    flex-direction: row;
+    gap: 70%;
+    white-space: nowrap;
+}
+
+/*.operationProperties{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-left: 15px;
+}*/
+
+.mainInfoH1{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-left: 20px;
 }
 
 .askBtn{
@@ -119,10 +156,6 @@
     visibility: visible;
 }
 
-.showProperties h1{
-    white-space: nowrap;
-}
-
 .notShowProperties{
     visibility: hidden;
     width: 0;
@@ -186,7 +219,7 @@
 .editProperties{
     display: flex;
     flex-direction: row;
-    width: fit-content;
+    width: min-content;
     gap: 20px;
 }
 
@@ -204,8 +237,4 @@
 
 .btnSold{
     background-color: var(--primary-color-1);
-}
-
-.inputUbicationProperties{
-    width: 100%;
 }

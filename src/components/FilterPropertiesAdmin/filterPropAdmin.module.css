@@ -1,0 +1,173 @@
+.unifiedFilterWrapper {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 700px;
+
+  gap: 1.5rem;
+  padding: 0 1rem;
+  margin: 0 auto; /* centrado horizontal */
+}
+
+.burgerButton {
+  display: block;
+  z-index: 1000;
+  align-self: center;
+
+  padding: 0.6rem 1.2rem;
+
+  background-color: var(--secondary-color-5, #f0c040);
+  color: #333;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.filterContainer {
+  display: none;
+}
+
+.filterContainer.show {
+  display: flex;
+}
+
+.vertical {
+  flex-direction: column;
+  align-items: center;
+
+  padding: 2rem 1.5rem;
+  gap: 2rem;
+
+  background-color: var(--primary-color-4); /* gris claro */
+  border-radius: 5px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.flexCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+
+  gap: 0.8rem;
+}
+
+.filterSectionTitle {
+  color: black;
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.inputWithSearchContainer {
+  display: flex;
+  align-self: center;
+
+  width: 100%;
+  max-width: 280px;
+
+  margin-top: 10px;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.maxValueInput {
+  text-align: left;
+  flex: 1;
+
+  width: 100%;
+  min-width: 0;
+
+  padding: 0.6rem 1rem;
+  margin: 0;
+
+  background-color: #33322f;
+  color: #f1e9d2;
+  border: none;
+  border-radius: 10px 0 0 10px;
+  font-size: 1rem;
+  outline: none;
+  box-sizing: border-box;
+  box-shadow: none;
+}
+
+.maxValueInput::placeholder {
+  color: #e8ddbf;
+}
+
+.maxValueInput:focus {
+  box-shadow: 0 0 0 2px #a7956f, 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.searchButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0;
+
+  padding: 0.6rem 1rem;
+
+  background-color: var(--secondary-color-5);
+  border: none;
+  border-radius: 0 10px 10px 0;
+
+  cursor: pointer;
+
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+}
+
+.searchButton:hover {
+  opacity: 0.8;
+}
+
+.searchIcon {
+  width: 16px;
+  height: 16px;
+
+  object-fit: contain;
+}
+
+@media (min-width: 1000px) {
+  .burgerButton {
+    display: none;
+  }
+
+  .filterContainer.vertical {
+    display: flex;
+    align-items: flex-start;
+
+    padding: 0;
+    gap: 2rem;
+
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .unifiedFilterWrapper {
+    max-width: 100%;
+
+    margin: 0;
+    padding-left: 30px;
+  }
+
+  .flexCol {
+    align-items: flex-start;
+
+    width: 100%;
+  }
+
+  .filterSectionTitle {
+    text-align: left;
+  }
+  .inputWithSearchContainer {
+    max-width: 350px;
+  }
+}
+

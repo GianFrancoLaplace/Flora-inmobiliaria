@@ -1,8 +1,9 @@
 import styles from "./page.module.css";
-import { cactus } from "@/app/ui/fonts";
+import { cactus } from "@/app/(views)/ui/fonts";
 import HomeF from "@/components/Home/Home";
 import FilterGroup from "@/components/FilterButtons/FilterGroup";
 import BigCardsGrid from "@/components/BigCards/BigCardsGrid";
+import Link from 'next/link';
 
 const FiltersSidebar = () => {
     const filterOptions = ['Campos', 'Departamentos', 'Casas', 'Locales', 'Lotes'];
@@ -43,6 +44,15 @@ export default function Page() {
                     asesoramiento personalizado y total transparencia. Descubrí una nueva forma de hacer negocios
                     inmobiliarios, centrada en vos.
                 </h5>
+
+                <div
+                    className={styles.messageButtonProperties}>
+                    <Link href={"https://wa.me/2494025527"} className={styles.linkProperties}>
+                        <button className={`${styles.messageBtn} ${cactus.className}`}>Enviar un mensaje
+                        </button>
+                    </Link>
+                </div>
+
                 <div>
                     <FilterGroup
                         title=""
@@ -52,6 +62,13 @@ export default function Page() {
 
                 <div>
                     <BigCardsGrid/>
+                </div>
+
+                <div className={styles.mainCardsGridProperties}>
+                    <Link href={"/Propiedades"} className={styles.linkProperties}>
+                        <button className={`${styles.allPropertiesBtn} ${cactus.className}`}>Ver todas las propiedades
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

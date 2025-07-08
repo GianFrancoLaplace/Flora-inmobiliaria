@@ -1,11 +1,14 @@
 /*WhatsApp Redirection*/
 .wpButton {
     position: fixed;
+    z-index: 1000;
+
     bottom: 60px;
     right: 60px;
     width: 60px;
     height: 60px;
-    z-index: 1000;
-    cursor: pointer;
+
     background-color: transparent;
+
+    cursor: pointer;
 }

@@ -27,7 +27,7 @@ const SmallCard = ({ property }: PropertyCardProps) => {
 
     return (
         <article className={styles.card}>
-            <Link href={'/Propiedades/Ficha'}>
+            <Link href={'/propiedades/ficha'}>
             <Image
                 src={property.imageUrl}
                 alt={`Imagen de la propiedad en ${property.address}`}

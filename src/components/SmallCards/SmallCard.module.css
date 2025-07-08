@@ -1,12 +1,15 @@
 .card {
     position: relative;
-    width: 100%;
-    height: 422px;
     overflow: hidden;
-    background-color: #e5e7eb;
     justify-content: center;
     text-align: center;
+
+    width: 100%;
+    height: 422px;
+
     Column-gap : 1rem;
+
+    background-color: #e5e7eb;
 
 }
 .cardImage {
@@ -15,12 +18,16 @@
 
 .cardOverlay {
     position: absolute;
+
+    width: 100%;
+
     bottom: 0;
     left: 0;
-    width: 100%;
     padding: 1rem;
+
     background-color: rgba(0, 0, 0, 0.75);
     color: white;
+
     transition: background-color 0.3s ease;
 }
 .card:hover .cardOverlay {
@@ -32,6 +39,7 @@
 .cardAddress {
     margin-top: 40px;
     margin-bottom: 5px;
+
     font-weight: lighter;
     font-size: 18px;
 }
@@ -41,17 +49,20 @@
 @media(min-width:641px) {
     .card {
         position: relative;
-        width: 330px;
-        height: 422px;
         overflow: hidden;
-        background-color: #e5e7eb;
         justify-content: left;
         text-align: left;
+
+        width: 330px;
+        height: 422px;
+
+        background-color: #e5e7eb;
     }
 
     .cardAddress {
         margin-top: 25px;
         margin-bottom: 5px;
+
         font-weight: lighter;
         font-size: 18px;
     }

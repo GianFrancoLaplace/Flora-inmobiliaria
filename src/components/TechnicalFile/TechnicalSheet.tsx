@@ -1,75 +1,157 @@
 'use client';
 import ContactInformation from "@/components/features/ContactInformation/ContactInformation";
 import DataCard from '@/components/features/DataCard/DataCard'
-import Headed from '@/components/features/Headed/Headed'
-import Operation from '@/components/features/Operation/Operation'
-import City from '@/components/features/City/City'
-import Price from '@/components/features/City/City'
 import Item from '@/components/TechnicalFile/PropertiesItem'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
-import { cactus } from "@/app/ui/fonts";
-import { useState } from "react";
+import { cactus } from "@/app/(views)/ui/fonts";
 import { usePathname } from "next/navigation";
+import { usePropertyEditor} from "@/components/TechnicalFile/usePropertyEditor";
+import {Property} from "@/app/models/Property/Property";
 
-export default function Ficha() {
-    const [modoEdicion, setModoEdicion] = useState(false);
-    const [formulario, setFormulario] = useState({
-        adress: 'Dirección',
-        operation: 'Dirección | OPERACIÓN',
-        city: 'Ciudad',
-        ubicationDescription: '',
-        price: 'Precio',
-        description: '',
-        ficha: '',
+type TechnicalSheetProps = {
+    mode: 'view' | 'create' | 'edit';
+    property: Property;
+};
 
-        adressF: 'Av. Avellaneda 987',
-        operationF: 'Av. Avellaneda 987 | VENTA',
-        cityF: 'Ciudad de Tandil',
-        ubicationDescriptionF: 'Ubicado en una de las zonas más buscadas de la ciudad, este departamento de tres\n' +
-            '                    ambientes ofrece comodidad, luminosidad y una excelente distribución en sus\n' +
-            '                    68 metros cuadrados. Al ingresar, cuenta con un amplio living-comedor con salida a\n' +
-            '                    un balcón con vista abierta, ideal para disfrutar al aire libre.\n' +
-            '\n' +
-            '\n' +
-            '                    La cocina es independiente y está equipada con muebles modernos y lavadero\n' +
-            '                    incorporado. Dispone de dos dormitorios con placares empotrados y un baño completo\n' +
-            '                    con terminaciones de calidad.\n' +
-            '\n' +
-            '                    El edificio ofrece seguridad 24 horas, salón de usos múltiples y una terraza con\n' +
-            '                    parrilla. Gracias a su cercanía con medios de transporte, espacios verdes y una variada\n' +
-            '                    oferta comercial, esta propiedad es ideal tanto para vivienda como para inversión.',
-        priceF: 'USD 500.000',
-        descriptionF: ' Ubicada en una zona semicéntrica de Tandil, esta propiedad combina la tranquilidad\n' +
-            '                    de un barrio residencial con la cercanía al centro de la ciudad. A pocos minutos de\n' +
-            '                    comercios, escuelas, espacios verdes y servicios esenciales, ofrece un entorno cómodo,\n' +
-            '                    accesible y en constante crecimiento. Ideal para quienes buscan una buena conexión con\n' +
-            '                    el movimiento urbano sin resignar calma y calidad de vida.',
-        fichaF: <Ficha></Ficha>
-    });
+export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) {
+
+    const defaultDescription = "Ubicado en una de las zonas más buscadas de la ciudad, este departamento de tres\n" +
+        "                    ambientes ofrece comodidad, luminosidad y una excelente distribución en sus\n" +
+        "                    68 metros cuadrados. Al ingresar, cuenta con un amplio living-comedor con salida a\n" +
+        "                    un balcón con vista abierta, ideal para disfrutar al aire libre.\n" +
+        "\n" +
+        "\n" +
+        "                    La cocina es independiente y está equipada con muebles modernos y lavadero\n" +
+        "                    incorporado. Dispone de dos dormitorios con placares empotrados y un baño completo\n" +
+        "                    con terminaciones de calidad.\n" +
+        "\n" +
+        "                    El edificio ofrece seguridad 24 horas, salón de usos múltiples y una terraza con\n" +
+        "                    parrilla. Gracias a su cercanía con medios de transporte, espacios verdes y una variada\n" +
+        "                    oferta comercial, esta propiedad es ideal tanto para vivienda como para inversión.\n" +
+        "               "
+
+    const {
+        // property,
+        editingFields,
+        startEditing,
+        confirmEdit,
+        cancelEdit,
+        updateField,
+        // isViewMode,
+        isCreateMode
+    } = usePropertyEditor(mode);
 
     const pathname = usePathname();
-    const isEmptyFile = pathname === '/Administracion/EmptySheet';
-    const isEditableFile = pathname === '/Administracion/EditableSheet'
+    const isEmptyFile = pathname === '/administracion/fichavacia';
+    const isEditableFile = pathname === '/administracion/fichaeditable'
 
-    const manejarCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormulario(prev => ({
-            ...prev,
-            [name]: value,
-        }));
+    const handleFieldEdit = (fieldName: keyof Property) => {
+        startEditing(fieldName);
     };
 
-    const activarEdicion = (): void => setModoEdicion(true);
-    const desactivarEdicion = (): void => setModoEdicion(false);
+    const handleFieldSave = (fieldName: keyof Property) => {
+        confirmEdit(fieldName);
+    };
+
+    const handleFieldChange = (fieldName: keyof Property, value: string | number) => {
+        updateField(fieldName, value);
+    };
+
+    const handleFieldCancel = (fieldName: keyof Property) => {
+        cancelEdit(fieldName);
+    };
+
+    const EditableField = ({
+                               fieldName,
+                               value,
+                               className = styles.inputProperties,
+                               onEnterKey
+                           }: {
+        fieldName: keyof Property;
+        value: string | number;
+        className?: string;
+        onEnterKey?: () => void;
+    }) => {
+        const isEditing = editingFields[fieldName];
+
+        if (isEditing) {
+            return (
+                <input
+                    type="text"
+                    className={className}
+                    value={value}
+                    onChange={(e) => handleFieldChange(fieldName, e.target.value)}
+                    onBlur={() => handleFieldSave(fieldName)} // onBlur se activa si se hace click fuera del input
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            handleFieldSave(fieldName);
+                            onEnterKey?.();
+                        }
+                        if (e.key === 'Escape') {
+                            handleFieldCancel(fieldName);
+                        }
+                    }}
+                    autoFocus
+                />
+            );
+        }
+
+        return <span onClick={() => handleFieldEdit(fieldName)}>{value}</span>;
+    };
+
+    const EditButton = ({
+                            fieldName,
+                            showCondition = true
+                        }: {
+        fieldName: keyof Property;
+        showCondition?: boolean;
+    }) => {
+        if (!showCondition) return null;
+
+        return (
+            <button
+                onClick={() => handleFieldEdit(fieldName)}
+                className={styles.editButtonProperties}
+            >
+                <Image
+                    src={'/icons/iconoEdit.png'}
+                    alt={'Icono para editar'}
+                    width={30}
+                    height={30}
+                />
+            </button>
+        );
+    };
+
     return (
         <main className={styles.page}>
             <div>
                 <ContactInformation />
             </div>
 
-            <div>
-               <Headed />
+            <div className={styles.mainAdressProperties}>
+                <div className={`${isEmptyFile ? styles.notShowProperties : styles.viewInfoAdress}`}>
+                    <h1>Av. Avellaneda 987</h1>
+                    <Image
+                        src={'/icons/share.png'}
+                        alt={'Share Icon'}
+                        width={30}
+                        height={30}
+                    />
+                </div>
+                <div className={`${styles.adressProperties} ${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
+                    <h1>
+                        <EditableField
+                            fieldName="address"
+                            value={property.address || "Dirección"}
+                        />
+                    </h1>
+                    <EditButton
+                        fieldName="address"
+                        showCondition={isEmptyFile || isCreateMode}
+                    />
+                </div>
             </div>
 
             <div className={styles.mediaCarouselProperties}>
@@ -82,44 +164,27 @@ export default function Ficha() {
             </div>
 
             <div className={styles.main}>
-                <div className={`${isEmptyFile ? styles.notShowProperties : isEditableFile ? styles.notShowProperties : styles.showProperties}`}>
-                    <Operation />
+                <div className={`${isEmptyFile ? styles.notShowProperties : styles.mainInfo}`}>
+                    <div className={styles.mainInfoH1}>
+                        <h1>{property.address || "Av. Avellaneda 987"}</h1>
+                        <h1>|</h1>
+                        <h1>VENTA</h1>
+                    </div>
                 </div>
-                <div className={`${isEmptyFile ? styles.editProperties : isEditableFile ? styles.editProperties  : styles.notShowProperties}`}>
-                    <div className={`${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
-                        {modoEdicion ? (
-                            <input
-                                type="text"
-                                name="operation"
-                                className={styles.inputProperties}
-                                value={formulario.operation}
-                                onChange={manejarCambio}
-                                onBlur={desactivarEdicion}
+
+                <div className={`${isEmptyFile ? styles.mainInfo : styles.notShowProperties}`}>
+                    <div className={styles.editProperties}>
+                        <h1>
+                            <EditableField
+                                fieldName="address"
+                                value={`${property.address || "Dirección"} | ${property.state}`}
                             />
-                        ) : (
-                            <h1>{formulario.operation}</h1>
-                        )}
+                        </h1>
+                        <EditButton
+                            fieldName="address"
+                            showCondition={isEmptyFile}
+                        />
                     </div>
-                    <div className={`${isEditableFile ? styles.showProperties : styles.notShowProperties}`}>
-                        {modoEdicion ? (
-                            <input
-                                type="text"
-                                name="operationF"
-                                className={styles.inputProperties}
-                                value={formulario.operationF}
-                                onChange={manejarCambio}
-                                onBlur={desactivarEdicion}
-                            />
-                        ) : (
-                            <h1>{formulario.operationF}</h1>
-                        )}
-                    </div>
-                    <button onClick={activarEdicion} className={`${styles.editButtonProperties}`}><Image
-                        src={'/icons/iconoEdit.png'}
-                        alt={'Icono para editar'}
-                        width={30}
-                        height={30} />
-                    </button>
                 </div>
                 <div>
                     <button type="button" className={`${styles.askBtn} ${isEmptyFile ? styles.notShowProperties : styles.showProperties || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
@@ -138,45 +203,21 @@ export default function Ficha() {
             </div>
 
             <div className={styles.cityProperties}>
-                <div className={`${isEmptyFile ? styles.editProperties : isEditableFile ? styles.editProperties  : styles.notShowProperties}`}>
-                    <div className={`${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
-                        {modoEdicion ? (
-                            <input
-                                type="text"
-                                name="city"
-                                className={styles.inputProperties}
-                                value={formulario.city}
-                                onChange={manejarCambio}
-                                onBlur={desactivarEdicion}
-                            />
-                        ) : (
-                            <h1>{formulario.city}</h1>
-                        )}
-                    </div>
-                    <div className={`${isEditableFile ? styles.showProperties : styles.notShowProperties}`}>
-                        {modoEdicion ? (
-                            <input
-                                type="text"
-                                name="cityF"
-                                className={styles.inputProperties}
-                                value={formulario.cityF}
-                                onChange={manejarCambio}
-                                onBlur={desactivarEdicion}
-                            />
-                        ) : (
-                            <h1>{formulario.cityF}</h1>
-                        )}
-                    </div>
-                    <button onClick={activarEdicion} className={`${styles.editButtonProperties}`}><Image
-                        src={'/icons/iconoEdit.png'}
-                        alt={'Icono para editar'}
-                        width={30}
-                        height={30} />
-                    </button>
+                <div className={`${isEmptyFile ? styles.editProperties : styles.notShowProperties}`}>
+                    <h1>
+                        <EditableField
+                            fieldName="city"
+                            value={property.city || "Ciudad"}
+                        />
+                    </h1>
+                    <EditButton
+                        fieldName="city"
+                        showCondition={isEmptyFile}
+                    />
                 </div>
-                <div className={`${isEmptyFile ? styles.notShowProperties : isEditableFile ? styles.notShowProperties : styles.showProperties}`}>
-                    <City />
-                </div>
+                <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>
+                    {property.city || "Ciudad de Tandil"}
+                </h5>
             </div>
 
             <div className={styles.mainBoxesGridProperties}>
@@ -218,105 +259,37 @@ export default function Ficha() {
             </div>
 
             <div className={styles.mainInfoPrice}>
-                <div className={`${isEmptyFile ? styles.priceEditionProperties : isEditableFile ? styles.priceEditionProperties  : styles.notShowProperties}`}>
-                    <div className={`${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
-                        {modoEdicion ? (
-                            <input
-                                type="text"
-                                name="price"
-                                className={styles.inputProperties}
-                                value={formulario.price}
-                                onChange={manejarCambio}
-                                onBlur={desactivarEdicion}
-                            />
-                        ) : (
-                            <h1>{formulario.price}</h1>
-                        )}
-                    </div>
-                    <div className={`${isEditableFile ? styles.showProperties : styles.notShowProperties}`}>
-                        {modoEdicion ? (
-                            <input
-                                type="text"
-                                name="priceF"
-                                className={styles.inputProperties}
-                                value={formulario.priceF}
-                                onChange={manejarCambio}
-                                onBlur={desactivarEdicion}
-                            />
-                        ) : (
-                            <h1>{formulario.priceF}</h1>
-                        )}
-                    </div>
-                    <button onClick={activarEdicion} className={`${styles.editButtonProperties}`}><Image
-                        src={'/icons/iconoEdit.png'}
-                        alt={'Icono para editar'}
-                        width={30}
-                        height={30} />
-                    </button>
+                <div className={`${styles.priceEditionProperties} ${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
+                    <h1>
+                        <EditableField
+                            fieldName="price"
+                            value={`USD ${property.price || "Precio"}`}
+                        />
+                    </h1>
+                    <EditButton fieldName="price" />
                 </div>
-                <div  className= {`${isEmptyFile ? styles.notShowProperties : isEditableFile ? styles.notShowProperties : styles.showProperties}`}>
-                    <Price />
-                </div>
+                <h1 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>
+                    USD {property.price || "550.000"}
+                </h1>
             </div>
 
             <div className={styles.descriptionsProperties}>
                 <div className={styles.titleProperties}>
                     <h3>Descripción</h3>
-                    <div className={`${isEmptyFile ? styles.ubicationEditProperties : isEditableFile ? styles.ubicationEditProperties : styles.notShowProperties}`}>
-                        <button onClick={activarEdicion} className={styles.editButtonProperties}>
-                            <Image
-                                src={'/icons/iconoEdit.png'}
-                                alt={'Icono para editar'}
-                                width={30}
-                                height={30}
-                            />
-                        </button>
-                    </div>
+                    <EditButton
+                        fieldName="description"
+                        showCondition={isEmptyFile}
+                    />
                 </div>
                 <h5 className={`${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
-                    {modoEdicion ? (
-                        <input
-                            type="text"
-                            name="description"
-                            className={styles.inputProperties}
-                            value={formulario.description}
-                            onChange={manejarCambio}
-                            onBlur={desactivarEdicion}
-                        />
-                    ) : (
-                        <span>{formulario.description}</span>
-                    )}
+                    <EditableField
+                        fieldName="description"
+                        value={property.description || ""}
+                    />
                 </h5>
 
-                <h5 className={`${isEditableFile ? styles.showProperties : styles.notShowProperties}`}>
-                    {modoEdicion ? (
-                        <input
-                            type="text"
-                            name="descriptionF"
-                            className={styles.inputProperties}
-                            value={formulario.descriptionF}
-                            onChange={manejarCambio}
-                            onBlur={desactivarEdicion}
-                        />
-                    ) : (
-                        <span>{formulario.descriptionF}</span>
-                    )}
-                </h5>
-
-                <h5 className={`${isEmptyFile ? styles.notShowProperties : isEditableFile ? styles.notShowProperties : styles.showProperties}`}>
-                    Ubicado en una de las zonas más buscadas de la ciudad, este departamento de tres
-                    ambientes ofrece comodidad, luminosidad y una excelente distribución en sus
-                    68 metros cuadrados. Al ingresar, cuenta con un amplio living-comedor con salida a
-                    un balcón con vista abierta, ideal para disfrutar al aire libre.
-
-
-                    La cocina es independiente y está equipada con muebles modernos y lavadero
-                    incorporado. Dispone de dos dormitorios con placares empotrados y un baño completo
-                    con terminaciones de calidad.
-
-                    El edificio ofrece seguridad 24 horas, salón de usos múltiples y una terraza con
-                    parrilla. Gracias a su cercanía con medios de transporte, espacios verdes y una variada
-                    oferta comercial, esta propiedad es ideal tanto para vivienda como para inversión.
+                <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>
+                    {property.description || defaultDescription}
                 </h5>
             </div>
 
@@ -445,18 +418,13 @@ export default function Ficha() {
             <div className={styles.descriptionsProperties}>
                 <div className={styles.titleProperties}>
                     <h3>Ubicación</h3>
-                    <div className={`${isEmptyFile ? styles.ubicationEditProperties : isEditableFile ? styles.ubicationEditProperties : styles.notShowProperties}`}>
-                        <button onClick={activarEdicion} className={styles.editButtonProperties}>
-                            <Image
-                                src={'/icons/iconoEdit.png'}
-                                alt={'Icono para editar'}
-                                width={30}
-                                height={30}
-                            />
-                        </button>
-                    </div>
+                    <EditButton
+                        fieldName="description"
+                        showCondition={isEmptyFile}
+                    />
                 </div>
-                <h5 className={`${isEmptyFile ? styles.notShowProperties : isEditableFile ? styles.notShowProperties : styles.showProperties}`}>
+
+                <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>
                     Ubicada en una zona semicéntrica de Tandil, esta propiedad combina la tranquilidad
                     de un barrio residencial con la cercanía al centro de la ciudad. A pocos minutos de
                     comercios, escuelas, espacios verdes y servicios esenciales, ofrece un entorno cómodo,
@@ -465,33 +433,10 @@ export default function Ficha() {
                 </h5>
 
                 <h5 className={`${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
-                    {modoEdicion ? (
-                        <input
-                            type="text"
-                            name="ubicationDescription"
-                            className={`${styles.inputProperties} ${styles.inputUbicationProperties}`}
-                            value={formulario.ubicationDescription}
-                            onChange={manejarCambio}
-                            onBlur={desactivarEdicion}
-                        />
-                    ) : (
-                        <span>{formulario.ubicationDescription}</span>
-                    )}
-                </h5>
-
-                <h5 className={`${isEditableFile ? styles.showProperties : styles.notShowProperties}`}>
-                    {modoEdicion ? (
-                        <input
-                            type="text"
-                            name="ubicationDescriptionF"
-                            className={`${styles.inputProperties} ${styles.inputUbicationProperties}`}
-                            value={formulario.ubicationDescriptionF}
-                            onChange={manejarCambio}
-                            onBlur={desactivarEdicion}
-                        />
-                    ) : (
-                        <span>{formulario.ubicationDescriptionF}</span>
-                    )}
+                    <EditableField
+                        fieldName="description"
+                        value={""}
+                    />
                 </h5>
 
                 <div className={styles.mapaInteractivo}>
