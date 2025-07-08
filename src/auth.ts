@@ -67,7 +67,6 @@ export const { auth, signIn, signOut } = NextAuth({
                         email: userFromDb.admin_email,
                     };
                 }
-
                 console.log('Error: Las contraseñas NO coinciden. Devolviendo null.');
                 console.log('--- FIN DE DEBUG ---\n');
                 return null;
