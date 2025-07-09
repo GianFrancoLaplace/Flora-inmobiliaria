@@ -1,5 +1,5 @@
 import TechnicalSheet from '@/components/TechnicalFile/TechnicalSheet'
-import {PropertyState, PropertyType} from "@/app/models/Property/Property";
+import {PropertyState, PropertyType} from "@/types/Property";
 
 export default function FichaPropiedad() {
     return (

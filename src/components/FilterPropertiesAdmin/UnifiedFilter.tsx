@@ -1,4 +1,3 @@
-// components/UnifiedFilter.tsx
 import { useState, useEffect } from 'react';
 import styles from './filterPropAdmin.module.css';
 import FiltroToggle from '../FilterButtons/FilterButtons';
@@ -102,7 +101,6 @@ const UnifiedFilter: React.FC<Props> = ({
           </div>
         </div>
 
-        {/* Filtros operación */}
         <div className={styles.flexCol}>
           <h3>Filtrar por operación</h3>
           {filtrosOperacion.map((item) => (
@@ -115,7 +113,6 @@ const UnifiedFilter: React.FC<Props> = ({
           ))}
         </div>
 
-        {/* Filtros propiedad */}
         <div className={styles.flexCol}>
           <h3>Filtrar por inmueble</h3>
           {filtrosPropiedad.map((item) => (

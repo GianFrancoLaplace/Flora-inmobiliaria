@@ -1,6 +1,6 @@
 'use client';
 import {useCallback, useState} from "react";
-import {Property, PropertyState, PropertyType} from "@/app/models/Property/Property"
+import {Property, PropertyState, PropertyType} from "@/types/Property"
 
 function getEmptyProperty() : Property{
     return {

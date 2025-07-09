@@ -17,7 +17,12 @@ export enum PropertyState {
 }
 
 export enum PropertyType {
-    HOME = "HOME"
+    HOME = "CASA",
+    APARTMENT = "DEPARTAMENTO",
+    FIELD = "CAMPO",
+    DUPLEX = "DUPLEX",
+    COMMERCIAL = "LOCAL_COMERCIAL",
+    LAND = "TERRENO"
 }
 
 export interface Characteristic {

@@ -7,7 +7,7 @@ import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
 import { usePathname } from "next/navigation";
 import { usePropertyEditor} from "@/components/TechnicalFile/usePropertyEditor";
-import {Property} from "@/app/models/Property/Property";
+import {Property} from "@/types/Property";
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';

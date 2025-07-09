@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import {PropertyState, PropertyType} from '@/app/models/Property/Property';
+import {PropertyState, PropertyType} from '@/types/Property';
 
 export async function GET(
     request: NextRequest,

@@ -40,6 +40,8 @@ model Property {
   property_type_id_property_type PropertyTypeEnum
   categoria_id_category          OperationEnum
 
+  characteristics                Characteristic[]
+
   @@map("property")
 }
 
