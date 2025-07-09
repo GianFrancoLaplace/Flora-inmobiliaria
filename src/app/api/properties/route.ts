@@ -27,7 +27,7 @@ export async function GET(request: Request) {
       address: p.direction || '',
       city: '', 
       state: mapOperationToState(p.categoria_id_category),
-      price: p.price,
+      price: p.price || 0,
       description: p.description || '',
       type: mapPropertyType(p.property_type_id_property_type),
       characteristic: p.characteristics.map((c): Characteristic => ({

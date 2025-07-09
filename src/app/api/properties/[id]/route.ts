@@ -1,38 +1,57 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import {PropertyState, PropertyType} from '@/types/Property';
+import { mapPropertyType, mapOperationToState } from '@/helpers/PropertyMapper'; // ajustá la ruta si es distinta
+import { Property, Characteristic, PropertyState, PropertyType } from '@/types/Property';
 
 export async function GET(
-    request: NextRequest,
-    { params }: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
-    try {
-        const { id } = params;
-        
-        const propertyId = parseInt(id);
-        
-        const propiedad = await prisma.property.findUnique({
-            where: {
-                id_property: propertyId 
-            }
-        });
+  try {
+    const { id } = params;
+    const propertyId = parseInt(id);
 
-        if (!propiedad) {
-            return NextResponse.json(
-                { message: 'Propiedad no encontrada' },
-                { status: 404 }
-            );
-        }
+    const propiedad = await prisma.property.findUnique({
+      where: {
+        id_property: propertyId,
+      },
+      include: {
+        characteristics: true,
+      },
+    });
 
-        return NextResponse.json(propiedad);
-    } catch (error) {
-        console.error('Error al obtener la propiedad:', error);
-        return NextResponse.json(
-            { message: 'Error al obtener la propiedad' },
-            { status: 500 }
-        );
+    if (!propiedad) {
+      return NextResponse.json(
+        { message: 'Propiedad no encontrada' },
+        { status: 404 }
+      );
     }
+
+    const propiedadFormateada: Property = {
+      id: propiedad.id_property,
+      address: propiedad.direction || '',
+      city: '',
+      state: mapOperationToState(propiedad.categoria_id_category),
+      price: propiedad.price || 0,
+      description: propiedad.description || '',
+      type: mapPropertyType(propiedad.property_type_id_property_type),
+      characteristic: propiedad.characteristics.map((c): Characteristic => ({
+        id: c.id_characteristic,
+        characteristic: c.characteristic,
+        amount: c.amount,
+      })),
+    };
+
+    return NextResponse.json(propiedadFormateada);
+  } catch (error) {
+    console.error('Error al obtener la propiedad:', error);
+    return NextResponse.json(
+      { message: 'Error al obtener la propiedad' },
+      { status: 500 }
+    );
+  }
 }
+
 
 interface PropertyUpdateData {
     address?: string;
