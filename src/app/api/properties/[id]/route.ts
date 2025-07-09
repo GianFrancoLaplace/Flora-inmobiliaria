@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { Property, PropertyType, PropertyState } from '@/lib/definitions';
+import {PropertyState, PropertyType} from '@/types/Property';
 
 export async function GET(
     request: NextRequest,
@@ -206,58 +206,6 @@ function validatePropertyData(data: PropertyUpdateData): ValidationError[] {
             });
         }
     }
+
     return errors;
-}
-
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
-    try {
-        const { id } = params
-
-        const propertyId = parseInt(id);
-
-        if(propertyId <= 0){
-            return NextResponse.json(
-                { message: 'Id inválido' },
-                { status: 401 } //verificar
-            );
-        }
-
-        const property = await prisma.property.findUnique({
-            where: {
-                id_property: propertyId
-            }
-        });
-
-        if(!property){
-            return NextResponse.json(
-                { message: 'Propiedad no encontrada' },
-                { status: 404 }
-            );
-        }
-
-        const result = await prisma.property.delete({
-            where: {
-                id_property: propertyId
-            }
-        })
-
-        if(result){
-            return NextResponse.json(
-                { message: 'Propiedad eliminada' },
-                { status: 200 }
-            );
-        }
-
-        return NextResponse.json(
-            { message: 'Error del servidor' },
-            { status: 500 }
-        );
-    }
-    catch (error){
-        console.error(error);
-        return NextResponse.json(
-            { message: 'Error del servidor' },
-            { status: 500 }
-        );
-    }
 }

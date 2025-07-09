@@ -171,9 +171,7 @@ ALTER TABLE ONLY public.property ALTER COLUMN id_property SET DEFAULT nextval('p
 -- Data for Name: admin; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.admin (id_admin, admin_email, admin_password) FROM stdin;
-1	admin@inmobiliaria.com	password123
-\.
+INSERT INTO public.admin (id_admin, admin_email, admin_password) VALUES (1, 'admin@inmobiliaria.com', 'password123');
 
 
 --
@@ -182,8 +180,7 @@ COPY public.admin (id_admin, admin_email, admin_password) FROM stdin;
 -- Data for Name: characteristic; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.characteristic (id_characteristic, characteristic, amount, property_id) FROM stdin;
-\.
+
 
 
 --
@@ -192,13 +189,11 @@ COPY public.characteristic (id_characteristic, characteristic, amount, property_
 -- Data for Name: property; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.property (id_property, address, description, price, property_type_id_property_type, categoria_id_category) FROM stdin;
-1	Av. Libertador 1234, San Isidro	Casa familiar con jardín amplio	285000	casa	venta
-2	Gorriti 4567, Palermo	Departamento moderno 2 ambientes	120000	departamento	alquiler
-3	Ruta Provincial 41 Km 15, Chascomús	Campo de 5 hectáreas con casa	450000	campo	venta
-4	Los Jazmines 890, Pilar	Duplex en barrio cerrado	195000	duplex	venta
-5	San Martín 2234, Tandil	Local comercial céntrico	85000	local_comercial	alquiler
-\.
+INSERT INTO public.property (id_property, address, description, price, property_type_id_property_type, categoria_id_category) VALUES (1, 'Av. Libertador 1234, San Isidro', 'Casa familiar con jardín amplio', 285000, 'casa', 'venta');
+INSERT INTO public.property (id_property, address, description, price, property_type_id_property_type, categoria_id_category) VALUES (2, 'Gorriti 4567, Palermo', 'Departamento moderno 2 ambientes', 120000, 'departamento', 'alquiler');
+INSERT INTO public.property (id_property, address, description, price, property_type_id_property_type, categoria_id_category) VALUES (3, 'Ruta Provincial 41 Km 15, Chascomús', 'Campo de 5 hectáreas con casa', 450000, 'campo', 'venta');
+INSERT INTO public.property (id_property, address, description, price, property_type_id_property_type, categoria_id_category) VALUES (4, 'Los Jazmines 890, Pilar', 'Duplex en barrio cerrado', 195000, 'duplex', 'venta');
+INSERT INTO public.property (id_property, address, description, price, property_type_id_property_type, categoria_id_category) VALUES (5, 'San Martín 2234, Tandil', 'Local comercial céntrico', 85000, 'local_comercial', 'alquiler');
 
 
 --

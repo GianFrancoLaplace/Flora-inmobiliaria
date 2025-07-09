@@ -11,7 +11,7 @@ interface Props {
 
 const FilterGroup: React.FC<Props> = ({ title, filters }) => {
   const [activos, setActivos] = useState<string[]>([]);
-  const [showFilters, setShowFilters] = useState(false); // Estado para mobile
+  const [showFilters, setShowFilters] = useState(false);
 
   const toggleFiltro = (label: string) => {
     setActivos((prev) =>
@@ -21,15 +21,12 @@ const FilterGroup: React.FC<Props> = ({ title, filters }) => {
 
   return (
     <div className={styles.filterGroupWrapper}>
-      {/* Botón burger para mobile */}
       <button className={styles.burgerButton} onClick={() => setShowFilters((prev) => !prev)}>
         ☰ Filtrar
       </button>
-      
-      {/* Título para desktop */}
+
       <h3 className={styles.filterGroupTitle}>{title}</h3>
-      
-      {/* Container de filtros con lógica show/hide */}
+
       <div className={`${styles.filterContainer} ${showFilters ? styles.show : ''}`}>
         {filters.map((item) => (
           <FiltroToggle
