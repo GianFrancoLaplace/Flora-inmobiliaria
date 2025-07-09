@@ -80,15 +80,12 @@
       .navProperties{
         flex-direction: column;
         gap: 1px;
-        background: linear-gradient(
-            to bottom,
-            rgba(45, 45, 45, 1) 0%,      /* 100% opacidad arriba */
-            rgba(45, 45, 45, 0.8) 40%,   /* 80% opacidad más arriba */
-            rgba(45, 45, 45, 0.3) 70%,   /* 30% opacidad */
-            rgba(45, 45, 45, 0) 85%      /* Transparente antes del final */
-        );
+          background: linear-gradient(
+                  to top,
+                  #16161600 0%,   /* 0% opacidad */
+                  #161616ff 95%   /* 100% opacidad */
+          );
         height: auto;
-        padding-bottom: 30px; /* Más espacio para el degradado */
         position: fixed;
         top: 0;
         left: 0;
@@ -107,20 +104,16 @@
     }
 
     .btnBurgerProperties button{
-        background: linear-gradient(135deg, #f0c040 0%, #d4a836 100%);
         border: none;
-        border-radius: 6px; /* Más pequeño */
-        padding: 6px 8px; /* Padding más compacto */
-        box-shadow: 0 2px 6px rgba(240, 192, 64, 0.3);
         transition: all 0.3s ease;
         cursor: pointer;
         width: auto; /* Ancho automático */
         height: auto; /* Altura automática */
+        background-color: transparent;
     }
 
     .btnBurgerProperties button:hover{
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(240, 192, 64, 0.4);
     }
 
     .btnBurgerProperties button:active{

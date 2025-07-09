@@ -1,5 +1,5 @@
 'use client';
-import FichaPropiedad from "@/app/Propiedades/Sheet/page";
+import FichaPropiedad from "@/app/(views)/Propiedades/Sheet/page";
 
 export default function EditableSheet() {
     return(

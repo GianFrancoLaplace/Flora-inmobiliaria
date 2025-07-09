@@ -9,44 +9,55 @@
   color: #1f2937;
 }
 
-  .filter-menu__option {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #3c3c3b;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
+.filter-menu__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #3c3c3b;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
 
-  .presentationProperties {
-    width: 80%;
-    height: fit-content;
-    margin: 0 auto 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 10px;
-    position: relative;
-  }
+.presentationProperties {
+  width: 80%;
+  height: fit-content;
+  margin: 0 auto 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  position: relative;
+}
 
-  .presentationProperties h1 {
-    margin-top: 24px;
-    font-size: 24px;
-  }
+.presentationProperties h1 {
+  margin-top: 24px;
+  font-size: 24px;
+}
 
-  .presentationProperties h5 {
-    font-size: 14px;
-  }
+.presentationProperties h5 {
+  font-size: 14px;
+}
 
-  .mainCardsGridProperties {
-    width: 100%;
-  }
+.mainCardsGridProperties {
+  width: 100%;
+}
+
+.messageBtn {
+  width: 265px;
+  background-color: var(--primary-color-1);
+}
+
+.allPropertiesBtn{
+  width: 450px;
+  background-color: var(--secondary-color-4);
+  margin-bottom: 5%;
+}
 
   .allPropertiesBtn {
     width: 450px;
@@ -56,8 +67,13 @@
   
 @media (max-width: 720px){
   .container{
-  margin-top: 0px;
-}
+    margin-top: 0px;
+  }
+  .allPropertiesBtn{
+    width: 90%;
+    background-color: var(--secondary-color-4);
+    margin-bottom: 5%;
+  }
 }
 
   /*TABLET*/

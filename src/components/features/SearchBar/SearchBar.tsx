@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./SearchBar.module.css";
 import Image from 'next/image'
-import {cactus} from "@/app/ui/fonts";
+import {cactus} from "@/app/(views)/ui/fonts";
 
 export default function PropertiesSearchBar() {
 
