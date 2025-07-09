@@ -1,8 +1,7 @@
 // components/UnifiedFilter.tsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './filterPropAdmin.module.css';
 import FiltroToggle from '../FilterButtons/FilterButtons';
-import { useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 
 interface Props {
@@ -32,72 +31,79 @@ const UnifiedFilter: React.FC<Props> = ({
     );
   };
 
-const router = useRouter();
-const pathname = usePathname();
+  const router = useRouter();
+  const pathname = usePathname();
 
-useEffect(() => {
-  const mapOperacion: Record<string, string> = {
-    "Quiero comprar": "VENTA",
-    "Quiero alquilar": "ALQUILER"
-  };
+  useEffect(() => {
+    const mapOperacion: Record<string, string> = {
+      'Quiero comprar': 'VENTA',
+      'Quiero alquilar': 'ALQUILER',
+    };
 
-  const mapPropiedad: Record<string, string> = {
-    "Casas": "Casa",
-    "Departamentos": "Departamento",
-    "Locales": "Local",
-    "Lotes": "Lote",
-    "Campos": "Campo"
-  };
+    const mapPropiedad: Record<string, string> = {
+      Casas: 'Casa',
+      Departamentos: 'Departamento',
+      Locales: 'Local',
+      Lotes: 'Lote',
+      Campos: 'Campo',
+    };
 
-  const operacionValues = activosOperacion.map(op => mapOperacion[op]).filter(Boolean);
-  const tipoValues = activosPropiedad.map(tp => mapPropiedad[tp]).filter(Boolean);
+    const operacionValues = activosOperacion.map((op) => mapOperacion[op]).filter(Boolean);
+    const tipoValues = activosPropiedad.map((tp) => mapPropiedad[tp]).filter(Boolean);
 
-  const params = new URLSearchParams();
+    const params = new URLSearchParams();
 
-  if (operacionValues.length > 0) {
-    params.set('operacion', operacionValues.join(','));
-  }
-  if (tipoValues.length > 0) {
-    params.set('tipo', tipoValues.join(','));
-  }
+    if (operacionValues.length > 0) {
+      params.set('operacion', operacionValues.join(','));
+    }
+    if (tipoValues.length > 0) {
+      params.set('tipo', tipoValues.join(','));
+    }
 
-  if (maxValue) {
-    params.set('maxValue', maxValue);
-  }
+    if (maxValue) {
+      params.set('maxValue', maxValue);
+    }
 
-  // ✅ Redirige a la página actual con filtros aplicados
-  router.push(`${pathname}?${params.toString()}`);
-}, [activosOperacion, activosPropiedad, maxValue]);
+    router.push(`${pathname}?${params.toString()}`);
+  }, [activosOperacion, activosPropiedad, maxValue]);
 
   return (
-    <div className={styles['unified-filter-wrapper']}>
-      <button className={styles['burger-button']} onClick={() => setShowFilters((prev) => !prev)}>
+    <div className={styles.unifiedFilterWrapper}>
+      <button className={styles.burgerButton} onClick={() => setShowFilters((prev) => !prev)}>
         ☰ Filtrar
       </button>
 
-      <div className={`${styles['filter-container']} ${styles['vertical']} ${showFilters ? styles['show'] : ''}`}>
+      <div
+        className={`${styles.filterContainer} ${styles.vertical} ${
+          showFilters ? styles.show : ''
+        }`}
+      >
         {/* Input valor máximo */}
-        <div className={styles['flex-col']}>
-          <label htmlFor="maxValueInput" className={styles['filter-section-title']}>
+        <div className={styles.flexCol}>
+          <label htmlFor="maxValueInput" className={styles.filterSectionTitle}>
             Valor máximo
           </label>
-          <div className={styles['input-with-search-container']}>
+          <div className={styles.inputWithSearchContainer}>
             <input
               id="maxValueInput"
               type="number"
-              className={styles['max-value-input']}
+              className={styles.maxValueInput}
               placeholder="Escribe el valor máximo"
               value={maxValue}
               onChange={onMaxValueChange}
             />
-            <button className={styles['search-button']} type="button">
-              <img src="/icons/search.png" alt="Buscar" className={styles['search-icon']} />
+            <button className={styles.searchButton} type="button">
+              <img
+                src="/icons/search.png"
+                alt="Buscar"
+                className={styles.searchIcon}
+              />
             </button>
           </div>
         </div>
 
         {/* Filtros operación */}
-        <div className={styles['flex-col']}>
+        <div className={styles.flexCol}>
           <h3>Filtrar por operación</h3>
           {filtrosOperacion.map((item) => (
             <FiltroToggle
@@ -110,7 +116,7 @@ useEffect(() => {
         </div>
 
         {/* Filtros propiedad */}
-        <div className={styles['flex-col']}>
+        <div className={styles.flexCol}>
           <h3>Filtrar por inmueble</h3>
           {filtrosPropiedad.map((item) => (
             <FiltroToggle

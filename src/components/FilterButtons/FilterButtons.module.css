@@ -1,4 +1,4 @@
-.filter-group-wrapper {
+.filterGroupWrapper {
   width: 100%;
   padding: 1rem 0;
   display: flex;
@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-.filter-group-title {
+.filterGroupTitle {
   margin-bottom: 0.8rem;
   font-size: 1.3rem;
   font-weight: 500;
@@ -14,62 +14,41 @@
   text-align: center;
 }
 
-.filter-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: nowrap;
-  width: 100%;
+.burgerButton {
+  display: block;
+  background-color: var(--secondary-color-5, #f0c040);
+  color: #333;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  z-index: 1000;
+  align-self: center;
+  margin-bottom: 1rem;
 }
 
-/* Botón burger - oculto en desktop */
-.burger-button {
+.filterGroupTitle {
   display: none;
 }
 
-/* En mobile: comportamiento similar al UnifiedFilter */
-@media (max-width: 999px) {
-  /* Mostrar botón burger en mobile */
-  .burger-button {
-    display: block;
-    background-color: var(--secondary-color-5, #f0c040);
-    color: #333;
-    padding: 0.6rem 1.2rem;
-    border: none;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 8px;
-    z-index: 1000;
-    align-self: center;
-    margin-bottom: 1rem;
-  }
-
-  /* Ocultar título en mobile */
-  .filter-group-title {
-    display: none;
-  }
-
-  /* Filtros ocultos por defecto en mobile */
-  .filter-container {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
-    background-color: var(--primary-color-4);
-    padding: 1.5rem 1rem;
-    border-radius: 10px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-
-  /* Mostrar filtros cuando se activa el toggle */
-  .filter-container.show {
-    display: flex;
-  }
+.filterContainer {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: var(--primary-color-4);
+  padding: 1.5rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.filter-button {
+.filterContainer.show {
+  display: flex;
+}
+
+.filterButton {
   background-color: var(--primary-color-5);
   color: #f1e9d2;
   padding: 0.8rem 1.2rem;
@@ -88,7 +67,7 @@
   margin: 0rem;
 }
 
-.filter-button:hover {
+.filterButton:hover {
   background-color: #44423e;
 }
 
@@ -102,7 +81,7 @@
   flex-shrink: 0;
 }
 
-.toggle-circle {
+.toggleCircle {
   width: 14px;
   height: 14px;
   border-radius: 50%;
@@ -113,7 +92,32 @@
   transition: left 0.3s ease, background-color 0.3s ease;
 }
 
-.active .toggle-circle {
+.active .toggleCircle {
   left: 24px;
   background-color: var(--secondary-color-5, gold);
+}
+
+/* Ahora media query para desktop (ancho >= 1000px) */
+@media (min-width: 1000px) {
+  .burgerButton {
+    display: none;
+  }
+
+  .filterGroupTitle {
+    display: block;
+  }
+
+  .filterContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: nowrap;
+    width: 100%;
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    align-items: unset;
+  }
 }
