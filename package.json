@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^6.10.1",
+    "@prisma/client": "^6.11.1",
     "@types/pg": "^8.15.4",
     "bcryptjs": "^3.0.2",
     "dotenv": "^17.0.0",

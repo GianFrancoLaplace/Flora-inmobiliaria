@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,7 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Enums para reemplazar las tablas
 enum PropertyTypeEnum {
   casa
   departamento
@@ -34,11 +27,13 @@ enum OperationEnum {
 
 model Property {
   id_property                    Int              @id @default(autoincrement())
-  direction                      String?          @db.Text
+  address                        String?          @db.Text
   description                    String?          @db.Text
   price                          Int
   property_type_id_property_type PropertyTypeEnum
   categoria_id_category          OperationEnum
+
+  characteristic                 Characteristic[]
 
   @@map("property")
 }
@@ -61,4 +56,3 @@ model Characteristic {
 
   @@map("characteristic")
 }
-
