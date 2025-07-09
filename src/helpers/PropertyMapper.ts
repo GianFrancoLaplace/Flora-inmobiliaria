@@ -1,4 +1,4 @@
-import { PropertyState, PropertyType } from "@/lib/definitions";
+import { PropertyState, PropertyType } from "@/types/Property";
 
 export function mapOperationToState(operation: string): PropertyState {
   switch (operation) {
@@ -23,7 +23,7 @@ export function mapPropertyType(type: string): PropertyType {
       return PropertyType.DUPLEX;
     case 'local_comercial':
       return PropertyType.COMMERCIAL;
-    case 'terreno':
+    case 'lote':
       return PropertyType.LAND;
     default:
       return PropertyType.HOME; // valor por defecto o error si querés ser estricta

@@ -25,7 +25,12 @@ export enum PropertyState {
 }
 
 export enum PropertyType {
-    HOME = "HOME"
+    HOME = "HOME",
+    APARTMENT = "APARTMENT",
+    FIELD = "FIELD",
+    DUPLEX = "DUPLEX",
+    COMMERCIAL = "COMMERCIAL",
+    LAND = "LAND"
 }
 
 export type PropertyMode = 'view' | 'create' | 'edit';

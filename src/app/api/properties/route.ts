@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { PropertyService } from '@/services/propertyService';
 import { Property, PropertyState, PropertyType, Characteristic } from '@/types/Property'; 
+import { mapOperationToState, mapPropertyType } from '@/helpers/PropertyMapper';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

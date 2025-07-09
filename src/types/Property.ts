@@ -22,7 +22,7 @@ export enum PropertyType {
     FIELD = "CAMPO",
     DUPLEX = "DUPLEX",
     COMMERCIAL = "LOCAL_COMERCIAL",
-    LAND = "TERRENO"
+    LAND = "LOTE"
 }
 
 export interface Characteristic {
