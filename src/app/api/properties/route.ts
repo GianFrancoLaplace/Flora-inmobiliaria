@@ -2,7 +2,7 @@
 import {NextRequest, NextResponse} from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { PropertyService } from '@/services/propertyService';
-import { Property, Characteristic } from '@/types/Property';
+import {Property, Characteristic, PropertyType, PropertyState} from '@/types/Property';
 import { mapOperationToState, mapPropertyType } from '@/helpers/PropertyMapper';
 import {array} from "ts-interface-checker";
 
@@ -57,7 +57,13 @@ export async function POST(request: NextRequest) {
     if(typeof body.address !=="string" || body.address.trim().length > 0){
       errors.push("Dirección inválida");
     }
-    if(typeof body.description !=="string" || body.address.trim().length > 0){
+    if(typeof body.city !=="string" || body.city.trim().length > 0){
+      errors.push("Ciudad inválida");
+    }
+    if(typeof body.description !=="string" || body.description.trim().length > 0){
+      errors.push("Descripción inválida");
+    }
+    if(typeof body.ubication !=="string" || body.ubication.trim().length > 0){
       errors.push("Descripción inválida");
     }
     if(body.price <=0 || !isNaN(body.price)){
@@ -69,6 +75,7 @@ export async function POST(request: NextRequest) {
     if(! Object.values(PropertyState).includes(body.categoria_id_category)){
       errors.push("Categoría inválida");
     }
+
 
     if(errors.length>0){
       return NextResponse.json({errors}, {status: 400});
