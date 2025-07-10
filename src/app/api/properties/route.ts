@@ -1,9 +1,10 @@
 // app/api/propiedades/route.ts
-import { NextResponse } from 'next/server';
+import {NextRequest, NextResponse} from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { PropertyService } from '@/services/propertyService';
 import { Property, PropertyState, PropertyType, Characteristic } from '@/types/Property'; 
 import { mapOperationToState, mapPropertyType } from '@/helpers/PropertyMapper';
+import {array} from "ts-interface-checker";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -44,3 +45,51 @@ export async function GET(request: Request) {
   }
 }
 
+
+
+
+export async function POST(request: NextRequest) {
+  try{
+    const body = await request.json();
+    const errors : string[] = [];
+
+
+    if(typeof body.address !=="string" || body.address.trim().length > 0){
+      errors.push("Dirección inválida");
+    }
+    if(typeof body.description !=="string" || body.address.trim().length > 0){
+      errors.push("Descripción inválida");
+    }
+    if(body.price <=0 || !isNaN(body.price)){
+      errors.push("Precio inválido");
+    }
+    if(! Object.values(PropertyType).includes(body.property_type_id_property_type)){
+      errors.push("Tipo de propiedad inválida");
+    }
+    if(! Object.values(PropertyState).includes(body.categoria_id_category)){
+      errors.push("Categoría inválida");
+    }
+
+    if(errors.length>0){
+      return NextResponse.json({errors}, {status: 400});
+    }
+
+
+    const newProperty = await prisma.property.create({
+      data: {price : body.price,
+        direction : body.address, //en schema.prisma es direction y en la db address
+        description : body.description,
+        property_type_id_property_type : body.property_type_id_property_type,
+        categoria_id_category : body.categoria_id_category,
+      },
+    })
+
+    if(newProperty == null){
+      return NextResponse.json(("No se pudo crear la propiedad"), {status: 500});
+    } //else, se creó correctamente
+
+  } catch (e) {
+    console.error(e);
+    return new NextResponse('El servidor falló al procesar la solicitud', { status: 500 });
+  }
+}
