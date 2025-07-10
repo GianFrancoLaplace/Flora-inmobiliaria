@@ -28,10 +28,6 @@ export default function FichaPropiedad() {
   }
 
   return (
-
-
-
-
     <div className={styles.container}>
         <div className="mt-4">
             {/* Aquí simplemente renderizas el botón */}
@@ -56,8 +52,6 @@ export default function FichaPropiedad() {
             <Admns />
           </div>
         </div>
-
-
       </div>
     </div>
   );

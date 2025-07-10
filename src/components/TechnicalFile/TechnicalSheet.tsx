@@ -11,10 +11,10 @@ import {Property} from "@/types/Property";
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
-    property: Property;
+    property: Property | null;
 };
 
-export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) {
+export default function TechnicalSheet({ mode, property}: TechnicalSheetProps) {
 
     const defaultDescription = "Ubicado en una de las zonas más buscadas de la ciudad, este departamento de tres\n" +
         "                    ambientes ofrece comodidad, luminosidad y una excelente distribución en sus\n" +
@@ -144,7 +144,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                     <h1>
                         <EditableField
                             fieldName="address"
-                            value={property.address || "Dirección"}
+                            value={property?.address || "Dirección"}
                         />
                     </h1>
                     <EditButton
@@ -166,7 +166,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             <div className={styles.main}>
                 <div className={`${isEmptyFile ? styles.notShowProperties : styles.mainInfo}`}>
                     <div className={styles.mainInfoH1}>
-                        <h1>{property.address || "Av. Avellaneda 987"}</h1>
+                        <h1>{property?.address || "Av. Avellaneda 987"}</h1>
                         <h1>|</h1>
                         <h1>VENTA</h1>
                     </div>
@@ -176,12 +176,12 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                     <div className={styles.editProperties}>
                         <h1>
                             <EditableField
-                                fieldName="address"
-                                value={`${property.address || "Dirección"} | ${property.state}`}
+                                fieldName="state"
+                                value={`${property?.address || "Dirección"} | ${property?.state}`}
                             />
                         </h1>
                         <EditButton
-                            fieldName="address"
+                            fieldName="state"
                             showCondition={isEmptyFile}
                         />
                     </div>
@@ -207,7 +207,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                     <h1>
                         <EditableField
                             fieldName="city"
-                            value={property.city || "Ciudad"}
+                            value={property?.city || "Ciudad"}
                         />
                     </h1>
                     <EditButton
@@ -216,7 +216,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                     />
                 </div>
                 <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>
-                    {property.city || "Ciudad de Tandil"}
+                    {property?.city || "Ciudad de Tandil"}
                 </h5>
             </div>
 
@@ -263,13 +263,13 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                     <h1>
                         <EditableField
                             fieldName="price"
-                            value={`USD ${property.price || "Precio"}`}
+                            value={`USD ${property?.price || "Precio"}`}
                         />
                     </h1>
                     <EditButton fieldName="price" />
                 </div>
                 <h1 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>
-                    USD {property.price || "550.000"}
+                    USD {property?.price || "550.000"}
                 </h1>
             </div>
 
@@ -284,12 +284,12 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                 <h5 className={`${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
                     <EditableField
                         fieldName="description"
-                        value={property.description || ""}
+                        value={property?.description || ""}
                     />
                 </h5>
 
                 <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>
-                    {property.description || defaultDescription}
+                    {property?.description || defaultDescription}
                 </h5>
             </div>
 
@@ -419,7 +419,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                 <div className={styles.titleProperties}>
                     <h3>Ubicación</h3>
                     <EditButton
-                        fieldName="description"
+                        fieldName="ubication"
                         showCondition={isEmptyFile}
                     />
                 </div>
@@ -434,8 +434,8 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
                 <h5 className={`${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
                     <EditableField
-                        fieldName="description"
-                        value={""}
+                        fieldName="ubication"
+                        value={property?.ubication || " "}
                     />
                 </h5>
 

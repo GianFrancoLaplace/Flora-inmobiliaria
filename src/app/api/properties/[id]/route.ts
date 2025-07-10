@@ -2,73 +2,56 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { mapPropertyType, mapOperationToState } from '@/helpers/PropertyMapper'; // ajustá la ruta si es distinta
 import { Property, Characteristic, PropertyState, PropertyType } from '@/types/Property';
+import {PropertyUpdateData, CharacteristicUpdateData, ValidationError} from "@/helpers/UpdateProperty"
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  try {
-    const { id } = params;
-    const propertyId = parseInt(id);
+// export async function GET(
+//   request: NextRequest,
+//   { params }: { params: { id: string } }
+// ) {
+//   try {
+//     const { id } = params;
+//     const propertyId = parseInt(id);
+//
+//     const propiedad = await prisma.property.findUnique({
+//       where: {
+//         id_property: propertyId,
+//       },
+//       include: {
+//         characteristics: true,
+//       },
+//     });
+//
+//     if (!propiedad) {
+//       return NextResponse.json(
+//         { message: 'Propiedad no encontrada' },
+//         { status: 404 }
+//       );
+//     }
+//
+//     const propiedadFormateada: Property = {
+//       id: propiedad.id_property,
+//       address: propiedad.address || '',
+//       city: '',
+//       state: mapOperationToState(propiedad.categoria_id_category),
+//       price: propiedad.price || 0,
+//       description: propiedad.description || '',
+//       type: mapPropertyType(propiedad.property_type_id_property_type),
+//       characteristic: propiedad.characteristics.map((c): Characteristic => ({
+//         id: c.id_characteristic,
+//         characteristic: c.characteristic,
+//         amount: c.amount,
+//       })),
+//     };
 
-    const propiedad = await prisma.property.findUnique({
-      where: {
-        id_property: propertyId,
-      },
-      include: {
-        characteristics: true,
-      },
-    });
-
-    if (!propiedad) {
-      return NextResponse.json(
-        { message: 'Propiedad no encontrada' },
-        { status: 404 }
-      );
-    }
-
-    const propiedadFormateada: Property = {
-      id: propiedad.id_property,
-      address: propiedad.direction || '',
-      city: '',
-      state: mapOperationToState(propiedad.categoria_id_category),
-      price: propiedad.price || 0,
-      description: propiedad.description || '',
-      type: mapPropertyType(propiedad.property_type_id_property_type),
-      characteristic: propiedad.characteristics.map((c): Characteristic => ({
-        id: c.id_characteristic,
-        characteristic: c.characteristic,
-        amount: c.amount,
-      })),
-    };
-
-    return NextResponse.json(propiedadFormateada);
-  } catch (error) {
-    console.error('Error al obtener la propiedad:', error);
-    return NextResponse.json(
-      { message: 'Error al obtener la propiedad' },
-      { status: 500 }
-    );
-  }
-}
-
-
-interface PropertyUpdateData {
-    address?: string;
-    city?: string;
-    state?: PropertyState;
-    price?: number;
-    description?: string;
-    bedrooms?: number;
-    bathrooms?: number;
-    squareMeters?: number;
-    type?: PropertyType;
-}
-
-interface ValidationError {
-    field: string;
-    message: string;
-}
+//     return NextResponse.json(propiedadFormateada);
+//   } catch (error) {
+//     console.error('Error al obtener la propiedad:', error);
+//     return NextResponse.json(
+//       { message: 'Error al obtener la propiedad' },
+//       { status: 500 }
+//     );
+//   }
+// }
 
 export async function PUT(
     request: NextRequest,
@@ -112,13 +95,9 @@ export async function PUT(
         const updateData: Record<string, unknown> = {};
 
         if (body.address !== undefined) updateData.direccion = body.address;
-        if (body.city !== undefined) updateData.ciudad = body.city;
         if (body.state !== undefined) updateData.estado = body.state;
         if (body.price !== undefined) updateData.precio = body.price;
         if (body.description !== undefined) updateData.descripcion = body.description;
-        if (body.bedrooms !== undefined) updateData.dormitorios = body.bedrooms;
-        if (body.bathrooms !== undefined) updateData.banos = body.bathrooms;
-        if (body.squareMeters !== undefined) updateData.metros_cuadrados = body.squareMeters;
         if (body.type !== undefined) updateData.tipo_propiedad = body.type;
 
         updateData.actualizado_en = new Date();
@@ -154,15 +133,6 @@ function validatePropertyData(data: PropertyUpdateData): ValidationError[] {
         }
     }
 
-    if (data.city !== undefined) {
-        if (typeof data.city !== 'string' || data.city.trim().length === 0) {
-            errors.push({
-                field: 'city',
-                message: 'La ciudad debe ser un texto válido y no puede estar vacía'
-            });
-        }
-    }
-
     if (data.state !== undefined) {
         if (!Object.values(PropertyState).includes(data.state)) {
             errors.push({
@@ -190,6 +160,22 @@ function validatePropertyData(data: PropertyUpdateData): ValidationError[] {
         }
     }
 
+    if (data.type !== undefined) {
+        if (!Object.values(PropertyType).includes(data.type)) {
+            errors.push({
+                field: 'type',
+                message: 'El tipo de propiedad debe ser un valor válido'
+            });
+        }
+    }
+
+    return errors;
+}
+
+function validateCharacteristics (data: CharacteristicUpdateData) : ValidationError[] {
+
+    const errors: ValidationError[] = [];
+
     if (data.bedrooms !== undefined) {
         if (!Number.isInteger(data.bedrooms) || data.bedrooms <= 0) {
             errors.push({
@@ -216,15 +202,57 @@ function validatePropertyData(data: PropertyUpdateData): ValidationError[] {
             });
         }
     }
-
-    if (data.type !== undefined) {
-        if (!Object.values(PropertyType).includes(data.type)) {
-            errors.push({
-                field: 'type',
-                message: 'El tipo de propiedad debe ser un valor válido'
-            });
-        }
-    }
-
     return errors;
+}
+
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+    try {
+        const {id} = params
+
+        const propertyId = parseInt(id);
+
+        if (propertyId <= 0) {
+            return NextResponse.json(
+                {message: 'Id inválido'},
+                {status: 401} //verificar
+            );
+        }
+
+        const property = await prisma.property.findUnique({
+            where: {
+                id_property: propertyId
+            }
+        });
+
+        if (!property) {
+            return NextResponse.json(
+                {message: 'Propiedad no encontrada'},
+                {status: 404}
+            );
+        }
+
+        const result = await prisma.property.delete({
+            where: {
+                id_property: propertyId
+            }
+        })
+
+        if (result) {
+            return NextResponse.json(
+                {message: 'Propiedad eliminada'},
+                {status: 200}
+            );
+        }
+
+        return NextResponse.json(
+            {message: 'Error del servidor'},
+            {status: 500}
+        );
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json(
+            {message: 'Error del servidor'},
+            {status: 500}
+        );
+    }
 }

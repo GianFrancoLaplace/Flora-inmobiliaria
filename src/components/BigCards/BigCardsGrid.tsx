@@ -56,7 +56,7 @@ export default function BigCardsGrid() {
                 rooms={6}
                 dorms={3}
                 bathrooms={2}
-            />
+            />git
             <BigCard
                 imageSrc={"/backgrounds/fichaBackground.jpg"}
                 price={300000}

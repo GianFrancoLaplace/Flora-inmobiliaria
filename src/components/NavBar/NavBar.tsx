@@ -6,11 +6,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+
 export default function NavBar() {
     const pathname = usePathname();
     const isHome = pathname === '/';
     const isLogin = pathname === '/login';
-    const isI_WantSell = pathname === '/quieroVender';
+    const isI_WantSell = pathname === '/quiero-vender';
     const isOur = pathname === '/nosotros';
 
     const [isOpen, setIsOpen] = useState(false);
@@ -37,6 +38,10 @@ export default function NavBar() {
                 <li><a href={"/Propiedades"}>Propiedades</a></li>
                 <li><a href={"/Nosotros"}>Nosotros</a></li>
                 <li><a href={"/QuieroVender"}>Quiero vender</a></li>
+
+                <li><a href={"/propiedades"}>Propiedades</a></li>
+                <li><a href={"/nosotros"}>Nosotros</a></li>
+                <li><a href={"/quiero-vender"}>Quiero vender</a></li>
                 <li>
                     <a href={"/login"}><Image src={'/icons/iconoUser.png'} alt={'minimalist user icon'} className={`${styles.iconoProperties}`}
                     width={20}

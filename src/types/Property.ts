@@ -5,6 +5,7 @@ export interface Property {
     state: PropertyState;
     price: number;
     description: string;
+    ubication: string;
     characteristic: Characteristic[]; //usar push para agregar
     type: PropertyType;
 }
