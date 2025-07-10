@@ -35,9 +35,6 @@ export default function NavBar() {
 
             <ul className={`${styles.sectionProperties} ${isOpen ? styles.openNav : styles.closeNav} ${cactus.className}`}>
                 <li><a href={"/"}>Inicio</a></li>
-                <li><a href={"/Propiedades"}>Propiedades</a></li>
-                <li><a href={"/Nosotros"}>Nosotros</a></li>
-                <li><a href={"/QuieroVender"}>Quiero vender</a></li>
 
                 <li><a href={"/propiedades"}>Propiedades</a></li>
                 <li><a href={"/nosotros"}>Nosotros</a></li>
