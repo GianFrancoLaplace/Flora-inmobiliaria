@@ -1,10 +1,10 @@
-import FichaV from '@/components/Administracion/EmptySheet/EmptySheet'
+import TechnicalSheet from '@/components/TechnicalFile/TechnicalSheet'
 
 export default function EmptyFile() {
     return (
         <main>
             <div>
-                <FichaV />
+                <TechnicalSheet mode={"create"} property={null} />
             </div>
         </main>
     )

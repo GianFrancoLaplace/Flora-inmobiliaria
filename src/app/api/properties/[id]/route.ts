@@ -4,54 +4,54 @@ import { mapPropertyType, mapOperationToState } from '@/helpers/PropertyMapper';
 import { Property, Characteristic, PropertyState, PropertyType } from '@/types/Property';
 import {PropertyUpdateData, CharacteristicUpdateData, ValidationError} from "@/helpers/UpdateProperty"
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  try {
-    const { id } = params;
-    const propertyId = parseInt(id);
+// export async function GET(
+//   request: NextRequest,
+//   { params }: { params: { id: string } }
+// ) {
+//   try {
+//     const { id } = params;
+//     const propertyId = parseInt(id);
+//
+//     const propiedad = await prisma.property.findUnique({
+//       where: {
+//         id_property: propertyId,
+//       },
+//       include: {
+//         characteristics: true,
+//       },
+//     });
+//
+//     if (!propiedad) {
+//       return NextResponse.json(
+//         { message: 'Propiedad no encontrada' },
+//         { status: 404 }
+//       );
+//     }
+//
+//     const propiedadFormateada: Property = {
+//       id: propiedad.id_property,
+//       address: propiedad.address || '',
+//       city: '',
+//       state: mapOperationToState(propiedad.categoria_id_category),
+//       price: propiedad.price || 0,
+//       description: propiedad.description || '',
+//       type: mapPropertyType(propiedad.property_type_id_property_type),
+//       characteristic: propiedad.characteristics.map((c): Characteristic => ({
+//         id: c.id_characteristic,
+//         characteristic: c.characteristic,
+//         amount: c.amount,
+//       })),
+//     };
 
-    const propiedad = await prisma.property.findUnique({
-      where: {
-        id_property: propertyId,
-      },
-      include: {
-        characteristics: true,
-      },
-    });
-
-    if (!propiedad) {
-      return NextResponse.json(
-        { message: 'Propiedad no encontrada' },
-        { status: 404 }
-      );
-    }
-
-    const propiedadFormateada: Property = {
-      id: propiedad.id_property,
-      address: propiedad.direction || '',
-      city: '',
-      state: mapOperationToState(propiedad.categoria_id_category),
-      price: propiedad.price || 0,
-      description: propiedad.description || '',
-      type: mapPropertyType(propiedad.property_type_id_property_type),
-      characteristic: propiedad.characteristics.map((c): Characteristic => ({
-        id: c.id_characteristic,
-        characteristic: c.characteristic,
-        amount: c.amount,
-      })),
-    };
-
-    return NextResponse.json(propiedadFormateada);
-  } catch (error) {
-    console.error('Error al obtener la propiedad:', error);
-    return NextResponse.json(
-      { message: 'Error al obtener la propiedad' },
-      { status: 500 }
-    );
-  }
-}
+//     return NextResponse.json(propiedadFormateada);
+//   } catch (error) {
+//     console.error('Error al obtener la propiedad:', error);
+//     return NextResponse.json(
+//       { message: 'Error al obtener la propiedad' },
+//       { status: 500 }
+//     );
+//   }
+// }
 
 export async function PUT(
     request: NextRequest,
@@ -202,6 +202,57 @@ function validateCharacteristics (data: CharacteristicUpdateData) : ValidationEr
             });
         }
     }
-
     return errors;
+}
+
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+    try {
+        const {id} = params
+
+        const propertyId = parseInt(id);
+
+        if (propertyId <= 0) {
+            return NextResponse.json(
+                {message: 'Id inválido'},
+                {status: 401} //verificar
+            );
+        }
+
+        const property = await prisma.property.findUnique({
+            where: {
+                id_property: propertyId
+            }
+        });
+
+        if (!property) {
+            return NextResponse.json(
+                {message: 'Propiedad no encontrada'},
+                {status: 404}
+            );
+        }
+
+        const result = await prisma.property.delete({
+            where: {
+                id_property: propertyId
+            }
+        })
+
+        if (result) {
+            return NextResponse.json(
+                {message: 'Propiedad eliminada'},
+                {status: 200}
+            );
+        }
+
+        return NextResponse.json(
+            {message: 'Error del servidor'},
+            {status: 500}
+        );
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json(
+            {message: 'Error del servidor'},
+            {status: 500}
+        );
+    }
 }

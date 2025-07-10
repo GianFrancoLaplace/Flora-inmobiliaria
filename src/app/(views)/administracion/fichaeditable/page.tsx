@@ -1,10 +1,10 @@
-import FichaE from '@/components/Administracion/EditableSheet/EditableSheet'
+import FichaE from '@/components/TechnicalFile/TechnicalSheet'
 
 export default function EditableFile() {
     return (
         <main>
             <div>
-                <FichaE />
+                {/*<FichaE mode={"create"} property={null} />*/}
             </div>
         </main>
     )

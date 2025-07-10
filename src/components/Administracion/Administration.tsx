@@ -17,6 +17,10 @@ export default function Administration() {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [propertyToDelete, setPropertyToDelete] = useState<Property | null>(null);
 
+    //método que traiga las propiedades de la bbdd
+
+
+
     const propiedades = [
         {
             id: 1,
@@ -83,7 +87,7 @@ export default function Administration() {
         <div>
             <div className={`${styles.sectionProperties} ${cactus.className}`}>
                 <div>
-                    <Link href={'/Administracion/EmptySheet'} className={styles.linkProperties}>
+                    <Link href={'/administracion/fichavacia'} className={styles.linkProperties}>
                         <button className={`${styles.buttonNewPublication} ${cactus.className}`}>Crear publicación</button>
                     </Link>
                     <button className={`${styles.showInactivePublication} ${cactus.className}`}>Ver publicaciones inactivas</button>
@@ -102,7 +106,7 @@ export default function Administration() {
                             />
                         </div>
 
-                        <Link href="/Propiedades/Sheet" className={styles.linkProperties}>
+                        <Link href="/propiedades/ficha" className={styles.linkProperties}>
                             <div className={`${styles.infoProperties} ${cactus.className}`}>
                                 <div className={styles.priceProperties}>
                                     <h5>{prop.precio}</h5>
@@ -116,7 +120,7 @@ export default function Administration() {
 
                         <div className={styles.buttonsProperties}>
                             <button
-                                onClick={() => (window.location.href = "/administracion/EditableSheet")}
+                                onClick={() => (window.location.href = "/administracion/fichaeditable")}
                                 type="button"
                             >
                                 <Image
