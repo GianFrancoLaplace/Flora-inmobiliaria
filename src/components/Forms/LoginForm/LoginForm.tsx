@@ -53,7 +53,7 @@ export default function LoginForm() {
                     }
                 </div>
 
-                <Link href={"/Administracion"}>
+                <Link href={"/administracion"}>
                     <button
                         type="submit"
                         className={`${styles.loginBtn} ${cactus.className}`}

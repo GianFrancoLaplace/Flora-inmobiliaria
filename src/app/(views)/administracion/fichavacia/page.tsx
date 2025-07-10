@@ -4,7 +4,7 @@ export default function EmptyFile() {
     return (
         <main>
             <div>
-                {/*<TechnicalSheet mode={"create"} property={} />*/}
+                <TechnicalSheet mode={"create"} property={null} />
             </div>
         </main>
     )

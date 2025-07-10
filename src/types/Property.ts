@@ -5,6 +5,7 @@ export interface Property {
     state: PropertyState;
     price: number;
     description: string;
+    ubication: string;
     characteristic: Characteristic[]; //usar push para agregar
     type: PropertyType;
 }
@@ -22,7 +23,7 @@ export enum PropertyType {
     FIELD = "CAMPO",
     DUPLEX = "DUPLEX",
     COMMERCIAL = "LOCAL_COMERCIAL",
-    LAND = "TERRENO"
+    LAND = "LOTE"
 }
 
 export interface Characteristic {

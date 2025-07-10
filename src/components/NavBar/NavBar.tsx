@@ -6,13 +6,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { signOut } from '@/auth';
 
 export default function NavBar() {
     const pathname = usePathname();
     const isHome = pathname === '/';
-    const isLogin = pathname === '/Login';
-    const isI_WantSell = pathname === '/QuieroVender';
-    const isOur = pathname === '/Nosotros';
+    const isLogin = pathname === '/login';
+    const isI_WantSell = pathname === '/quiero-vender';
+    const isOur = pathname === '/nosotros';
 
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => setIsOpen(!isOpen);
@@ -35,15 +36,16 @@ export default function NavBar() {
 
             <ul className={`${styles.sectionProperties} ${isOpen ? styles.openNav : styles.closeNav} ${cactus.className}`}>
                 <li><a href={"/"}>Inicio</a></li>
-                <li><a href={"/Propiedades"}>Propiedades</a></li>
-                <li><a href={"/Nosotros"}>Nosotros</a></li>
-                <li><a href={"/QuieroVender"}>Quiero vender</a></li>
+                <li><a href={"/propiedades"}>Propiedades</a></li>
+                <li><a href={"/nosotros"}>Nosotros</a></li>
+                <li><a href={"/quiero-vender"}>Quiero vender</a></li>
                 <li>
-                    <a href={"/Login"}><Image src={'/icons/iconoUser.png'} alt={'minimalist user icon'} className={`${styles.iconoProperties}`}
+                    <a href={"/login"}><Image src={'/icons/iconoUser.png'} alt={'minimalist user icon'} className={`${styles.iconoProperties}`}
                     width={20}
                     height={20}/>
                     </a>
                 </li>
+
             </ul>
         </nav>
     );
