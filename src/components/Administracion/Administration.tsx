@@ -116,7 +116,7 @@ export default function Administration() {
 
                         <div className={styles.buttonsProperties}>
                             <button
-                                onClick={() => (window.location.href = "/Administracion/EditableSheet")}
+                                onClick={() => (window.location.href = "/administracion/EditableSheet")}
                                 type="button"
                             >
                                 <Image

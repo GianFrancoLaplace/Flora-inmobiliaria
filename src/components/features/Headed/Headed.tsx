@@ -20,8 +20,8 @@ export default function Headed(){
     const activarEdicion = (): void => setModoEdicion(true);
     const desactivarEdicion = (): void => setModoEdicion(false);
     const pathname = usePathname();
-    const isEmptyFile = pathname === '/Administracion/EmptySheet';
-    const isEditableFile = pathname === '/Administracion/EditableSheet'
+    const isEmptyFile = pathname === '/administracion/EmptySheet';
+    const isEditableFile = pathname === '/administracion/EditableSheet'
     return(
             <div className={styles.mainAdressProperties}>
                 <div className={`${styles.viewInfoAdress} ${isEmptyFile ? styles.notShowProperties : isEditableFile ? styles.notShowProperties : styles.showProperties}`}>

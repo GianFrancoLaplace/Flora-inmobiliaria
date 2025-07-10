@@ -50,7 +50,7 @@ export async function authenticate(
         await signIn('credentials', {
             email,
             password,
-            redirectTo: '/Administracion', // Puedes quitar esto si ya lo tienes en auth.config.ts
+            redirectTo: '/administracion', // Puedes quitar esto si ya lo tienes en auth.config.ts
         });
 
         // 2. Añadido un return para satisfacer a TypeScript.
@@ -74,5 +74,5 @@ export async function authenticate(
 
 // Acción única para cerrar sesión y redirigir
 export async function handleSignOut() {
-    await signOut({ redirectTo: '/Login' });
+    await signOut({ redirectTo: '/login' });
 }

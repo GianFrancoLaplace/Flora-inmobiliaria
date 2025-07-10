@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { mapPropertyType, mapOperationToState } from '@/helpers/PropertyMapper'; // ajustá la ruta si es distinta
 import { Property, Characteristic, PropertyState, PropertyType } from '@/types/Property';
+import {PropertyUpdateData, CharacteristicUpdateData, ValidationError} from "@/helpers/UpdateProperty"
 
 export async function GET(
   request: NextRequest,
@@ -52,24 +53,6 @@ export async function GET(
   }
 }
 
-
-interface PropertyUpdateData {
-    address?: string;
-    city?: string;
-    state?: PropertyState;
-    price?: number;
-    description?: string;
-    bedrooms?: number;
-    bathrooms?: number;
-    squareMeters?: number;
-    type?: PropertyType;
-}
-
-interface ValidationError {
-    field: string;
-    message: string;
-}
-
 export async function PUT(
     request: NextRequest,
     { params }: { params: { id: string } }
@@ -112,13 +95,9 @@ export async function PUT(
         const updateData: Record<string, unknown> = {};
 
         if (body.address !== undefined) updateData.direccion = body.address;
-        if (body.city !== undefined) updateData.ciudad = body.city;
         if (body.state !== undefined) updateData.estado = body.state;
         if (body.price !== undefined) updateData.precio = body.price;
         if (body.description !== undefined) updateData.descripcion = body.description;
-        if (body.bedrooms !== undefined) updateData.dormitorios = body.bedrooms;
-        if (body.bathrooms !== undefined) updateData.banos = body.bathrooms;
-        if (body.squareMeters !== undefined) updateData.metros_cuadrados = body.squareMeters;
         if (body.type !== undefined) updateData.tipo_propiedad = body.type;
 
         updateData.actualizado_en = new Date();
@@ -154,15 +133,6 @@ function validatePropertyData(data: PropertyUpdateData): ValidationError[] {
         }
     }
 
-    if (data.city !== undefined) {
-        if (typeof data.city !== 'string' || data.city.trim().length === 0) {
-            errors.push({
-                field: 'city',
-                message: 'La ciudad debe ser un texto válido y no puede estar vacía'
-            });
-        }
-    }
-
     if (data.state !== undefined) {
         if (!Object.values(PropertyState).includes(data.state)) {
             errors.push({
@@ -190,6 +160,22 @@ function validatePropertyData(data: PropertyUpdateData): ValidationError[] {
         }
     }
 
+    if (data.type !== undefined) {
+        if (!Object.values(PropertyType).includes(data.type)) {
+            errors.push({
+                field: 'type',
+                message: 'El tipo de propiedad debe ser un valor válido'
+            });
+        }
+    }
+
+    return errors;
+}
+
+function validateCharacteristics (data: CharacteristicUpdateData) : ValidationError[] {
+
+    const errors: ValidationError[] = [];
+
     if (data.bedrooms !== undefined) {
         if (!Number.isInteger(data.bedrooms) || data.bedrooms <= 0) {
             errors.push({
@@ -213,15 +199,6 @@ function validatePropertyData(data: PropertyUpdateData): ValidationError[] {
             errors.push({
                 field: 'squareMeters',
                 message: 'Los metros cuadrados deben ser un número mayor a cero'
-            });
-        }
-    }
-
-    if (data.type !== undefined) {
-        if (!Object.values(PropertyType).includes(data.type)) {
-            errors.push({
-                field: 'type',
-                message: 'El tipo de propiedad debe ser un valor válido'
             });
         }
     }
