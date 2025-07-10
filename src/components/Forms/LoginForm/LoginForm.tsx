@@ -3,7 +3,8 @@
 import styles from './LoginForm.module.css';
 import { cactus } from "@/app/(views)/ui/fonts";
 import { useActionState } from 'react'; // 1. Importa el hook para manejar el estado de la acción
-import { authenticate } from '@/lib/actions'; // 2. Importa tu Server Action (asegúrate de que la ruta sea correcta)
+import { authenticate } from '@/lib/actions';
+import Link from "next/link"; // 2. Importa tu Server Action (asegúrate de que la ruta sea correcta)
 
 export default function LoginForm() {
     // 3. Configura el hook.
@@ -52,13 +53,15 @@ export default function LoginForm() {
                     }
                 </div>
 
-                <button
-                    type="submit"
-                    className={`${styles.loginBtn} ${cactus.className}`}
-                    aria-disabled={isPending} // 5. Deshabilita el botón mientras se procesa el login
-                >
-                    {isPending ? 'Iniciando...' : 'Iniciar sesión'}
-                </button>
+                <Link href={"/Administracion"}>
+                    <button
+                        type="submit"
+                        className={`${styles.loginBtn} ${cactus.className}`}
+                        aria-disabled={isPending} // 5. Deshabilita el botón mientras se procesa el login
+                    >
+                        {isPending ? 'Iniciando...' : 'Iniciar sesión'}
+                    </button>
+                </Link>
 
                 {/* 6. Muestra el mensaje de error general (ej. "Credenciales inválidas") */}
                 {state?.message &&

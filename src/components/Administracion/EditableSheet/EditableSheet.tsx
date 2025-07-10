@@ -1,10 +1,7 @@
 'use client';
-import FichaPropiedad from "@/app/(views)/Propiedades/Sheet/page";
-import styles from "@/components/Administracion/Administration.module.css";
-import {cactus} from "@/app/(views)/ui/fonts";
+import FichaPropiedad from "@/app/(views)/Propiedades/ficha/page";
 import SignOutButton from '@/components/botonSingOut/SignOutButton';
 
-import FichaPropiedad from "@/app/(views)/propiedades/ficha/page";
 
 export default function EditableSheet() {
     return(
@@ -14,8 +11,6 @@ export default function EditableSheet() {
                     {/* Aquí simplemente renderizas el botón */}
                     <SignOutButton />
                 </div>
-
-
                 <FichaPropiedad></FichaPropiedad>
         </main>
     )

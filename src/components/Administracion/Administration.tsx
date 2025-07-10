@@ -83,7 +83,7 @@ export default function Administration() {
         <div>
             <div className={`${styles.sectionProperties} ${cactus.className}`}>
                 <div>
-                    <Link href={'/Administracion/EmptySheet'} className={styles.linkProperties}>
+                    <Link href={'/Administracion/fichavacia'} className={styles.linkProperties}>
                         <button className={`${styles.buttonNewPublication} ${cactus.className}`}>Crear publicación</button>
                     </Link>
                     <button className={`${styles.showInactivePublication} ${cactus.className}`}>Ver publicaciones inactivas</button>
@@ -116,7 +116,7 @@ export default function Administration() {
 
                         <div className={styles.buttonsProperties}>
                             <button
-                                onClick={() => (window.location.href = "/Administracion/EditableSheet")}
+                                onClick={() => (window.location.href = "/Administracion/fichaeditable")}
                                 type="button"
                             >
                                 <Image
