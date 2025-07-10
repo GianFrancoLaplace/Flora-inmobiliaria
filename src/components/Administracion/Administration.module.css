@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+
     margin-top: 3%;
     margin-right: 30px;
 }
@@ -10,7 +11,9 @@
 .showInactivePublication{
     width: 250px;
     height: 41px;
+
     border: 2px black solid;
+
     cursor: pointer;
 }
 
@@ -25,17 +28,20 @@
 .cardsProperties{
     display: flex;
     flex-direction: column;
+
     margin-left: 5%;
     margin-bottom: 2%;
     margin-top: 1%;
 }
 
 .cardProperties{
-    background-color: var(--primary-color-2);
-    width: 880px;
-    height: 220px;
     display: flex;
     flex-direction: row;
+
+    width: 880px;
+    height: 220px;
+
+    background-color: var(--primary-color-2);
 }
 
 .imageProperties{
@@ -44,8 +50,9 @@
 }
 
 .priceProperties h5{
-    font-size: 22px;
     margin-top: 15px;
+
+    font-size: 22px;
 }
 
 .linkProperties{
@@ -55,9 +62,11 @@
 .infoProperties{
     display: flex;
     flex-direction: column;
+
     margin-top: 3%;
     margin-left: 10%;
     gap: 70px;
+
     color: var(--primary-color-5);
 }
 
@@ -69,68 +78,82 @@
 .buttonsProperties{
     display: flex;
     flex-direction: row;
+
+    width: fit-content;
+
     margin-left: 15%;
     gap: 10%;
-    width: fit-content;
 }
 
 .buttonsProperties button{
     background-color: transparent;
     border: none;
     box-shadow: none;
+
     cursor: pointer;
 }
 
 .modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .modalContent {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+
     max-width: 400px;
     width: 90%;
-    text-align: center;
+    padding: 30px;
+
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .modalContent h3 {
-    color: #FDFFE2;
     margin-bottom: 15px;
+
+    color: #FDFFE2;
     font-size: 1.5em;
 }
 
 .modalContent p {
-    color: #FDFFE2;
     margin-bottom: 10px;
+
+    color: #FDFFE2;
     line-height: 1.5;
 }
 
 .modalButtons {
     display: flex;
-    gap: 15px;
     justify-content: center;
+
+    gap: 15px;
     margin-top: 25px;
 }
 
 .cancelButton {
+    padding: 12px 24px;
+
     background-color: #FDFFE2;
     color: black;
     border: none;
-    padding: 12px 24px;
     border-radius: 6px;
-    cursor: pointer;
     font-size: 14px;
+
+    cursor: pointer;
+
     transition: background-color 0.3s ease;
 }
 
@@ -139,13 +162,16 @@
 }
 
 .deleteButton {
+    padding: 12px 24px;
+
     background-color: #FFDC2B;
     color: black;
     border: none;
-    padding: 12px 24px;
     border-radius: 6px;
-    cursor: pointer;
     font-size: 16px;
+
+    cursor: pointer;
+
     transition: background-color 0.3s ease;
 }
 
@@ -153,13 +179,15 @@
     background-color: #c82333;
 }
 
-/* Opcional: Estilo para los botones de acción en las cards */
 .buttonsProperties button {
+    padding: 5px;
+
     background: none;
     border: none;
-    cursor: pointer;
-    padding: 5px;
     border-radius: 4px;
+
+    cursor: pointer;
+
     transition: background-color 0.2s ease;
 }
 
@@ -176,17 +204,20 @@
         display: flex;
         justify-self: center;
         justify-content: center;
+
         margin-left: 30px;
     }
 
     .cardsProperties{
         justify-self: center;
+
         margin-right: 15px;
     }
 
     .infoProperties{
         gap: 30px;
         justify-self: left;
+
         margin-left: 0;
     }
 
@@ -208,10 +239,11 @@
     }
 
     .cardProperties{
-        width: 320px;
-        height: 420px;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
+        width: 320px;
+        height: 420px;
     }
 }

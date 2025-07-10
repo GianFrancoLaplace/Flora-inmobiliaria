@@ -1,0 +1,23 @@
+/* En NavBar.module.css */
+
+.signOutButton {
+    /* Apariencia de texto normal */
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+
+    /* Hereda los estilos de la navegación */
+    color: inherit; /* Hereda el color del texto de la 'ul' */
+    font-family: inherit; /* Hereda la fuente (ej. 'cactus') */
+    font-size: inherit; /* Hereda el tamaño de fuente */
+    cursor: pointer;
+    text-decoration: none; /* Quita el subrayado si lo hereda */
+
+    /* Efecto hover sutil */
+    transition: color 0.2s ease-in-out;
+}
+
+.signOutButton:hover {
+    color: #fdd835; /* Un color amarillo/dorado que combine con tu logo */
+}

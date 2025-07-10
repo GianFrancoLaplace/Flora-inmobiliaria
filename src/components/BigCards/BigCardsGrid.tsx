@@ -1,7 +1,6 @@
 import styles from './BigCard.module.css'
 import {cactus} from "@/app/(views)/ui/fonts";
 import BigCard from "@/components/BigCards/BigCard";
-import Link from "next/link";
 import React from "react";
 
 export default function BigCardsGrid() {

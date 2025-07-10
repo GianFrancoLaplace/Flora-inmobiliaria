@@ -6,7 +6,7 @@
 }
 }
 
-.properties-layout {
+.propertiesLayout {
   display: flex;
   flex-direction: row;
   gap: 2rem;
@@ -16,13 +16,13 @@
 }
 
 /* Columna izquierda - filtros */
-.properties-layout__filters {
+.propertiesLayoutFilter {
   flex: 1 1 25%;
   max-width: 25%;
 }
 
 /* Columna derecha - cards */
-.properties-layout__main-content {
+.propertiesLayoutMainContent {
   flex: 1 1 75%;
   max-width: 75%;
   padding-right: 2rem;
@@ -31,17 +31,17 @@
 
 /* En mobile: apilar verticalmente */
 @media (max-width: 900px) {
-  .properties-layout {
+  .propertiesLayout {
     flex-direction: column;
   }
 
-  .properties-layout__filters,
-  .properties-layout__main-content {
+  .propertiesLayoutFilter,
+  .propertiesLayoutMainContent {
     max-width: 100%;
     flex: 1 1 100%;
   }
 
-  .properties-layout__main-content {
+  .propertiesLayoutMainContent {
     padding-right: 0;
   }
 }

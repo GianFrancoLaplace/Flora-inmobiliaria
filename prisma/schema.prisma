@@ -40,6 +40,8 @@ model Property {
   property_type_id_property_type PropertyTypeEnum
   categoria_id_category          OperationEnum
 
+  characteristics                Characteristic[]
+
   @@map("property")
 }
 
@@ -50,3 +52,15 @@ model Admin {
 
   @@map("admin")
 }
+
+model Characteristic {
+  id_characteristic Int    @id @default(autoincrement())
+  characteristic    String @db.VarChar(255)
+  amount            Int
+  property_id       Int
+
+  property          Property @relation(fields: [property_id], references: [id_property])
+
+  @@map("characteristic")
+}
+

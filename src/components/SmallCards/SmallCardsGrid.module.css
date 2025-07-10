@@ -1,16 +1,19 @@
 .propertyGrid {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    padding: 20px;
     justify-content: center;
     align-items: start;
+
+    gap: 16px;
+    padding: 20px;
     margin: 20px;
 }
 .allPropertiesBtn{
     width: 450px;
-    background-color: var(--secondary-color-4);
+
     margin-bottom: 5%;
+
+    background-color: var(--secondary-color-4);
 }
 .linkProperties{
     text-decoration: none;
@@ -27,13 +30,14 @@
     .propertyGrid {
         display: grid;
         grid-template-columns: repeat(2, minmax(330px, 1fr));
-        row-gap: 50px;
-        column-gap: 40px;
-        padding: 20px;
         justify-content: center;
         align-items: start;
 
         max-width: 1300px;
+
+        row-gap: 50px;
+        column-gap: 40px;
+        padding: 20px;
         margin: 0px auto;
     }
 
@@ -46,22 +50,22 @@
     .propertyGrid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-        row-gap: 50px;
-        column-gap: 40px;
-        padding: 20px;
         justify-content: center;
         align-items: start;
 
         max-width: 1300px;
+
+        row-gap: 50px;
+        column-gap: 40px;
+        padding: 20px;
         margin: 0px auto;
     }
 
     .cardAddress {
         margin-top: 25px;
         margin-bottom: 5px;
+
         font-weight: lighter;
         font-size: 18px;
     }
-
-
 }

@@ -1,5 +1,5 @@
 "use client"
-import styles from "@/components/Administracion/Administration.module.css";
+import styles from "./Administration.module.css";
 import { cactus } from "@/app/(views)/ui/fonts";
 import Image from "next/image";
 import Link from "next/link";

@@ -1,0 +1,37 @@
+.viewInfoAdress{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 70%;
+    white-space: nowrap;
+}
+
+.mainAdressProperties{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.mainAdressProperties button, .editButtonProperties{
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    padding-bottom: 20px;
+}
+
+.editProperties{
+    display: flex;
+    flex-direction: row;
+    width: min-content;
+    gap: 20px;
+}
+
+.inputProperties{
+    font-size: 30px;
+    font-family: var(--font-weight-normal);
+}
+
+

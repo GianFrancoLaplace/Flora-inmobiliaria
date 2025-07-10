@@ -1,6 +1,6 @@
 'use client';
 import {useCallback, useState} from "react";
-import {Property, PropertyState, PropertyType} from "./Property"
+import {Property, PropertyState, PropertyType} from "@/types/Property"
 
 function getEmptyProperty() : Property{
     return {
@@ -62,6 +62,7 @@ export const usePropertyEditor = (mode: 'view' | 'create' | 'edit', initialPrope
         cancelEdit,
         updateField,
         isViewMode: mode === 'view',
+        isEditMode: mode === 'edit',
         isCreateMode: mode === 'create'
     };
 };
