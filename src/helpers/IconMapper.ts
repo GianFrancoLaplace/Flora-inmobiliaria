@@ -3,7 +3,7 @@ import { CharacteristicCategory } from '@/types/Property';
 // Mapeo de categorías a iconos
 export const CHARACTERISTIC_ICON_MAP: Record<CharacteristicCategory, string> = {
     [CharacteristicCategory.SUPERFICIE_TOTAL]: '/icons/sup.png',
-    [CharacteristicCategory.SUPERFICIE_DESCUBIERTA]: '/icons/supdesc.png',
+    [CharacteristicCategory.SUPERFICIE_DESCUBIERTA]: '/icons/supDesc.png',
     [CharacteristicCategory.SUPERFICIE_SEMICUBIERTA]: '/icons/sup.png', //a chequear porque no estoy segura cual es
     [CharacteristicCategory.SUPERFICIE_CUBIERTA]: '/icons/supCub',
     [CharacteristicCategory.AMBIENTES]: '/icons/ambiente.png',
