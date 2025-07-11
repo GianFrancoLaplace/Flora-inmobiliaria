@@ -2,29 +2,29 @@ import { CharacteristicCategory } from '@/types/Property';
 
 // Mapeo de categorías a iconos
 export const CHARACTERISTIC_ICON_MAP: Record<CharacteristicCategory, string> = {
-    [CharacteristicCategory.SUPERFICIE_TOTAL]: '/icons/area-total.svg',
-    [CharacteristicCategory.SUPERFICIE_DESCUBIERTA]: '/icons/area-outdoor.svg',
-    [CharacteristicCategory.SUPERFICIE_SEMICUBIERTA]: '/icons/area-semi.svg',
-    [CharacteristicCategory.SUPERFICIE_CUBIERTA]: '/icons/area-indoor.svg',
-    [CharacteristicCategory.AMBIENTES]: '/icons/rooms.svg',
-    [CharacteristicCategory.DORMITORIOS]: '/icons/bedroom.svg',
-    [CharacteristicCategory.DORMITORIOS_SUITE]: '/icons/bedroom-suite.svg',
-    [CharacteristicCategory.BANOS]: '/icons/bathroom.svg',
-    [CharacteristicCategory.COCHERAS]: '/icons/garage.svg',
-    [CharacteristicCategory.COBERTURA_COCHERA]: '/icons/garage-roof.svg',
-    [CharacteristicCategory.BALCON_TERRAZA]: '/icons/balcony.svg',
-    [CharacteristicCategory.EXPENSAS]: '/icons/expenses.svg',
-    [CharacteristicCategory.FECHA_EXPENSA]: '/icons/calendar.svg',
-    [CharacteristicCategory.AGUA]: '/icons/water.svg',
-    [CharacteristicCategory.CANTIDAD_PLANTAS]: '/icons/floors.svg',
-    [CharacteristicCategory.TIPO_PISO]: '/icons/floor-type.svg',
-    [CharacteristicCategory.ESTADO_INMUEBLE]: '/icons/status.svg',
-    [CharacteristicCategory.ORIENTACION]: '/icons/compass.svg',
-    [CharacteristicCategory.LUMINOSIDAD]: '/icons/light.svg',
-    [CharacteristicCategory.DISPOSICION]: '/icons/layout.svg',
-    [CharacteristicCategory.ANTIGUEDAD]: '/icons/age.svg',
-    [CharacteristicCategory.UBICACION_CUADRA]: '/icons/location.svg',
-    [CharacteristicCategory.OTROS]: '/icons/default.svg'
+    [CharacteristicCategory.SUPERFICIE_TOTAL]: '/icons/sup.png',
+    [CharacteristicCategory.SUPERFICIE_DESCUBIERTA]: '/icons/supdesc.png',
+    [CharacteristicCategory.SUPERFICIE_SEMICUBIERTA]: '/icons/sup.png', //a chequear porque no estoy segura cual es
+    [CharacteristicCategory.SUPERFICIE_CUBIERTA]: '/icons/supCub',
+    [CharacteristicCategory.AMBIENTES]: '/icons/ambiente.png',
+    [CharacteristicCategory.DORMITORIOS]: '/icons/dorms.png',
+    [CharacteristicCategory.DORMITORIOS_SUITE]: '/icons/suite.png',
+    [CharacteristicCategory.BANOS]: '/icons/baños.png',
+    [CharacteristicCategory.COCHERAS]: '/icons/cochera.png',
+    [CharacteristicCategory.COBERTURA_COCHERA]: '/icons/cobertura.png',
+    [CharacteristicCategory.BALCON_TERRAZA]: '/icons/balcon.png',
+    [CharacteristicCategory.EXPENSAS]: '/icons/expensas.png',
+    [CharacteristicCategory.FECHA_EXPENSA]: '/icons/fecha.png',
+    [CharacteristicCategory.AGUA]: '/icons/agua.png',
+    [CharacteristicCategory.CANTIDAD_PLANTAS]: '/icons/plantas.png',
+    [CharacteristicCategory.TIPO_PISO]: '/icons/piso.png',
+    [CharacteristicCategory.ESTADO_INMUEBLE]: '/icons/estado.png',
+    [CharacteristicCategory.ORIENTACION]: '/icons/orientacion.png',
+    [CharacteristicCategory.LUMINOSIDAD]: '/icons/luminosidad.png',
+    [CharacteristicCategory.DISPOSICION]: '/icons/disposicion.png',
+    [CharacteristicCategory.ANTIGUEDAD]: '/icons/antiguedad.png',
+    [CharacteristicCategory.UBICACION_CUADRA]: '/icons/ubi.png',
+    [CharacteristicCategory.OTROS]: '/icons/estado.png'
 };
 
 // Función para obtener el icono por categoría

@@ -1,4 +1,5 @@
 // app/api/propiedades/route.ts
+//probar filtros: http://localhost:3000/api/properties?tipo=departamento
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { PropertyService } from '@/services/propertyService';
@@ -36,7 +37,7 @@ export async function GET(request: Request) {
         amount: c.amount,
         category: CharacteristicCategory.SUPERFICIE_TOTAL
       })),
-      ubication: '', // Agregar la propiedad faltante
+      ubication: '', 
     }));
 
     return NextResponse.json(propiedades);

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { mapPropertyType, mapOperationToState } from '@/helpers/PropertyMapper'; // ajustá la ruta si es distinta
+import { mapPropertyType, mapOperationToState } from '@/helpers/PropertyMapper'; 
 import { Property, Characteristic, PropertyState, PropertyType } from '@/types/Property';
 import { PropertyUpdateData, CharacteristicUpdateData, ValidationError } from "@/helpers/UpdateProperty"
 import {getIconByCategory, mapPrismaCharacteristicCategory} from "@/helpers/IconMapper"
@@ -29,7 +29,6 @@ export async function GET(
             );
         }
 
-    // En tu helper, modifica el mapeo de características
 const propiedadFormateada: Property = {
     id: propiedad.id_property,
     address: propiedad.address || '',

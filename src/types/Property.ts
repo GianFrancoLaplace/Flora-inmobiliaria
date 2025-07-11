@@ -32,7 +32,6 @@ export enum PropertyType {
     LAND = "LAND"
 }
 
-// Nuevo enum para categorías de características
 export enum CharacteristicCategory {
     SUPERFICIE_TOTAL = "superficie_total",
     SUPERFICIE_DESCUBIERTA = "superficie_descubierta",
@@ -59,13 +58,12 @@ export enum CharacteristicCategory {
     OTROS = "otros"
 }
 
-// Interfaz actualizada para características
 export interface Characteristic {
     id: number;
     characteristic: string;
     amount: number;
     category: CharacteristicCategory;
-    iconUrl?: string; // URL del icono (opcional)
+    iconUrl?: string; // URL del icono (opcional pero obligatorio para el get by id)
 }
 
 export type PropertyMode = 'view' | 'create' | 'edit';
