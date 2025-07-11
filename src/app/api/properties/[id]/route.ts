@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { mapPropertyType, mapOperationToState } from '@/helpers/PropertyMapper'; // ajustá la ruta si es distinta
 import { Property, Characteristic, PropertyState, PropertyType } from '@/types/Property';
 import { PropertyUpdateData, CharacteristicUpdateData, ValidationError } from "@/helpers/UpdateProperty"
-import {mapPrismaCharacteristicCategory} from "@/helpers/IconMapper"
+import {getIconByCategory, mapPrismaCharacteristicCategory} from "@/helpers/IconMapper"
 
 export async function GET(
     request: NextRequest,
@@ -29,7 +29,8 @@ export async function GET(
             );
         }
 
-    const propiedadFormateada: Property = {
+    // En tu helper, modifica el mapeo de características
+const propiedadFormateada: Property = {
     id: propiedad.id_property,
     address: propiedad.address || '',
     city: '',
@@ -37,12 +38,16 @@ export async function GET(
     price: propiedad.price,
     description: propiedad.description || '',
     type: mapPropertyType(propiedad.property_type_id_property_type),
-    characteristics: propiedad.characteristics.map((c): Characteristic => ({
-        id: c.id_characteristic,
-        characteristic: c.characteristic,
-        amount: c.amount,
-        category: mapPrismaCharacteristicCategory(c.category) // ← Mapear desde el enum de Prisma
-    })),
+    characteristics: propiedad.characteristics.map((c): Characteristic => {
+        const mappedCategory = mapPrismaCharacteristicCategory(c.category);
+        return {
+            id: c.id_characteristic,
+            characteristic: c.characteristic,
+            amount: c.amount,
+            category: mappedCategory,
+            iconUrl: getIconByCategory(mappedCategory) // ← Agregar el ícono aquí
+        };
+    }),
     ubication: propiedad.ubication || ''
 };
 

@@ -65,6 +65,7 @@ export interface Characteristic {
     characteristic: string;
     amount: number;
     category: CharacteristicCategory;
+    iconUrl?: string; // URL del icono (opcional)
 }
 
 export type PropertyMode = 'view' | 'create' | 'edit';
