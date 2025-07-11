@@ -79,7 +79,8 @@ export async function POST(request: NextRequest) {
 
 
     if (errors.length > 0) {
-      return NextResponse.json({ errors }, { status: 400 });
+      return NextResponse.json({errors}, {status: 400});
+    }
 
     /*if (Array.isArray(body.characteristic)) {
       body.characteristic.forEach((c : Characteristic, index : number) => {
@@ -101,7 +102,8 @@ export async function POST(request: NextRequest) {
 
 
     const newProperty = await prisma.property.create({
-      data: {price : body.price,
+      data: {
+        price : body.price,
         direction : body.address, //en schema.prisma es direction y en la db address
         description : body.description,
         property_type_id_property_type : body.property_type_id_property_type,
