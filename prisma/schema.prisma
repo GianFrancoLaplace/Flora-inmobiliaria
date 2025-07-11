@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,7 +7,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Enums para reemplazar las tablas
+model Property {
+  id_property                    Int              @id @default(autoincrement())
+  description                    String?
+  price                          Int
+  property_type_id_property_type PropertyTypeEnum
+  categoria_id_category          OperationEnum
+  address                        String?
+  ubication                      String?
+  characteristics                Characteristic[]
+
+  @@map("property")
+}
+
+model Admin {
+  id_admin       Int    @id @default(autoincrement())
+  admin_email    String @db.VarChar(255)
+  admin_password String @db.VarChar(255)
+
+  @@map("admin")
+}
+
+model Characteristic {
+  id_characteristic Int                         @id(map: "Characteristic_pkey") @default(autoincrement())
+  characteristic    String                      @db.VarChar(255)
+  amount            Int
+  property_id       Int
+  category          CharacteristicCategoryEnum? @default(otros)
+  property          Property                    @relation(fields: [property_id], references: [id_property], map: "Characteristic_property_id_fkey")
+
+  @@map("characteristic")
+}
+
 enum PropertyTypeEnum {
   casa
   departamento
@@ -32,35 +57,30 @@ enum OperationEnum {
   @@map("operation_enum")
 }
 
-model Property {
-  id_property                    Int              @id @default(autoincrement())
-  direction                      String?          @db.Text
-  description                    String?          @db.Text
-  price                          Int
-  property_type_id_property_type PropertyTypeEnum
-  categoria_id_category          OperationEnum
+enum CharacteristicCategoryEnum {
+  superficie_total
+  superficie_descubierta
+  superficie_semicubierta
+  superficie_cubierta
+  ambientes
+  dormitorios
+  dormitorios_suite
+  banos
+  cocheras
+  cobertura_cochera
+  balcon_terraza
+  expensas
+  fecha_expensa
+  agua
+  cantidad_plantas
+  tipo_piso
+  estado_inmueble
+  orientacion
+  luminosidad
+  disposicion
+  antiguedad
+  ubicacion_cuadra
+  otros
 
-  characteristics                Characteristic[]
-
-  @@map("property")
+  @@map("characteristic_category_enum")
 }
-
-model Admin {
-  id_admin       Int    @id @default(autoincrement())
-  admin_email    String @db.VarChar(255)
-  admin_password String @db.VarChar(255)
-
-  @@map("admin")
-}
-
-model Characteristic {
-  id_characteristic Int    @id @default(autoincrement())
-  characteristic    String @db.VarChar(255)
-  amount            Int
-  property_id       Int
-
-  property          Property @relation(fields: [property_id], references: [id_property])
-
-  @@map("characteristic")
-}
-

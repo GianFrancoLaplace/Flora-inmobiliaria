@@ -1,0 +1,52 @@
+// app/api/send-email/route.ts
+import { NextResponse } from 'next/server';
+import { Resend } from 'resend';
+
+// Inicializa Resend con tu API key desde las variables de entorno
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+export async function POST(request: Request) {
+    try {
+        // 1. Extrae los datos del cuerpo de la petición
+        const body = await request.json();
+        const { name, tel, email, propType, coment } = body;
+
+        // 2. Envía el correo usando Resend
+        const { data, error } = await resend.emails.send({
+            from: 'Propuestas <onboarding@resend.dev>', // ¡Importante! Debe ser un email de tu dominio verificado
+            to: ['roark.nahuelthiago@gmail.com'], // El correo donde quieres recibir las propuestas
+            subject: `Nueva propuesta de venta de ${name}`,
+            html: `
+        <h1>Nueva Propuesta de Venta de Propiedad</h1>
+        <p>Has recibido una nueva propuesta a través del formulario web.</p>
+        <hr>
+        <h2>Datos del Contacto:</h2>
+        <ul>
+          <li><strong>Nombre y Apellido:</strong> ${name}</li>
+          <li><strong>Teléfono:</strong> ${tel}</li>
+          <li><strong>Email:</strong> ${email}</li>
+        </ul>
+        <h2>Datos de la Propiedad:</h2>
+        <ul>
+          <li><strong>Tipo de Propiedad:</strong> ${propType}</li>
+          <li><strong>Comentarios:</strong> ${coment}</li>
+        </ul>
+      `,
+        });
+
+        // 3. Maneja el error si el envío falla
+        if (error) {
+            return NextResponse.json({ error: error.message }, { status: 500 });
+        }
+
+        // 4. Responde con éxito si todo salió bien
+        return NextResponse.json({ message: '¡Correo enviado con éxito!', data });
+
+    } catch (error) {
+        // Maneja errores inesperados en el servidor
+        if (error instanceof Error) {
+            return NextResponse.json({ error: error.message }, { status: 500 });
+        }
+        return NextResponse.json({ error: 'Un error desconocido ocurrió' }, { status: 500 });
+    }
+}

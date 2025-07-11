@@ -41,7 +41,7 @@ export default function PropertiesSearchBar() {
                         onClick={() => {
                             setSelectedType(type.id);
                             if (type.id === 'sell') {
-                                router.push('/quieroVender');
+                                router.push('/quiero-vender');
                             }
                         }}
                         className={`
