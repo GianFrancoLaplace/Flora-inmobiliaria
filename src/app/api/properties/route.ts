@@ -54,16 +54,16 @@ export async function POST(request: NextRequest) {
     const errors : string[] = [];
 
 
-    if(typeof body.address !=="string" || body.address.trim().length > 0){
+    if(typeof body.address !=="string" || body.address.trim().length == 0){
       errors.push("Dirección inválida");
     }
-    if(typeof body.city !=="string" || body.city.trim().length > 0){
+    if(typeof body.city !=="string" || body.city.trim().length == 0){
       errors.push("Ciudad inválida");
     }
-    if(typeof body.description !=="string" || body.description.trim().length > 0){
+    if(typeof body.description !=="string" || body.description.trim().length == 0){
       errors.push("Descripción inválida");
     }
-    if(typeof body.ubication !=="string" || body.ubication.trim().length > 0){
+    if(typeof body.ubication !=="string" || body.ubication.trim().length == 0){
       errors.push("Descripción inválida");
     }
     if(body.price <=0 || !isNaN(body.price)){
@@ -77,6 +77,21 @@ export async function POST(request: NextRequest) {
     }
 
 
+
+    /*if (Array.isArray(body.characteristic)) {
+      body.characteristic.forEach((c : Characteristic, index : number) => {
+
+        if (!c.characteristic || c.characteristic.trim() === '') {
+          errors.push(`La característica #${index + 1} no tiene nombre.`);
+        }
+
+        if (c.amount === null || !isNaN(c.amount)) {
+          errors.push(`La característica "${c.characteristic || 'sin nombre'}" tiene un valor inválido.`);
+        }
+      });
+    }*/
+
+
     if(errors.length>0){
       return NextResponse.json({errors}, {status: 400});
     }
@@ -88,6 +103,8 @@ export async function POST(request: NextRequest) {
         description : body.description,
         property_type_id_property_type : body.property_type_id_property_type,
         categoria_id_category : body.categoria_id_category,
+        //ubication : body.ubication, no esta en schema
+        //city : body.city, no esta en schema
       },
     })
 
