@@ -58,9 +58,9 @@ export async function POST(request: NextRequest) {
     if (typeof body.address !== "string" || body.address.trim().length > 0) {
       errors.push("Dirección inválida");
     }
-    if (typeof body.city !== "string" || body.city.trim().length > 0) {
+    /*if (typeof body.city !== "string" || body.city.trim().length > 0) {
       errors.push("Ciudad inválida");
-    }
+    }*/
     if (typeof body.description !== "string" || body.description.trim().length > 0) {
       errors.push("Descripción inválida");
     }
@@ -82,6 +82,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({errors}, {status: 400});
     }
 
+
+
+
     /*if (Array.isArray(body.characteristic)) {
       body.characteristic.forEach((c : Characteristic, index : number) => {
 
@@ -96,26 +99,26 @@ export async function POST(request: NextRequest) {
     }*/
 
 
-    if(errors.length>0){
-      return NextResponse.json({errors}, {status: 400});
-    }
-
 
     const newProperty = await prisma.property.create({
       data: {
         price : body.price,
-        direction : body.address, //en schema.prisma es direction y en la db address
+        address : body.address,
         description : body.description,
         property_type_id_property_type : body.property_type_id_property_type,
         categoria_id_category : body.categoria_id_category,
-        //ubication : body.ubication, no esta en schema
-        //city : body.city, no esta en schema
+        ubication : body.ubication,
+        //city : body.city,
       },
     })
 
     if (newProperty == null) {
       return NextResponse.json(("No se pudo crear la propiedad"), { status: 500 });
     } //else, se creó correctamente
+
+
+
+
 
   } catch (e) {
     console.error(e);
