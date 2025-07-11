@@ -40,12 +40,18 @@ const propiedadFormateada: Property = {
     type: mapPropertyType(propiedad.property_type_id_property_type),
     characteristics: propiedad.characteristics.map((c): Characteristic => {
         const mappedCategory = mapPrismaCharacteristicCategory(c.category);
+        const iconUrl = getIconByCategory(mappedCategory);
+
+        console.log('Categoria DB:', c.category);
+        console.log('Categoria mapeada:', mappedCategory);
+        console.log('Icono URL:', iconUrl);
+
         return {
             id: c.id_characteristic,
             characteristic: c.characteristic,
             amount: c.amount,
             category: mappedCategory,
-            iconUrl: getIconByCategory(mappedCategory) // ← Agregar el ícono aquí
+            iconUrl: iconUrl
         };
     }),
     ubication: propiedad.ubication || ''
