@@ -6,7 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { signOut } from '@/auth';
 
 export default function NavBar() {
     const pathname = usePathname();
@@ -36,6 +35,7 @@ export default function NavBar() {
 
             <ul className={`${styles.sectionProperties} ${isOpen ? styles.openNav : styles.closeNav} ${cactus.className}`}>
                 <li><a href={"/"}>Inicio</a></li>
+
                 <li><a href={"/propiedades"}>Propiedades</a></li>
                 <li><a href={"/nosotros"}>Nosotros</a></li>
                 <li><a href={"/quiero-vender"}>Quiero vender</a></li>
