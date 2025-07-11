@@ -34,8 +34,9 @@ enum OperationEnum {
 
 model Property {
   id_property                    Int              @id @default(autoincrement())
-  direction                      String?          @db.Text
-  description                    String?          @db.Text
+  address                      String         @db.Text
+  ubication                    String          @db.Text
+  description                    String         @db.Text
   price                          Int
   property_type_id_property_type PropertyTypeEnum
   categoria_id_category          OperationEnum

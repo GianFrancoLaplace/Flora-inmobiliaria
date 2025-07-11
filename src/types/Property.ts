@@ -1,14 +1,15 @@
 export interface Property {
-    id: number;
-    address: string;
-    city: string;
-    state: PropertyState;
-    price: number;
-    description: string;
-    ubication: string;
-    characteristic: Characteristic[]; //usar push para agregar
-    type: PropertyType;
+  id: number;
+  address: string;         // opcional, porque en Prisma es nullable
+  city: string;            // si no existe en BD, mantenelo opcional o quitalo
+  state: PropertyState;
+  price: number;
+  description: string;     // opcional
+  ubication: string;       // lo mismo, opcional o sacalo si no está en BD
+  characteristics: Characteristic[];  // ojo que en Prisma es plural: characteristics
+  type: PropertyType;
 }
+
 
 export enum PropertyState {
     SALE = "EN VENTA",

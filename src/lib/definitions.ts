@@ -5,16 +5,15 @@ export type User = {
 };
 
 export interface Property {
-    id: number;
-    address: string;
-    city: string;
-    state: PropertyState;
-    price: number;
-    description: string;
-    bedrooms: number;
-    bathrooms: number;
-    squareMeters: number;
-    type: PropertyType;
+  id: number;
+  address: string;         // opcional, porque en Prisma es nullable
+  city: string;            // si no existe en BD, mantenelo opcional o quitalo
+  state: PropertyState;
+  price: number;
+  description: string;     // opcional
+  ubication: string;       // lo mismo, opcional o sacalo si no está en BD
+  characteristics: Characteristic[];  // ojo que en Prisma es plural: characteristics
+  type: PropertyType;
 }
 
 export enum PropertyState {
@@ -31,6 +30,12 @@ export enum PropertyType {
     DUPLEX = "DUPLEX",
     COMMERCIAL = "COMMERCIAL",
     LAND = "LAND"
+}
+
+export interface Characteristic {
+    id: number;
+    characteristic: string;
+    amount: number;
 }
 
 export type PropertyMode = 'view' | 'create' | 'edit';
