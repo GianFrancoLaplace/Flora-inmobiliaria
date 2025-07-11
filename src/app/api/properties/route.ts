@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { PropertyService } from '@/services/propertyService';
-import { Property, Characteristic, PropertyType, PropertyState } from '@/types/Property';
+import { Property, Characteristic, PropertyType, PropertyState, CharacteristicCategory } from '@/types/Property';
 import { mapOperationToState, mapPropertyType } from '@/helpers/PropertyMapper';
 
 export async function GET(request: Request) {
@@ -34,6 +34,7 @@ export async function GET(request: Request) {
         id: c.id_characteristic,
         characteristic: c.characteristic,
         amount: c.amount,
+        category: CharacteristicCategory.SUPERFICIE_TOTAL
       })),
       ubication: '', // Agregar la propiedad faltante
     }));

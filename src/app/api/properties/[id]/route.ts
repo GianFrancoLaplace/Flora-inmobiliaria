@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { mapPropertyType, mapOperationToState } from '@/helpers/PropertyMapper'; // ajustá la ruta si es distinta
 import { Property, Characteristic, PropertyState, PropertyType } from '@/types/Property';
 import { PropertyUpdateData, CharacteristicUpdateData, ValidationError } from "@/helpers/UpdateProperty"
+import {mapPrismaCharacteristicCategory} from "@/helpers/IconMapper"
 
 export async function GET(
     request: NextRequest,
@@ -28,21 +29,22 @@ export async function GET(
             );
         }
 
-        const propiedadFormateada: Property = {
-            id: propiedad.id_property,
-            address: propiedad.address || '',
-            city: '',
-            state: mapOperationToState(propiedad.categoria_id_category),
-            price: propiedad.price,
-            description: propiedad.description || '',
-            type: mapPropertyType(propiedad.property_type_id_property_type),
-            characteristics: propiedad.characteristics.map(c => ({
-                id: c.id_characteristic,
-                characteristic: c.characteristic,
-                amount: c.amount,
-            })),
-            ubication: ''
-        };
+    const propiedadFormateada: Property = {
+    id: propiedad.id_property,
+    address: propiedad.address || '',
+    city: '',
+    state: mapOperationToState(propiedad.categoria_id_category),
+    price: propiedad.price,
+    description: propiedad.description || '',
+    type: mapPropertyType(propiedad.property_type_id_property_type),
+    characteristics: propiedad.characteristics.map((c): Characteristic => ({
+        id: c.id_characteristic,
+        characteristic: c.characteristic,
+        amount: c.amount,
+        category: mapPrismaCharacteristicCategory(c.category) // ← Mapear desde el enum de Prisma
+    })),
+    ubication: propiedad.ubication || ''
+};
 
         return NextResponse.json(propiedadFormateada);
     } catch (error) {
@@ -257,3 +259,4 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
         );
     }
 }
+
