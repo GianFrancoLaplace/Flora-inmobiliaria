@@ -13,10 +13,24 @@ export async function GET(request: Request) {
 
   const tipos = searchParams.get('tipo')?.split(',') ?? undefined;
   const operaciones = searchParams.get('operacion')?.split(',') ?? undefined;
+  const maxValue = searchParams.get('maxValue');
 
   try {
     const service = new PropertyService(tipos, operaciones);
     const where = service.buildWhereClause();
+
+    // Agregar filtro de precio máximo si se proporciona
+    if (maxValue && !isNaN(Number(maxValue))) {
+      if (where.price) {
+        // Si ya existe un filtro de precio, agregar el lte
+        (where.price as any).lte = Number(maxValue);
+      } else {
+        // Si no existe, crear el filtro de precio
+        where.price = {
+          lte: Number(maxValue)
+        };
+      }
+    }
 
     const propiedadesRaw = await prisma.property.findMany({
       where: Object.keys(where).length > 0 ? where : undefined,
@@ -25,7 +39,7 @@ export async function GET(request: Request) {
       },
     });
 
-    const propiedades: Property[] = propiedadesRaw.map(( p) => ({
+    const propiedades: Property[] = propiedadesRaw.map((p) => ({
       id: p.id_property,
       address: p.address || '',
       city: p.city || '',
