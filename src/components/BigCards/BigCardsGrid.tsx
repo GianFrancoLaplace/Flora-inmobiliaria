@@ -1,83 +1,89 @@
+'use client'
+
 import styles from './BigCard.module.css'
 import {cactus} from "@/app/(views)/ui/fonts";
 import BigCard from "@/components/BigCards/BigCard";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Property, CharacteristicCategory } from "../../types/Property"; // Ajusta la ruta según tu estructura
+import { useSearchParams } from 'next/navigation';
 
 export default function BigCardsGrid() {
-    return(
+    const [properties, setProperties] = useState<Property[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+        const fetchProperties = async () => {
+            try {
+                setLoading(true);
+                
+                // Usar los query params actuales de la URL
+                const currentParams = new URLSearchParams(searchParams.toString());
+                
+                const response = await fetch(`/api/properties?${currentParams.toString()}`);
+                
+                if (!response.ok) {
+                    throw new Error('Error al cargar propiedades');
+                }
+
+                const data: Property[] = await response.json();
+                setProperties(data);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'Error desconocido');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProperties();
+    }, [searchParams]);
+
+    // Función helper para extraer valor de característica
+    const getCharacteristicValue = (property: Property, category: CharacteristicCategory): number => {
+        const characteristic = property.characteristics.find(c => c.category === category);
+        return characteristic?.amount || 0;
+    };
+
+    if (loading) {
+        return (
+            <main className={`${styles.grid} ${cactus.className}`}>
+                <div className={styles.loading}>Cargando propiedades...</div>
+            </main>
+        );
+    }
+
+    if (error) {
+        return (
+            <main className={`${styles.grid} ${cactus.className}`}>
+                <div className={styles.error}>Error: {error}</div>
+            </main>
+        );
+    }
+
+    if (properties.length === 0) {
+        return (
+            <main className={`${styles.grid} ${cactus.className}`}>
+                <div className={styles.noResults}>No se encontraron propiedades</div>
+            </main>
+        );
+    }
+
+    return (
         <main className={`${styles.grid} ${cactus.className}`}>
-
-            <BigCard
-                imageSrc={"/backgrounds/fichaBackground.jpg"}
-                price={300000}
-                transaction={"VENTA"}
-                adress={"San Martin 333"}
-                city={"Tandil"}
-                rooms={6}
-                dorms={3}
-                bathrooms={2}
-            />
-            <BigCard
-                imageSrc={"/backgrounds/fichaBackground.jpg"}
-                price={300000}
-                transaction={"VENTA"}
-                adress={"San Martin 333"}
-                city={"Tandil"}
-                rooms={6}
-                dorms={3}
-                bathrooms={2}
-            />
-            <BigCard
-                imageSrc={"/backgrounds/fichaBackground.jpg"}
-                price={300000}
-                transaction={"VENTA"}
-                adress={"San Martin 333"}
-                city={"Tandil"}
-                rooms={6}
-                dorms={3}
-                bathrooms={2}
-            />
-            <BigCard
-                imageSrc={"/backgrounds/fichaBackground.jpg"}
-                price={300000}
-                transaction={"VENTA"}
-                adress={"San Martin 333"}
-                city={"Tandil"}
-                rooms={6}
-                dorms={3}
-                bathrooms={2}
-            />
-            <BigCard
-                imageSrc={"/backgrounds/fichaBackground.jpg"}
-                price={300000}
-                transaction={"VENTA"}
-                adress={"San Martin 333"}
-                city={"Tandil"}
-                rooms={6}
-                dorms={3}
-                bathrooms={2}
-            />
-            <BigCard
-                imageSrc={"/backgrounds/fichaBackground.jpg"}
-                price={300000}
-                transaction={"VENTA"}
-                adress={"San Martin 333"}
-                city={"Tandil"}
-                rooms={6}
-                dorms={3}
-                bathrooms={2}
-            />
-            <BigCard
-                imageSrc={"/backgrounds/fichaBackground.jpg"}
-                price={300000}
-                transaction={"VENTA"}
-                adress={"San Martin 333"}
-                city={"Tandil"}
-                rooms={6}
-                dorms={3}
-                bathrooms={2}
-            />
-
+            {properties.map((property) => (
+                <BigCard
+                    key={property.id}
+                    imageSrc={"/backgrounds/fichaBackground.jpg"} // Mantener imagen por defecto por ahora
+                    price={property.price}
+                    transaction={property.state}
+                    adress={property.address}
+                    city={property.city || "Tandil"} // Fallback a Tandil
+                    rooms={getCharacteristicValue(property, CharacteristicCategory.AMBIENTES)}
+                    dorms={getCharacteristicValue(property, CharacteristicCategory.DORMITORIOS)}
+                    bathrooms={getCharacteristicValue(property, CharacteristicCategory.BANOS)}
+                />
+            ))}
         </main>
-    )
+    );
 }

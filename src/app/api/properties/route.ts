@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma';
 import { PropertyService } from '@/services/propertyService';
 import { Property, Characteristic, CharacteristicCategory } from '@/types/Property';
 import { mapOperationToState, mapPropertyType } from '@/helpers/PropertyMapper';
+import { mapPrismaCharacteristicCategory } from '@/helpers/IconMapper';
 
 
 export async function GET(request: Request) {
@@ -27,7 +28,7 @@ export async function GET(request: Request) {
     const propiedades: Property[] = propiedadesRaw.map((p) => ({
       id: p.id_property,
       address: p.address || '',
-      city: '',
+      city: p.city || '',
       state: mapOperationToState(p.categoria_id_category),
       price: p.price || 0,
       description: p.description || '',
@@ -36,14 +37,14 @@ export async function GET(request: Request) {
         id: c.id_characteristic,
         characteristic: c.characteristic,
         amount: c.amount,
-        category: CharacteristicCategory.SUPERFICIE_TOTAL
+        category: mapPrismaCharacteristicCategory(c.category || null)
       })),
-      ubication: '',
+      ubication: p.ubication || '',
     }));
 
     return NextResponse.json(propiedades);
   } catch (error) {
-    console.error(error);
+    console.error('Error en GET /api/properties:', error);
     return new NextResponse('Error al obtener propiedades', { status: 500 });
   }
 }
