@@ -66,7 +66,7 @@ export default function Page() {
                 </div>
 
                 <div className={styles.mainCardsGridProperties}>
-                    <Link href={"/Propiedades"} className={styles.linkProperties}>
+                    <Link href={"/propiedades"} className={styles.linkProperties}>
                         <button className={`${styles.allPropertiesBtn} ${cactus.className}`}>Ver todas las propiedades
                         </button>
                     </Link>
