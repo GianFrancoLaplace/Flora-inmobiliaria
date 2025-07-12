@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from "next/link";
 
 type Props = {
+    id:number,
     imageSrc: string;
     price: number;
     transaction: string;
@@ -14,10 +15,10 @@ type Props = {
     bathrooms: number;
 };
 
-export default function BigCard({imageSrc, price, transaction, adress, city, rooms, dorms, bathrooms}: Props) {
+export default function BigCard({id,imageSrc, price, transaction, adress, city, rooms, dorms, bathrooms}: Props) {
     return(
         <main className={`${styles.page} ${cactus.className}`}>
-            <Link href={'/Propiedades/Ficha'}>
+            <Link href={`/propiedades/ficha/${id}`}>
                 <Image
                     src={imageSrc}
                     alt={'imagen propiedad'}

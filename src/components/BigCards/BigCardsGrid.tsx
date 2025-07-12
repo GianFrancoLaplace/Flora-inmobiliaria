@@ -74,6 +74,7 @@ export default function BigCardsGrid() {
             {properties.map((property) => (
                 <BigCard
                     key={property.id}
+                    id={property.id}
                     imageSrc={"/backgrounds/fichaBackground.jpg"} // Mantener imagen por defecto por ahora
                     price={property.price}
                     transaction={property.state}
