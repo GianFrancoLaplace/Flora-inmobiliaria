@@ -8,6 +8,7 @@ import { cactus } from "@/app/(views)/ui/fonts";
 import { usePathname } from "next/navigation";
 import { usePropertyEditor} from "@/components/TechnicalFile/usePropertyEditor";
 import {Property} from "@/types/Property";
+import {useEffect, useState} from "react";
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
@@ -42,14 +43,6 @@ export default function TechnicalSheet({ mode, property}: TechnicalSheetProps) {
         isCreateMode
     } = usePropertyEditor(mode);
 
-    const pathname = usePathname();
-    const isEmptyFile = pathname === '/administracion/fichavacia';
-    const isEditableFile = pathname === '/administracion/fichaeditable'
-
-    const handleFieldEdit = (fieldName: keyof Property) => {
-        startEditing(fieldName);
-    };
-
     const handleFieldSave = (fieldName: keyof Property) => {
         confirmEdit(fieldName);
     };
@@ -62,43 +55,62 @@ export default function TechnicalSheet({ mode, property}: TechnicalSheetProps) {
         cancelEdit(fieldName);
     };
 
+    const pathname = usePathname();
+    const isEmptyFile = pathname === '/administracion/fichavacia';
+    const isEditableFile = pathname === '/administracion/fichaeditable'
+
+    const handleFieldEdit = (fieldName: keyof Property) => {
+        startEditing(fieldName);
+    };
+
     const EditableField = ({
                                fieldName,
                                value,
-                               className = styles.inputProperties,
-                               onEnterKey
+                               className,
+                               onEnterKey,
                            }: {
         fieldName: keyof Property;
         value: string | number;
         className?: string;
-        onEnterKey?: () => void;
+        onEnterKey?: (updatedValue: string | number) => void;
     }) => {
+        className = styles.inputProperties
         const isEditing = editingFields[fieldName];
+        const [localValue, setLocalValue] = useState(value);
 
-        if (isEditing) {
-            return (
-                <input
-                    type="text"
-                    className={className}
-                    value={value}
-                    onChange={(e) => handleFieldChange(fieldName, e.target.value)}
-                    onBlur={() => handleFieldSave(fieldName)} // onBlur se activa si se hace click fuera del input
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            handleFieldSave(fieldName);
-                            onEnterKey?.();
-                        }
-                        if (e.key === 'Escape') {
-                            handleFieldCancel(fieldName);
-                        }
-                    }}
-                    autoFocus
-                />
-            );
-        }
+        const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+            setLocalValue(e.target.value);
+        };
 
-        return <span onClick={() => handleFieldEdit(fieldName)}>{value}</span>;
+        const handleFieldSave = (fieldName: keyof Property) => {
+            confirmEdit(fieldName);
+        };
+        
+        const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === "Enter" && onEnterKey) {
+                onEnterKey(localValue); // <- le paso el valor nuevo
+            }
+        };
+
+        useEffect(() => {
+            setLocalValue(value);
+        }, [value]);
+
+        return isEditing ? (
+            <input
+                type="text"
+                value={localValue}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                className={className}
+                autoFocus
+            />
+        ) : (
+            <span>{value}</span>
+        );
     };
+
+
 
     const EditButton = ({
                             fieldName,

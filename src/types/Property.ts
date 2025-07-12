@@ -8,12 +8,12 @@ export interface Property {
   id: number;
   address: string;
   city: string;
-  state: PropertyState;
+  state?: PropertyState;
   price: number;
   description: string;
   ubication: string;
   characteristics: Characteristic[];
-  type: PropertyType;
+  type?: PropertyType;
 }
 
 export enum PropertyState {
