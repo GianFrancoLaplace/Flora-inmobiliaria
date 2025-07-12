@@ -22,7 +22,7 @@ const FilterGroup: React.FC<Props> = ({ title, filters }) => {
       'Departamentos': 'departamento',
       'Casas': 'casa',
       'Lotes': 'lote',
-      'Locales': 'local',
+      'Locales': 'local_comercial',
       'Campos': 'campo'
     };
     return mapping[value] || value.toLowerCase();
