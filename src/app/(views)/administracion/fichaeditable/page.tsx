@@ -4,7 +4,7 @@ export default function EditableFile() {
     return (
         <main>
             <div>
-                {/*<FichaE mode={"create"} property={null} />*/}
+                <FichaE mode={"edit"} property={null} />
             </div>
         </main>
     )

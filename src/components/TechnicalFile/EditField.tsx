@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 interface EditableFieldProps {
     value: string | number;
     isEditing: boolean;
+    type: string;
     className?: string;
     onSave: (value: string | number) => void;
     onCancel: () => void;
@@ -11,6 +12,7 @@ interface EditableFieldProps {
 const EditableField: React.FC<EditableFieldProps> = ({
                                                          value,
                                                          isEditing,
+                                                         type = "text",
                                                          className,
                                                          onSave,
                                                          onCancel
@@ -59,7 +61,7 @@ const EditableField: React.FC<EditableFieldProps> = ({
         return (
             <input
                 ref={inputRef}
-                type="text"
+                type={type}
                 className={className}
                 value={tempValue}
                 onChange={handleInputChange}

@@ -8,7 +8,7 @@ import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
 import {Property, PropertyState, PropertyType} from "@/types/Property";
-import {useState} from "react";
+import { useState } from "react";
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
@@ -47,6 +47,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
     }
 
     const [editingField, setEditingField] = useState<keyof Property | null>(null);
+    const [localProperty, setLocalProperty] = useState<Property>(property);
 
     console.log(editingField)
 
@@ -60,7 +61,11 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
 
     const handleSaveField = async (fieldName: keyof Property, value: string | number) => {
         console.log(`Guardando ${fieldName}:`, value);
+
+        setLocalProperty(prev => ({ ...prev, [fieldName]: value }));
+
         setEditingField(null)
+        console.log("2. LocalProperty después del update:", localProperty); // Para debug
         // Implementar llamada a la API
     };
 
@@ -89,8 +94,9 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                 <div className={`${styles.adressProperties} ${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
                     <h1>
                         <EditableField
-                            value={property.address}
-                            isEditing={editingField == "address"}
+                            value={localProperty.address}
+                            isEditing={editingField == 'address'}
+                            type={"text"}
                             onSave={(value) => handleSaveField('address', value)}
                             onCancel={handleCancelEdit}
                         />
@@ -98,7 +104,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                     <EditButton
                         onStartEdit={() => handleStartEdit('address')}
                         onEndEdit={() => handleSaveField('address', 'valor')}
-                        isEditing={editingField == "address"}
+                        isEditing={editingField == 'address'}
                     />
                 </div>
             </div>
@@ -126,15 +132,17 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                     <div className={styles.editProperties}>
                         <h1>
                             <EditableField
-                                value={property.address}
+                                value={localProperty.address}
                                 isEditing={ editingField === 'address' }
+                                type={"text"}
                                 onSave={(value) => handleSaveField('address', value)}
                                 onCancel={handleCancelEdit}
                             />
                             <span> | </span>
-                            <EditableField
+                            <EditableField // Debería ser un select
                                 value={property.state}
                                 isEditing={editingField === 'state'}
+                                type={'text'}
                                 className={styles.inputProperties}
                                 onSave={(value) => handleSaveField('state', value)}
                                 onCancel={handleCancelEdit}
@@ -225,8 +233,9 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                 <div className={`${styles.priceEditionProperties} ${styles.showProperties}`}>
                     <h1>
                         <EditableField
-                            value={property.price}
+                            value={localProperty.price}
                             isEditing={editingField === "price"}
+                            type={"number"}
                             className={styles.inputProperties}
                             onSave={(value) => handleSaveField('price', value)}
                             onCancel={handleCancelEdit}
@@ -246,7 +255,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                     <h3>Descripción</h3>
                     <EditButton
                         onStartEdit={() => handleStartEdit('description')}
-                        onEndEdit={() => handleSaveField('description', 'UN VALOR')}
+                        onEndEdit={() => handleSaveField('description', 'value')}
                         isEditing={editingField === 'description'}
                         className={styles.editButtonProperties}
                     />
@@ -255,6 +264,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                     <EditableField
                         value={property.description}
                         isEditing={editingField === 'description'}
+                        type={"text"}
                         onSave={(value) => handleSaveField('description', value)}
                         onCancel={handleCancelEdit}
                         className={styles.inputProperties}
@@ -390,7 +400,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                     <EditButton
                         className={styles.editButtonProperties}
                         onStartEdit={() => handleStartEdit('ubication')}
-                        onEndEdit={() => handleSaveField('ubication', 'UN VALOR')}
+                        onEndEdit={() => handleSaveField('ubication','value')}
                         isEditing={editingField === 'ubication'}
                     />
                 </div>
@@ -405,8 +415,9 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
 
                 <h5 className={`${ styles.showProperties}`}>
                     <EditableField
-                        value={property.ubication}
+                        value={localProperty.ubication}
                         isEditing={editingField == 'ubication'}
+                        type={'text'}
                         onSave={(value) => handleSaveField('ubication', value)}
                         onCancel={handleCancelEdit}
                     />
