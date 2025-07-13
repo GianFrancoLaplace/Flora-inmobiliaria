@@ -1,28 +1,20 @@
 'use client';
-import {useCallback, useState} from "react";
-import {Property, PropertyState, PropertyType} from "@/types/Property"
+import {useCallback, useEffect, useState} from "react";
+import {Property} from "@/types/Property"
 
-function getEmptyProperty() : Property{
-    return {
-        address: "",
-        city: "",
-        description: "",
-        id: 0,
-        price: 0,
-        state: PropertyState.RENT,
-        type: PropertyType.HOME,
-        bathrooms: 0,
-        bedrooms: 0,
-        squareMeters: 0
-    }
-}
 
-export const usePropertyEditor = (mode: 'view' | 'create' | 'edit', initialProperty?: Property) => {
+export const usePropertyEditor = (mode: 'view' | 'create' | 'edit', initialProperty: Property) => {
     // Estado principal
-    const [property, setProperty] = useState(initialProperty || getEmptyProperty());
+    const [property, setProperty] = useState(initialProperty);
 
     // Estado de edición por campo
     const [editingFields, setEditingFields] = useState<Record<string, boolean>>({});
+
+    useEffect(() => {
+        if (initialProperty) {
+            setProperty({...initialProperty})
+        }
+    }, [initialProperty])
 
     // Activar edición de un campo específico
     const startEditing = useCallback((fieldName: string) => { // fieldName puede ser cualquier campo
@@ -33,12 +25,14 @@ export const usePropertyEditor = (mode: 'view' | 'create' | 'edit', initialPrope
     // Confirmar edición de un campo
     const confirmEdit = useCallback((fieldName: string) => {
         // const result = Service.updateAsync
+        console.log(`Guardando edición de: ${fieldName}`, property[fieldName as keyof Property]);
+
         const isSuccess = true;
         if(isSuccess) // result.isSuccess
             setEditingFields(prev => ({...prev, [fieldName]: false }));
         else
             cancelEdit(fieldName)
-    }, []);
+    }, [property]);
 
     // Cancelar edición
     const cancelEdit = useCallback((fieldName: string, error? : string) => {
@@ -49,6 +43,7 @@ export const usePropertyEditor = (mode: 'view' | 'create' | 'edit', initialPrope
 
     // Actualizar campo
     const updateField = useCallback((fieldName: string, value: string | number) => {
+        console.log(fieldName, value);
         setProperty(prev => ({ ...prev, [fieldName]: value }));
     }, []);
 

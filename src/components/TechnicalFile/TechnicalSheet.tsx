@@ -2,127 +2,73 @@
 import ContactInformation from "@/components/features/ContactInformation/ContactInformation";
 import DataCard from '@/components/features/DataCard/DataCard'
 import Item from '@/components/TechnicalFile/PropertiesItem'
+import EditableField from '@/components/TechnicalFile/EditField'
+import EditButton from '@/components/TechnicalFile/EditButton'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
-import { usePathname } from "next/navigation";
-import { usePropertyEditor} from "@/components/TechnicalFile/usePropertyEditor";
-import {Property} from "@/types/Property";
+import {Property, PropertyState, PropertyType} from "@/types/Property";
+import {useState} from "react";
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
-    property: Property | null;
+    property: Property;
 };
 
-export default function TechnicalSheet({ mode, property}: TechnicalSheetProps) {
+export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
 
-    const defaultDescription = "Ubicado en una de las zonas más buscadas de la ciudad, este departamento de tres\n" +
-        "                    ambientes ofrece comodidad, luminosidad y una excelente distribución en sus\n" +
-        "                    68 metros cuadrados. Al ingresar, cuenta con un amplio living-comedor con salida a\n" +
-        "                    un balcón con vista abierta, ideal para disfrutar al aire libre.\n" +
-        "\n" +
-        "\n" +
-        "                    La cocina es independiente y está equipada con muebles modernos y lavadero\n" +
-        "                    incorporado. Dispone de dos dormitorios con placares empotrados y un baño completo\n" +
-        "                    con terminaciones de calidad.\n" +
-        "\n" +
-        "                    El edificio ofrece seguridad 24 horas, salón de usos múltiples y una terraza con\n" +
-        "                    parrilla. Gracias a su cercanía con medios de transporte, espacios verdes y una variada\n" +
-        "                    oferta comercial, esta propiedad es ideal tanto para vivienda como para inversión.\n" +
-        "               "
+    // const defaultDescription = "Ubicado en una de las zonas más buscadas de la ciudad, este departamento de tres\n" +
+    //     "                    ambientes ofrece comodidad, luminosidad y una excelente distribución en sus\n" +
+    //     "                    68 metros cuadrados. Al ingresar, cuenta con un amplio living-comedor con salida a\n" +
+    //     "                    un balcón con vista abierta, ideal para disfrutar al aire libre.\n" +
+    //     "\n" +
+    //     "\n" +
+    //     "                    La cocina es independiente y está equipada con muebles modernos y lavadero\n" +
+    //     "                    incorporado. Dispone de dos dormitorios con placares empotrados y un baño completo\n" +
+    //     "                    con terminaciones de calidad.\n" +
+    //     "\n" +
+    //     "                    El edificio ofrece seguridad 24 horas, salón de usos múltiples y una terraza con\n" +
+    //     "                    parrilla. Gracias a su cercanía con medios de transporte, espacios verdes y una variada\n" +
+    //     "                    oferta comercial, esta propiedad es ideal tanto para vivienda como para inversión.\n" +
+    //     "               "
 
-    const {
-        // property,
-        editingFields,
-        startEditing,
-        confirmEdit,
-        cancelEdit,
-        updateField,
-        // isViewMode,
-        isCreateMode
-    } = usePropertyEditor(mode);
-
-    const pathname = usePathname();
-    const isEmptyFile = pathname === '/administracion/fichavacia';
-    const isEditableFile = pathname === '/administracion/fichaeditable'
-
-    const handleFieldEdit = (fieldName: keyof Property) => {
-        startEditing(fieldName);
-    };
-
-    const handleFieldSave = (fieldName: keyof Property) => {
-        confirmEdit(fieldName);
-    };
-
-    const handleFieldChange = (fieldName: keyof Property, value: string | number) => {
-        updateField(fieldName, value);
-    };
-
-    const handleFieldCancel = (fieldName: keyof Property) => {
-        cancelEdit(fieldName);
-    };
-
-    const EditableField = ({
-                               fieldName,
-                               value,
-                               className = styles.inputProperties,
-                               onEnterKey
-                           }: {
-        fieldName: keyof Property;
-        value: string | number;
-        className?: string;
-        onEnterKey?: () => void;
-    }) => {
-        const isEditing = editingFields[fieldName];
-
-        if (isEditing) {
-            return (
-                <input
-                    type="text"
-                    className={className}
-                    value={value}
-                    onChange={(e) => handleFieldChange(fieldName, e.target.value)}
-                    onBlur={() => handleFieldSave(fieldName)} // onBlur se activa si se hace click fuera del input
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            handleFieldSave(fieldName);
-                            onEnterKey?.();
-                        }
-                        if (e.key === 'Escape') {
-                            handleFieldCancel(fieldName);
-                        }
-                    }}
-                    autoFocus
-                />
-            );
+    if (property == null){
+        property = {
+            address: "dirección",
+            characteristics: [],
+            city: "Tandil",
+            description: "Descripción",
+            id: 0,
+            price: 0,
+            state: PropertyState.RENT,
+            type: PropertyType.HOME,
+            ubication: " "
         }
+    }
 
-        return <span onClick={() => handleFieldEdit(fieldName)}>{value}</span>;
+    const [editingField, setEditingField] = useState<keyof Property | null>(null);
+
+    console.log(editingField)
+
+    const isEmptyFile =  mode === "create";
+    const isEditableFile = mode !== "view"
+
+    const handleStartEdit = (fieldName: keyof Property) => {
+        console.log(`Iniciando edición de: ${fieldName}`);
+        setEditingField(fieldName);
     };
 
-    const EditButton = ({
-                            fieldName,
-                            showCondition = true
-                        }: {
-        fieldName: keyof Property;
-        showCondition?: boolean;
-    }) => {
-        if (!showCondition) return null;
-
-        return (
-            <button
-                onClick={() => handleFieldEdit(fieldName)}
-                className={styles.editButtonProperties}
-            >
-                <Image
-                    src={'/icons/iconoEdit.png'}
-                    alt={'Icono para editar'}
-                    width={30}
-                    height={30}
-                />
-            </button>
-        );
+    const handleSaveField = async (fieldName: keyof Property, value: string | number) => {
+        console.log(`Guardando ${fieldName}:`, value);
+        setEditingField(null)
+        // Implementar llamada a la API
     };
+
+    const handleCancelEdit = () => {
+        console.log(`Cancelando edición`);
+        setEditingField(null);
+    };
+
 
     return (
         <main className={styles.page}>
@@ -143,13 +89,16 @@ export default function TechnicalSheet({ mode, property}: TechnicalSheetProps) {
                 <div className={`${styles.adressProperties} ${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
                     <h1>
                         <EditableField
-                            fieldName="address"
-                            value={property?.address || "Dirección"}
+                            value={property.address}
+                            isEditing={editingField == "address"}
+                            onSave={(value) => handleSaveField('address', value)}
+                            onCancel={handleCancelEdit}
                         />
                     </h1>
                     <EditButton
-                        fieldName="address"
-                        showCondition={isEmptyFile || isCreateMode}
+                        onStartEdit={() => handleStartEdit('address')}
+                        onEndEdit={() => handleSaveField('address', 'valor')}
+                        isEditing={editingField == "address"}
                     />
                 </div>
             </div>
@@ -164,25 +113,38 @@ export default function TechnicalSheet({ mode, property}: TechnicalSheetProps) {
             </div>
 
             <div className={styles.main}>
-                <div className={`${isEmptyFile ? styles.notShowProperties : styles.mainInfo}`}>
-                    <div className={styles.mainInfoH1}>
-                        <h1>{property?.address || "Av. Avellaneda 987"}</h1>
-                        <h1>|</h1>
-                        <h1>VENTA</h1>
-                    </div>
-                </div>
+                {/*<div className={`${isEmptyFile ? styles.notShowProperties : styles.mainInfo}`}>*/}
+                {/*    <div className={styles.mainInfoH1}>*/}
+                {/*        <h1>{property.address}</h1>*/}
+                {/*        <h1>|</h1>*/}
+                {/*        <h1>VENTA</h1>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
-                <div className={`${isEmptyFile ? styles.mainInfo : styles.notShowProperties}`}>
+                {/*<div className={`${isEmptyFile ? styles.mainInfo : styles.notShowProperties}`}>*/}
+                <div className={`${styles.mainInfo}`}>
                     <div className={styles.editProperties}>
                         <h1>
                             <EditableField
-                                fieldName="state"
-                                value={`${property?.address || "Dirección"} | ${property?.state}`}
+                                value={property.address}
+                                isEditing={ editingField === 'address' }
+                                onSave={(value) => handleSaveField('address', value)}
+                                onCancel={handleCancelEdit}
+                            />
+                            <span> | </span>
+                            <EditableField
+                                value={property.state}
+                                isEditing={editingField === 'state'}
+                                className={styles.inputProperties}
+                                onSave={(value) => handleSaveField('state', value)}
+                                onCancel={handleCancelEdit}
                             />
                         </h1>
                         <EditButton
-                            fieldName="state"
-                            showCondition={isEmptyFile}
+                            onStartEdit={() => handleStartEdit('state')}
+                            onEndEdit={() => handleSaveField('state', 'valor')}
+                            isEditing={editingField === 'state'}
+                            className={styles.editButtonProperties}
                         />
                     </div>
                 </div>
@@ -202,23 +164,24 @@ export default function TechnicalSheet({ mode, property}: TechnicalSheetProps) {
                 </div>
             </div>
 
-            <div className={styles.cityProperties}>
-                <div className={`${isEmptyFile ? styles.editProperties : styles.notShowProperties}`}>
-                    <h1>
-                        <EditableField
-                            fieldName="city"
-                            value={property?.city || "Ciudad"}
-                        />
-                    </h1>
-                    <EditButton
-                        fieldName="city"
-                        showCondition={isEmptyFile}
-                    />
-                </div>
-                <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>
-                    {property?.city || "Ciudad de Tandil"}
-                </h5>
-            </div>
+            {/*<div className={styles.cityProperties}>*/}
+            {/*    <div className={`${styles.editProperties}`}>*/}
+            {/*        <h1>*/}
+            {/*            <EditableField*/}
+            {/*                value={property.address}*/}
+            {/*                isEditing={isEditableFile}*/}
+            {/*                onSave={(value) => handleSaveField('ubication', value)}*/}
+            {/*                onCancel={handleCancelEdit}*/}
+            {/*            />*/}
+            {/*        </h1>*/}
+            {/*        <EditButton*/}
+            {/*            onStartEdit={() => handleStartEdit('ubication')}*/}
+            {/*        />*/}
+            {/*    </div>*/}
+            {/*    <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>*/}
+            {/*        {property?.city || "Ciudad de Tandil"}*/}
+            {/*    </h5>*/}
+            {/*</div>*/}
 
             <div className={styles.mainBoxesGridProperties}>
                 <div>
@@ -259,37 +222,43 @@ export default function TechnicalSheet({ mode, property}: TechnicalSheetProps) {
             </div>
 
             <div className={styles.mainInfoPrice}>
-                <div className={`${styles.priceEditionProperties} ${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
+                <div className={`${styles.priceEditionProperties} ${styles.showProperties}`}>
                     <h1>
                         <EditableField
-                            fieldName="price"
-                            value={`USD ${property?.price || "Precio"}`}
+                            value={property.price}
+                            isEditing={editingField === "price"}
+                            className={styles.inputProperties}
+                            onSave={(value) => handleSaveField('price', value)}
+                            onCancel={handleCancelEdit}
                         />
                     </h1>
-                    <EditButton fieldName="price" />
+                    <EditButton
+                        onStartEdit={() => handleStartEdit('price')}
+                        onEndEdit={() => handleSaveField('price', 'valor')}
+                        isEditing={editingField === 'price'}
+                        className={styles.editButtonProperties}
+                    />
                 </div>
-                <h1 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>
-                    USD {property?.price || "550.000"}
-                </h1>
             </div>
 
             <div className={styles.descriptionsProperties}>
                 <div className={styles.titleProperties}>
                     <h3>Descripción</h3>
                     <EditButton
-                        fieldName="description"
-                        showCondition={isEmptyFile}
+                        onStartEdit={() => handleStartEdit('description')}
+                        onEndEdit={() => handleSaveField('description', 'UN VALOR')}
+                        isEditing={editingField === 'description'}
+                        className={styles.editButtonProperties}
                     />
                 </div>
-                <h5 className={`${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
+                <h5 className={`${styles.showProperties}`}>
                     <EditableField
-                        fieldName="description"
-                        value={property?.description || ""}
+                        value={property.description}
+                        isEditing={editingField === 'description'}
+                        onSave={(value) => handleSaveField('description', value)}
+                        onCancel={handleCancelEdit}
+                        className={styles.inputProperties}
                     />
-                </h5>
-
-                <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>
-                    {property?.description || defaultDescription}
                 </h5>
             </div>
 
@@ -419,23 +388,27 @@ export default function TechnicalSheet({ mode, property}: TechnicalSheetProps) {
                 <div className={styles.titleProperties}>
                     <h3>Ubicación</h3>
                     <EditButton
-                        fieldName="ubication"
-                        showCondition={isEmptyFile}
+                        className={styles.editButtonProperties}
+                        onStartEdit={() => handleStartEdit('ubication')}
+                        onEndEdit={() => handleSaveField('ubication', 'UN VALOR')}
+                        isEditing={editingField === 'ubication'}
                     />
                 </div>
 
-                <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>
-                    Ubicada en una zona semicéntrica de Tandil, esta propiedad combina la tranquilidad
-                    de un barrio residencial con la cercanía al centro de la ciudad. A pocos minutos de
-                    comercios, escuelas, espacios verdes y servicios esenciales, ofrece un entorno cómodo,
-                    accesible y en constante crecimiento. Ideal para quienes buscan una buena conexión con
-                    el movimiento urbano sin resignar calma y calidad de vida.
-                </h5>
+                {/*<h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>*/}
+                {/*    Ubicada en una zona semicéntrica de Tandil, esta propiedad combina la tranquilidad*/}
+                {/*    de un barrio residencial con la cercanía al centro de la ciudad. A pocos minutos de*/}
+                {/*    comercios, escuelas, espacios verdes y servicios esenciales, ofrece un entorno cómodo,*/}
+                {/*    accesible y en constante crecimiento. Ideal para quienes buscan una buena conexión con*/}
+                {/*    el movimiento urbano sin resignar calma y calidad de vida.*/}
+                {/*</h5>*/}
 
-                <h5 className={`${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
+                <h5 className={`${ styles.showProperties}`}>
                     <EditableField
-                        fieldName="ubication"
-                        value={property?.ubication || " "}
+                        value={property.ubication}
+                        isEditing={editingField == 'ubication'}
+                        onSave={(value) => handleSaveField('ubication', value)}
+                        onCancel={handleCancelEdit}
                     />
                 </h5>
 
