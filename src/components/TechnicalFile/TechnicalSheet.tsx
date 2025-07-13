@@ -140,7 +140,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                             />
                             <span> | </span>
                             <EditableField // Debería ser un select
-                                value={property.state}
+                                value={localProperty.state}
                                 isEditing={editingField === 'state'}
                                 type={'text'}
                                 className={styles.inputProperties}
@@ -262,7 +262,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                 </div>
                 <h5 className={`${styles.showProperties}`}>
                     <EditableField
-                        value={property.description}
+                        value={localProperty.description}
                         isEditing={editingField === 'description'}
                         type={"text"}
                         onSave={(value) => handleSaveField('description', value)}
