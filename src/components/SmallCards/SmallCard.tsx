@@ -1,8 +1,6 @@
-
 import Image from "next/image";
 import styles from './SmallCard.module.css';
 import Link from "next/link";
-
 
 type PropertyImage = {
     id: number;

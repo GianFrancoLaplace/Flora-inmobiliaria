@@ -35,16 +35,16 @@ const UnifiedFilter: React.FC<Props> = ({
 
   useEffect(() => {
     const mapOperacion: Record<string, string> = {
-      'Quiero comprar': 'VENTA',
-      'Quiero alquilar': 'ALQUILER',
+      'Quiero comprar': 'venta',
+      'Quiero alquilar': 'alquiler',
     };
 
     const mapPropiedad: Record<string, string> = {
-      Casas: 'Casa',
-      Departamentos: 'Departamento',
-      Locales: 'Local',
-      Lotes: 'Lote',
-      Campos: 'Campo',
+      Casas: 'casa',
+      Departamentos: 'departamento',
+      Locales: 'local_comercial',
+      Lotes: 'lote',
+      Campos: 'campo',
     };
 
     const operacionValues = activosOperacion.map((op) => mapOperacion[op]).filter(Boolean);
@@ -59,12 +59,14 @@ const UnifiedFilter: React.FC<Props> = ({
       params.set('tipo', tipoValues.join(','));
     }
 
-    if (maxValue) {
+    // Agregar maxValue solo si tiene valor
+    if (maxValue && maxValue.trim() !== '') {
       params.set('maxValue', maxValue);
     }
 
-    router.push(`${pathname}?${params.toString()}`);
-  }, [activosOperacion, activosPropiedad, maxValue]);
+    const newUrl = `${pathname}?${params.toString()}`;
+    router.push(newUrl);
+  }, [activosOperacion, activosPropiedad, maxValue, pathname, router]);
 
   return (
     <div className={styles.unifiedFilterWrapper}>
@@ -90,6 +92,7 @@ const UnifiedFilter: React.FC<Props> = ({
               placeholder="Escribe el valor máximo"
               value={maxValue}
               onChange={onMaxValueChange}
+              min="0"
             />
             <button className={styles.searchButton} type="button">
               <img

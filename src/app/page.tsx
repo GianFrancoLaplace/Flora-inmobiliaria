@@ -4,11 +4,11 @@ import HomeF from "@/components/Home/Home";
 import FilterGroup from "@/components/FilterButtons/FilterGroup";
 import BigCardsGrid from "@/components/BigCards/BigCardsGrid";
 import Link from 'next/link';
+import { Suspense } from 'react';
 
 const FiltersSidebar = () => {
     const filterOptions = ['Campos', 'Departamentos', 'Casas', 'Locales', 'Lotes'];
     return (
-        // Se combina el elemento del layout con el bloque del menú
         <aside className={`${styles['properties-layout__sidebar']} ${styles['filter-menu']}`}>
             <h2 className={styles['filter-menu__title']}>Filtrar por inmueble</h2>
             <div>
@@ -23,15 +23,15 @@ const FiltersSidebar = () => {
     );
 };
 
-
 export default function Page() {
     const filtrosTipoPropiedad = [
         "Departamentos",
         "Lotes",
-        "Casas",
+        "Casas", 
         "Locales",
         "Campos",
     ];
+    
     return (
         <div className={`${styles.page} ${cactus.className} ${styles.container}`}>
             <HomeF />
@@ -45,8 +45,7 @@ export default function Page() {
                     inmobiliarios, centrada en vos.
                 </h5>
 
-                <div
-                    className={styles.messageButtonProperties}>
+                <div className={styles.messageButtonProperties}>
                     <Link href={"https://wa.me/2494025527"} className={styles.linkProperties}>
                         <button className={`${styles.messageBtn} ${cactus.className}`}>Enviar un mensaje
                         </button>
@@ -61,11 +60,13 @@ export default function Page() {
                 </div>
 
                 <div>
-                    <BigCardsGrid/>
+                    <Suspense fallback={<div>Cargando propiedades...</div>}>
+                        <BigCardsGrid />
+                    </Suspense>
                 </div>
 
                 <div className={styles.mainCardsGridProperties}>
-                    <Link href={"/Propiedades"} className={styles.linkProperties}>
+                    <Link href={"/propiedades"} className={styles.linkProperties}>
                         <button className={`${styles.allPropertiesBtn} ${cactus.className}`}>Ver todas las propiedades
                         </button>
                     </Link>

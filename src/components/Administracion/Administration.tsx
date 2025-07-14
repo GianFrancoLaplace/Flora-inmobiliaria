@@ -3,7 +3,7 @@ import styles from "./Administration.module.css";
 import { cactus } from "@/app/(views)/ui/fonts";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Property = {
     id: number;
@@ -17,54 +17,34 @@ export default function Administration() {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [propertyToDelete, setPropertyToDelete] = useState<Property | null>(null);
 
-    //método que traiga las propiedades de la bbdd
-
-
-
-    const propiedades = [
+    const properties: {id: number, precio: string, direccion: string, descripcion: string, imagen: string}[] = [
         {
             id: 1,
-            precio: 'USD 340.000',
-            direccion: 'San Martin 567, Tandil',
-            descripcion: '7 ambientes | 3 dormitorios | 2 baños',
-            imagen: '/imgs/interior1.jpeg'
-        },
-        {
-            id: 2,
-            precio: 'USD 210.000',
-            direccion: 'Belgrano 123, Tandil',
-            descripcion: '4 ambientes | 2 dormitorios | 1 baño',
-            imagen: '/imgs/interior1.jpeg'
-        },
-        {
-            id: 3,
-            precio: 'USD 90.000',
-            direccion: 'Av. Avellaneda 980, Tandil',
-            descripcion: '4 ambientes | 2 dormitorios | 1 baño',
-            imagen: '/imgs/interior1.jpeg'
-        },
-        {
-            id: 4,
-            precio: 'USD 780.000',
-            direccion: '9 de Julio, Tandil',
-            descripcion: '7 ambientes | 4 dormitorios | 1 baño',
-            imagen: '/imgs/interior1.jpeg'
-        },
-        {
-            id: 5,
-            precio: 'USD 780.000',
-            direccion: '9 de Julio, Tandil',
-            descripcion: '7 ambientes | 4 dormitorios | 1 baño',
-            imagen: '/imgs/interior1.jpeg'
-        },
-        {
-            id: 6,
-            precio: 'USD 780.000',
-            direccion: '9 de Julio, Tandil',
-            descripcion: '7 ambientes | 4 dormitorios | 1 baño',
-            imagen: '/imgs/interior1.jpeg'
-        },
+            precio: "150.000",
+            direccion: "Av. Avellaneda 789",
+            descripcion: "Descripción",
+            imagen: "/backgrounds/fichaBackground.jpg",
+        }
     ];
+
+    /*const Administration = () => {
+        const [property, setProperty] = useState(null);
+
+        useEffect(() => {
+            const fetchProperty = async () => {
+                try {
+                    const res = await fetch(p); // Cambiá el ID según necesites
+                    const data = await res.json();
+                    setProperty(data);
+                } catch (err) {
+                    console.error("Error al obtener la propiedad", err);
+                }
+            };
+            fetchProperty();
+        },
+        []);*/
+
+    //método que traiga las propiedades de la bbdd
 
     const handleDeleteClick = (property: Property) => {
         setPropertyToDelete(property);
@@ -94,7 +74,7 @@ export default function Administration() {
                 </div>
             </div>
 
-            {propiedades.map((prop) => (
+            {properties.map((prop) => (
                 <div key={prop.id} className={`${styles.cardsProperties} ${cactus.className}`}>
                     <div className={`${styles.cardProperties} ${cactus.className}`}>
                         <div className={`${styles.imageProperties} ${cactus.className}`}>

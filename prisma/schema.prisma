@@ -15,7 +15,9 @@ model Property {
   categoria_id_category          OperationEnum
   address                        String?
   ubication                      String?
+  city                           String?
   characteristics                Characteristic[]
+  image                          image[]
 
   @@map("property")
 }
@@ -39,13 +41,19 @@ model Characteristic {
   @@map("characteristic")
 }
 
+model image {
+  id_image    Int       @id
+  url         String?
+  id_property Int?
+  property    Property? @relation(fields: [id_property], references: [id_property], onDelete: NoAction, onUpdate: NoAction, map: "fk_image_propery")
+}
+
 enum PropertyTypeEnum {
   casa
   departamento
   campo
-  duplex
   local_comercial
-  terreno
+  lote 
 
   @@map("property_type_enum")
 }
