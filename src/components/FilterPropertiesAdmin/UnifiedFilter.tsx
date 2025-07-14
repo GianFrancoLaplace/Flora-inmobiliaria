@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './filterPropAdmin.module.css';
 import FiltroToggle from '../FilterButtons/FilterButtons';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 interface Props {
   maxValue: string;
@@ -20,18 +20,38 @@ const UnifiedFilter: React.FC<Props> = ({
   const [activosOperacion, setActivosOperacion] = useState<string[]>([]);
   const [activosPropiedad, setActivosPropiedad] = useState<string[]>([]);
 
-  const toggleFiltro = (
-    label: string,
-    activos: string[],
-    setActivos: React.Dispatch<React.SetStateAction<string[]>>
-  ) => {
-    setActivos((prev) =>
-      prev.includes(label) ? prev.filter((x) => x !== label) : [...prev, label]
-    );
-  };
-
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const mapOperacionReverse: Record<string, string> = {
+      'venta': 'Quiero comprar',
+      'alquiler': 'Quiero alquilar'
+    };
+
+    const mapPropiedadReverse: Record<string, string> = {
+      'casa': 'Casas',
+      'departamento': 'Departamentos',
+      'local_comercial': 'Locales',
+      'lote': 'Lotes',
+      'campo': 'Campos'
+    };
+
+    const operacionParam = searchParams.get('operacion');
+    const tipoParam = searchParams.get('tipo');
+
+    if (operacionParam) {
+      const ops = operacionParam.split(',').map(op => mapOperacionReverse[op]).filter(Boolean);
+      setActivosOperacion(ops);
+    }
+
+    if (tipoParam) {
+      const tipos = tipoParam.split(',').map(tp => mapPropiedadReverse[tp]).filter(Boolean);
+      setActivosPropiedad(tipos);
+    }
+
+  }, [searchParams]);
 
   useEffect(() => {
     const mapOperacion: Record<string, string> = {
@@ -59,7 +79,6 @@ const UnifiedFilter: React.FC<Props> = ({
       params.set('tipo', tipoValues.join(','));
     }
 
-    // Agregar maxValue solo si tiene valor
     if (maxValue && maxValue.trim() !== '') {
       params.set('maxValue', maxValue);
     }
@@ -67,6 +86,16 @@ const UnifiedFilter: React.FC<Props> = ({
     const newUrl = `${pathname}?${params.toString()}`;
     router.push(newUrl);
   }, [activosOperacion, activosPropiedad, maxValue, pathname, router]);
+
+  const toggleFiltro = (
+    label: string,
+    activos: string[],
+    setActivos: React.Dispatch<React.SetStateAction<string[]>>
+  ) => {
+    setActivos((prev) =>
+      prev.includes(label) ? prev.filter((x) => x !== label) : [...prev, label]
+    );
+  };
 
   return (
     <div className={styles.unifiedFilterWrapper}>
@@ -79,7 +108,6 @@ const UnifiedFilter: React.FC<Props> = ({
           showFilters ? styles.show : ''
         }`}
       >
-        {/* Input valor máximo */}
         <div className={styles.flexCol}>
           <label htmlFor="maxValueInput" className={styles.filterSectionTitle}>
             Valor máximo
