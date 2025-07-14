@@ -8,7 +8,8 @@ export interface Property {
   id: number;
   address: string;
   city: string;
-  state?: PropertyState;
+  state: PropertyState;
+  operation: string | PropertyState;
   price: number;
   description: string;
   ubication: string;
@@ -62,7 +63,7 @@ export interface Characteristic {
     id: number;
     characteristic: string;
     amount: number;
-    category: CharacteristicCategory;
+    category?: CharacteristicCategory;
     iconUrl?: string; // URL del icono (opcional pero obligatorio para el get by id)
 }
 

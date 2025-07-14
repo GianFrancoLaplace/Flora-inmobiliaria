@@ -55,6 +55,11 @@
     margin-right: 40px;
 }
 
+.inputProperties{
+    font-size: 30px;
+    font-family: var(--font-weight-normal);
+}
+
 .mainInfo{
     display: flex;
     flex-direction: row;
@@ -133,11 +138,9 @@
 }
 
 .sectionProperties{
-    display: flex;
-    flex-direction: column;
-    width: 45%;
-    justify-content: left;
-    text-align: left;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(11, max-content);
 }
 
 .itemProperties{
@@ -228,11 +231,6 @@
     flex-direction: row;
     width: min-content;
     gap: 20px;
-}
-
-.inputProperties{
-    font-size: 30px;
-    font-family: var(--font-weight-normal);
 }
 
 .btnSold{

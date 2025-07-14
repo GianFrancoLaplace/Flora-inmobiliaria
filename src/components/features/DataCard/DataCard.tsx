@@ -1,6 +1,8 @@
 'use client'
 import Image from 'next/image';
 import styles from './DataCard.module.css'
+import EditableField from "@/components/TechnicalFile/EditField";
+import EditButton from "@/components/TechnicalFile/EditButton";
 
 type Props = {
     imgSrc: string;
