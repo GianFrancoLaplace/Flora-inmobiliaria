@@ -2,20 +2,17 @@
 
 import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
-// 1. Quitado el import de 'redirect' que no se usaba
 import { z } from 'zod';
 
-// Schema de validación para el login (sin cambios, está bien)
 const LoginSchema = z.object({
     email: z.string().email({
         message: 'Por favor, ingresa un email válido.',
     }),
-    password: z.string().min(6, {
+    password: z.string().min(1, {
         message: 'La contraseña debe tener al menos 6 caracteres.',
     }),
 });
 
-// Tipo para el estado del formulario (sin cambios, está bien)
 export type State = {
     errors?: {
         email?: string[];
@@ -24,13 +21,12 @@ export type State = {
     message?: string | null;
 };
 
-// Se ha eliminado la función 'authenticate' antigua y se ha renombrado
-// 'authenticateWithValidation' para ser la única función de autenticación.
+
 export async function authenticate(
     prevState: State | undefined,
     formData: FormData,
 ): Promise<State> {
-    // Validar los campos del formulario
+
     const validatedFields = LoginSchema.safeParse(
         Object.fromEntries(formData.entries()),
     );
@@ -50,11 +46,10 @@ export async function authenticate(
         await signIn('credentials', {
             email,
             password,
-            redirectTo: '/administracion', // Puedes quitar esto si ya lo tienes en auth.config.ts
+
         });
 
-        // 2. Añadido un return para satisfacer a TypeScript.
-        // Este código es inalcanzable en la práctica, pero soluciona el error TS2366.
+
         return { message: null, errors: {} };
 
     } catch (error) {

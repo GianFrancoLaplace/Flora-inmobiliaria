@@ -19,13 +19,10 @@ export async function GET(request: Request) {
     const service = new PropertyService(tipos, operaciones);
     const where = service.buildWhereClause();
 
-    // Agregar filtro de precio máximo si se proporciona
     if (maxValue && !isNaN(Number(maxValue))) {
       if (where.price) {
-        // Si ya existe un filtro de precio, agregar el lte
         (where.price as any).lte = Number(maxValue);
       } else {
-        // Si no existe, crear el filtro de precio
         where.price = {
           lte: Number(maxValue)
         };
@@ -42,7 +39,7 @@ export async function GET(request: Request) {
     const propiedades: Property[] = propiedadesRaw.map((p) => ({
       id: p.id_property,
       address: p.address || '',
-      city: p.city || '',
+      city: '',
       state: mapOperationToState(p.categoria_id_category),
       price: p.price || 0,
       description: p.description || '',

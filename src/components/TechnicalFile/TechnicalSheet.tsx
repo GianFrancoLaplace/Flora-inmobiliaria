@@ -7,52 +7,163 @@ import EditButton from '@/components/TechnicalFile/EditButton'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
-import {Property, PropertyState, PropertyType} from "@/types/Property";
+import {CharacteristicCategory, Property, PropertyState, PropertyType} from "@/types/Property";
 import { useState } from "react";
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
-    property: Property;
+    property: Property | null;
 };
 
 export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
-
-    // const defaultDescription = "Ubicado en una de las zonas más buscadas de la ciudad, este departamento de tres\n" +
-    //     "                    ambientes ofrece comodidad, luminosidad y una excelente distribución en sus\n" +
-    //     "                    68 metros cuadrados. Al ingresar, cuenta con un amplio living-comedor con salida a\n" +
-    //     "                    un balcón con vista abierta, ideal para disfrutar al aire libre.\n" +
-    //     "\n" +
-    //     "\n" +
-    //     "                    La cocina es independiente y está equipada con muebles modernos y lavadero\n" +
-    //     "                    incorporado. Dispone de dos dormitorios con placares empotrados y un baño completo\n" +
-    //     "                    con terminaciones de calidad.\n" +
-    //     "\n" +
-    //     "                    El edificio ofrece seguridad 24 horas, salón de usos múltiples y una terraza con\n" +
-    //     "                    parrilla. Gracias a su cercanía con medios de transporte, espacios verdes y una variada\n" +
-    //     "                    oferta comercial, esta propiedad es ideal tanto para vivienda como para inversión.\n" +
-    //     "               "
-
-    if (property == null){
+    if (property == null) {
         property = {
-            address: "dirección",
+            address: "Dirección",
             characteristics: [],
-            city: "Tandil",
+            city: "Ciudad",
             description: "Descripción",
             id: 0,
             price: 0,
+            operation: "Dirección",
             state: PropertyState.RENT,
             type: PropertyType.HOME,
             ubication: " "
         }
     }
 
+    const itemsToShow = [
+        {
+            category: CharacteristicCategory.SUPERFICIE_TOTAL,
+            label: 'Superficie Total',
+            icon: '/icons/sup.png',
+        },
+        {
+            category: CharacteristicCategory.SUPERFICIE_DESCUBIERTA,
+            label: 'Superficie Descubierta',
+            icon: '/icons/supDesc.png',
+        },
+        {
+            category: CharacteristicCategory.SUPERFICIE_SEMICUBIERTA,
+            label: 'Superficie Semidescubierta',
+            icon: '/icons/supCub.png',
+        },
+        {
+            category: CharacteristicCategory.SUPERFICIE_CUBIERTA,
+            label: 'Superficie Cubierta',
+            icon: '/icons/supCub.png',
+        },
+        {
+            category: CharacteristicCategory.AMBIENTES,
+            label: 'Ambientes',
+            icon: '/icons/ambiente.png',
+        },{
+            category: CharacteristicCategory.DORMITORIOS,
+            label: 'Dormitorios',
+            icon: '/icons/dorms.png',
+        },
+        {
+            category: CharacteristicCategory.DORMITORIOS_SUITE,
+            label: 'Dormitorios en Suite',
+            icon: '/icons/dorms.png',
+        },
+        {
+            category: CharacteristicCategory.BANOS,
+            label: 'Baños',
+            icon: '/icons/baños.png',
+        },
+        {
+            category: CharacteristicCategory.COCHERAS,
+            label: 'Cocheras',
+            icon: '/icons/cochera.png',
+        },
+        {
+            category: CharacteristicCategory.COBERTURA_COCHERA,
+            label: 'Cobertura cochera',
+            icon: '/icons/cobertura.png',
+        },
+        {
+            category: CharacteristicCategory.TIPO_PISO,
+            label: 'Tipo de cochera',
+            icon: '/icons/cobertura.png',
+        },
+        {
+            category: CharacteristicCategory.EXPENSAS,
+            label: 'Expensas',
+            icon: '/icons/expensas.png',
+        },
+        {
+            category: CharacteristicCategory.AGUA,
+            label: 'Fecha de las expensas',
+            icon: '/icons/fecha.png',
+        },
+        {
+            category: CharacteristicCategory.TIPO_PISO,
+            label: 'Tipo de piso',
+            icon: '/icons/piso.png',
+        },
+        {
+            category: CharacteristicCategory.ESTADO_INMUEBLE,
+            label: 'Estado de inmueble',
+            icon: '/icons/estado.png',
+        },
+        {
+            category: CharacteristicCategory.ORIENTACION,
+            label: 'Orientación',
+            icon: '/icons/orientacion.png',
+        },
+        {
+            category: CharacteristicCategory.LUMINOSIDAD,
+            label: 'Luminosidad',
+            icon: '/icons/luminosidad.png',
+        },
+        {
+            category: CharacteristicCategory.DISPOSICION,
+            label: 'Disposición',
+            icon: '/icons/disposicion.png',
+        },
+        {
+            category: CharacteristicCategory.ANTIGUEDAD,
+            label: 'Antiguedad',
+            icon: '/icons/antiguedad.png',
+        },
+        {
+            category: CharacteristicCategory.UBICACION_CUADRA,
+            label: 'Ubicación en la cuadra',
+            icon: '/icons/ubi.png',
+        },
+    ];
+
     const [editingField, setEditingField] = useState<keyof Property | null>(null);
     const [localProperty, setLocalProperty] = useState<Property>(property);
 
+    //para el componente de Items
+    const [isEditingAll, setIsEditingAll] = useState(false);
+
+    const handleSaveCharacteristic = (
+        category: CharacteristicCategory,
+        newValue: string | number
+    ) => {
+        setLocalProperty((prev) => {
+            const updatedCharacteristics = prev.characteristics.map((char) =>
+                char.category === category
+                    ? { ...char, characteristic: String(newValue) } // o `amount: Number(newValue)` si querés actualizar eso
+                    : char
+            );
+
+            return {
+                ...prev,
+                characteristics: updatedCharacteristics,
+            };
+        });
+
+        // 🔄 Opcional: Llamada a la API para guardar en base de datos
+    };
+
+
     console.log(editingField)
 
-    const isEmptyFile =  mode === "create";
-    const isEditableFile = mode !== "view"
+    const isEmptyFile = mode === "create";
+    const isEditableFile = mode === "edit"
 
     const handleStartEdit = (fieldName: keyof Property) => {
         console.log(`Iniciando edición de: ${fieldName}`);
@@ -62,7 +173,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
     const handleSaveField = async (fieldName: keyof Property, value: string | number) => {
         console.log(`Guardando ${fieldName}:`, value);
 
-        setLocalProperty(prev => ({ ...prev, [fieldName]: value }));
+        setLocalProperty(prev => ({...prev, [fieldName]: value}));
 
         setEditingField(null)
         console.log("2. LocalProperty después del update:", localProperty); // Para debug
@@ -71,14 +182,14 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
 
     const handleCancelEdit = () => {
         console.log(`Cancelando edición`);
+
         setEditingField(null);
     };
-
 
     return (
         <main className={styles.page}>
             <div>
-                <ContactInformation />
+                <ContactInformation/>
             </div>
 
             <div className={styles.mainAdressProperties}>
@@ -91,7 +202,8 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                         height={30}
                     />
                 </div>
-                <div className={`${styles.adressProperties} ${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
+                <div
+                    className={`${styles.adressProperties} ${isEmptyFile ? styles.showProperties : styles.notShowProperties}`}>
                     <h1>
                         <EditableField
                             value={localProperty.address}
@@ -119,23 +231,14 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             </div>
 
             <div className={styles.main}>
-                {/*<div className={`${isEmptyFile ? styles.notShowProperties : styles.mainInfo}`}>*/}
-                {/*    <div className={styles.mainInfoH1}>*/}
-                {/*        <h1>{property.address}</h1>*/}
-                {/*        <h1>|</h1>*/}
-                {/*        <h1>VENTA</h1>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-
-                {/*<div className={`${isEmptyFile ? styles.mainInfo : styles.notShowProperties}`}>*/}
                 <div className={`${styles.mainInfo}`}>
                     <div className={styles.editProperties}>
                         <h1>
                             <EditableField
-                                value={localProperty.address}
-                                isEditing={ editingField === 'address' }
+                                value={localProperty.operation}
+                                isEditing={editingField === 'operation'}
                                 type={"text"}
-                                onSave={(value) => handleSaveField('address', value)}
+                                onSave={(value) => handleSaveField('operation', value)}
                                 onCancel={handleCancelEdit}
                             />
                             <span> | </span>
@@ -149,49 +252,35 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                             />
                         </h1>
                         <EditButton
-                            onStartEdit={() => handleStartEdit('state')}
-                            onEndEdit={() => handleSaveField('state', 'valor')}
-                            isEditing={editingField === 'state'}
+                            onStartEdit={() => handleStartEdit('operation')}
+                            onEndEdit={() => handleSaveField('operation', 'valor')}
+                            isEditing={editingField === 'operation'}
                             className={styles.editButtonProperties}
                         />
                     </div>
                 </div>
                 <div>
-                    <button type="button" className={`${styles.askBtn} ${isEmptyFile ? styles.notShowProperties : styles.showProperties || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
+                    <button type="button"
+                            className={`${styles.askBtn} ${isEmptyFile ? styles.notShowProperties : styles.showProperties || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
                         Consultar por esta propiedad
                     </button>
-                    <button type="button" className={`${styles.askBtn} ${isEmptyFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
+                    <button type="button"
+                            className={`${styles.askBtn} ${isEmptyFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
                         Generar publicación
                     </button>
-                    <button type="button" className={`${styles.askBtn} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
+                    <button type="button"
+                            className={`${styles.askBtn} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
                         Guardar cambios
                     </button>
-                    <button type="button" className={`${styles.askBtn} ${styles.btnSold} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
+                    <button type="button"
+                            className={`${styles.askBtn} ${styles.btnSold} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
                         Marcar como vendida/alquilada
                     </button>
                 </div>
             </div>
 
-            {/*<div className={styles.cityProperties}>*/}
-            {/*    <div className={`${styles.editProperties}`}>*/}
-            {/*        <h1>*/}
-            {/*            <EditableField*/}
-            {/*                value={property.address}*/}
-            {/*                isEditing={isEditableFile}*/}
-            {/*                onSave={(value) => handleSaveField('ubication', value)}*/}
-            {/*                onCancel={handleCancelEdit}*/}
-            {/*            />*/}
-            {/*        </h1>*/}
-            {/*        <EditButton*/}
-            {/*            onStartEdit={() => handleStartEdit('ubication')}*/}
-            {/*        />*/}
-            {/*    </div>*/}
-            {/*    <h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>*/}
-            {/*        {property?.city || "Ciudad de Tandil"}*/}
-            {/*    </h5>*/}
-            {/*</div>*/}
-
             <div className={styles.mainBoxesGridProperties}>
+
                 <div>
                     <DataCard
                         imgSrc="/icons/sup.png"
@@ -275,121 +364,28 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             <div className={styles.descriptionsProperties}>
                 <div className={styles.titleProperties}>
                     <h3>Ficha</h3>
+                    <button onClick={() => setIsEditingAll(!isEditingAll)}>
+                        {isEditingAll ? '✔️ Guardar' : '✏️'}
+                    </button>
+
                 </div>
                 <div className={styles.dataGridProperties}>
                     <div className={styles.sectionProperties}>
-                        <Item
-                            imgSrc="/icons/sup.png"
-                            label="Superficie Total"
-                            value="4"
-                        />
-                        <Item
-                            imgSrc="/icons/supDesc.png"
-                            label="Superficie Descubierta"
-                            value="4"
-                        />
-                        <Item
-                            imgSrc="/icons/sup.png"
-                            label="Superficie Semicubierta"
-                            value="4"
-                        />
-                        <Item
-                            imgSrc="/icons/supCub.png"
-                            label="Superficie Cubierta"
-                            value="4"
-                        />
-                        <Item
-                            imgSrc="/icons/ambiente.png"
-                            label="Ambientes"
-                            value="4"
-                        />
-                        <Item
-                            imgSrc="/icons/dorms.png"
-                            label="Dormitorios"
-                            value="4"
-                        />
-                        <Item
-                            imgSrc="/icons/suite.png"
-                            label="Dormitorios en Suite"
-                            value="4"
-                        />
-                        <Item
-                            imgSrc="/icons/baños.png"
-                            label="Baños"
-                            value="4"
-                        />
-                        <Item
-                            imgSrc="/icons/cochera.png"
-                            label="Cocheras"
-                            value="4"
-                        />
-                        <Item
-                            imgSrc="/icons/cobertura.png"
-                            label="Cobertura Cochera"
-                            value="Cubierta"
-                        />
-                        <Item
-                            imgSrc="/icons/balcon.png"
-                            label="Balcón/Terraza"
-                            value="Fija"
-                        />
-                    </div>
-                    <div className={styles.sectionProperties}>
-                        <Item
-                            imgSrc="/icons/expensas.png"
-                            label="Expensas"
-                            value="40000"
-                        />
-                        <Item
-                            imgSrc="/icons/fecha.png"
-                            label="Fecha de la Expensa"
-                            value="04-12-2025"
-                        />
-                        <Item
-                            imgSrc="/icons/agua.png"
-                            label="Agua"
-                            value="4"
-                        />
-                        <Item
-                            imgSrc="/icons/plantas.png"
-                            label="Cantidad de Plantas"
-                            value="4"
-                        />
-                        <Item
-                            imgSrc="/icons/piso.png"
-                            label="Tipo de Piso"
-                            value="4"
-                        />
-                        <Item
-                            imgSrc="/icons/estado.png"
-                            label="Estado de Inmueble"
-                            value="4"
-                        />
-                        <Item
-                            imgSrc="/icons/orientacion.png"
-                            label="Orientación"
-                            value="4"
-                        />
-                        <Item
-                            imgSrc="/icons/luminosidad.png"
-                            label="Luminosidad"
-                            value="4"
-                        />
-                        <Item
-                            imgSrc="/icons/disposicion.png"
-                            label="Disposición"
-                            value="4"
-                        />
-                        <Item
-                            imgSrc="/icons/antiguedad.png"
-                            label="Antigüedad"
-                            value="4"
-                        />
-                        <Item
-                            imgSrc="/icons/ubi.png"
-                            label="Ubicación en la Cuadra"
-                            value="4"
-                        />
+                        {itemsToShow.map(({ category, label, icon }) => {
+                            const char = property.characteristics.find((c) => c.category === category);
+                            return (
+                                <Item
+                                    key={category}
+                                    imgSrc={icon}
+                                    label={label}
+                                    value={char?.characteristic ?? ''}
+                                    category={category}
+                                    isEditing={isEditingAll}
+                                    onSave={handleSaveCharacteristic}
+                                    property={property}
+                                />
+                            );
+                        })}
                     </div>
                 </div>
             </div>
@@ -400,20 +396,12 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                     <EditButton
                         className={styles.editButtonProperties}
                         onStartEdit={() => handleStartEdit('ubication')}
-                        onEndEdit={() => handleSaveField('ubication','value')}
+                        onEndEdit={() => handleSaveField('ubication', 'value')}
                         isEditing={editingField === 'ubication'}
                     />
                 </div>
 
-                {/*<h5 className={`${isEmptyFile ? styles.notShowProperties : styles.showProperties}`}>*/}
-                {/*    Ubicada en una zona semicéntrica de Tandil, esta propiedad combina la tranquilidad*/}
-                {/*    de un barrio residencial con la cercanía al centro de la ciudad. A pocos minutos de*/}
-                {/*    comercios, escuelas, espacios verdes y servicios esenciales, ofrece un entorno cómodo,*/}
-                {/*    accesible y en constante crecimiento. Ideal para quienes buscan una buena conexión con*/}
-                {/*    el movimiento urbano sin resignar calma y calidad de vida.*/}
-                {/*</h5>*/}
-
-                <h5 className={`${ styles.showProperties}`}>
+                <h5 className={`${styles.showProperties}`}>
                     <EditableField
                         value={localProperty.ubication}
                         isEditing={editingField == 'ubication'}

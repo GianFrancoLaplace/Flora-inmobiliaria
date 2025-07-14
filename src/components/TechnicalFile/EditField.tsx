@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import styles from './TechnicalSheet.module.css';
 
 interface EditableFieldProps {
     value: string | number;
@@ -56,6 +57,8 @@ const EditableField: React.FC<EditableFieldProps> = ({
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTempValue(e.target.value);
     };
+
+    className = styles.inputProperties;
 
     if (isEditing) {
         return (

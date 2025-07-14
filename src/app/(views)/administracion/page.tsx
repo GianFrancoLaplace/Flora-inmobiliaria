@@ -1,17 +1,15 @@
 'use client';
 import Admns from '@/components/Administracion/Administration'
 import ContactInformation from '@/components/features/ContactInformation/ContactInformation'
-import { useState } from 'react';
 import '../ui/fonts'
 import styles from './adminStyles.module.css';
 import UnifiedFilter from '@/components/FilterPropertiesAdmin/UnifiedFilter';
 import SignOutButton from '@/components/botonSingOut/SignOutButton';
-
+import { useUnifiedFilter } from '@/hooks/GetProperties';
 
 export default function FichaPropiedad() {
-  const [maxValue, setMaxValue] = useState("");
+  const { maxValue, handleMaxValueChange } = useUnifiedFilter();
 
-  // Opciones de filtros
   const filtrosTipoTransaccion = ["Quiero comprar", "Quiero alquilar"];
   const filtrosTipoPropiedad = [
     "Casas",
@@ -21,16 +19,9 @@ export default function FichaPropiedad() {
     "Campos",
   ];
 
-
-  // Handler para input
-  function handleMaxValueChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setMaxValue(e.target.value);
-  }
-
   return (
     <div className={styles.container}>
         <div className="mt-4">
-            {/* Aquí simplemente renderizas el botón */}
             <SignOutButton />
         </div>
       <main>

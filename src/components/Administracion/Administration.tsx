@@ -4,69 +4,21 @@ import { cactus } from "@/app/(views)/ui/fonts";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
-type Property = {
-    id: number;
-    precio: string;
-    direccion: string;
-    descripcion: string;
-    imagen: string;
-};
+import { useUnifiedFilter } from "@/hooks/GetProperties";
 
 export default function Administration() {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
-    const [propertyToDelete, setPropertyToDelete] = useState<Property | null>(null);
+    const [propertyToDelete, setPropertyToDelete] = useState<any>(null);
+    
+    const {
+        properties,
+        loading,
+        error,
+        formatPrice,
+        formatCharacteristics
+    } = useUnifiedFilter(); //llamo al hook para que se rendericen las propiedades con o sin filtros
 
-    //método que traiga las propiedades de la bbdd
-
-
-
-    const propiedades = [
-        {
-            id: 1,
-            precio: 'USD 340.000',
-            direccion: 'San Martin 567, Tandil',
-            descripcion: '7 ambientes | 3 dormitorios | 2 baños',
-            imagen: '/imgs/interior1.jpeg'
-        },
-        {
-            id: 2,
-            precio: 'USD 210.000',
-            direccion: 'Belgrano 123, Tandil',
-            descripcion: '4 ambientes | 2 dormitorios | 1 baño',
-            imagen: '/imgs/interior1.jpeg'
-        },
-        {
-            id: 3,
-            precio: 'USD 90.000',
-            direccion: 'Av. Avellaneda 980, Tandil',
-            descripcion: '4 ambientes | 2 dormitorios | 1 baño',
-            imagen: '/imgs/interior1.jpeg'
-        },
-        {
-            id: 4,
-            precio: 'USD 780.000',
-            direccion: '9 de Julio, Tandil',
-            descripcion: '7 ambientes | 4 dormitorios | 1 baño',
-            imagen: '/imgs/interior1.jpeg'
-        },
-        {
-            id: 5,
-            precio: 'USD 780.000',
-            direccion: '9 de Julio, Tandil',
-            descripcion: '7 ambientes | 4 dormitorios | 1 baño',
-            imagen: '/imgs/interior1.jpeg'
-        },
-        {
-            id: 6,
-            precio: 'USD 780.000',
-            direccion: '9 de Julio, Tandil',
-            descripcion: '7 ambientes | 4 dormitorios | 1 baño',
-            imagen: '/imgs/interior1.jpeg'
-        },
-    ];
-
-    const handleDeleteClick = (property: Property) => {
+    const handleDeleteClick = (property: any) => {
         setPropertyToDelete(property);
         setShowConfirmModal(true);
     };
@@ -76,85 +28,117 @@ export default function Administration() {
         setPropertyToDelete(null);
     };
 
-    const handleConfirmDelete = () => {
-        // aca se debe agregar la lógica para eliminar la propiedad
-        console.log('Eliminando propiedad:', propertyToDelete);
-        setShowConfirmModal(false);
-        setPropertyToDelete(null);
+    const handleConfirmDelete = async () => {
+        if (!propertyToDelete) return;
+        
+        try {
+            console.log('Eliminando propiedad:', propertyToDelete);
+            setShowConfirmModal(false);
+            setPropertyToDelete(null);
+        } catch (error) {
+            console.error('Error al eliminar propiedad:', error);
+        }
     };
+
+    if (loading) {
+        return (
+            <div className={styles.loadingContainer}>
+                <p>Cargando propiedades...</p>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className={styles.errorContainer}>
+                <p>Error al cargar las propiedades: {error}</p>
+            </div>
+        );
+    }
 
     return (
         <div>
             <div className={`${styles.sectionProperties} ${cactus.className}`}>
                 <div>
                     <Link href={'/administracion/fichavacia'} className={styles.linkProperties}>
-                        <button className={`${styles.buttonNewPublication} ${cactus.className}`}>Crear publicación</button>
+                        <button className={`${styles.buttonNewPublication} ${cactus.className}`}>
+                            Crear publicación
+                        </button>
                     </Link>
-                    <button className={`${styles.showInactivePublication} ${cactus.className}`}>Ver publicaciones inactivas</button>
+                    <button className={`${styles.showInactivePublication} ${cactus.className}`}>
+                        Ver publicaciones inactivas
+                    </button>
                 </div>
             </div>
 
-            {propiedades.map((prop) => (
-                <div key={prop.id} className={`${styles.cardsProperties} ${cactus.className}`}>
-                    <div className={`${styles.cardProperties} ${cactus.className}`}>
-                        <div className={`${styles.imageProperties} ${cactus.className}`}>
-                            <Image
-                                src={prop.imagen}
-                                alt="Imagen interior casa"
-                                width={285}
-                                height={175}
-                            />
-                        </div>
-
-                        <Link href="/propiedades/ficha" className={styles.linkProperties}>
-                            <div className={`${styles.infoProperties} ${cactus.className}`}>
-                                <div className={styles.priceProperties}>
-                                    <h5>{prop.precio}</h5>
-                                </div>
-                                <div className={styles.restInfoProperties}>
-                                    <h5>{prop.direccion}</h5>
-                                    <h5>{prop.descripcion}</h5>
-                                </div>
+            {properties.length === 0 ? (
+                <div className={styles.noPropertiesContainer}>
+                    <p>No se encontraron propiedades con los filtros aplicados.</p>
+                </div>
+            ) : (
+                properties.map((prop) => (
+                    <div key={prop.id} className={`${styles.cardsProperties} ${cactus.className}`}>
+                        <div className={`${styles.cardProperties} ${cactus.className}`}>
+                            <div className={`${styles.imageProperties} ${cactus.className}`}>
+                                <Image
+                                    src="/imgs/interior1.jpeg"
+                                    // src={prop.image}
+                                    alt="Imagen interior casa"
+                                    width={285}
+                                    height={175}
+                                />
                             </div>
-                        </Link>
 
-                        <div className={styles.buttonsProperties}>
-                            <button
-                                onClick={() => (window.location.href = "/administracion/fichaeditable")}
-                                type="button"
-                            >
-                                <Image
-                                    src="/icons/iconoEdit.png"
-                                    alt="Editar"
-                                    width={25}
-                                    height={25}
-                                />
-                            </button>
-                            <button
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    handleDeleteClick(prop);
-                                }}
-                                type="button"
-                            >
-                                <Image
-                                    src="/icons/deleteIcon.png"
-                                    alt="Eliminar"
-                                    width={25}
-                                    height={25}
-                                />
-                            </button>
+                            <Link href={`/propiedades/ficha/${prop.id}`} className={styles.linkProperties}>
+                                <div className={`${styles.infoProperties} ${cactus.className}`}>
+                                    <div className={styles.priceProperties}>
+                                        <h5>{formatPrice(prop.price)}</h5>
+                                    </div>
+                                    <div className={styles.restInfoProperties}>
+                                        <h5>{prop.address}, {prop.city}</h5>
+                                        <h5>{formatCharacteristics(prop.characteristics)}</h5>
+                                    </div>
+                                </div>
+                            </Link>
+
+                            <div className={styles.buttonsProperties}>
+                                <button
+                                    onClick={() => (window.location.href = `/administracion/fichaeditable/${prop.id}`)}
+                                    type="button"
+                                >
+                                    <Image
+                                        src="/icons/iconoEdit.png"
+                                        alt="Editar"
+                                        width={25}
+                                        height={25}
+                                    />
+                                </button>
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleDeleteClick(prop);
+                                    }}
+                                    type="button"
+                                >
+                                    <Image
+                                        src="/icons/deleteIcon.png"
+                                        alt="Eliminar"
+                                        width={25}
+                                        height={25}
+                                    />
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            ))}
+                ))
+            )}
 
-            {/* Cartel de confirmación */}
-            {showConfirmModal && propertyToDelete && ( // Añadido check para propertyToDelete
+            {/* Modal de confirmación */}
+            {showConfirmModal && propertyToDelete && (
                 <div className={styles.modalOverlay}>
                     <div className={`${styles.modalContent} ${cactus.className}`}>
                         <p>
-                            ¿Desea eliminar la publicación “<span>{propertyToDelete.direccion}</span>”?
+                            ¿Desea eliminar la publicación "<span>{propertyToDelete.address}</span>"?
                         </p>
                         <p>Esta acción no se puede deshacer.</p>
                         <div className={styles.modalButtons}>
