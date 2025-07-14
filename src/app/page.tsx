@@ -6,23 +6,6 @@ import BigCardsGrid from "@/components/BigCards/BigCardsGrid";
 import Link from 'next/link';
 import { Suspense } from 'react';
 
-const FiltersSidebar = () => {
-    const filterOptions = ['Campos', 'Departamentos', 'Casas', 'Locales', 'Lotes'];
-    return (
-        <aside className={`${styles['properties-layout__sidebar']} ${styles['filter-menu']}`}>
-            <h2 className={styles['filter-menu__title']}>Filtrar por inmueble</h2>
-            <div>
-                {filterOptions.map((filter) => (
-                    <div key={filter} className={styles['filter-menu__option']}>
-                        <span>{filter}</span>
-                        {/* Toggle switch aquí */}
-                    </div>
-                ))}
-            </div>
-        </aside>
-    );
-};
-
 export default function Page() {
     const filtrosTipoPropiedad = [
         "Departamentos",

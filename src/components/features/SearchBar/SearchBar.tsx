@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./SearchBar.module.css";
-import Image from 'next/image'
-import {cactus} from "@/app/(views)/ui/fonts";
+import Image from 'next/image';
+import { cactus } from "@/app/(views)/ui/fonts";
 
 export default function PropertiesSearchBar() {
 
@@ -12,7 +12,7 @@ export default function PropertiesSearchBar() {
 
     const [selectedType, setSelectedType] = useState('buy');
     const [searchTerm, setSearchTerm] = useState('');
-    const searchMock = ["A1", "B2", "C3"] ;
+    const searchMock = ["A1", "B2", "C3"];
 
     const operationTypes = [
         { id: 'buy', label: 'Quiero comprar' },
@@ -20,9 +20,19 @@ export default function PropertiesSearchBar() {
         { id: 'sell', label: 'Quiero vender' }
     ];
 
+    const handleOperationClick = (typeId: string) => {
+        setSelectedType(typeId);
+
+        if (typeId === 'sell') {
+            router.push('/quiero-vender');
+        } else {
+            const operacion = typeId === 'buy' ? 'venta' : 'alquiler';
+            router.push(`/propiedades?operacion=${operacion}`);
+        }
+    };
+
     const handleSearch = () => {
         console.log(`Buscando: ${searchTerm} para ${selectedType}`);
-        // Aquí iría la lógica de búsqueda
     };
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -38,12 +48,7 @@ export default function PropertiesSearchBar() {
                 {operationTypes.map((type) => (
                     <button
                         key={type.id}
-                        onClick={() => {
-                            setSelectedType(type.id);
-                            if (type.id === 'sell') {
-                                router.push('/quiero-vender');
-                            }
-                        }}
+                        onClick={() => handleOperationClick(type.id)}
                         className={`
                             ${cactus.className}
                             ${styles.button}
