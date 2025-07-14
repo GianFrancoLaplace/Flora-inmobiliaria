@@ -16,7 +16,7 @@ export default function Properties() {
         fetchProperties
     } = useUnifiedFilter();
 
-    // Opciones de filtros
+
     const filtrosTipoTransaccion = ["Quiero comprar", "Quiero alquilar"];
     const filtrosTipoPropiedad = [
         "Casas",
@@ -26,7 +26,6 @@ export default function Properties() {
         "Campos",
     ];
 
-    // Render del contenido principal
     const renderMainContent = () => {
         if (loading) {
             return (

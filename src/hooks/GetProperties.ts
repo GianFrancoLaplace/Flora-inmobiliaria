@@ -45,7 +45,7 @@ export const useUnifiedFilter = () => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    // Función para mapear propiedades de API a PropertyGrid
+    // mapeo a property grid para seccion propiedades
     const mapApiPropertiesToGrid = (apiProperties: Property[]): PropertyGridItem[] => {
         return apiProperties.map(property => {
             const rooms = property.characteristics.find(c => c.characteristic.toLowerCase().includes('ambiente'))?.amount || 0;
@@ -69,7 +69,7 @@ export const useUnifiedFilter = () => {
         });
     };
 
-    // Función para hacer fetch de propiedades
+    // traigo con un fetch las propiedades desde mi route
     const fetchProperties = async () => {
         try {
             setLoading(true);
@@ -85,9 +85,9 @@ export const useUnifiedFilter = () => {
             if (tipo) params.set('tipo', tipo);
             if (maxValueParam) params.set('maxValue', maxValueParam);
             
-            const url = `/api/properties${params.toString() ? `?${params.toString()}` : ''}`;
+            const url = `/api/properties${params.toString() ? `?${params.toString()}` : ''}`; //creo la url
             
-            const response = await fetch(url);
+            const response = await fetch(url); //llamo al metodo mediante el fetch y la url creada
             
             if (!response.ok) {
                 throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -105,12 +105,10 @@ export const useUnifiedFilter = () => {
         }
     };
 
-    // Efecto para cargar propiedades cuando cambian los parámetros
     useEffect(() => {
         fetchProperties();
     }, [searchParams]);
 
-    // Sincronizar maxValue con URL params
     useEffect(() => {
         const maxValueFromUrl = searchParams.get('maxValue');
         if (maxValueFromUrl && maxValueFromUrl !== maxValue) {
@@ -118,17 +116,15 @@ export const useUnifiedFilter = () => {
         }
     }, [searchParams]);
 
-    // Handler para cambio de valor máximo
     const handleMaxValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMaxValue(e.target.value);
     };
 
-    // Función para formatear precio
     const formatPrice = (price: number): string => {
         return `USD ${price.toLocaleString()}`;
     };
 
-    // Función para formatear características
+    // mapeo las caracteristicas para que se vean en la card
     const formatCharacteristics = (characteristics: Property['characteristics']): string => {
         const rooms = characteristics.find(c => c.category === 'ROOMS')?.amount || 0;
         const bathrooms = characteristics.find(c => c.category === 'BATHROOMS')?.amount || 0;

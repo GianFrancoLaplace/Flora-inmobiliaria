@@ -10,7 +10,6 @@ import { useUnifiedFilter } from '@/hooks/GetProperties';
 export default function FichaPropiedad() {
   const { maxValue, handleMaxValueChange } = useUnifiedFilter();
 
-  // Opciones de filtros
   const filtrosTipoTransaccion = ["Quiero comprar", "Quiero alquilar"];
   const filtrosTipoPropiedad = [
     "Casas",

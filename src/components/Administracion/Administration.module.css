@@ -199,8 +199,6 @@
     background-color: transparent;
 }
 
-/* Agregar estos estilos a tu Administration.module.css existente */
-
 .loadingContainer {
     display: flex;
     justify-content: center;
