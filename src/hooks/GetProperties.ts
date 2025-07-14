@@ -126,21 +126,19 @@ export const useUnifiedFilter = () => {
 
     // mapeo las caracteristicas para que se vean en la card
     const formatCharacteristics = (characteristics: Property['characteristics']): string => {
-        const rooms = characteristics.find(c => c.category === 'ROOMS')?.amount || 0;
-        const bathrooms = characteristics.find(c => c.category === 'BATHROOMS')?.amount || 0;
-        const bedrooms = characteristics.find(c => c.category === 'BEDROOMS')?.amount || 0;
+        const rooms = characteristics.find(c => c.category === 'ambientes')?.amount || 0;
+        const bathrooms = characteristics.find(c => c.category === 'banos')?.amount || 0;
+        const bedrooms = characteristics.find(c => c.category === 'dormitorios' || c.category === 'dormitorios_suite')?.amount || 0;
         
         return `${rooms} ambientes | ${bedrooms} dormitorios | ${bathrooms} baños`;
     };
 
     return {
-        // Estados
         maxValue,
         properties,
         loading,
         error,
         
-        // Funciones
         handleMaxValueChange,
         mapApiPropertiesToGrid,
         fetchProperties,
