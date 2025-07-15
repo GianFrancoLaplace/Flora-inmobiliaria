@@ -6,11 +6,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { useUnifiedFilter } from "@/hooks/GetProperties";
 import {DeleteProperty} from "@/hooks/DeleteProperty";
+import router from "next/router";
 
 export default function Administration() {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [propertyToDelete, setPropertyToDelete] = useState<any>(null);
-    
+
     const {
         properties,
         loading,
@@ -118,7 +119,10 @@ export default function Administration() {
 
                             <div className={styles.buttonsProperties}>
                                 <button
-                                    onClick={() => (window.location.href = `/administracion/fichaeditable/${prop.id}`)}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        router.push(`/administracion/fichaeditable/${prop.id}`);
+                                    }}
                                     type="button"
                                 >
                                     <Image
@@ -153,20 +157,22 @@ export default function Administration() {
                 <div className={styles.modalOverlay}>
                     <div className={`${styles.modalContent} ${cactus.className}`}>
                         <p>
-                            ¿Desea eliminar la publicación "<span>{propertyToDelete.address}</span>"?
+                            ¿Desea eliminar la publicación?
                         </p>
                         <p>Esta acción no se puede deshacer.</p>
                         <div className={styles.modalButtons}>
                             <button
                                 onClick={handleConfirmDelete}
                                 className={`${styles.deleteButton} ${cactus.className}`}
-                                desabled={isDeleting}
+                                disabled={isDeleting}
+                                type="button"
                             >
                                 Sí, deseo eliminarla
                             </button>
                             <button
                                 onClick={handleCancelDelete}
                                 className={`${styles.cancelButton} ${cactus.className}`}
+                                type="button"
                             >
                                 No, gracias
                             </button>
