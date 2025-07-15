@@ -39,7 +39,6 @@ export default function Us() {
             </div>
 
             <div className={styles.imageProperties}>
-                {/*<CarrouselFotos/>*/}
                 <Image
                     src="/images/imagen_nosotros.jpg"
                     alt="Imagen Us"

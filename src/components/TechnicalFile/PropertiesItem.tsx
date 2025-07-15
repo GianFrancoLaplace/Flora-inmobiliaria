@@ -2,38 +2,31 @@ import styles from "@/components/TechnicalFile/TechnicalSheet.module.css";
 import Image from "next/image";
 import EditableField from "@/components/TechnicalFile/EditField";
 import {useState} from "react";
-import {CharacteristicCategory, Property} from "@/types/Property";
+import {Characteristic} from "@/types/Property";
 
 type Props = {
     imgSrc: string;
     label: string;
-    value: string;
-    property: Property;
+    characterisctic: Characteristic;
     isEditing: boolean
-    onSave: (category: CharacteristicCategory, newValue: string) => void;
-    category: CharacteristicCategory;
 };
 
-export default function Item({ imgSrc, label, value, property, isEditing, category, onSave }: Props) {
-    const [editingField, setEditingField] = useState<keyof Property | null>(null);
-    const [localProperty, setLocalProperty] = useState<Property>(property);
+export default function Item({ imgSrc, label, characterisctic, isEditing }: Props) {
+    // const [editingField, setEditingField] = useState<keyof Characteristic | null>(null);
+    const [localCharacterisctic, setLocalCharacterisctic] = useState<Characteristic>(characterisctic);
 
-    console.log(editingField)
 
-    const handleSaveField = async (fieldName: keyof Property, value: string) => {
-        console.log(`Guardando ${fieldName}:`, value);
 
-        setLocalProperty(prev => ({ ...prev, [fieldName]: value }));
-
-        setEditingField(null)
-        console.log("2. LocalProperty después del update:", localProperty); // Para debug
-        // Implementar llamada a la API
+    const handleSaveField = async (value : number | string) => {
+        console.log(value);
+        if (typeof value === "string") {
+            value = parseInt(value);
+        }
+        setLocalCharacterisctic(prev => ({ ...prev, ["amount"]: value }));
     };
 
     const handleCancelEdit = () => {
-        console.log(`Cancelando edición`);
-
-        setEditingField(null);
+        console.log("hola");
     };
 
     return (
@@ -46,10 +39,10 @@ export default function Item({ imgSrc, label, value, property, isEditing, catego
             />
             <h5>
                 {label}: <EditableField
-                    value={value}
+                    value={localCharacterisctic.amount}
                     isEditing={isEditing}
                     type={"text"}
-                    onSave={(newValue) => onSave(category, String(newValue))}
+                    onSave={handleSaveField}
                     onCancel={handleCancelEdit}
                     className={styles.editProperties}
                 />

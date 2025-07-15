@@ -18,10 +18,8 @@ export default function CarrouselFotos(){
                   key={i}
                   src={img}
                   alt="Imagen Us"
-                  width={1000}
-                  height={200}
-                  priority
-                  style={{ width: '100%' }}
+                  layout="fill"
+                  objectFit="cover"
                   className={`${styles.imageProperties} ${i === actual ? styles.imagePropertiesActive : ''}`}
               />
           ))}

@@ -38,6 +38,7 @@
     display: flex;
     flex-direction: row;
     position: relative;
+    background-color: #FADA4D;
     width: 100%;
     height: 600px;
     margin-bottom: 20px;
@@ -139,7 +140,7 @@
 .sectionProperties{
     display: grid;
     grid-auto-flow: column;
-    grid-template-rows: repeat(11, max-content);
+    grid-template-rows: repeat(10, max-content);
     grid-column-gap: 150px;
 }
 
@@ -154,6 +155,9 @@
     white-space: wrap;
 }
 
+.buttonsProperties button{
+    cursor: pointer;
+}
 /*PROPERTIE´S EMPTY FILE*/
 
 .showProperties{

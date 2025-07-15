@@ -6,9 +6,10 @@ import EditButton from '@/components/TechnicalFile/EditButton'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
-import {CharacteristicCategory, Property, PropertyState, PropertyType} from "@/types/Property";
+import {Characteristic, CharacteristicCategory, Property, PropertyState, PropertyType} from "@/types/Property";
 import { useState } from "react";
 import CarrouselFotos from "./Carrousel/CarrouselFotos";
+import Item from "@/components/TechnicalFile/PropertiesItem";
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
@@ -137,29 +138,39 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
 
     //para el componente de Items
     const [isEditingAll, setIsEditingAll] = useState(false);
+    const [characteristics, setCharacteristics] = useState<Characteristic[]>(property.characteristics);
 
-    const handleSaveCharacteristic = (
-        category: CharacteristicCategory,
-        newValue: string | number
-    ) => {
-        setLocalProperty((prev) => {
-            const updatedCharacteristics = prev.characteristics.map((char) =>
-                char.category === category
-                    ? {...char, characteristic: String(newValue)}
-                    : char
-            );
-
-            return {
-                ...prev,
-                characteristics: updatedCharacteristics,
-            };
-        });
+    const handleSaveCharacteristic = (category: CharacteristicCategory, newValue: string) => {
+        setCharacteristics(prev =>
+            prev.map(c =>
+                c.category === category ? { ...c, characteristic: newValue } : c
+            )
+        );
     };
+
+
+    // const handleSaveCharacteristic = (
+    //     category: CharacteristicCategory,
+    //     newValue: string | number
+    // ) => {
+    //     setLocalProperty((prev) => {
+    //         const updatedCharacteristics = prev.characteristics.map((char) =>
+    //             char.category === category
+    //                 ? {...char, characteristic: String(newValue)}
+    //                 : char
+    //         );
+    //
+    //         return {
+    //             ...prev,
+    //             characteristics: updatedCharacteristics,
+    //         };
+    //     });
+    // };
 
     console.log(editingField)
 
     const isEmptyFile = mode === "create";
-    const isEditableFile = mode === "edit" || mode === "create";
+    const isEditableFile = mode === "edit";
 
     const handleStartEdit = (fieldName: keyof Property) => {
         console.log(`Iniciando edición de: ${fieldName}`);
@@ -213,7 +224,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                         onStartEdit={() => handleStartEdit('address')}
                         onEndEdit={() => handleSaveField('address', 'valor')}
                         isEditing={editingField == 'address'}
-                        show={isEditableFile}
+                        show={isEditableFile || isEmptyFile}
                     />
                 </div>
             </div>
@@ -248,11 +259,11 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                             onEndEdit={() => handleSaveField('state', 'valor')}
                             isEditing={editingField === 'state'}
                             className={styles.editButtonProperties}
-                            show={isEditableFile}
+                            show={isEditableFile || isEmptyFile}
                         />
                     </div>
                 </div>
-                <div>
+                <div className={styles.buttonsProperties}>
                     <button type="button"
                             className={`${styles.askBtn} ${isEmptyFile ? styles.notShowProperties : styles.showProperties || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
                         Consultar por esta propiedad
@@ -328,7 +339,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                         onEndEdit={() => handleSaveField('price', 'valor')}
                         isEditing={editingField === 'price'}
                         className={styles.editButtonProperties}
-                        show={isEditableFile}
+                        show={isEditableFile || isEmptyFile}
                     />
                 </div>
             </div>
@@ -341,7 +352,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                         onEndEdit={() => handleSaveField('description', 'value')}
                         isEditing={editingField === 'description'}
                         className={styles.editButtonProperties}
-                        show={isEditableFile}
+                        show={isEditableFile || isEmptyFile}
                     />
                 </div>
                 <h5 className={`${styles.showProperties}`}>
@@ -362,33 +373,17 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                     <button onClick={() => setIsEditingAll(!isEditingAll)}>
                         {isEditingAll ? '✔️ Guardar' : '✏️'}
                     </button>
-
                 </div>
                 <div className={styles.dataGridProperties}>
                     <div className={styles.sectionProperties}>
                         {itemsToShow.map(({category, label, icon}) => {
-                            const char = property.characteristics.find((c) => c.category === category);
-
                             return (
-                                <div className={styles.itemProperties} key={category}>
-                                    <Image
-                                        src={icon}
-                                        alt="icono acorde a la informacion proporcionada"
-                                        width={20}
-                                        height={20}
-                                    />
-                                    <h5>
-                                        {label}:
-                                        <EditableField
-                                            value={char?.characteristic ?? ''}
-                                            isEditing={isEditingAll}
-                                            type="text"
-                                            onSave={(newValue) => handleSaveCharacteristic(category, newValue)}
-                                            onCancel={handleCancelEdit}
-                                            className={styles.itemProperties}
-                                        />
-                                    </h5>
-                                </div>
+                                <Item
+                                imgSrc={icon}
+                                label={label}
+                                characterisctic={category}
+                                isEditing={isEditingAll}
+                                />
                             );
                         })}
                     </div>
@@ -403,7 +398,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                         onStartEdit={() => handleStartEdit('ubication')}
                         onEndEdit={() => handleSaveField('ubication', 'value')}
                         isEditing={editingField === 'ubication'}
-                        show={isEditableFile}
+                        show={isEditableFile || isEmptyFile}
                     />
                 </div>
 
