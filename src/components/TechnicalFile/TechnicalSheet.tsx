@@ -1,16 +1,13 @@
 'use client';
 import ContactInformation from "@/components/features/ContactInformation/ContactInformation";
 import DataCard from '@/components/features/DataCard/DataCard'
-import Item from '@/components/TechnicalFile/PropertiesItem'
 import EditableField from '@/components/TechnicalFile/EditField'
 import EditButton from '@/components/TechnicalFile/EditButton'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
-import {Characteristic, CharacteristicCategory, Property, PropertyState, PropertyType} from "@/types/Property";
+import {CharacteristicCategory, Property, PropertyState, PropertyType} from "@/types/Property";
 import React, { useState } from "react";
-import postgres from "postgres";
-import value = postgres.toPascal.value;
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
@@ -26,7 +23,6 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             description: "Descripción",
             id: 0,
             price: 0,
-            operation: "Dirección",
             state: PropertyState.RENT,
             type: PropertyType.HOME,
             ubication: " "
@@ -245,11 +241,11 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                     <div className={styles.editProperties}>
                         <h1>
                             <EditableField
-                                value={localProperty.operation}
-                                isEditing={editingField === 'operation'}
+                                value={localProperty.address}
+                                isEditing={editingField === 'address'}
                                 type={"text"}
                                 className={styles.inputProperties}
-                                onSave={(value) => handleSaveField('operation', value)}
+                                onSave={(value) => handleSaveField('address', value)}
                                 onCancel={handleCancelEdit}
                             />
                             <span> | </span>
@@ -263,9 +259,9 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                             />
                         </h1>
                         <EditButton
-                            onStartEdit={() => handleStartEdit('operation')}
-                            onEndEdit={() => handleSaveField('operation', 'valor')}
-                            isEditing={editingField === 'operation'}
+                            onStartEdit={() => handleStartEdit('address')}
+                            onEndEdit={() => handleSaveField('address', 'valor')}
+                            isEditing={editingField === 'address'}
                             className={styles.editButtonProperties}
                         />
                     </div>

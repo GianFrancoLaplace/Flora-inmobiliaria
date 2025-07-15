@@ -9,7 +9,6 @@ export interface Property {
   address: string;
   city: string;
   state: PropertyState;
-  operation: string | PropertyState;
   price: number;
   description: string;
   ubication: string;

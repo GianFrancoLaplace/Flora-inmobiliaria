@@ -2,12 +2,12 @@ import type { NextAuthConfig } from 'next-auth';
 
 export const authConfig = {
     pages: {
-        signIn: "@/app/(views)/login", // La página a la que se redirige si el acceso es denegado
+        signIn: "/login", // La página a la que se redirige si el acceso es denegado
     },
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user; // true si el usuario ha iniciado sesión
-            const isOnAdministration = nextUrl.pathname.startsWith('/administracion/EditableSheet');
+            const isOnAdministration = nextUrl.pathname.startsWith('/administracion');
 
             // Caso 1: El usuario intenta acceder a la página de administración
             if (isOnAdministration) {
@@ -25,7 +25,7 @@ export const authConfig = {
                 // lo redirigimos a su panel de administración.
                 // Esto evita que vea la página de login si ya está autenticado.
                 if (nextUrl.pathname === '/login') {
-                    return Response.redirect(new URL('/administracion/EditableSheet', nextUrl));
+                    return Response.redirect(new URL('/administracion', nextUrl));
                 }
                 // Para cualquier otra página (/, /propiedades, etc.), permite el acceso.
                 return true;

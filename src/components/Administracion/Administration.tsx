@@ -15,7 +15,9 @@ export default function Administration() {
         loading,
         error,
         formatPrice,
-        formatCharacteristics
+        formatCharacteristics,
+        refetchProperties,
+        removePropertyFromState
     } = useUnifiedFilter(); //llamo al hook para que se rendericen las propiedades con o sin filtros
 
     const handleDeleteClick = (property: any) => {
@@ -89,7 +91,7 @@ export default function Administration() {
                                 />
                             </div>
 
-                            <Link href="/propiedades/ficha" className={styles.linkProperties}>
+                            <Link href={`/propiedades/ficha/${prop.id}`} className={styles.linkProperties}>
                                 <div className={`${styles.infoProperties} ${cactus.className}`}>
                                     <div className={styles.priceProperties}>
                                         <h5>{formatPrice(prop.price)}</h5>

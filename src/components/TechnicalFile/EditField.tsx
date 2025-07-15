@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import styles from './TechnicalSheet.module.css';
 
 interface EditableFieldProps {
     value: string | number;
     isEditing: boolean;
     type: string;
     className?: string;
-    onSave: (value: string ) => void;
+    onSave: (value: string|number ) => void;
     onCancel: () => void;
 }
 
