@@ -1,5 +1,6 @@
 import styles from './Us.module.css'
 import Image from "next/image";
+import CarrouselFotos from "@/components/TechnicalFile/Carrousel/CarrouselFotos";
 
 export default function Us() {
     return (
@@ -38,6 +39,7 @@ export default function Us() {
             </div>
 
             <div className={styles.imageProperties}>
+                {/*<CarrouselFotos/>*/}
                 <Image
                     src="/images/imagen_nosotros.jpg"
                     alt="Imagen Us"

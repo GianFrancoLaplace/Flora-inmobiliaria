@@ -8,7 +8,7 @@ import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
 import {CharacteristicCategory, Property, PropertyState, PropertyType} from "@/types/Property";
 import { useState } from "react";
-import CarrouselFotos from "./CarrouselFotos";
+import CarrouselFotos from "./Carrousel/CarrouselFotos";
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
