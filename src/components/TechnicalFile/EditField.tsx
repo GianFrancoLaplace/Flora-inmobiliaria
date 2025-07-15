@@ -6,7 +6,7 @@ interface EditableFieldProps {
     isEditing: boolean;
     type: string;
     className?: string;
-    onSave: (value: string | number) => void;
+    onSave: (value: string ) => void;
     onCancel: () => void;
 }
 
@@ -58,7 +58,6 @@ const EditableField: React.FC<EditableFieldProps> = ({
         setTempValue(e.target.value);
     };
 
-    className = styles.inputProperties;
 
     if (isEditing) {
         return (

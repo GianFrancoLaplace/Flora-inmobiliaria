@@ -7,8 +7,10 @@ import EditButton from '@/components/TechnicalFile/EditButton'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
-import {CharacteristicCategory, Property, PropertyState, PropertyType} from "@/types/Property";
-import { useState } from "react";
+import {Characteristic, CharacteristicCategory, Property, PropertyState, PropertyType} from "@/types/Property";
+import React, { useState } from "react";
+import postgres from "postgres";
+import value = postgres.toPascal.value;
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
@@ -36,100 +38,120 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             category: CharacteristicCategory.SUPERFICIE_TOTAL,
             label: 'Superficie Total',
             icon: '/icons/sup.png',
+            value: " "
         },
         {
             category: CharacteristicCategory.SUPERFICIE_DESCUBIERTA,
             label: 'Superficie Descubierta',
             icon: '/icons/supDesc.png',
+            value: " "
         },
         {
             category: CharacteristicCategory.SUPERFICIE_SEMICUBIERTA,
             label: 'Superficie Semidescubierta',
             icon: '/icons/supCub.png',
+            value: " "
         },
         {
             category: CharacteristicCategory.SUPERFICIE_CUBIERTA,
             label: 'Superficie Cubierta',
             icon: '/icons/supCub.png',
+            value: " "
         },
         {
             category: CharacteristicCategory.AMBIENTES,
             label: 'Ambientes',
             icon: '/icons/ambiente.png',
+            value: " "
         },{
             category: CharacteristicCategory.DORMITORIOS,
             label: 'Dormitorios',
             icon: '/icons/dorms.png',
+            value: " "
         },
         {
             category: CharacteristicCategory.DORMITORIOS_SUITE,
             label: 'Dormitorios en Suite',
             icon: '/icons/dorms.png',
+            value: " "
         },
         {
             category: CharacteristicCategory.BANOS,
             label: 'Baños',
             icon: '/icons/baños.png',
+            value: " "
         },
         {
             category: CharacteristicCategory.COCHERAS,
             label: 'Cocheras',
             icon: '/icons/cochera.png',
+            value: " "
         },
         {
             category: CharacteristicCategory.COBERTURA_COCHERA,
             label: 'Cobertura cochera',
             icon: '/icons/cobertura.png',
+            value: " "
         },
         {
-            category: CharacteristicCategory.TIPO_PISO,
+            category: CharacteristicCategory.OTROS,
             label: 'Tipo de cochera',
             icon: '/icons/cobertura.png',
+            value: " "
         },
         {
             category: CharacteristicCategory.EXPENSAS,
             label: 'Expensas',
             icon: '/icons/expensas.png',
+            value: " "
         },
         {
             category: CharacteristicCategory.AGUA,
             label: 'Fecha de las expensas',
             icon: '/icons/fecha.png',
+            value: " "
         },
         {
             category: CharacteristicCategory.TIPO_PISO,
             label: 'Tipo de piso',
             icon: '/icons/piso.png',
+            value: " "
         },
         {
             category: CharacteristicCategory.ESTADO_INMUEBLE,
             label: 'Estado de inmueble',
             icon: '/icons/estado.png',
+            value: " "
         },
         {
             category: CharacteristicCategory.ORIENTACION,
             label: 'Orientación',
             icon: '/icons/orientacion.png',
+            value: " "
         },
         {
             category: CharacteristicCategory.LUMINOSIDAD,
             label: 'Luminosidad',
             icon: '/icons/luminosidad.png',
+            value: " "
         },
         {
             category: CharacteristicCategory.DISPOSICION,
             label: 'Disposición',
             icon: '/icons/disposicion.png',
+            value: " "
         },
         {
             category: CharacteristicCategory.ANTIGUEDAD,
             label: 'Antiguedad',
             icon: '/icons/antiguedad.png',
+            value: " "
         },
         {
             category: CharacteristicCategory.UBICACION_CUADRA,
             label: 'Ubicación en la cuadra',
             icon: '/icons/ubi.png',
+            value: " "
         },
     ];
 
@@ -139,28 +161,14 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
     //para el componente de Items
     const [isEditingAll, setIsEditingAll] = useState(false);
 
-    const handleSaveCharacteristic = (
-        category: CharacteristicCategory,
-        newValue: string | number
-    ) => {
-        setLocalProperty((prev) => {
-            const updatedCharacteristics = prev.characteristics.map((char) =>
-                char.category === category
-                    ? { ...char, characteristic: String(newValue) } // o `amount: Number(newValue)` si querés actualizar eso
-                    : char
-            );
-
-            return {
-                ...prev,
-                characteristics: updatedCharacteristics,
-            };
-        });
-
-        // 🔄 Opcional: Llamada a la API para guardar en base de datos
+    const handleSaveCharacteristic = (category: CharacteristicCategory, newValue: string) => {
+        setLocalProperty(prev => ({
+            ...prev,
+            characteristics: prev.characteristics.map(c =>
+                c.category === category ? { ...c, characteristic: newValue } : c
+            )
+        }));
     };
-
-
-    console.log(editingField)
 
     const isEmptyFile = mode === "create";
     const isEditableFile = mode === "edit"
@@ -177,6 +185,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
 
         setEditingField(null)
         console.log("2. LocalProperty después del update:", localProperty); // Para debug
+
         // Implementar llamada a la API
     };
 
@@ -211,6 +220,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                             type={"text"}
                             onSave={(value) => handleSaveField('address', value)}
                             onCancel={handleCancelEdit}
+                            className={styles.inputProperties}
                         />
                     </h1>
                     <EditButton
@@ -238,6 +248,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                                 value={localProperty.operation}
                                 isEditing={editingField === 'operation'}
                                 type={"text"}
+                                className={styles.inputProperties}
                                 onSave={(value) => handleSaveField('operation', value)}
                                 onCancel={handleCancelEdit}
                             />
@@ -280,7 +291,6 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             </div>
 
             <div className={styles.mainBoxesGridProperties}>
-
                 <div>
                     <DataCard
                         imgSrc="/icons/sup.png"
@@ -321,7 +331,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             <div className={styles.mainInfoPrice}>
                 <div className={`${styles.priceEditionProperties} ${styles.showProperties}`}>
                     <h1>
-                        <EditableField
+                        USD <EditableField
                             value={localProperty.price}
                             isEditing={editingField === "price"}
                             type={"number"}
@@ -364,8 +374,13 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             <div className={styles.descriptionsProperties}>
                 <div className={styles.titleProperties}>
                     <h3>Ficha</h3>
-                    <button onClick={() => setIsEditingAll(!isEditingAll)}>
-                        {isEditingAll ? '✔️ Guardar' : '✏️'}
+                    <button onClick={() => setIsEditingAll(!isEditingAll)} className={styles.editButtonProperties}>
+                            <Image
+                                src={'/icons/iconoEdit.png'}
+                                alt={'Icono para editar'}
+                                width={30}
+                                height={30}
+                            />
                     </button>
 
                 </div>
@@ -373,19 +388,31 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                     <div className={styles.sectionProperties}>
                         {itemsToShow.map(({ category, label, icon }) => {
                             const char = property.characteristics.find((c) => c.category === category);
+
                             return (
-                                <Item
-                                    key={category}
-                                    imgSrc={icon}
-                                    label={label}
-                                    value={char?.characteristic ?? ''}
-                                    category={category}
-                                    isEditing={isEditingAll}
-                                    onSave={handleSaveCharacteristic}
-                                    property={property}
-                                />
+                                <div className={styles.itemProperties} key={category}>
+                                    <Image
+                                        src={icon}
+                                        alt="icono acorde a la informacion proporcionada"
+                                        width={20}
+                                        height={20}
+                                    />
+                                    <h5>
+                                        {label}:
+                                        <EditableField
+                                            value={char?.characteristic ?? ''} // 👈 usa el valor real del estado
+                                            isEditing={isEditingAll}
+                                            type="text"
+                                            onSave={(value) => handleSaveField('characteristics', value)}
+                                            onCancel={handleCancelEdit}
+                                            className={styles.itemProperties}
+                                        />
+
+                                    </h5>
+                                </div>
                             );
                         })}
+                        );
                     </div>
                 </div>
             </div>
@@ -408,6 +435,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                         type={'text'}
                         onSave={(value) => handleSaveField('ubication', value)}
                         onCancel={handleCancelEdit}
+                        className={styles.inputProperties}
                     />
                 </h5>
 

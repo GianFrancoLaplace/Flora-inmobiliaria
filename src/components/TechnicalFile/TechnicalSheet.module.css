@@ -126,7 +126,6 @@
 .titleProperties{
     display: flex;
     flex-direction: row;
-    gap: 10px;
     height: 40px;
     border-bottom: 1px solid var(--primary-color-5);
 }
@@ -141,6 +140,7 @@
     display: grid;
     grid-auto-flow: column;
     grid-template-rows: repeat(11, max-content);
+    grid-column-gap: 150px;
 }
 
 .itemProperties{
@@ -151,6 +151,7 @@
 
 .itemProperties h5{
     margin-left: 30px;
+    white-space: wrap;
 }
 
 /*PROPERTIE´S EMPTY FILE*/
