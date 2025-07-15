@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { mapPropertyType, mapOperationToState } from '@/helpers/PropertyMapper'; 
 import { Property, Characteristic, PropertyState, PropertyType } from '@/types/Property';
-import { PropertyUpdateData, CharacteristicUpdateData, ValidationError } from "@/helpers/UpdateProperty"
+import { PropertyUpdateData, ValidationError } from "@/helpers/UpdateProperty"
 import {getIconByCategory, mapPrismaCharacteristicCategory} from "@/helpers/IconMapper"
 
 export async function GET(
@@ -185,38 +185,38 @@ function validatePropertyData(data: PropertyUpdateData): ValidationError[] {
     return errors;
 }
 
-function validateCharacteristics(data: CharacteristicUpdateData): ValidationError[] {
-
-    const errors: ValidationError[] = [];
-
-    if (data.bedrooms !== undefined) {
-        if (!Number.isInteger(data.bedrooms) || data.bedrooms <= 0) {
-            errors.push({
-                field: 'bedrooms',
-                message: 'El número de dormitorios debe ser mayor a cero'
-            });
-        }
-    }
-
-    if (data.bathrooms !== undefined) {
-        if (!Number.isInteger(data.bathrooms) || data.bathrooms <= 0) {
-            errors.push({
-                field: 'bathrooms',
-                message: 'El número de baños debe ser mayor a cero'
-            });
-        }
-    }
-
-    if (data.squareMeters !== undefined) {
-        if (typeof data.squareMeters !== 'number' || data.squareMeters <= 0) {
-            errors.push({
-                field: 'squareMeters',
-                message: 'Los metros cuadrados deben ser un número mayor a cero'
-            });
-        }
-    }
-    return errors;
-}
+// function validateCharacteristics(data: CharacteristicUpdateData): ValidationError[] {
+//
+//     const errors: ValidationError[] = [];
+//
+//     if (data.bedrooms !== undefined) {
+//         if (!Number.isInteger(data.bedrooms) || data.bedrooms <= 0) {
+//             errors.push({
+//                 field: 'bedrooms',
+//                 message: 'El número de dormitorios debe ser mayor a cero'
+//             });
+//         }
+//     }
+//
+//     if (data.bathrooms !== undefined) {
+//         if (!Number.isInteger(data.bathrooms) || data.bathrooms <= 0) {
+//             errors.push({
+//                 field: 'bathrooms',
+//                 message: 'El número de baños debe ser mayor a cero'
+//             });
+//         }
+//     }
+//
+//     if (data.squareMeters !== undefined) {
+//         if (typeof data.squareMeters !== 'number' || data.squareMeters <= 0) {
+//             errors.push({
+//                 field: 'squareMeters',
+//                 message: 'Los metros cuadrados deben ser un número mayor a cero'
+//             });
+//         }
+//     }
+//     return errors;
+// }
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
     try {

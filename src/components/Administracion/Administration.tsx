@@ -84,13 +84,14 @@ export default function Administration() {
                             <div className={`${styles.imageProperties} ${cactus.className}`}>
                                 <Image
                                     src="/imgs/interior1.jpeg"
+                                    // src={prop.image}
                                     alt="Imagen interior casa"
                                     width={285}
                                     height={175}
                                 />
                             </div>
 
-                            <Link href="/propiedades/ficha" className={styles.linkProperties}>
+                            <Link href={`/propiedades/ficha/${prop.id}`} className={styles.linkProperties}>
                                 <div className={`${styles.infoProperties} ${cactus.className}`}>
                                     <div className={styles.priceProperties}>
                                         <h5>{formatPrice(prop.price)}</h5>

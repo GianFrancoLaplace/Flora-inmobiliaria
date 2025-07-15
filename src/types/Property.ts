@@ -13,7 +13,7 @@ export interface Property {
   description: string;
   ubication: string;
   characteristics: Characteristic[];
-  type: PropertyType;
+  type?: PropertyType;
 }
 
 export enum PropertyState {
@@ -62,7 +62,7 @@ export interface Characteristic {
     id: number;
     characteristic: string;
     amount: number;
-    category: CharacteristicCategory;
+    category?: CharacteristicCategory;
     iconUrl?: string; // URL del icono (opcional pero obligatorio para el get by id)
 }
 

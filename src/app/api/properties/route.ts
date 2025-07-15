@@ -3,25 +3,29 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { PropertyService } from '@/services/propertyService';
-import { Property, Characteristic, CharacteristicCategory } from '@/types/Property';
+import { Property, Characteristic } from '@/types/Property';
 import { mapOperationToState, mapPropertyType } from '@/helpers/PropertyMapper';
 import { mapPrismaCharacteristicCategory } from '@/helpers/IconMapper';
 
+type PriceFilter = {
+  lte?: number;
+  gte?: number;
+};
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-
-  const tipos = searchParams.get('tipo')?.split(',') ?? undefined;
-  const operaciones = searchParams.get('operacion')?.split(',') ?? undefined;
-  const maxValue = searchParams.get('maxValue');
-
   try {
+    const { searchParams } = new URL(request.url);
+
+    const tipos = searchParams.get('tipo')?.split(',') ?? undefined;
+    const operaciones = searchParams.get('operacion')?.split(',') ?? undefined;
+    const maxValue = searchParams.get('maxValue');
+
     const service = new PropertyService(tipos, operaciones);
     const where = service.buildWhereClause();
 
     if (maxValue && !isNaN(Number(maxValue))) {
       if (where.price) {
-        (where.price as any).lte = Number(maxValue);
+        (where.price as PriceFilter).lte = Number(maxValue);
       } else {
         where.price = {
           lte: Number(maxValue)
@@ -36,10 +40,10 @@ export async function GET(request: Request) {
       },
     });
 
-    const propiedades: Property[] = propiedadesRaw.map((p) => ({
+    const propiedades : Property[] = propiedadesRaw.map((p) => ({
       id: p.id_property,
       address: p.address || '',
-      city: p.city || '',
+      city: '',
       state: mapOperationToState(p.categoria_id_category),
       price: p.price || 0,
       description: p.description || '',

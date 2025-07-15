@@ -1,8 +1,6 @@
-
 import Image from "next/image";
 import styles from './SmallCard.module.css';
 import Link from "next/link";
-
 
 type PropertyImage = {
     id: number;
@@ -27,7 +25,7 @@ const SmallCard = ({ property }: PropertyCardProps) => {
 
     return (
         <article className={styles.card}>
-            <Link href={'/propiedades/ficha'}>
+            <Link href={`/propiedades/ficha/${property.id}`}>
             <Image
                 src={property.imageUrl}
                 alt={`Imagen de la propiedad en ${property.address}`}
