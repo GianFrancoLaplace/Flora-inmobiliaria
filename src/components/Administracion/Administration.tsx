@@ -15,7 +15,9 @@ export default function Administration() {
         loading,
         error,
         formatPrice,
-        formatCharacteristics
+        formatCharacteristics,
+        refetchProperties,
+        removePropertyFromState
     } = useUnifiedFilter(); //llamo al hook para que se rendericen las propiedades con o sin filtros
 
     const handleDeleteClick = (property: any) => {

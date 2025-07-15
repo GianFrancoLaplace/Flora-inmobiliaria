@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 // Tipo para las propiedades de la API
@@ -70,7 +70,7 @@ export const useUnifiedFilter = () => {
     };
 
     // traigo con un fetch las propiedades desde mi route
-    const fetchProperties = async () => {
+    const fetchProperties = useCallback(async () => {
         try {
             setLoading(true);
             setError(null);
@@ -103,20 +103,31 @@ export const useUnifiedFilter = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [searchParams]);
+
+    // Función para refrescar las propiedades (útil después de eliminar)
+    const refetchProperties = useCallback(async () => {
+        await fetchProperties();
+    }, [fetchProperties]);
+
+    // Función para eliminar una propiedad del estado local (optimización)
+    const removePropertyFromState = useCallback((propertyId: number) => {
+        setProperties(prev => prev.filter(prop => prop.id !== propertyId));
+    }, []);
 
     useEffect(() => {
         fetchProperties();
-    }, [searchParams]);
+    }, [fetchProperties]);
 
     useEffect(() => {
         const maxValueFromUrl = searchParams.get('maxValue');
         if (maxValueFromUrl && maxValueFromUrl !== maxValue) {
             setMaxValue(maxValueFromUrl);
         }
-    }, [searchParams]);
+    }, [searchParams, maxValue]);
 
     const handleMaxValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
         setMaxValue(e.target.value);
     };
 
@@ -142,6 +153,8 @@ export const useUnifiedFilter = () => {
         handleMaxValueChange,
         mapApiPropertiesToGrid,
         fetchProperties,
+        refetchProperties, // Nueva función para refrescar
+        removePropertyFromState, // Nueva función para optimización
         formatPrice,
         formatCharacteristics,
         
