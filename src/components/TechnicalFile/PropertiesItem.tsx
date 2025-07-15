@@ -2,7 +2,7 @@ import styles from "@/components/TechnicalFile/TechnicalSheet.module.css";
 import Image from "next/image";
 import EditableField from "@/components/TechnicalFile/EditField";
 import {useState} from "react";
-import {Characteristic, CharacteristicCategory, Property} from "@/types/Property";
+import {CharacteristicCategory, Property} from "@/types/Property";
 
 type Props = {
     imgSrc: string;
@@ -10,7 +10,7 @@ type Props = {
     value: string;
     property: Property;
     isEditing: boolean
-    onSave: (field: CharacteristicCategory, value: string | number) => void;
+    onSave: (category: CharacteristicCategory, newValue: string) => void;
     category: CharacteristicCategory;
 };
 
@@ -20,7 +20,7 @@ export default function Item({ imgSrc, label, value, property, isEditing, catego
 
     console.log(editingField)
 
-    const handleSaveField = async (fieldName: keyof Property, value: string | number) => {
+    const handleSaveField = async (fieldName: keyof Property, value: string) => {
         console.log(`Guardando ${fieldName}:`, value);
 
         setLocalProperty(prev => ({ ...prev, [fieldName]: value }));
@@ -45,14 +45,13 @@ export default function Item({ imgSrc, label, value, property, isEditing, catego
                 height={20}
             />
             <h5>
-                {label}:
-                <EditableField
+                {label}: <EditableField
                     value={value}
                     isEditing={isEditing}
                     type={"text"}
-                    onSave={(newValue) => onSave(category, newValue)}
+                    onSave={(newValue) => onSave(category, String(newValue))}
                     onCancel={handleCancelEdit}
-                    className={styles.inputProperties}
+                    className={styles.editProperties}
                 />
             </h5>
         </div>

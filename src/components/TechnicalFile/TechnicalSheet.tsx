@@ -1,7 +1,6 @@
 'use client';
 import ContactInformation from "@/components/features/ContactInformation/ContactInformation";
 import DataCard from '@/components/features/DataCard/DataCard'
-import Item from '@/components/TechnicalFile/PropertiesItem'
 import EditableField from '@/components/TechnicalFile/EditField'
 import EditButton from '@/components/TechnicalFile/EditButton'
 import Image from 'next/image';
@@ -145,7 +144,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
         setLocalProperty((prev) => {
             const updatedCharacteristics = prev.characteristics.map((char) =>
                 char.category === category
-                    ? { ...char, characteristic: String(newValue) } // o `amount: Number(newValue)` si querés actualizar eso
+                    ? { ...char, characteristic: String(newValue) }
                     : char
             );
 
@@ -372,17 +371,27 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                     <div className={styles.sectionProperties}>
                         {itemsToShow.map(({ category, label, icon }) => {
                             const char = property.characteristics.find((c) => c.category === category);
+
                             return (
-                                <Item
-                                    key={category}
-                                    imgSrc={icon}
-                                    label={label}
-                                    value={char?.characteristic ?? ''}
-                                    category={category}
-                                    isEditing={isEditingAll}
-                                    onSave={handleSaveCharacteristic}
-                                    property={property}
-                                />
+                                <div className={styles.itemProperties} key={category}>
+                                    <Image
+                                        src={icon}
+                                        alt="icono acorde a la informacion proporcionada"
+                                        width={20}
+                                        height={20}
+                                    />
+                                    <h5>
+                                        {label}:
+                                        <EditableField
+                                            value={char?.characteristic ?? ''}
+                                            isEditing={isEditingAll}
+                                            type="text"
+                                            onSave={(newValue) => handleSaveCharacteristic(category, newValue)}
+                                            onCancel={handleCancelEdit}
+                                            className={styles.itemProperties}
+                                        />
+                                    </h5>
+                                </div>
                             );
                         })}
                     </div>
