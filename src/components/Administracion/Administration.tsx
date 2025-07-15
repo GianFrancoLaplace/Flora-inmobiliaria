@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useUnifiedFilter } from "@/hooks/GetProperties";
+import {DeleteProperty} from "@/hooks/DeleteProperty";
 
 export default function Administration() {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -17,8 +18,14 @@ export default function Administration() {
         formatPrice,
         formatCharacteristics,
         refetchProperties,
-        removePropertyFromState
+        //removePropertyFromState
     } = useUnifiedFilter(); //llamo al hook para que se rendericen las propiedades con o sin filtros
+    
+    const {
+        deleteProperty,
+        isDeleting,
+        deleteError
+    } = DeleteProperty();
 
     const handleDeleteClick = (property: any) => {
         setPropertyToDelete(property);
@@ -31,14 +38,20 @@ export default function Administration() {
     };
 
     const handleConfirmDelete = async () => {
+        console.log(propertyToDelete);
         if (!propertyToDelete) return;
-        
+
         try {
-            console.log('Eliminando propiedad:', propertyToDelete);
-            setShowConfirmModal(false);
-            setPropertyToDelete(null);
-        } catch (error) {
-            console.error('Error al eliminar propiedad:', error);
+            const response = await deleteProperty(propertyToDelete.id);
+            if(response) {
+                await refetchProperties();
+                setShowConfirmModal(false);
+                setPropertyToDelete(null);
+            } else {
+                console.log(deleteError);
+            }
+        } catch (e) {
+            console.error(e);
         }
     };
 
@@ -147,6 +160,7 @@ export default function Administration() {
                             <button
                                 onClick={handleConfirmDelete}
                                 className={`${styles.deleteButton} ${cactus.className}`}
+                                desabled={isDeleting}
                             >
                                 Sí, deseo eliminarla
                             </button>
