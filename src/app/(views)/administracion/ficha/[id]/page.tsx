@@ -9,10 +9,25 @@ type PageProps = {
     searchParams: {mode? : Mode};
 }
 
-async function getProperty(id: string) : Promise<Property> {
-    const property= await fetch('/api/properties/' + id);
+async function getProperty(id: string) : Promise<Property | null> {
+    try {
+        // Construir URL absoluta para el servidor
+        const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
 
-    return await property.json();
+        const response = await fetch(`${baseUrl}/api/properties/${id}`, {
+            cache: 'no-store' // Para datos que cambian frecuentemente
+        });
+
+        if (!response.ok) {
+            console.error(`Error fetching property ${id}:`, response.status);
+            return null;
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
 }
 
 export default async function UnifiedPropertyPage({
@@ -45,7 +60,7 @@ export default async function UnifiedPropertyPage({
     }
 
     // Validar que el mode sea apropiado
-    const validModes: Array<'view' | 'edit'> = ['view', 'edit'];
+    const validModes = ['view', 'edit'];
     const finalMode = validModes.includes(mode) ? mode : 'view';
 
     return (
