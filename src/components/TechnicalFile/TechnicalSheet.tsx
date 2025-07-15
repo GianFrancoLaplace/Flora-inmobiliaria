@@ -24,7 +24,6 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             description: "Descripción",
             id: 0,
             price: 0,
-            operation: "Dirección",
             state: PropertyState.RENT,
             type: PropertyType.HOME,
             ubication: " "
@@ -235,10 +234,10 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                     <div className={styles.editProperties}>
                         <h1>
                             <EditableField
-                                value={localProperty.operation}
-                                isEditing={editingField === 'operation'}
+                                value={localProperty.address}
+                                isEditing={editingField === 'address'}
                                 type={"text"}
-                                onSave={(value) => handleSaveField('operation', value)}
+                                onSave={(value) => handleSaveField('address', value)}
                                 onCancel={handleCancelEdit}
                             />
                             <span> | </span>
@@ -252,9 +251,9 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                             />
                         </h1>
                         <EditButton
-                            onStartEdit={() => handleStartEdit('operation')}
-                            onEndEdit={() => handleSaveField('operation', 'valor')}
-                            isEditing={editingField === 'operation'}
+                            onStartEdit={() => handleStartEdit('state')}
+                            onEndEdit={() => handleSaveField('state', 'valor')}
+                            isEditing={editingField === 'state'}
                             className={styles.editButtonProperties}
                         />
                     </div>
