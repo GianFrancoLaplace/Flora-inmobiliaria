@@ -89,7 +89,7 @@ export default function Administration() {
                                 />
                             </div>
 
-                            <Link href="/propiedades/ficha" className={styles.linkProperties}>
+                            <Link href={`/propiedades/ficha/${prop.id}`} className={styles.linkProperties}>
                                 <div className={`${styles.infoProperties} ${cactus.className}`}>
                                     <div className={styles.priceProperties}>
                                         <h5>{formatPrice(prop.price)}</h5>
