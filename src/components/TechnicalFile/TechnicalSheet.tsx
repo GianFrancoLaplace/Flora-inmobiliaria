@@ -155,14 +155,14 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             };
         });
 
-        // 🔄 Opcional: Llamada a la API para guardar en base de datos
+        // Opcional: Llamada a la API para guardar en base de datos
     };
 
 
     console.log(editingField)
 
     const isEmptyFile = mode === "create";
-    const isEditableFile = mode === "edit"
+    const isEditableFile = mode === "edit" || mode === "create";
 
     const handleStartEdit = (fieldName: keyof Property) => {
         console.log(`Iniciando edición de: ${fieldName}`);
@@ -216,6 +216,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                         onStartEdit={() => handleStartEdit('address')}
                         onEndEdit={() => handleSaveField('address', 'valor')}
                         isEditing={editingField == 'address'}
+                        show={isEditableFile}
                     />
                 </div>
             </div>
@@ -255,6 +256,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                             onEndEdit={() => handleSaveField('state', 'valor')}
                             isEditing={editingField === 'state'}
                             className={styles.editButtonProperties}
+                            show={isEditableFile}
                         />
                     </div>
                 </div>
@@ -334,6 +336,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                         onEndEdit={() => handleSaveField('price', 'valor')}
                         isEditing={editingField === 'price'}
                         className={styles.editButtonProperties}
+                        show={isEditableFile}
                     />
                 </div>
             </div>
@@ -346,6 +349,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                         onEndEdit={() => handleSaveField('description', 'value')}
                         isEditing={editingField === 'description'}
                         className={styles.editButtonProperties}
+                        show={isEditableFile}
                     />
                 </div>
                 <h5 className={`${styles.showProperties}`}>
@@ -397,6 +401,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                         onStartEdit={() => handleStartEdit('ubication')}
                         onEndEdit={() => handleSaveField('ubication', 'value')}
                         isEditing={editingField === 'ubication'}
+                        show={isEditableFile}
                     />
                 </div>
 

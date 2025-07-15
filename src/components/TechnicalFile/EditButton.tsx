@@ -1,5 +1,6 @@
 import React from "react";
 import Image from 'next/image';
+import styles from "src/components/TechnicalFile/TechnicalSheet.module.css"
 
 interface EditButtonProps {
     onStartEdit: () => void;
@@ -8,6 +9,7 @@ interface EditButtonProps {
     disabled?: boolean;
     className?: string;
     title?: string;
+    show?: boolean;
 }
 
 const EditButton: React.FC<EditButtonProps> = ({
@@ -16,13 +18,14 @@ const EditButton: React.FC<EditButtonProps> = ({
                                                    isEditing,
                                                    disabled = false,
                                                    className = '',
-                                                   title = "Click para editar"
+                                                   title = "Click para editar",
+                                                   show = false,
                                                }) => {
     return (
         <button
             onClick={ isEditing ? onEndEdit : onStartEdit}
             disabled={disabled}
-            className={className}
+            className={show ?  className : styles.notShowProperties}
             title={title}
             type="button"
         >

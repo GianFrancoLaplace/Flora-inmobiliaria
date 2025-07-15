@@ -63,10 +63,12 @@ export default async function UnifiedPropertyPage({
     const validModes = ['view', 'edit'];
     const finalMode = validModes.includes(mode) ? mode : 'view';
 
+    console.log('Found ' + finalMode);
+
     return (
         <main>
             <TechnicalSheet
-                mode={finalMode as 'view' | 'edit'}
+                mode={finalMode}
                 property={property}
             />
         </main>
