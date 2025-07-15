@@ -220,15 +220,11 @@ function validatePropertyData(data: PropertyUpdateData): ValidationError[] {
 
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    context: { params: { id: string } }
 ) {
+    const { id } = context.params;
+    const propertyId = parseInt(id);
     try {
-
-        const { id } = params;
-
-
-        const propertyId = parseInt(id);
-
         if (isNaN(propertyId) || propertyId <= 0) {
             return NextResponse.json(
                 { message: "ID inválido" },

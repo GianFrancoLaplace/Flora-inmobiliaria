@@ -84,7 +84,7 @@ const UnifiedFilter: React.FC<Props> = ({
     }
 
     const newUrl = `${pathname}?${params.toString()}`;
-    router.push(newUrl);
+    window.history.replaceState(null, '', newUrl);
   }, [activosOperacion, activosPropiedad, maxValue, pathname, router]);
 
   const toggleFiltro = (

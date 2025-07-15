@@ -87,6 +87,13 @@ export default function Administration() {
                 </div>
             </div>
 
+             {/* Mostrar error de eliminación si existe */}
+            {deleteError && (
+                <div className={styles.errorContainer}>
+                    <p>Error al eliminar: {deleteError}</p>
+                </div>
+            )}
+
             {properties.length === 0 ? (
                 <div className={styles.noPropertiesContainer}>
                     <p>No se encontraron propiedades con los filtros aplicados.</p>
