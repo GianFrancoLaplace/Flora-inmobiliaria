@@ -75,7 +75,6 @@ CREATE TYPE public.property_type_enum AS ENUM (
     'casa',
     'departamento',
     'campo',
-    'duplex',
     'local_comercial',
     'terreno'
 );
