@@ -5,11 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useUnifiedFilter } from "@/hooks/GetProperties";
+import router from "next/router";
 
 export default function Administration() {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [propertyToDelete, setPropertyToDelete] = useState<any>(null);
-    
+
     const {
         properties,
         loading,
@@ -32,7 +33,7 @@ export default function Administration() {
 
     const handleConfirmDelete = async () => {
         if (!propertyToDelete) return;
-        
+
         try {
             console.log('Eliminando propiedad:', propertyToDelete);
             setShowConfirmModal(false);
@@ -105,7 +106,10 @@ export default function Administration() {
 
                             <div className={styles.buttonsProperties}>
                                 <button
-                                    onClick={() => (window.location.href = `/administracion/fichaeditable/${prop.id}`)}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        router.push(`/administracion/fichaeditable/${prop.id}`);
+                                    }}
                                     type="button"
                                 >
                                     <Image
@@ -147,12 +151,14 @@ export default function Administration() {
                             <button
                                 onClick={handleConfirmDelete}
                                 className={`${styles.deleteButton} ${cactus.className}`}
+                                type="button"
                             >
                                 Sí, deseo eliminarla
                             </button>
                             <button
                                 onClick={handleCancelDelete}
                                 className={`${styles.cancelButton} ${cactus.className}`}
+                                type="button"
                             >
                                 No, gracias
                             </button>
