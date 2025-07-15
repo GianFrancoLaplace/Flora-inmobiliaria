@@ -8,6 +8,7 @@ import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
 import {CharacteristicCategory, Property, PropertyState, PropertyType} from "@/types/Property";
 import { useState } from "react";
+import CarrouselFotos from "./Carrousel/CarrouselFotos";
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
@@ -54,7 +55,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             category: CharacteristicCategory.AMBIENTES,
             label: 'Ambientes',
             icon: '/icons/ambiente.png',
-        },{
+        }, {
             category: CharacteristicCategory.DORMITORIOS,
             label: 'Dormitorios',
             icon: '/icons/dorms.png',
@@ -144,7 +145,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
         setLocalProperty((prev) => {
             const updatedCharacteristics = prev.characteristics.map((char) =>
                 char.category === category
-                    ? { ...char, characteristic: String(newValue) }
+                    ? {...char, characteristic: String(newValue)}
                     : char
             );
 
@@ -153,10 +154,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                 characteristics: updatedCharacteristics,
             };
         });
-
-        // Opcional: Llamada a la API para guardar en base de datos
     };
-
 
     console.log(editingField)
 
@@ -221,12 +219,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             </div>
 
             <div className={styles.mediaCarouselProperties}>
-                <Image
-                    src={'/backgrounds/fichaBackground.jpg'}
-                    alt={'carousel de multimedia de la propiedad'}
-                    layout="fill"
-                    objectFit="cover"
-                />
+                <CarrouselFotos/>
             </div>
 
             <div className={styles.main}>
@@ -373,7 +366,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                 </div>
                 <div className={styles.dataGridProperties}>
                     <div className={styles.sectionProperties}>
-                        {itemsToShow.map(({ category, label, icon }) => {
+                        {itemsToShow.map(({category, label, icon}) => {
                             const char = property.characteristics.find((c) => c.category === category);
 
                             return (
@@ -423,7 +416,6 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                         onCancel={handleCancelEdit}
                     />
                 </h5>
-
                 <div className={styles.mapaInteractivo}>
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6345.872814972624!2d-59.128316!3d-37.320334!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95911f92a1699e0f%3A0xb7acb39bd2ed6d7!2sMitre%201247%2C%20B7000%20Tandil%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1750441385483!5m2!1ses!2sar"

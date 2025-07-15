@@ -47,7 +47,7 @@ const FilterGroup: React.FC<Props> = ({ title, filters }) => {
     }
     
     const newUrl = `${window.location.pathname}?${params.toString()}`;
-    router.replace(newUrl); // Usar replace en lugar de push
+    window.history.replaceState(null, '', newUrl);
   };
 
   return (
