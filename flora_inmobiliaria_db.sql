@@ -5,7 +5,7 @@
 -- Dumped from database version 17.5
 -- Dumped by pg_dump version 17.5
 
--- Started on 2025-07-12 11:09:01
+-- Started on 2025-07-15 13:56:41
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -20,7 +20,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 871 (class 1247 OID 16697)
+-- TOC entry 868 (class 1247 OID 16697)
 -- Name: characteristic_category_enum; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -54,7 +54,7 @@ CREATE TYPE public.characteristic_category_enum AS ENUM (
 ALTER TYPE public.characteristic_category_enum OWNER TO postgres;
 
 --
--- TOC entry 856 (class 1247 OID 16572)
+-- TOC entry 853 (class 1247 OID 16572)
 -- Name: operation_enum; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -67,7 +67,7 @@ CREATE TYPE public.operation_enum AS ENUM (
 ALTER TYPE public.operation_enum OWNER TO postgres;
 
 --
--- TOC entry 853 (class 1247 OID 16559)
+-- TOC entry 874 (class 1247 OID 17039)
 -- Name: property_type_enum; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -76,7 +76,7 @@ CREATE TYPE public.property_type_enum AS ENUM (
     'departamento',
     'campo',
     'local_comercial',
-    'terreno'
+    'lote'
 );
 
 
@@ -211,7 +211,8 @@ CREATE TABLE public.property (
     property_type_id_property_type public.property_type_enum NOT NULL,
     categoria_id_category public.operation_enum NOT NULL,
     address text,
-    ubication text
+    ubication text,
+    city text
 );
 
 
@@ -281,19 +282,7 @@ INSERT INTO public._prisma_migrations (id, checksum, finished_at, migration_name
 
 INSERT INTO public.admin (id_admin, admin_email, admin_password) VALUES
 (1, 'admin@inmobiliaria.com', 'password123'),
-(2, 'milagrosalvarez2604@gmail.com', 'administracionlideresmgano');
-
-
---
--- Data for Name: property; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO public.property (id_property, description, price, property_type_id_property_type, categoria_id_category, address, ubication) VALUES
-(1, 'Casa familiar con jardín amplio', 285000, 'casa', 'venta', NULL, NULL),
-(2, 'Departamento moderno 2 ambientes', 120000, 'departamento', 'alquiler', NULL, NULL),
-(3, 'Campo de 5 hectáreas con casa', 450000, 'campo', 'venta', NULL, NULL),
-(4, 'Duplex en barrio cerrado', 195000, 'duplex', 'venta', NULL, NULL),
-(5, 'Local comercial céntrico', 85000, 'local_comercial', 'alquiler', NULL, NULL);
+(2, 'milagrosalvarez2604@gmail.com', '$2a$12$9MM5lHxOkGEA7Fu0/dv/l.086E8XBjDaGiNiyfylUGBnzbW4UBNEO');
 
 
 --
@@ -301,79 +290,85 @@ INSERT INTO public.property (id_property, description, price, property_type_id_p
 --
 
 INSERT INTO public.characteristic (id_characteristic, characteristic, amount, property_id, category) VALUES
-(1, 'Superficie total', 250, 1, 'superficie_total'),
-(2, 'Superficie descubierta', 150, 1, 'superficie_descubierta'),
-(3, 'Superficie cubierta', 100, 1, 'superficie_cubierta'),
-(4, 'Ambientes', 4, 1, 'ambientes'),
-(5, 'Dormitorios', 3, 1, 'dormitorios'),
-(6, 'Baños', 2, 1, 'banos'),
-(7, 'Cocheras', 2, 1, 'cocheras'),
-(8, 'Balcón/Terraza', 1, 1, 'balcon_terraza'),
-(9, 'Cantidad de plantas', 1, 1, 'cantidad_plantas'),
-(10, 'Antigüedad', 5, 1, 'antiguedad'),
-(11, 'Superficie total', 65, 2, 'superficie_total'),
-(12, 'Superficie cubierta', 65, 2, 'superficie_cubierta'),
-(13, 'Ambientes', 2, 2, 'ambientes'),
-(14, 'Dormitorios', 1, 2, 'dormitorios'),
-(15, 'Baños', 1, 2, 'banos'),
-(16, 'Cocheras', 1, 2, 'cocheras'),
-(17, 'Balcón/Terraza', 1, 2, 'balcon_terraza'),
-(18, 'Expensas', 25000, 2, 'expensas'),
-(19, 'Antigüedad', 2, 2, 'antiguedad'),
-(20, 'Luminosidad', 1, 2, 'luminosidad'),
-(21, 'Superficie total', 50000, 3, 'superficie_total'),
-(22, 'Superficie descubierta', 49500, 3, 'superficie_descubierta'),
-(23, 'Superficie cubierta', 500, 3, 'superficie_cubierta'),
-(24, 'Ambientes', 6, 3, 'ambientes'),
-(25, 'Dormitorios', 4, 3, 'dormitorios'),
-(26, 'Dormitorios suite', 1, 3, 'dormitorios_suite'),
-(27, 'Baños', 3, 3, 'banos'),
-(28, 'Cocheras', 3, 3, 'cocheras'),
-(29, 'Cobertura cochera', 1, 3, 'cobertura_cochera'),
-(30, 'Agua', 1, 3, 'agua'),
-(31, 'Cantidad de plantas', 1, 3, 'cantidad_plantas'),
-(32, 'Antigüedad', 15, 3, 'antiguedad'),
-(33, 'Superficie total', 180, 4, 'superficie_total'),
-(34, 'Superficie semicubierta', 20, 4, 'superficie_semicubierta'),
-(35, 'Superficie cubierta', 160, 4, 'superficie_cubierta'),
-(36, 'Ambientes', 5, 4, 'ambientes'),
-(37, 'Dormitorios', 3, 4, 'dormitorios'),
-(38, 'Dormitorios suite', 1, 4, 'dormitorios_suite'),
-(39, 'Baños', 3, 4, 'banos'),
-(40, 'Cocheras', 2, 4, 'cocheras'),
-(41, 'Balcón/Terraza', 2, 4, 'balcon_terraza'),
-(42, 'Expensas', 45000, 4, 'expensas'),
-(43, 'Cantidad de plantas', 2, 4, 'cantidad_plantas'),
-(44, 'Antigüedad', 3, 4, 'antiguedad'),
-(45, 'Orientación', 1, 4, 'orientacion'),
-(46, 'Superficie total', 80, 5, 'superficie_total'),
-(47, 'Superficie cubierta', 80, 5, 'superficie_cubierta'),
-(48, 'Ambientes', 2, 5, 'ambientes'),
-(49, 'Baños', 1, 5, 'banos'),
-(50, 'Expensas', 15000, 5, 'expensas'),
-(51, 'Agua', 1, 5, 'agua'),
-(52, 'Cantidad de plantas', 1, 5, 'cantidad_plantas'),
-(53, 'Tipo de piso', 1, 5, 'tipo_piso'),
-(54, 'Estado del inmueble', 1, 5, 'estado_inmueble'),
-(55, 'Ubicación en cuadra', 1, 5, 'ubicacion_cuadra'),
-(56, 'Antigüedad', 10, 5, 'antiguedad');
+(194, 'Superficie cubierta', 180, 13, 'superficie_cubierta'),
+(195, 'Superficie descubierta', 70, 14, 'superficie_descubierta'),
+(196, 'Ambientes', 6, 15, 'ambientes'),
+(197, 'Dormitorios', 3, 16, 'dormitorios'),
+(200, 'Cobertura cochera', 1, 13, 'cobertura_cochera'),
+(201, 'Cantidad de plantas', 1, 14, 'cantidad_plantas'),
+(202, 'Cerámica', 0, 15, 'tipo_piso'),
+(203, 'Muy bueno', 0, 16, 'estado_inmueble'),
+(206, 'Frente', 0, 13, 'disposicion'),
+(207, '15 años', 0, 14, 'antiguedad'),
+(208, 'Esquina', 0, 15, 'ubicacion_cuadra'),
+(209, 'Superficie total', 55, 13, 'superficie_total'),
+(210, 'Superficie cubierta', 55, 14, 'superficie_cubierta'),
+(211, 'Ambientes', 2, 15, 'ambientes'),
+(212, 'Dormitorios', 1, 16, 'dormitorios'),
+(213, 'Baños', 1, 16, 'banos'),
+(227, 'Muy luminoso', 0, 13, 'luminosidad'),
+(228, 'Esquina', 0, 13, 'ubicacion_cuadra'),
+(229, 'Terreno baldío', 0, 13, 'otros'),
+(230, 'Superficie total', 800, 14, 'superficie_total'),
+(231, 'Superficie cubierta', 200, 14, 'superficie_cubierta'),
+(232, 'Superficie semicubierta', 50, 14, 'superficie_semicubierta'),
+(233, 'Superficie descubierta', 550, 14, 'superficie_descubierta'),
+(234, 'Ambientes', 8, 14, 'ambientes'),
+(235, 'Dormitorios', 4, 14, 'dormitorios'),
+(243, 'Cerámica', 0, 14, 'tipo_piso'),
+(244, 'Muy bueno', 0, 14, 'estado_inmueble'),
+(245, 'Sur', 0, 14, 'orientacion'),
+(251, 'Superficie total', 50, 15, 'superficie_total'),
+(252, 'Superficie cubierta', 50, 15, 'superficie_cubierta'),
+(253, 'Ambientes', 2, 15, 'ambientes'),
+(254, 'Baños', 1, 15, 'banos'),
+(258, 'Muy bueno', 0, 15, 'estado_inmueble'),
+(260, 'Muy luminoso', 0, 15, 'luminosidad'),
+(263, 'Media cuadra', 0, 15, 'ubicacion_cuadra'),
+(264, 'Ideal oficina o comercio', 0, 15, 'otros'),
+(265, 'Superficie total', 120, 16, 'superficie_total'),
+(266, 'Superficie cubierta', 100, 16, 'superficie_cubierta'),
+(267, 'Superficie descubierta', 20, 16, 'superficie_descubierta'),
+(268, 'Ambientes', 5, 16, 'ambientes'),
+(269, 'Dormitorios', 3, 16, 'dormitorios'),
+(270, 'Dormitorios suite', 1, 16, 'dormitorios_suite'),
+(271, 'Baños', 2, 16, 'banos'),
+(272, 'Cocheras', 1, 16, 'cocheras'),
+(273, 'Cobertura cochera', 1, 16, 'cobertura_cochera'),
+(274, 'Cantidad de plantas', 2, 16, 'cantidad_plantas'),
+(275, 'Porcelanato', 0, 16, 'tipo_piso'),
+(276, 'Excelente', 0, 16, 'estado_inmueble'),
+(277, 'Este', 0, 16, 'orientacion'),
+(278, 'Muy luminoso', 0, 16, 'luminosidad'),
+(279, 'Frente', 0, 16, 'disposicion'),
+(280, 'A estrenar', 0, 16, 'antiguedad'),
+(281, 'Media cuadra', 0, 16, 'ubicacion_cuadra'),
+(282, 'Barrio privado', 0, 16, 'otros');
 
 
 --
--- Data for Name: image; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: property; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
--- No hay datos para insertar en la tabla image
+INSERT INTO public.property (id_property, description, price, property_type_id_property_type, categoria_id_category, address, ubication, city) VALUES
+(13, 'Departamento de 2 ambientes en pleno centro, totalmente amoblado, con balcón y excelente vista.', 45000, 'lote', 'alquiler', 'Pinto 567', 'Microcentro', 'Tandil'),
+(14, 'Terreno urbano de 500m² en zona residencial, apto para construcción, con todos los servicios.', 25000000, 'lote', 'venta', 'Calle Las Flores 890', 'Barrio Villa Aguirre', 'Tandil'),
+(15, 'Casa quinta con piscina, 4 dormitorios, quincho y amplio parque. Perfecta para descanso.', 120000, 'departamento', 'alquiler', 'Ruta 226 Km 8', 'Zona Rural', 'Tandil'),
+(16, 'Local comercial en pleno centro, 50m², ideal para oficina o comercio. Muy buena ubicación.', 80000, 'local_comercial', 'alquiler', 'Av. Espora 345', 'Centro Comercial', 'Tandil');
 
 
 --
+-- TOC entry 4948 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: Characteristic_id_characteristic_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Characteristic_id_characteristic_seq"', 56, true);
+SELECT pg_catalog.setval('public."Characteristic_id_characteristic_seq"', 282, true);
 
 
 --
+-- TOC entry 4949 (class 0 OID 0)
+-- Dependencies: 219
 -- Name: admin_id_admin_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -381,10 +376,12 @@ SELECT pg_catalog.setval('public.admin_id_admin_seq', 2, true);
 
 
 --
+-- TOC entry 4950 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: property_id_property_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.property_id_property_seq', 5, true);
+SELECT pg_catalog.setval('public.property_id_property_seq', 17, true);
 
 
 --
@@ -433,24 +430,24 @@ ALTER TABLE ONLY public.property
 
 
 --
--- TOC entry 4785 (class 2606 OID 16669)
+-- TOC entry 4785 (class 2606 OID 17055)
 -- Name: characteristic Characteristic_property_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.characteristic
-    ADD CONSTRAINT "Characteristic_property_id_fkey" FOREIGN KEY (property_id) REFERENCES public.property(id_property) ON UPDATE CASCADE ON DELETE RESTRICT;
+    ADD CONSTRAINT "Characteristic_property_id_fkey" FOREIGN KEY (property_id) REFERENCES public.property(id_property) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- TOC entry 4786 (class 2606 OID 16760)
+-- TOC entry 4786 (class 2606 OID 17060)
 -- Name: image fk_image_propery; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.image
-    ADD CONSTRAINT fk_image_propery FOREIGN KEY (id_property) REFERENCES public.property(id_property) NOT VALID;
+    ADD CONSTRAINT fk_image_propery FOREIGN KEY (id_property) REFERENCES public.property(id_property) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
--- Completed on 2025-07-12 11:09:02
+-- Completed on 2025-07-15 13:56:41
 
 --
 -- PostgreSQL database dump complete

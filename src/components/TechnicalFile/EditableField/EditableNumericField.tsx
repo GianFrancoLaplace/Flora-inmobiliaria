@@ -1,0 +1,96 @@
+import React, {useEffect, useRef, useState} from "react";
+
+interface EditableNumericFieldProps {
+    value: number;
+    isEditing: boolean;
+    className?: string;
+    onSave: (value: number) => void;
+    onCancel: () => void;
+    min?: number;
+    max?: number;
+}
+
+const EditableNumericField: React.FC<EditableNumericFieldProps> = ({
+                                                                       value,
+                                                                       isEditing,
+                                                                       className,
+                                                                       onSave,
+                                                                       onCancel,
+                                                                       min,
+                                                                       max
+                                                                   }) => {
+    const [tempValue, setTempValue] = useState<string>(value.toString());
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        setTempValue(value.toString());
+    }, [value]);
+
+    useEffect(() => {
+        if (isEditing && inputRef.current) {
+            inputRef.current.focus();
+            inputRef.current.select();
+        }
+    }, [isEditing]);
+
+    const handleSave = () => {
+        const numericValue = parseFloat(tempValue);
+
+        if (isNaN(numericValue)) {
+            handleCancel();
+            return;
+        }
+
+        const constrainedValue = Math.min(
+            Math.max(numericValue, min ?? -Infinity),
+            max ?? Infinity
+        );
+
+        onSave(constrainedValue);
+    };
+
+    const handleCancel = () => {
+        setTempValue(value.toString());
+        onCancel();
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleSave();
+        }
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            handleCancel();
+        }
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const inputValue = e.target.value;
+        if (/^-?\d*\.?\d*$/.test(inputValue) || inputValue === '') {
+            setTempValue(inputValue);
+        }
+    };
+
+    if (isEditing) {
+        return (
+            <input
+                ref={inputRef}
+                type="text"
+                className={className}
+                value={tempValue}
+                onChange={handleInputChange}
+                onBlur={handleSave}
+                onKeyDown={handleKeyDown}
+            />
+        );
+    }
+
+    return (
+        <span style={{ cursor: 'pointer' }} title="Click para editar">
+            {value.toLocaleString()}
+        </span>
+    );
+};
+
+export default EditableNumericField;

@@ -76,7 +76,7 @@ export default function Administration() {
         <div>
             <div className={`${styles.sectionProperties} ${cactus.className}`}>
                 <div>
-                    <Link href={'/administracion/fichavacia'} className={styles.linkProperties}>
+                    <Link href={'/administracion/ficha/nueva?mode=create'} className={styles.linkProperties}>
                         <button className={`${styles.buttonNewPublication} ${cactus.className}`}>
                             Crear publicación
                         </button>
@@ -86,6 +86,13 @@ export default function Administration() {
                     </button>
                 </div>
             </div>
+
+             {/* Mostrar error de eliminación si existe */}
+            {deleteError && (
+                <div className={styles.errorContainer}>
+                    <p>Error al eliminar: {deleteError}</p>
+                </div>
+            )}
 
             {properties.length === 0 ? (
                 <div className={styles.noPropertiesContainer}>
@@ -121,7 +128,7 @@ export default function Administration() {
                                 <button
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        router.push(`/administracion/fichaeditable/${prop.id}`);
+                                        router.push(`/ficha/${prop.id}?mode=edit`);
                                     }}
                                     type="button"
                                 >

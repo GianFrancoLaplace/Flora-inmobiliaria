@@ -35,7 +35,7 @@ model Characteristic {
   amount            Int
   property_id       Int
   category          CharacteristicCategoryEnum? @default(otros)
-  property          Property                    @relation(fields: [property_id], references: [id_property], map: "Characteristic_property_id_fkey")
+  property          Property                    @relation(fields: [property_id], references: [id_property], onDelete: Cascade, map: "Characteristic_property_id_fkey")
 
   @@map("characteristic")
 }
@@ -44,7 +44,7 @@ model image {
   id_image    Int       @id
   url         String?
   id_property Int?
-  property    Property? @relation(fields: [id_property], references: [id_property], onDelete: NoAction, onUpdate: NoAction, map: "fk_image_propery")
+  property    Property? @relation(fields: [id_property], references: [id_property], onDelete: Cascade, map: "fk_image_propery")
 }
 
 enum PropertyTypeEnum {

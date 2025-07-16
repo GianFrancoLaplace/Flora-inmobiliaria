@@ -45,7 +45,6 @@ export default function NavBar() {
                     height={20}/>
                     </a>
                 </li>
-
             </ul>
         </nav>
     );
