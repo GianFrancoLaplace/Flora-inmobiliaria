@@ -38,11 +38,24 @@
     display: flex;
     flex-direction: row;
     position: relative;
-    background-color: #FADA4D;
     width: 100%;
     height: 600px;
     margin-bottom: 20px;
 }
+
+.infoCardProperties{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: left;
+    width: max-content;
+    min-width: 140px;
+    height: 110px;
+    padding: 10px;
+    border: 1px solid var(--primary-color-5);
+    border-radius: 10px;
+}
+
 
 .main{
     display: flex;
@@ -67,13 +80,6 @@
     gap: 70%;
     white-space: nowrap;
 }
-
-/*.operationProperties{
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    margin-left: 15px;
-}*/
 
 .mainInfoH1{
     display: flex;
@@ -101,13 +107,9 @@
 .mainBoxesGridProperties{
     display: flex;
     flex-direction: row;
-    align-items: center;
     margin-top: 20px;
     margin-left: 20px;
-}
-
-.mainBoxesGridProperties div{
-    margin-left: 10px;
+    gap: 20px;
 }
 
 .descriptionsProperties{
@@ -128,13 +130,14 @@
     display: flex;
     flex-direction: row;
     height: 40px;
+    gap: 20px;
     border-bottom: 1px solid var(--primary-color-5);
 }
 
 .dataGridProperties{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    gap: 20px;
 }
 
 .sectionProperties{
@@ -229,6 +232,12 @@
     flex-direction: row;
     width: min-content;
     gap: 20px;
+}
+
+.editInputProperties{
+    width: 20px;
+    font-size: 20px;
+    text-align: center;
 }
 
 .ubicationEditProperties{
