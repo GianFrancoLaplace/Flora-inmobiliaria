@@ -101,6 +101,8 @@ button{
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+
+  overflow: visible;
 }
 /*buttons general properties (for specific ones, modify them in an apart className)*/
 
