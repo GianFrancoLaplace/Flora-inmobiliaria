@@ -17,7 +17,7 @@
   --secondary-hover-color: #4b5563;
   --primary-text-color: #374151;
   --secondary-text-color: #9ca3af;
-  --background-color: #ffffff;
+  --background-color: #faf4d4;
   --border-color: #d1d5db;
   --focus-color: #fef3c7;
 
@@ -46,6 +46,10 @@
   /* Transiciones */
   --fast-transition: 150ms ease-in-out;
   --normal-transition: 200ms ease-in-out;
+}
+
+body{
+  background-color: var(--background-color);
 }
 
 h1{
@@ -97,6 +101,8 @@ button{
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+
+  overflow: visible;
 }
 /*buttons general properties (for specific ones, modify them in an apart className)*/
 
