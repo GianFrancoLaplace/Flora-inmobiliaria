@@ -37,22 +37,24 @@ export async function GET(
             price: propiedad.price,
             description: propiedad.description || '',
             type: mapPropertyType(propiedad.property_type_id_property_type),
-            characteristics: propiedad.characteristics.map((c): Characteristic => {
-                const mappedCategory = mapPrismaCharacteristicCategory(c.category);
-                const iconUrl = getIconByCategory(mappedCategory);
+            characteristics: propiedad.characteristics
+                .filter((c) => c.amount !== null && c.amount !== 0) //valido que no se incluyan caracteristicas vacias/valor cero
+                .map((c): Characteristic => {
+                    const mappedCategory = mapPrismaCharacteristicCategory(c.category);
+                    const iconUrl = getIconByCategory(mappedCategory);
 
-                console.log('Categoria DB:', c.category);
-                console.log('Categoria mapeada:', mappedCategory);
-                console.log('Icono URL:', iconUrl);
+                    console.log('Categoria DB:', c.category);
+                    console.log('Categoria mapeada:', mappedCategory);
+                    console.log('Icono URL:', iconUrl);
 
-                return {
-                    id: c.id_characteristic,
-                    characteristic: c.characteristic,
-                    amount: c.amount,
-                    category: mappedCategory,
-                    iconUrl: iconUrl
-                };
-            }),
+                    return {
+                        id: c.id_characteristic,
+                        characteristic: c.characteristic,
+                        amount: c.amount,
+                        category: mappedCategory,
+                        iconUrl: iconUrl
+                    };
+                }),
             ubication: propiedad.ubication || ''
         };
 
