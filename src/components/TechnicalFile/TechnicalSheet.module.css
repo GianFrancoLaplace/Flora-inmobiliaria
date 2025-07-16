@@ -43,6 +43,14 @@
     margin-bottom: 20px;
 }
 
+.visible{
+    visibility: visible;
+}
+
+.notVisible{
+    visibility: hidden;
+}
+
 .infoCardProperties{
     display: flex;
     flex-direction: column;
@@ -72,6 +80,7 @@
 .inputProperties{
     font-size: 30px;
     font-family: var(--font-weight-normal);
+    white-space: none;
 }
 
 .mainInfo{

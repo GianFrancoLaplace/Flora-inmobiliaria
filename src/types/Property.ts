@@ -14,7 +14,12 @@ export interface Property {
   ubication: string;
   characteristics: Characteristic[];
   type?: PropertyType;
-  // addressO: string;
+}
+
+export interface Image {
+    id_image: number;
+    id_property: number;
+    url: string;
 }
 
 export enum PropertyState {

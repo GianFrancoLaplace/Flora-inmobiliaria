@@ -10,6 +10,7 @@ interface EditButtonProps {
     className?: string;
     title?: string;
     show?: boolean;
+    img: string;
 }
 
 const EditButton: React.FC<EditButtonProps> = ({
@@ -20,6 +21,7 @@ const EditButton: React.FC<EditButtonProps> = ({
                                                    className = '',
                                                    title = "Click para editar",
                                                    show = false,
+                                                   img,
                                                }) => {
     return (
         <button
@@ -30,7 +32,7 @@ const EditButton: React.FC<EditButtonProps> = ({
             type="button"
         >
             <Image
-                src={'/icons/iconoEdit.png'}
+                src={img}
                 alt={'Icono para editar'}
                 width={30}
                 height={30}
