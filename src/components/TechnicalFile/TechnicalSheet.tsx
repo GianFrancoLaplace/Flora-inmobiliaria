@@ -7,7 +7,6 @@ import EditButton from '@/components/TechnicalFile/EditButton'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
-import SelectOption from "@/components/TechnicalFile/EditableField/EditableSelectField";
 import {CharacteristicCategory, Property, PropertyState, PropertyType} from "@/types/Property";
 import React, { useState } from "react";
 import CarrouselFotos from "./Carrousel/CarrouselFotos";
@@ -206,7 +205,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             </div>
 
             <div className={styles.mediaCarouselProperties}>
-                    <CarrouselFotos/>
+                    <CarrouselFotos isEditableFile={isEditableFile || isEmptyFile} property={property}/>
             </div>
 
             <div className={styles.main}>
@@ -303,7 +302,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                     />
                 </div>
 
-                <div>
+                <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
                     <button onClick={() => setIsEditingAllP(!isEditingAllP)} className={styles.editButtonProperties}>
                         {isEditingAllP ? '✔ Guardar' :
                             <Image
@@ -367,7 +366,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             <div className={styles.descriptionsProperties}>
                 <div className={styles.titleProperties}>
                     <h3>Ficha</h3>
-                    <div>
+                    <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
                         <button onClick={() => setIsEditingAll(!isEditingAll)} className={styles.editButtonProperties}>
                             {isEditingAll ? '✔ Guardar' :     <Image
                                 src={'/icons/iconoEdit.png'}

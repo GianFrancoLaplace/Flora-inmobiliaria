@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { mapPropertyType, mapOperationToState } from '@/helpers/PropertyMapper';
-import { Property, Characteristic, PropertyState, PropertyType } from '@/types/Property';
-import { PropertyUpdateData, ValidationError } from "@/helpers/UpdateProperty"
+import { Property, Characteristic } from '@/types/Property';
+import { PropertyUpdateData } from "@/helpers/UpdateProperty"
 import { PropertyService } from "@/services/propertyService";
 import { getIconByCategory, mapPrismaCharacteristicCategory } from "@/helpers/IconMapper"
 

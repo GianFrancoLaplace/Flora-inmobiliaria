@@ -43,6 +43,14 @@
     margin-bottom: 20px;
 }
 
+.visible{
+    visibility: visible;
+}
+
+.notVisible{
+    visibility: hidden;
+}
+
 .infoCardProperties{
     display: flex;
     flex-direction: column;

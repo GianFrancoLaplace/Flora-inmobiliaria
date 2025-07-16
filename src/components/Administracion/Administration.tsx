@@ -128,7 +128,7 @@ export default function Administration() {
                                 <button
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        router.push(`/ficha/${prop.id}?mode=edit`);
+                                        router.push(`administracion/ficha/${prop.id}?mode=edit`);
                                     }}
                                     type="button"
                                 >
