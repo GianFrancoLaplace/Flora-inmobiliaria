@@ -15,7 +15,6 @@ model Property {
   categoria_id_category          OperationEnum
   address                        String?
   ubication                      String?
-  city                           String?
   characteristics                Characteristic[]
   image                          image[]
 
@@ -53,7 +52,7 @@ enum PropertyTypeEnum {
   departamento
   campo
   local_comercial
-  lote
+  terreno
 
   @@map("property_type_enum")
 }

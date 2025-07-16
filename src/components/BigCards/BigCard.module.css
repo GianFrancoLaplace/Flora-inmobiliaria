@@ -62,6 +62,20 @@
     margin: 0 auto;
 }
 
+.addedLabel {
+    position: absolute;
+    top: 0px;
+    left: 75px;
+    background-color: var(--secondary-color-5, #f4d35e); /* o el color que uses */
+    color: var(--black, #000);
+    font-weight: bold;
+    padding: 5px 40px;
+    border-radius: 5px;
+    z-index: 10;
+
+    transform: rotate(0deg) translateX(-50%);
+}
+
 
 /*responsive for TABLET*/
 @media (min-width: 600px) and (max-width: 1199px) {
