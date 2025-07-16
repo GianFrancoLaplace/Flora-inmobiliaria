@@ -1,24 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-interface EditableFieldProps {
-    value: string | number;
+interface EditableTextFieldProps {
+    value: string;
     isEditing: boolean;
-    type: string;
+    type?: 'text' | 'email' | 'url';
     className?: string;
-    onSave: (value: string|number ) => void;
+    onSave: (value: string) => void;
     onCancel: () => void;
 }
 
-const EditableField: React.FC<EditableFieldProps> = ({
-                                                         value,
-                                                         isEditing,
-                                                         type = "text",
-                                                         className,
-                                                         onSave,
-                                                         onCancel
-                                                     }) => {
-
-    const [tempValue, setTempValue] = useState<string | number>(value);
+const EditableTextField: React.FC<EditableTextFieldProps> = ({
+                                                                 value,
+                                                                 isEditing,
+                                                                 type = 'text',
+                                                                 className,
+                                                                 onSave,
+                                                                 onCancel
+                                                             }) => {
+    const [tempValue, setTempValue] = useState<string>(value);
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -32,13 +31,12 @@ const EditableField: React.FC<EditableFieldProps> = ({
         }
     }, [isEditing]);
 
-
     const handleSave = () => {
-        onSave(tempValue);
+        onSave(tempValue.trim());
     };
 
     const handleCancel = () => {
-        setTempValue(tempValue);
+        setTempValue(value);
         onCancel();
     };
 
@@ -53,11 +51,6 @@ const EditableField: React.FC<EditableFieldProps> = ({
         }
     };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTempValue(e.target.value);
-    };
-
-
     if (isEditing) {
         return (
             <input
@@ -65,7 +58,7 @@ const EditableField: React.FC<EditableFieldProps> = ({
                 type={type}
                 className={className}
                 value={tempValue}
-                onChange={handleInputChange}
+                onChange={(e) => setTempValue(e.target.value)}
                 onBlur={handleSave}
                 onKeyDown={handleKeyDown}
             />
@@ -73,13 +66,10 @@ const EditableField: React.FC<EditableFieldProps> = ({
     }
 
     return (
-        <span
-            style={{ cursor: 'pointer' }}
-            title="Click para editar"
-        >
+        <span style={{ cursor: 'pointer' }} title="Click para editar">
             {value}
         </span>
     );
 };
 
-export default EditableField;
+export default EditableTextField;

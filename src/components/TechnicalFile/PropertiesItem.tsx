@@ -1,6 +1,6 @@
 import styles from "@/components/TechnicalFile/TechnicalSheet.module.css";
 import Image from "next/image";
-import EditableField from "@/components/TechnicalFile/EditField";
+import EditableField from "@/components/TechnicalFile/EditableField/EditableTextField";
 import {useState} from "react";
 import {Characteristic, CharacteristicCategory} from "@/types/Property";
 
