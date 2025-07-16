@@ -14,7 +14,6 @@ export interface Property {
   ubication: string;
   characteristics: Characteristic[];
   type?: PropertyType;
-  // addressO: string;
 }
 
 export enum PropertyState {

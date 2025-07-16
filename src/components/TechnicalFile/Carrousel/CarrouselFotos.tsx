@@ -23,6 +23,11 @@ export default function CarrouselFotos(){
                   className={`${styles.imageProperties} ${i === actual ? styles.imagePropertiesActive : ''}`}
               />
           ))}
+
+          <div className={styles.h}>
+              <button><input type={"file"} className={styles.v}/></button>
+          </div>
+
           <div className={styles.buttonProperties}>
               <button onClick={prev}>
                   <Image src="/icons/IconFlechaDireccionContraria.png" alt="Icono de flecha para el carrousel" width={30} height={30} />

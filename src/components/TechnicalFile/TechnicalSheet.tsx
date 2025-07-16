@@ -1,12 +1,13 @@
 'use client';
 import ContactInformation from "@/components/features/ContactInformation/ContactInformation";
-// import DataCard from '@/components/features/DataCard/DataCard'
 import EditableTextField from '@/components/TechnicalFile/EditableField/EditableTextField'
+import EditableSelectField from "@/components/TechnicalFile/EditableField/EditableSelectField";
 import EditableNumericField from "@/components/TechnicalFile/EditableField/EditableNumericField";
 import EditButton from '@/components/TechnicalFile/EditButton'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
+import SelectOption from "@/components/TechnicalFile/EditableField/EditableSelectField";
 import {CharacteristicCategory, Property, PropertyState, PropertyType} from "@/types/Property";
 import React, { useState } from "react";
 import CarrouselFotos from "./Carrousel/CarrouselFotos";
@@ -199,12 +200,13 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                         onEndEdit={() => handleSaveAddress('address')}
                         isEditing={editingField == 'address-header'}
                         show={isEditableFile || isEmptyFile}
+                        img={'/icons/iconoEdit.png'}
                     />
                 </div>
             </div>
 
             <div className={styles.mediaCarouselProperties}>
-                <CarrouselFotos/>
+                    <CarrouselFotos/>
             </div>
 
             <div className={styles.main}>
@@ -217,14 +219,26 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                                 type={"text"}
                                 onSave={(value) => handleSaveAddress(value)}
                                 onCancel={handleCancelEdit}
+                                className={styles.inputProperties}
                             />
+                        </h1>
+                            <EditButton
+                                onStartEdit={() => handleStartEditMain()}
+                                onEndEdit={() => handleSaveAddress('valor')}
+                                isEditing={editingField === 'address-main'}
+                                className={styles.editButtonProperties}
+                                show={isEditableFile || isEmptyFile}
+                                img={'/icons/iconoEdit.png'}
+                            />
+                        <h1>
                             <span> | </span>
-                            <EditableTextField // Debería ser un select
+                            <EditableSelectField // Debería ser un select
                                 value={localProperty.state}
                                 isEditing={editingField === 'state'}
                                 className={styles.inputProperties}
                                 onSave={(value) => handleSaveField('state', value)}
                                 onCancel={handleCancelEdit}
+                                options={[]}
                             />
                         </h1>
                         <EditButton
@@ -233,13 +247,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                             isEditing={editingField === 'state'}
                             className={styles.editButtonProperties}
                             show={isEditableFile || isEmptyFile}
-                        />
-                        <EditButton
-                            onStartEdit={() => handleStartEditMain()}
-                            onEndEdit={() => handleSaveAddress('valor')}
-                            isEditing={editingField === 'address-main'}
-                            className={styles.editButtonProperties}
-                            show={isEditableFile || isEmptyFile}
+                            img={'/icons/iconSelect.png'}
                         />
                     </div>
                 </div>
@@ -325,6 +333,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                         isEditing={editingField === 'price'}
                         className={styles.editButtonProperties}
                         show={isEditableFile || isEmptyFile}
+                        img={'/icons/iconoEdit.png'}
                     />
                 </div>
             </div>
@@ -339,6 +348,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                             isEditing={editingField === 'description'}
                             className={styles.editButtonProperties}
                             show={isEditableFile || isEmptyFile}
+                            img={'/icons/iconoEdit.png'}
                         />
                     </div>
                 </div>
@@ -395,6 +405,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                             onEndEdit={() => handleSaveField('ubication', 'value')}
                             isEditing={editingField === 'ubication'}
                             show={isEditableFile || isEmptyFile}
+                            img={'/icons/iconoEdit.png'}
                         />
                     </div>
                 </div>

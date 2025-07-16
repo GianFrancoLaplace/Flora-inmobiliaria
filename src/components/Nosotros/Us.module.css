@@ -24,12 +24,9 @@
     flex-direction: column;
     z-index: 2;
     position: relative;
-
     width: fit-content;
-
-    margin-left: 36%;
+    justify-self: center;
     margin-top: 25px;
-
     color: var(--primary-color-1);
     font-weight: bold;
 }
