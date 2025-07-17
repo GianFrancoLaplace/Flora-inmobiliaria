@@ -42,9 +42,9 @@ model Characteristic {
 
 model image {
   id_image    Int       @id @default(autoincrement())
-  url         String?
-  id_property Int?
-  property    Property? @relation(fields: [id_property], references: [id_property], onDelete: Cascade, map: "fk_image_propery")
+  url         String
+  id_property Int
+  property    Property?  @relation(fields: [id_property], references: [id_property], onDelete: Cascade, map: "fk_image_propery")
 }
 
 enum PropertyTypeEnum {
