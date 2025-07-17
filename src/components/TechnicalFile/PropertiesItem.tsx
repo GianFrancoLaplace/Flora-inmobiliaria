@@ -7,7 +7,7 @@ import {Characteristic, CharacteristicCategory} from "@/types/Property";
 type Props = {
     imgSrc: string;
     label: string;
-    value: string;
+    value: string | number;
     characterisctic: Characteristic;
     isEditing: boolean
     onSave: (category: CharacteristicCategory, newValue: string) => void;
