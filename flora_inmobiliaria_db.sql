@@ -1,11 +1,9 @@
 --
--- PostgreSQL database dump
+-- PostgreSQL database dump - Corregido para pgAdmin
 --
 
 -- Dumped from database version 17.5
 -- Dumped by pg_dump version 17.5
-
--- Started on 2025-07-15 13:56:41
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -50,9 +48,6 @@ CREATE TYPE public.characteristic_category_enum AS ENUM (
     'otros'
 );
 
-
-ALTER TYPE public.characteristic_category_enum OWNER TO postgres;
-
 --
 -- TOC entry 853 (class 1247 OID 16572)
 -- Name: operation_enum; Type: TYPE; Schema: public; Owner: postgres
@@ -62,9 +57,6 @@ CREATE TYPE public.operation_enum AS ENUM (
     'alquiler',
     'venta'
 );
-
-
-ALTER TYPE public.operation_enum OWNER TO postgres;
 
 --
 -- TOC entry 874 (class 1247 OID 17039)
@@ -78,9 +70,6 @@ CREATE TYPE public.property_type_enum AS ENUM (
     'local_comercial',
     'lote'
 );
-
-
-ALTER TYPE public.property_type_enum OWNER TO postgres;
 
 SET default_tablespace = '';
 
@@ -99,9 +88,6 @@ CREATE TABLE public.characteristic (
     category public.characteristic_category_enum DEFAULT 'otros'::public.characteristic_category_enum
 );
 
-
-ALTER TABLE public.characteristic OWNER TO postgres;
-
 --
 -- TOC entry 221 (class 1259 OID 16662)
 -- Name: Characteristic_id_characteristic_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -115,9 +101,6 @@ CREATE SEQUENCE public."Characteristic_id_characteristic_seq"
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER SEQUENCE public."Characteristic_id_characteristic_seq" OWNER TO postgres;
-
 --
 -- TOC entry 4945 (class 0 OID 0)
 -- Dependencies: 221
@@ -125,7 +108,6 @@ ALTER SEQUENCE public."Characteristic_id_characteristic_seq" OWNER TO postgres;
 --
 
 ALTER SEQUENCE public."Characteristic_id_characteristic_seq" OWNED BY public.characteristic.id_characteristic;
-
 
 --
 -- TOC entry 223 (class 1259 OID 16683)
@@ -143,9 +125,6 @@ CREATE TABLE public._prisma_migrations (
     applied_steps_count integer DEFAULT 0 NOT NULL
 );
 
-
-ALTER TABLE public._prisma_migrations OWNER TO postgres;
-
 --
 -- TOC entry 220 (class 1259 OID 16587)
 -- Name: admin; Type: TABLE; Schema: public; Owner: postgres
@@ -156,9 +135,6 @@ CREATE TABLE public.admin (
     admin_email character varying(255) NOT NULL,
     admin_password character varying(255) NOT NULL
 );
-
-
-ALTER TABLE public.admin OWNER TO postgres;
 
 --
 -- TOC entry 219 (class 1259 OID 16586)
@@ -173,9 +149,6 @@ CREATE SEQUENCE public.admin_id_admin_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER SEQUENCE public.admin_id_admin_seq OWNER TO postgres;
-
 --
 -- TOC entry 4946 (class 0 OID 0)
 -- Dependencies: 219
@@ -184,6 +157,18 @@ ALTER SEQUENCE public.admin_id_admin_seq OWNER TO postgres;
 
 ALTER SEQUENCE public.admin_id_admin_seq OWNED BY public.admin.id_admin;
 
+--
+-- TOC entry 225 (class 1259 OID 16752)
+-- Name: image_id_image_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.image_id_image_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
 --
 -- TOC entry 224 (class 1259 OID 16753)
@@ -191,13 +176,18 @@ ALTER SEQUENCE public.admin_id_admin_seq OWNED BY public.admin.id_admin;
 --
 
 CREATE TABLE public.image (
-    id_image integer NOT NULL,
+    id_image integer NOT NULL DEFAULT nextval('public.image_id_image_seq'::regclass),
     url text,
     id_property integer
 );
 
+--
+-- TOC entry 4947 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: image_id_image_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
 
-ALTER TABLE public.image OWNER TO postgres;
+ALTER SEQUENCE public.image_id_image_seq OWNED BY public.image.id_image;
 
 --
 -- TOC entry 218 (class 1259 OID 16578)
@@ -215,9 +205,6 @@ CREATE TABLE public.property (
     city text
 );
 
-
-ALTER TABLE public.property OWNER TO postgres;
-
 --
 -- TOC entry 217 (class 1259 OID 16577)
 -- Name: property_id_property_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -231,17 +218,13 @@ CREATE SEQUENCE public.property_id_property_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER SEQUENCE public.property_id_property_seq OWNER TO postgres;
-
 --
--- TOC entry 4947 (class 0 OID 0)
+-- TOC entry 4948 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: property_id_property_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.property_id_property_seq OWNED BY public.property.id_property;
-
 
 --
 -- TOC entry 4770 (class 2604 OID 16590)
@@ -250,7 +233,6 @@ ALTER SEQUENCE public.property_id_property_seq OWNED BY public.property.id_prope
 
 ALTER TABLE ONLY public.admin ALTER COLUMN id_admin SET DEFAULT nextval('public.admin_id_admin_seq'::regclass);
 
-
 --
 -- TOC entry 4771 (class 2604 OID 16666)
 -- Name: characteristic id_characteristic; Type: DEFAULT; Schema: public; Owner: postgres
@@ -258,6 +240,12 @@ ALTER TABLE ONLY public.admin ALTER COLUMN id_admin SET DEFAULT nextval('public.
 
 ALTER TABLE ONLY public.characteristic ALTER COLUMN id_characteristic SET DEFAULT nextval('public."Characteristic_id_characteristic_seq"'::regclass);
 
+--
+-- TOC entry 4772 (class 2604 OID 16756)
+-- Name: image id_image; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.image ALTER COLUMN id_image SET DEFAULT nextval('public.image_id_image_seq'::regclass);
 
 --
 -- TOC entry 4769 (class 2604 OID 16581)
@@ -265,7 +253,6 @@ ALTER TABLE ONLY public.characteristic ALTER COLUMN id_characteristic SET DEFAUL
 --
 
 ALTER TABLE ONLY public.property ALTER COLUMN id_property SET DEFAULT nextval('public.property_id_property_seq'::regclass);
-
 
 --
 -- Data for Name: _prisma_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -275,7 +262,6 @@ INSERT INTO public._prisma_migrations (id, checksum, finished_at, migration_name
 ('d6148756-b722-4ef7-ba6c-2548d8dd4241', 'e0063a6570196c2a449a8e6693743c7bef6d543b58d8753a4be99102d2ba2905', '2025-07-10 20:25:35.402893-03', '20250710_init', NULL, NULL, '2025-07-10 20:25:35.402893-03', 0),
 ('96f5fa08-5fcc-4e74-bfb5-dc21433c8ae7', '38cde79c20b6dda83d29e86d0b477c1312042783749356f1f6b2bcd2ee544f43', '2025-07-10 21:46:48.746605-03', '20250710_add_characteristic_category', NULL, NULL, '2025-07-10 21:46:48.746605-03', 0);
 
-
 --
 -- Data for Name: admin; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -284,6 +270,15 @@ INSERT INTO public.admin (id_admin, admin_email, admin_password) VALUES
 (1, 'admin@inmobiliaria.com', 'password123'),
 (2, 'milagrosalvarez2604@gmail.com', '$2a$12$9MM5lHxOkGEA7Fu0/dv/l.086E8XBjDaGiNiyfylUGBnzbW4UBNEO');
 
+--
+-- Data for Name: property; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.property (id_property, description, price, property_type_id_property_type, categoria_id_category, address, ubication, city) VALUES
+(13, 'Departamento de 2 ambientes en pleno centro, totalmente amoblado, con balcón y excelente vista.', 45000, 'lote', 'alquiler', 'Pinto 567', 'Microcentro', 'Tandil'),
+(14, 'Terreno urbano de 500m² en zona residencial, apto para construcción, con todos los servicios.', 25000000, 'lote', 'venta', 'Calle Las Flores 890', 'Barrio Villa Aguirre', 'Tandil'),
+(15, 'Casa quinta con piscina, 4 dormitorios, quincho y amplio parque. Perfecta para descanso.', 120000, 'departamento', 'alquiler', 'Ruta 226 Km 8', 'Zona Rural', 'Tandil'),
+(16, 'Local comercial en pleno centro, 50m², ideal para oficina o comercio. Muy buena ubicación.', 80000, 'local_comercial', 'alquiler', 'Av. Espora 345', 'Centro Comercial', 'Tandil');
 
 --
 -- Data for Name: characteristic; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -345,44 +340,43 @@ INSERT INTO public.characteristic (id_characteristic, characteristic, amount, pr
 (281, 'Media cuadra', 0, 16, 'ubicacion_cuadra'),
 (282, 'Barrio privado', 0, 16, 'otros');
 
+--
+-- Data for Name: image; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+-- No hay datos para insertar en la tabla image
 
 --
--- Data for Name: property; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO public.property (id_property, description, price, property_type_id_property_type, categoria_id_category, address, ubication, city) VALUES
-(13, 'Departamento de 2 ambientes en pleno centro, totalmente amoblado, con balcón y excelente vista.', 45000, 'lote', 'alquiler', 'Pinto 567', 'Microcentro', 'Tandil'),
-(14, 'Terreno urbano de 500m² en zona residencial, apto para construcción, con todos los servicios.', 25000000, 'lote', 'venta', 'Calle Las Flores 890', 'Barrio Villa Aguirre', 'Tandil'),
-(15, 'Casa quinta con piscina, 4 dormitorios, quincho y amplio parque. Perfecta para descanso.', 120000, 'departamento', 'alquiler', 'Ruta 226 Km 8', 'Zona Rural', 'Tandil'),
-(16, 'Local comercial en pleno centro, 50m², ideal para oficina o comercio. Muy buena ubicación.', 80000, 'local_comercial', 'alquiler', 'Av. Espora 345', 'Centro Comercial', 'Tandil');
-
-
---
--- TOC entry 4948 (class 0 OID 0)
+-- TOC entry 4949 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: Characteristic_id_characteristic_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public."Characteristic_id_characteristic_seq"', 282, true);
 
-
 --
--- TOC entry 4949 (class 0 OID 0)
+-- TOC entry 4950 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: admin_id_admin_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.admin_id_admin_seq', 2, true);
 
+--
+-- TOC entry 4951 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: image_id_image_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.image_id_image_seq', 1, false);
 
 --
--- TOC entry 4950 (class 0 OID 0)
+-- TOC entry 4952 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: property_id_property_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.property_id_property_seq', 17, true);
-
 
 --
 -- TOC entry 4780 (class 2606 OID 16668)
@@ -392,7 +386,6 @@ SELECT pg_catalog.setval('public.property_id_property_seq', 17, true);
 ALTER TABLE ONLY public.characteristic
     ADD CONSTRAINT "Characteristic_pkey" PRIMARY KEY (id_characteristic);
 
-
 --
 -- TOC entry 4782 (class 2606 OID 16691)
 -- Name: _prisma_migrations _prisma_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
@@ -400,7 +393,6 @@ ALTER TABLE ONLY public.characteristic
 
 ALTER TABLE ONLY public._prisma_migrations
     ADD CONSTRAINT _prisma_migrations_pkey PRIMARY KEY (id);
-
 
 --
 -- TOC entry 4778 (class 2606 OID 16594)
@@ -410,7 +402,6 @@ ALTER TABLE ONLY public._prisma_migrations
 ALTER TABLE ONLY public.admin
     ADD CONSTRAINT admin_pkey PRIMARY KEY (id_admin);
 
-
 --
 -- TOC entry 4784 (class 2606 OID 16759)
 -- Name: image image_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
@@ -418,7 +409,6 @@ ALTER TABLE ONLY public.admin
 
 ALTER TABLE ONLY public.image
     ADD CONSTRAINT image_pkey PRIMARY KEY (id_image);
-
 
 --
 -- TOC entry 4776 (class 2606 OID 16585)
@@ -428,7 +418,6 @@ ALTER TABLE ONLY public.image
 ALTER TABLE ONLY public.property
     ADD CONSTRAINT property_pkey PRIMARY KEY (id_property);
 
-
 --
 -- TOC entry 4785 (class 2606 OID 17055)
 -- Name: characteristic Characteristic_property_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
@@ -437,7 +426,6 @@ ALTER TABLE ONLY public.property
 ALTER TABLE ONLY public.characteristic
     ADD CONSTRAINT "Characteristic_property_id_fkey" FOREIGN KEY (property_id) REFERENCES public.property(id_property) ON UPDATE CASCADE ON DELETE CASCADE;
 
-
 --
 -- TOC entry 4786 (class 2606 OID 17060)
 -- Name: image fk_image_propery; Type: FK CONSTRAINT; Schema: public; Owner: postgres
@@ -445,9 +433,6 @@ ALTER TABLE ONLY public.characteristic
 
 ALTER TABLE ONLY public.image
     ADD CONSTRAINT fk_image_propery FOREIGN KEY (id_property) REFERENCES public.property(id_property) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
--- Completed on 2025-07-15 13:56:41
 
 --
 -- PostgreSQL database dump complete
