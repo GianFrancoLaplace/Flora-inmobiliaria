@@ -6,9 +6,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { useUnifiedFilter } from "@/hooks/GetProperties";
 import {DeleteProperty} from "@/hooks/DeleteProperty";
-import router from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function Administration() {
+
+    const router = useRouter();
+
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [propertyToDelete, setPropertyToDelete] = useState<any>(null);
 
