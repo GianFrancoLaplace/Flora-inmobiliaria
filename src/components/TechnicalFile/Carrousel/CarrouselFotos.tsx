@@ -29,6 +29,43 @@ export default function CarrouselFotos({isEditableFile, property} : prop){
       setShowConfirmModal(false);
   }
 
+    // Función para manejar la subida de imagen
+    const [uploading, setUploading] = useState(false);
+
+    const handleImageUpload = async (e: any) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        setUploading(true);
+
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await fetch(`/api/properties/${property.id}/image`, {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                console.log('Imagen subida correctamente:', result);
+                alert('Imagen subida exitosamente!');
+                // Aquí puedes actualizar tu estado para mostrar la nueva imagen
+            } else {
+                console.error('Error:', result.message);
+                alert(`Error: ${result.message}`);
+            }
+
+        } catch (error) {
+            console.error('Error al subir imagen:', error);
+            alert('Error al subir la imagen');
+        } finally {
+            setUploading(false);
+        }
+    };
+
   const next = () => setActual((prev) => (prev + 1) % image.length);
   const prev = () => setActual((prev) => (prev - 1 + image.length) % image.length)
   return(
@@ -45,8 +82,19 @@ export default function CarrouselFotos({isEditableFile, property} : prop){
           ))}
           <div className= {`${isEditableFile ? styles.containerAddImage : styles.notVisible}`}>
               <div>
-                  <input type={"file"} id={"inputId"} className={styles.inputProperties}/>
-                  <label htmlFor={"inputId"} className={styles.labelAddImageProperties}>Añadir imagen</label>
+                  <div>
+                      <input
+                          type="file"
+                          id="inputId"
+                          className={styles.inputProperties}
+                          onChange={handleImageUpload}
+                          accept="image/*"
+                          disabled={uploading}
+                      />
+                      <label htmlFor="inputId" className={styles.labelAddImageProperties}>
+                          {uploading ? 'Subiendo...' : 'Añadir imagen'}
+                      </label>
+                  </div>
               </div>
               <div>
                   <button onClick={(e) => {
