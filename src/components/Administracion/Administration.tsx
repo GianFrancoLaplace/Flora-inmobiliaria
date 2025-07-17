@@ -135,12 +135,12 @@ export default function Administration() {
                                     }}
                                     type="button"
                                 >
-                                    <Image
-                                        src="/icons/iconoEdit.png"
-                                        alt="Editar"
-                                        width={25}
-                                        height={25}
-                                    />
+                                 <Link href={`administracion/ficha/${prop.id}?mode=edit`}> <Image
+                                     src="/icons/iconoEdit.png"
+                                     alt="Editar"
+                                     width={25}
+                                     height={25}
+                                 /></Link>
                                 </button>
                                 <button
                                     onClick={(e) => {
