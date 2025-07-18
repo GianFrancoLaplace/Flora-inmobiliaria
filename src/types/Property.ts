@@ -33,7 +33,6 @@ export enum PropertyType {
     HOME = "HOME",
     APARTMENT = "APARTMENT",
     FIELD = "FIELD",
-    DUPLEX = "DUPLEX",
     COMMERCIAL = "COMMERCIAL",
     LAND = "LAND"
 }
@@ -71,6 +70,3 @@ export interface Characteristic {
     category?: CharacteristicCategory;
     iconUrl?: string; // URL del icono (opcional pero obligatorio para el get by id)
 }
-
-export type PropertyMode = 'view' | 'create' | 'edit';
-export type EditableFields = Record<keyof Property, boolean>;
