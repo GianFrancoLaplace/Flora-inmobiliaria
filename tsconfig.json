@@ -5,7 +5,6 @@
      "noEmitOnError": false,
     "skipLibCheck": true,
     "allowJs": true,
-    "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
