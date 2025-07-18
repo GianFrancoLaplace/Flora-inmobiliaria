@@ -8,16 +8,16 @@ datasource db {
 }
 
 model Property {
-  id_property                    Int              @id @default(autoincrement())
-  description                    String?
-  price                          Int
-  property_type_id_property_type PropertyTypeEnum
-  categoria_id_category          OperationEnum
-  address                        String?
-  ubication                      String?
-  city                           String?
-  characteristics                Characteristic[]
-  image                          image[]
+  id_property     Int              @id @default(autoincrement())
+  description     String?
+  price           Int
+  type            PropertyTypeEnum
+  category        OperationEnum
+  address         String?
+  ubication       String?
+  city            String?
+  characteristics Characteristic[]
+  image           image[]
 
   @@map("property")
 }
@@ -31,11 +31,13 @@ model Admin {
 }
 
 model Characteristic {
-  id_characteristic Int                         @id(map: "Characteristic_pkey") @default(autoincrement())
+  id_characteristic Int                         @id @default(autoincrement())
   characteristic    String                      @db.VarChar(255)
-  amount            Int
   property_id       Int
   category          CharacteristicCategoryEnum? @default(otros)
+  data_type         String                      @db.VarChar(20)
+  value_integer     Int?
+  value_text        String?
   property          Property                    @relation(fields: [property_id], references: [id_property], onDelete: Cascade, map: "Characteristic_property_id_fkey")
 
   @@map("characteristic")
@@ -43,9 +45,9 @@ model Characteristic {
 
 model image {
   id_image    Int       @id @default(autoincrement())
-  url         String
-  id_property Int
-  property    Property?  @relation(fields: [id_property], references: [id_property], onDelete: Cascade, map: "fk_image_propery")
+  url         String?
+  id_property Int?
+  property    Property? @relation(fields: [id_property], references: [id_property], onDelete: Cascade, map: "fk_image_propery")
 }
 
 enum PropertyTypeEnum {
