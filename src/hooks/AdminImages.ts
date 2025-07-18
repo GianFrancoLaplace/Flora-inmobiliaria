@@ -1,3 +1,4 @@
+import Error from 'next/error';
 import { useState } from 'react';
 
 export default function useAdminImages() {
@@ -20,11 +21,13 @@ export default function useAdminImages() {
             if (!response.ok) throw new Error(data.message || 'Error interno al crear la imagen');
 
             return data;
-        } catch (err: any) {
-            setError(err.message);
-            console.error(err);
-            return null;
-        } finally {
+        } catch (error) {
+  if (error instanceof Error) {
+    console.error(error);
+  } else {
+    console.error('Unknown error', error);
+  }
+} finally {
             setLoading(false);
         }
     };
@@ -41,11 +44,13 @@ export default function useAdminImages() {
             if (!response.ok) throw new Error(data.message || 'Error interno al eliminar la imagen');
 
             return data;
-        } catch (err: any) {
-            setError(err.message);
-            console.error(err);
-            return null;
-        } finally {
+        } catch (error) {
+  if (error instanceof Error) {
+    console.error(error);
+  } else {
+    console.error('Unknown error', error);
+  }
+} finally {
             setLoading(false);
         }
     };
