@@ -4,16 +4,16 @@ export default function useAdminImages() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const createImage = async (propertyId: number, url: string) => {
+    const createImage = async (propertyId: number, file: File) => {
         setLoading(true);
         setError(null);
         try {
+            const formData = new FormData();
+            formData.append('file', file);
+
             const response = await fetch(`/api/properties/${propertyId}/image`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ url }),
+                body: formData,
             });
 
             const data = await response.json();
@@ -28,6 +28,7 @@ export default function useAdminImages() {
             setLoading(false);
         }
     };
+
 
     const deleteImage = async (propertyId: number, imageId: number) => {
         setLoading(true);

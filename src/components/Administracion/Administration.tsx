@@ -1,15 +1,14 @@
-"use client"
+"use client";
 import styles from "./Administration.module.css";
 import { cactus } from "@/app/(views)/ui/fonts";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useUnifiedFilter } from "@/hooks/GetProperties";
-import {DeleteProperty} from "@/hooks/DeleteProperty";
+import { DeleteProperty } from "@/hooks/DeleteProperty";
 import { useRouter } from "next/navigation";
 
 export default function Administration() {
-
     const router = useRouter();
 
     const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -22,9 +21,8 @@ export default function Administration() {
         formatPrice,
         formatCharacteristics,
         refetchProperties,
-        //removePropertyFromState
-    } = useUnifiedFilter(); //llamo al hook para que se rendericen las propiedades con o sin filtros
-    
+    } = useUnifiedFilter();
+
     const {
         deleteProperty,
         isDeleting,
@@ -42,17 +40,15 @@ export default function Administration() {
     };
 
     const handleConfirmDelete = async () => {
-        console.log(propertyToDelete);
         if (!propertyToDelete) return;
-
         try {
             const response = await deleteProperty(propertyToDelete.id);
-            if(response) {
+            if (response) {
                 await refetchProperties();
                 setShowConfirmModal(false);
                 setPropertyToDelete(null);
             } else {
-                console.log(deleteError);
+                console.error(deleteError);
             }
         } catch (e) {
             console.error(e);
@@ -60,26 +56,18 @@ export default function Administration() {
     };
 
     if (loading) {
-        return (
-            <div className={styles.loadingContainer}>
-                <p>Cargando propiedades...</p>
-            </div>
-        );
+        return <div className={styles.loadingContainer}><p>Cargando propiedades...</p></div>;
     }
 
     if (error) {
-        return (
-            <div className={styles.errorContainer}>
-                <p>Error al cargar las propiedades: {error}</p>
-            </div>
-        );
+        return <div className={styles.errorContainer}><p>Error al cargar las propiedades: {error}</p></div>;
     }
 
     return (
         <div>
             <div className={`${styles.sectionProperties} ${cactus.className}`}>
                 <div>
-                    <Link href={'/administracion/ficha/nueva?mode=create'} className={styles.linkProperties}>
+                    <Link href="/administracion/ficha/nueva?mode=create" className={styles.linkProperties}>
                         <button className={`${styles.buttonNewPublication} ${cactus.className}`}>
                             Crear publicación
                         </button>
@@ -90,7 +78,6 @@ export default function Administration() {
                 </div>
             </div>
 
-             {/* Mostrar error de eliminación si existe */}
             {deleteError && (
                 <div className={styles.errorContainer}>
                     <p>Error al eliminar: {deleteError}</p>
@@ -108,7 +95,6 @@ export default function Administration() {
                             <div className={`${styles.imageProperties} ${cactus.className}`}>
                                 <Image
                                     src="/imgs/interior1.jpeg"
-                                    // src={prop.image}
                                     alt="Imagen interior casa"
                                     width={285}
                                     height={175}
@@ -131,16 +117,16 @@ export default function Administration() {
                                 <button
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        router.push(`administracion/ficha/${prop.id}?mode=edit`);
+                                        router.push(`/administracion/ficha/${prop.id}?mode=edit`);
                                     }}
                                     type="button"
                                 >
-                                 <Link href={`administracion/ficha/${prop.id}?mode=edit`}> <Image
-                                     src="/icons/iconoEdit.png"
-                                     alt="Editar"
-                                     width={25}
-                                     height={25}
-                                 /></Link>
+                                    <Image
+                                        src="/icons/iconoEdit.png"
+                                        alt="Editar"
+                                        width={25}
+                                        height={25}
+                                    />
                                 </button>
                                 <button
                                     onClick={(e) => {
@@ -162,13 +148,10 @@ export default function Administration() {
                 ))
             )}
 
-            {/* Modal de confirmación */}
             {showConfirmModal && propertyToDelete && (
                 <div className={styles.modalOverlay}>
                     <div className={`${styles.modalContent} ${cactus.className}`}>
-                        <p>
-                            ¿Desea eliminar la publicación?
-                        </p>
+                        <p>¿Desea eliminar la publicación?</p>
                         <p>Esta acción no se puede deshacer.</p>
                         <div className={styles.modalButtons}>
                             <button

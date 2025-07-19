@@ -26,7 +26,6 @@ export default function CarrouselFotos({ isEditableFile, property }: prop) {
     createImage,
     deleteImage,
     loading: uploading,
-    error,
   } = useAdminImages(); 
 
   const handleAceptDelete = (image: any) => {
@@ -47,25 +46,14 @@ export default function CarrouselFotos({ isEditableFile, property }: prop) {
       const formData = new FormData();
       formData.append('file', file);
 
-      const uploadResponse = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const { url } = await uploadResponse.json();
-
-      if (!uploadResponse.ok) {
-        throw new Error('Fallo al subir archivo');
-      }
-
-      const result = await createImage(property.id, url);
+      const result = await createImage(property.id, file); // Usás directamente tu hook
       if (result) {
         alert('Imagen subida exitosamente!');
       }
-    } catch (err) {
-      console.error(err);
-      alert('Error al subir la imagen');
-    }
+      } catch (err) {
+        console.error(err);
+        alert('Error al subir la imagen');
+      }
   };
 
   const handleDeleteConfirmed = async () => {
