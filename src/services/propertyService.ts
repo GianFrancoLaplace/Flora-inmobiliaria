@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma';
 import { PropertyTypeEnum, OperationEnum, Property } from '@prisma/client';
 import { PropertyUpdateData, ValidationError } from "@/helpers/UpdateProperty";
 import { PropertyState, PropertyType } from "@/types/Property";
+import {CharacteristicCategory, CharacteristicValidationInput, ValidationResult} from '@/types/Characteristic';
+import {CharacteristicService} from "@/services/characteristicService";
 
 type CreatePropertyResult =
     | { errors: string[]; property?: undefined }
@@ -154,42 +156,116 @@ export class PropertyService {
         return errors;
     }
 
-    public validateContextCharacteristics(property : Property){
-        switch (property.type){
-            case PropertyType.HOME:
-                this.validateContextHome(property);
-                break;
-            case PropertyType.APARTMENT:
-                this.validateContextApartment(property);
-                break;
-            case PropertyType.LAND:
-                this.validateContextLand(property,);
-                break;
-            case PropertyType.FIELD:
-                this.validateContextField(property);
-                break;
-            case PropertyType.COMMERCIAL:
-                this.validateContextCommercial(property);
+    public static validateCharacteristicsByPropertyType(
+        propertyType: PropertyType,
+        characteristics: CharacteristicValidationInput[]
+    ): ValidationResult {
+        const result: ValidationResult = { isValid: true, errors: [] };
+
+        // Obtener características prohibidas para este tipo de propiedad
+        const prohibitedCharacteristics = this.getProhibitedCharacteristics(propertyType);
+
+        // Verificar cada característica contra las prohibiciones
+        characteristics.forEach(characteristic => {
+            if (prohibitedCharacteristics.includes(characteristic.category)) {
+                result.errors.push(
+                    `La característica "${characteristic.category}" no es válida para el tipo de propiedad "${propertyType}"`
+                );
+                result.isValid = false;
+            }
+        });
+
+        return result;
+    }
+
+    public static validateCompleteProperty(
+        propertyType: PropertyType,
+        characteristics: CharacteristicValidationInput[]
+    ): ValidationResult {
+        const consolidatedResult: ValidationResult = { isValid: true, errors: [] };
+
+        // PASO 1: Validar cada característica individualmente
+        characteristics.forEach(characteristic => {
+            const individualResult = CharacteristicService.validate(characteristic);
+            if (!individualResult.isValid) {
+                consolidatedResult.errors.push(...individualResult.errors);
+                consolidatedResult.isValid = false;
+            }
+        });
+
+        // PASO 2: Validar coherencia entre características (validaciones cruzadas)
+        const crossValidationResult = CharacteristicService.validateCrossCharacteristics(characteristics);
+        if (!crossValidationResult.isValid) {
+            consolidatedResult.errors.push(...crossValidationResult.errors);
+            consolidatedResult.isValid = false;
         }
+
+        // PASO 3: Validar compatibilidad con tipo de propiedad
+        const typeCompatibilityResult = this.validateCharacteristicsByPropertyType(propertyType, characteristics);
+        if (!typeCompatibilityResult.isValid) {
+            consolidatedResult.errors.push(...typeCompatibilityResult.errors);
+            consolidatedResult.isValid = false;
+        }
+
+        return consolidatedResult;
     }
 
-    private validateContextHome(property: Property) {
-        // TODO
-    }
+    // Devuelve un arreglo con todas las caractristicas prohibidas según el tipo
+    private static getProhibitedCharacteristics(propertyType: PropertyType): CharacteristicCategory[] {
+        switch (propertyType) {
+            case PropertyType.LAND:
+                // Un lote es terreno sin construcción, por lo que no puede tener:
+                // - habitaciones (dormitorios, baños, ambientes)
+                // - Características de construcción (cocheras, tipo_piso, cantidad_plantas)
+                // - Características de servicios (expensas, agua específica)
+                return [
+                    CharacteristicCategory.AMBIENTES,
+                    CharacteristicCategory.DORMITORIOS,
+                    CharacteristicCategory.DORMITORIOS_SUITE,
+                    CharacteristicCategory.BANOS,
+                    CharacteristicCategory.COCHERAS,
+                    CharacteristicCategory.COBERTURA_COCHERA,
+                    CharacteristicCategory.SUPERFICIE_CUBIERTA,
+                    CharacteristicCategory.SUPERFICIE_SEMICUBIERTA,
+                    CharacteristicCategory.BALCON_TERRAZA,
+                    CharacteristicCategory.TIPO_PISO,
+                    CharacteristicCategory.ESTADO_INMUEBLE,
+                    CharacteristicCategory.LUMINOSIDAD,
+                    CharacteristicCategory.DISPOSICION,
+                    CharacteristicCategory.EXPENSAS,
+                    CharacteristicCategory.FECHA_EXPENSA,
+                    CharacteristicCategory.AGUA,
+                    CharacteristicCategory.CANTIDAD_PLANTAS,
+                    CharacteristicCategory.ANTIGUEDAD
+                ];
 
-    private validateContextApartment(property: Property) {
-        // TODO
-    }
+            case PropertyType.APARTMENT:
+                // Los departamentos son unidades de una sola planta por definición
+                return [
+                    CharacteristicCategory.CANTIDAD_PLANTAS
+                ];
 
-    private validateContextField(property: Property) {
-        // TODO
-    }
+            case PropertyType.COMMERCIAL:
+                // Los locales comerciales no son viviendas, por lo que no tienen:
+                // - Dormitorios (no se duerme en un local comercial)
+                // - Características específicas de vivienda
+                return [
+                    CharacteristicCategory.DORMITORIOS,
+                    CharacteristicCategory.DORMITORIOS_SUITE,
+                    CharacteristicCategory.AMBIENTES, // Los locales tienen "espacios" no "ambientes"
+                    CharacteristicCategory.BALCON_TERRAZA // Los locales no tienen balcones residenciales
+                ];
 
-    private validateContextLand(property: Property) {
-        // TODO
-    }
+            case PropertyType.FIELD:
+                // Los campos son propiedades rurales sin administración de consorcio
+                return [
+                    CharacteristicCategory.EXPENSAS,
+                    CharacteristicCategory.FECHA_EXPENSA
+                ];
 
-    private validateContextCommercial(property: Property) {
-        // TODO
+            default:
+                // Para tipos no reconocidos o para casas, no prohibir ninguna característica
+                return [];
+        }
     }
 }
