@@ -73,10 +73,10 @@ export async function GET(
 
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { id } = params;
+        const { id } = await params;
         const propertyId = parseInt(id);
 
         if (isNaN(propertyId)) {
@@ -90,6 +90,7 @@ export async function PUT(
         const service =  new  PropertyService([], []);
 
         const validationErrors = service.validatePropertyData(body);
+
         if (validationErrors.length > 0) {
             return NextResponse.json(
                 {
@@ -114,12 +115,12 @@ export async function PUT(
         const updateData: Record<string, unknown> = {};
 
         if (body.address !== undefined) updateData.address = body.address;
-        if (body.state !== undefined) updateData.estado = body.state;
-        if (body.price !== undefined) updateData.precio = body.price;
-        if (body.description !== undefined) updateData.descripcion = body.description;
-        if (body.type !== undefined) updateData.tipo_propiedad = body.type;
+        if (body.category !== undefined) updateData.category = body.category;
+        if (body.price !== undefined) updateData.price = body.price;
+        if (body.description !== undefined) updateData.description = body.description;
+        if (body.type !== undefined) updateData.type = body.type;
 
-        updateData.actualizado_en = new Date();
+        // updateData.actualizado_en = new Date();
 
         const updatedProperty = await prisma.property.update({
             where: { id_property: propertyId },

@@ -25,16 +25,16 @@ export interface Image {
 }
 
 export enum PropertyState {
-    SALE = "EN VENTA",
+    SALE = "venta",
     SOLD = "VENDIDA",
-    RENT = "EN ALQUILER",
+    RENT = "alquiler",
     RENTED = "ALQUILADA"
 }
 
 export enum PropertyType {
-    HOME = "HOME",
-    APARTMENT = "APARTMENT",
-    FIELD = "FIELD",
-    COMMERCIAL = "COMMERCIAL",
-    LAND = "LAND"
+    HOME = "casa",
+    APARTMENT = "departamento",
+    FIELD = "campo",
+    COMMERCIAL = "local_comercial",
+    LAND = "lote"
 }

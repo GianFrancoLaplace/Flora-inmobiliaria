@@ -2,8 +2,9 @@ import {PropertyState, PropertyType} from "@/types/Property";
 
 export interface PropertyUpdateData {
     address?: string;
-    // city?: string; //Puede haber propiedades de distintas ciudades?
-    state?: PropertyState;
+    city?: string; //Puede haber propiedades de distintas ciudades?
+    category?: PropertyState;
+    ubication?: string;
     price?: number;
     description?: string;
     type?: PropertyType;
