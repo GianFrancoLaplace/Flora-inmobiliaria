@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { mapPropertyType, mapOperationToState } from '@/helpers/PropertyMapper';
-import { Property, Characteristic } from '@/types/Property';
+import { Property } from '@/types/Property';
+import { Characteristic} from "@/types/Characteristic";
 import { PropertyUpdateData } from "@/helpers/UpdateProperty"
 import { PropertyService } from "@/services/propertyService";
 import { getIconByCategory, mapPrismaCharacteristicCategory } from "@/helpers/IconMapper"
@@ -34,12 +35,12 @@ export async function GET(
             id: propiedad.id_property,
             address: propiedad.address || '',
             city: '',
-            state: mapOperationToState(propiedad.categoria_id_category),
+            state: mapOperationToState(propiedad.category),
             price: propiedad.price,
             description: propiedad.description || '',
-            type: mapPropertyType(propiedad.property_type_id_property_type),
+            type: mapPropertyType(propiedad.type),
             characteristics: propiedad.characteristics
-                .filter((c) => c.amount !== null && c.amount !== 0) //valido que no se incluyan caracteristicas vacias/valor cero
+                .filter((c) => c.value_integer !== null && c.value_integer !== 0) //valido que no se incluyan caracteristicas vacias/valor cero
                 .map((c): Characteristic => {
                     const mappedCategory = mapPrismaCharacteristicCategory(c.category);
                     const iconUrl = getIconByCategory(mappedCategory);
@@ -51,7 +52,8 @@ export async function GET(
                     return {
                         id: c.id_characteristic,
                         characteristic: c.characteristic,
-                        amount: c.amount,
+                        data_type: "integer",
+                        value_integer: c.value_integer as number,
                         category: mappedCategory,
                         iconUrl: iconUrl
                     };

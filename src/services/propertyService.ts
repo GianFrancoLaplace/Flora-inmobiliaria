@@ -14,8 +14,8 @@ interface PropertyInput {
     description: string;
     ubication: string;
     price: number;
-    property_type_id_property_type: PropertyTypeEnum;
-    categoria_id_category: OperationEnum;
+    type: PropertyTypeEnum;
+    category: OperationEnum;
     // city?: string;
 }
 
@@ -49,11 +49,11 @@ export class PropertyService {
         const filters: Prisma.PropertyWhereInput = {};
 
         if (tipos.length > 0) {
-            filters.property_type_id_property_type = { in: tipos };
+            filters.category = { in: tipos };
         }
 
         if (operaciones.length > 0) {
-            filters.categoria_id_category = { in: operaciones };
+            filters.category = { in: operaciones };
         }
 
         return filters;
@@ -74,10 +74,10 @@ export class PropertyService {
         if (typeof body.price !== 'number' || body.price <= 0 || isNaN(body.price)) {
             errors.push('Precio inválido');
         }
-        if (!Object.values(PropertyTypeEnum).includes(body.property_type_id_property_type)) {
+        if (!Object.values(PropertyTypeEnum).includes(body.type)) {
             errors.push('Tipo de propiedad inválida');
         }
-        if (!Object.values(OperationEnum).includes(body.categoria_id_category)) {
+        if (!Object.values(OperationEnum).includes(body.category)) {
             errors.push('Categoría inválida');
         }
 
@@ -90,8 +90,8 @@ export class PropertyService {
                 price: body.price,
                 address: body.address,
                 description: body.description,
-                property_type_id_property_type: body.property_type_id_property_type,
-                categoria_id_category: body.categoria_id_category,
+                type: body.type,
+                category: body.category,
                 ubication: body.ubication,
             },
         });
