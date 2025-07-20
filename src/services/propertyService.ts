@@ -155,42 +155,42 @@ export class PropertyService {
         return errors;
     }
 
-    public validateCharacteristics(property : PropertyInput, characteristics: Characteristic[]){
+    public validateContextCharacteristics(property : Property){
         switch (property.type){
             case PropertyType.HOME:
-                this.validateContextHome(property, characteristics);
+                this.validateContextHome(property);
                 break;
             case PropertyType.APARTMENT:
-                this.validateContextApartment(property, characteristics);
+                this.validateContextApartment(property);
                 break;
             case PropertyType.LAND:
-                this.validateContextLand(property, characteristics);
+                this.validateContextLand(property,);
                 break;
             case PropertyType.FIELD:
-                this.validateContextField(property, characteristics);
+                this.validateContextField(property);
                 break;
             case PropertyType.COMMERCIAL:
-                this.validateContextCommercial(property, characteristics);
+                this.validateContextCommercial(property);
         }
     }
 
-    private validateContextHome(property: PropertyInput, characteristics: Characteristic[]) {
+    private validateContextHome(property: Property) {
         // TODO
     }
 
-    private validateContextApartment(property: PropertyInput, characteristics: Characteristic[]) {
+    private validateContextApartment(property: Property) {
         // TODO
     }
 
-    private validateContextField(property: PropertyInput, characteristics: Characteristic[]) {
+    private validateContextField(property: Property) {
         // TODO
     }
 
-    private validateContextLand(property: PropertyInput, characteristics: Characteristic[]) {
+    private validateContextLand(property: Property) {
         // TODO
     }
 
-    private validateContextCommercial(property: PropertyInput, characteristics: Characteristic[]) {
+    private validateContextCommercial(property: Property) {
         // TODO
     }
 }
