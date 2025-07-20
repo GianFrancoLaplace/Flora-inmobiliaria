@@ -345,14 +345,55 @@ export class CharacteristicService {
         return { isValid: true, errors: [] };
     }
 
-    // Método utilitario para validaciones cruzadas futuras
+    // Método utilitario para validaciones cruzadas
     static validateCrossCharacteristics(characteristics: CharacteristicValidationInput[]): ValidationResult {
         // TODO: Implementar validaciones cruzadas entre características
         // - Suma de superficies = superficie total
         // - Coherencia dormitorios vs baños vs superficie
         // - Cocheras vs superficie mínima
         // - Estado vs antigüedad
-        return { isValid: true, errors: [] };
+        const result = { isValid: true, errors: [] };
+
+        if (!characteristics && characteristics < 2)  // No existe la posibilidad de validaciones cruzadas
+            return result;
+
+        const charMap = new Map<CharacteristicCategory, CharacteristicValidationInput>();
+        characteristics.forEach(char => {
+            charMap.set(char.category, char);
+        });
+
+        this.validateSurfaceSums(charMap, result);
+
+        this.validateBedroomsSuiteVsTotal(charMap, result);
+
+        return result;
+    }
+
+    private static validateSurfaceSums(
+        charMap: Map<CharacteristicCategory, CharacteristicValidationInput>,
+        result: ValidationResult
+    ): void {
+        const totalSurface = charMap.get(CharacteristicCategory.SUPERFICIE_TOTAL)?.value_integer;
+        const coveredSurface = charMap.get(CharacteristicCategory.SUPERFICIE_CUBIERTA)?.value_integer || 0;
+        const uncoveredSurface = charMap.get(CharacteristicCategory.SUPERFICIE_DESCUBIERTA)?.value_integer || 0;
+        const semiCoveredSurface = charMap.get(CharacteristicCategory.SUPERFICIE_SEMICUBIERTA)?.value_integer || 0;
+
+        /*
+            Puede que no se haya especificado exactamente todas las superficies,
+            por tanto no se controla que la suma de todas sea igual al total,
+            pero la suma no debe ser mayor
+         */
+
+        if (totalSurface !== undefined) {
+            const surfaceSum = coveredSurface + uncoveredSurface + semiCoveredSurface;
+
+            if (surfaceSum > totalSurface) {
+                result.errors.push(
+                    `La suma de superficies (${surfaceSum} m²) no debe ser mayor a la superficie total (${totalSurface} m²)`
+                );
+                result.isValid = false;
+            }
+        }
     }
 
     private static validateBedroomsSuiteVsTotal(

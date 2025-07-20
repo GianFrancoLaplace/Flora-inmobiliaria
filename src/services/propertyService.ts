@@ -3,7 +3,6 @@ import { prisma } from '@/lib/prisma';
 import { PropertyTypeEnum, OperationEnum, Property } from '@prisma/client';
 import { PropertyUpdateData, ValidationError } from "@/helpers/UpdateProperty";
 import { PropertyState, PropertyType } from "@/types/Property";
-import { Characteristic } from "@/types/Characteristic";
 
 type CreatePropertyResult =
     | { errors: string[]; property?: undefined }
