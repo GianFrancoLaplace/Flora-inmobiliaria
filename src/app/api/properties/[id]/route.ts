@@ -120,8 +120,6 @@ export async function PUT(
         if (body.description !== undefined) updateData.description = body.description;
         if (body.type !== undefined) updateData.type = body.type;
 
-        // updateData.actualizado_en = new Date();
-
         const updatedProperty = await prisma.property.update({
             where: { id_property: propertyId },
             data: updateData

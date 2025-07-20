@@ -1,8 +1,9 @@
 import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
 import { PropertyTypeEnum, OperationEnum, Property } from '@prisma/client';
-import {CharacteristicUpdateData, PropertyUpdateData, ValidationError} from "@/helpers/UpdateProperty";
-import {PropertyState, PropertyType} from "@/types/Property";
+import { PropertyUpdateData, ValidationError } from "@/helpers/UpdateProperty";
+import { PropertyState, PropertyType } from "@/types/Property";
+import { Characteristic } from "@/types/Characteristic";
 
 type CreatePropertyResult =
     | { errors: string[]; property?: undefined }
@@ -115,8 +116,8 @@ export class PropertyService {
             }
         }
 
-        if (data.state !== undefined) {
-            if (!Object.values(PropertyState).includes(data.state)) {
+        if (data.category !== undefined) {
+            if (!Object.values(PropertyState).includes(data.category)) {
                 errors.push({
                     field: 'state',
                     message: 'El estado debe ser: EN VENTA, VENDIDA, EN ALQUILER o ALQUILADA'
@@ -152,5 +153,44 @@ export class PropertyService {
         }
 
         return errors;
+    }
+
+    public validateCharacteristics(property : PropertyInput, characteristics: Characteristic[]){
+        switch (property.type){
+            case PropertyType.HOME:
+                this.validateContextHome(property, characteristics);
+                break;
+            case PropertyType.APARTMENT:
+                this.validateContextApartment(property, characteristics);
+                break;
+            case PropertyType.LAND:
+                this.validateContextLand(property, characteristics);
+                break;
+            case PropertyType.FIELD:
+                this.validateContextField(property, characteristics);
+                break;
+            case PropertyType.COMMERCIAL:
+                this.validateContextCommercial(property, characteristics);
+        }
+    }
+
+    private validateContextHome(property: PropertyInput, characteristics: Characteristic[]) {
+        // TODO
+    }
+
+    private validateContextApartment(property: PropertyInput, characteristics: Characteristic[]) {
+        // TODO
+    }
+
+    private validateContextField(property: PropertyInput, characteristics: Characteristic[]) {
+        // TODO
+    }
+
+    private validateContextLand(property: PropertyInput, characteristics: Characteristic[]) {
+        // TODO
+    }
+
+    private validateContextCommercial(property: PropertyInput, characteristics: Characteristic[]) {
+        // TODO
     }
 }
