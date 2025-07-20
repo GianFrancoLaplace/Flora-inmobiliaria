@@ -27,7 +27,9 @@ export enum CharacteristicCategory {
 export interface Characteristic {
     id: number;
     characteristic: string;
-    amount: number;
+    data_type: 'integer' | 'text';
+    value_integer?: number;
+    value_text?: string;
     category?: CharacteristicCategory;
     iconUrl?: string; // URL del icono (opcional pero obligatorio para el get by id)
 }

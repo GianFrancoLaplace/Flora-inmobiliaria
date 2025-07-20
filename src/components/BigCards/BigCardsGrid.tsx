@@ -4,7 +4,8 @@ import styles from './BigCard.module.css'
 import {cactus} from "@/app/(views)/ui/fonts";
 import BigCard from "@/components/BigCards/BigCard";
 import React, { useEffect, useState } from "react";
-import { Property, CharacteristicCategory } from "../../types/Property"; // Ajusta la ruta según tu estructura
+import { Property } from "../../types/Property"; // Ajusta la ruta según tu estructura
+import { CharacteristicCategory } from "../../types/Characteristic";
 import { useSearchParams } from 'next/navigation';
 
 export default function BigCardsGrid() {
@@ -42,7 +43,7 @@ export default function BigCardsGrid() {
     // Función helper para extraer valor de característica
     const getCharacteristicValue = (property: Property, category: CharacteristicCategory): number => {
         const characteristic = property.characteristics.find(c => c.category === category);
-        return characteristic?.amount || 0;
+        return characteristic?.value_integer || 0;
     };
 
     if (loading) {
