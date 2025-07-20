@@ -5,7 +5,8 @@
     height: 600px;
 }
 
-.imageContainerProperties:hover .containerAddImage, .imageContainerProperties:hover .messageCardPropertie{
+.imageContainerProperties:hover .containerAddImage,
+.imageContainerProperties:hover .messageCardPropertie {
     visibility: visible;
     opacity: 1;
 }
@@ -20,7 +21,7 @@
     left: 0;
 }
 
-.containerAddImage{
+.containerAddImage {
     display: flex;
     flex-direction: row;
     background-color: rgba(35, 32, 33, 0.7);
@@ -36,7 +37,7 @@
     gap: 20px;
 }
 
-.messageCardPropertie{
+.messageCardPropertie {
     background-color: rgba(26, 26, 25, 0.83);
     width: 506px;
     height: 120px;
@@ -54,32 +55,32 @@
     color: var(--primary-color-1);
 }
 
-.buttonMessageProperties{
+.buttonMessageProperties {
     display: flex;
     flex-direction: row;
 }
 
-.buttonMessageProperties button{
+.buttonMessageProperties button {
     width: 200px;
     height: 30px;
     cursor: pointer;
     transition: background-color ease-out 0.3s;
 }
 
-.aceptButtonProperties{
+.aceptButtonProperties {
     background-color: var(--secondary-color-5);
 }
 
-.aceptButtonProperties:hover{
+.aceptButtonProperties:hover {
     background-color: #c82333;
 }
 
-.inputProperties{
+.inputProperties {
     display: none;
     opacity: 0;
 }
 
-.labelAddImageProperties{
+.labelAddImageProperties {
     display: flex;
     width: 200px;
     height: 50px;
@@ -90,7 +91,7 @@
     cursor: pointer;
 }
 
-.deleteIconProperties{
+.deleteIconProperties {
     background-color: var(--secondary-color-2);
     width: 50px;
     height: 50px;
@@ -99,11 +100,11 @@
     box-shadow: none;
 }
 
-.containerAddImage button{
+.containerAddImage button {
     cursor: pointer;
 }
 
-.notVisible{
+.notVisible {
     visibility: hidden;
 }
 

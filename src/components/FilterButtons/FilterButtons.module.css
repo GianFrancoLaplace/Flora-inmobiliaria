@@ -1,128 +1,128 @@
 .filterGroupWrapper {
-  width: 100%;
-  padding: 1rem 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    width: 100%;
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .filterGroupTitle {
-  margin-bottom: 0.8rem;
-  font-size: 1.3rem;
-  font-weight: 500;
-  color: #33322f;
-  text-align: center;
+    margin-bottom: 0.8rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #33322f;
+    text-align: center;
 }
 
 .burgerButton {
-  display: block;
-  background-color: var(--secondary-color-5, #f0c040);
-  color: #333;
-  padding: 0.6rem 1.2rem;
-  border: none;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 8px;
-  z-index: 1000;
-  align-self: center;
-  margin-bottom: 1rem;
+    display: block;
+    background-color: var(--secondary-color-5, #f0c040);
+    color: #333;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    z-index: 1000;
+    align-self: center;
+    margin-bottom: 1rem;
 }
 
 .filterGroupTitle {
-  display: none;
+    display: none;
 }
 
 .filterContainer {
-  display: none;
-  flex-direction: column;
-  align-items: center; /* <-- centrado solo en mobile */
-  flex-wrap: wrap;
-  background-color: var(--primary-color-4);
-  padding: 1.5rem 1rem;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    display: none;
+    flex-direction: column;
+    align-items: center; /* <-- centrado solo en mobile */
+    flex-wrap: wrap;
+    background-color: var(--primary-color-4);
+    padding: 1.5rem 1rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-
 .filterContainer.show {
-  display: flex;
+    display: flex;
 }
 
 .filterButton {
-  background-color: var(--primary-color-5);
-  color: #f1e9d2;
-  padding: 0.8rem 1.2rem;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  cursor: pointer;
-  justify-content: space-between;
-  transition: background-color 0.3s ease;
-  user-select: none;
-  border: none;
-  font-size: 1rem;
-  width: 240px;
-  box-sizing: border-box;
-  margin-bottom: 0.8rem; 
+    background-color: var(--primary-color-5);
+    color: #f1e9d2;
+    padding: 0.8rem 1.2rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    justify-content: space-between;
+    transition: background-color 0.3s ease;
+    user-select: none;
+    border: none;
+    font-size: 1rem;
+    width: 240px;
+    box-sizing: border-box;
+    margin-bottom: 0.8rem;
 }
 
 .filterButton:hover {
-  background-color: #44423e;
+    background-color: #44423e;
 }
 
 .toggle {
-  width: 40px;
-  height: 20px;
-  background-color: #ccc;
-  border-radius: 999px;
-  position: relative;
-  transition: background-color 0.3s ease;
-  flex-shrink: 0;
+    width: 40px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 999px;
+    position: relative;
+    transition: background-color 0.3s ease;
+    flex-shrink: 0;
 }
 
 .toggleCircle {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background-color: var(--primary-color-3, gray);
-  position: absolute;
-  top: 3px;
-  left: 2px;
-  transition: left 0.3s ease, background-color 0.3s ease;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: var(--primary-color-3, gray);
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    transition:
+        left 0.3s ease,
+        background-color 0.3s ease;
 }
 
 .active .toggleCircle {
-  left: 24px;
-  background-color: var(--secondary-color-5, gold);
+    left: 24px;
+    background-color: var(--secondary-color-5, gold);
 }
 
 @media (min-width: 1000px) {
-  .burgerButton {
-    display: none;
-  }
+    .burgerButton {
+        display: none;
+    }
 
-  .filterGroupTitle {
-    display: block;
-  }
+    .filterGroupTitle {
+        display: block;
+    }
 
-  .filterContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start; /* en lugar de center */
-  gap: 2rem;
-  flex-wrap: nowrap;
-  width: 100%;
-  background-color: transparent;
-  padding: 0;
-  border-radius: 0;
-  box-shadow: none;
-  align-items: flex-start; /* <-- esto reemplaza el centrado */
-}
+    .filterContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start; /* en lugar de center */
+        gap: 2rem;
+        flex-wrap: nowrap;
+        width: 100%;
+        background-color: transparent;
+        padding: 0;
+        border-radius: 0;
+        box-shadow: none;
+        align-items: flex-start; /* <-- esto reemplaza el centrado */
+    }
 
-.filterButton{
-  margin-left: 0;
-}
-
+    .filterButton {
+        margin-left: 0;
+    }
 }

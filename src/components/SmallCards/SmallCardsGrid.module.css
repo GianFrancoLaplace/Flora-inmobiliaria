@@ -8,25 +8,25 @@
     padding: 20px;
     margin: 20px;
 }
-.allPropertiesBtn{
+.allPropertiesBtn {
     width: 450px;
 
     margin-bottom: 5%;
 
     background-color: var(--secondary-color-4);
 }
-.linkProperties{
+.linkProperties {
     text-decoration: none;
 }
-.viewButton{
+.viewButton {
     visibility: visible;
 }
 
-.notViewButton{
+.notViewButton {
     visibility: hidden;
 }
 
-@media(min-width:641px) {
+@media (min-width: 641px) {
     .propertyGrid {
         display: grid;
         grid-template-columns: repeat(2, minmax(330px, 1fr));
@@ -41,12 +41,12 @@
         margin: 0px auto;
     }
 
-    .cardsProperties{
+    .cardsProperties {
         display: flex;
         flex-direction: column;
     }
 }
-@media(min-width:1000px) {
+@media (min-width: 1000px) {
     .propertyGrid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));

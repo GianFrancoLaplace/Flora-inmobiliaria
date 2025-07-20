@@ -1,9 +1,8 @@
-.page{
+.page {
     background-color: var(--secondary-color-4);
-
 }
 
-.formContainerProperties{
+.formContainerProperties {
     display: flex;
     flex-direction: column;
     justify-content: center;

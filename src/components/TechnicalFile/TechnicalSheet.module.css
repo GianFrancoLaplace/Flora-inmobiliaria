@@ -1,11 +1,11 @@
-.page{
+.page {
     background-color: var(--primary-color-1);
     color: var(--primary-color-5);
     width: 100%;
     position: relative;
     z-index: 10;
 }
-.mapaInteractivo{
+.mapaInteractivo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,10 +15,10 @@
 
 .mapaInteractivo iframe {
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.mainAdressProperties{
+.mainAdressProperties {
     display: flex;
     flex-direction: row;
     margin-top: 20px;
@@ -26,7 +26,7 @@
     box-sizing: border-box;
 }
 
-.viewInfoAdress{
+.viewInfoAdress {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -34,7 +34,7 @@
     white-space: nowrap;
 }
 
-.mediaCarouselProperties{
+.mediaCarouselProperties {
     display: flex;
     flex-direction: row;
     position: relative;
@@ -43,15 +43,15 @@
     margin-bottom: 20px;
 }
 
-.visible{
+.visible {
     visibility: visible;
 }
 
-.notVisible{
+.notVisible {
     visibility: hidden;
 }
 
-.infoCardProperties{
+.infoCardProperties {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -64,8 +64,7 @@
     border-radius: 10px;
 }
 
-
-.main{
+.main {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -77,32 +76,32 @@
     margin-right: 40px;
 }
 
-.inputProperties{
+.inputProperties {
     font-size: 30px;
     font-family: var(--font-weight-normal);
     white-space: none;
 }
 
-.mainInfo{
+.mainInfo {
     display: flex;
     flex-direction: row;
     gap: 70%;
     white-space: nowrap;
 }
 
-.mainInfoH1{
+.mainInfoH1 {
     display: flex;
     flex-direction: row;
     gap: 10px;
     margin-left: 20px;
 }
 
-.askBtn{
+.askBtn {
     width: 340px;
     background-color: var(--secondary-color-4);
 }
 
-.cityProperties{
+.cityProperties {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -113,7 +112,7 @@
     white-space: nowrap;
 }
 
-.mainBoxesGridProperties{
+.mainBoxesGridProperties {
     display: flex;
     flex-direction: row;
     margin-top: 20px;
@@ -121,7 +120,7 @@
     gap: 20px;
 }
 
-.descriptionsProperties{
+.descriptionsProperties {
     display: flex;
     flex-direction: column;
     text-align: justify;
@@ -130,12 +129,12 @@
     margin-inline: 40px;
 }
 
-.descriptionsProperties div{
+.descriptionsProperties div {
     padding-bottom: 10px;
     margin-bottom: 10px;
 }
 
-.titleProperties{
+.titleProperties {
     display: flex;
     flex-direction: row;
     height: 40px;
@@ -143,40 +142,40 @@
     border-bottom: 1px solid var(--primary-color-5);
 }
 
-.dataGridProperties{
+.dataGridProperties {
     display: flex;
     flex-direction: row;
     gap: 20px;
 }
 
-.sectionProperties{
+.sectionProperties {
     display: grid;
     grid-auto-flow: column;
     grid-template-rows: repeat(10, max-content);
     grid-column-gap: 150px;
 }
 
-.itemProperties{
+.itemProperties {
     display: flex;
     flex-direction: row;
     width: 100%;
 }
 
-.itemProperties h5{
+.itemProperties h5 {
     margin-left: 30px;
     white-space: wrap;
 }
 
-.buttonsProperties button{
+.buttonsProperties button {
     cursor: pointer;
 }
 /*PROPERTIE´S EMPTY FILE*/
 
-.showProperties{
+.showProperties {
     visibility: visible;
 }
 
-.notShowProperties{
+.notShowProperties {
     visibility: hidden;
     width: 0;
     padding: 0;
@@ -185,7 +184,7 @@
     position: absolute;
 }
 
-.adressProperties{
+.adressProperties {
     display: flex;
     flex-direction: row;
     white-space: nowrap;
@@ -194,7 +193,8 @@
     gap: 10%;
 }
 
-.mainAdressProperties button, .editButtonProperties{
+.mainAdressProperties button,
+.editButtonProperties {
     background-color: transparent;
     border: none;
     box-shadow: none;
@@ -202,14 +202,14 @@
     padding-bottom: 20px;
 }
 
-#imageIconoEditPhoto{
+#imageIconoEditPhoto {
     display: flex;
     position: relative;
     margin-top: 35%;
     margin-right: 3%;
 }
 
-.cityProperties{
+.cityProperties {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -220,42 +220,42 @@
     white-space: nowrap;
 }
 
-.cityProperties button{
+.cityProperties button {
     padding-bottom: 40px;
 }
 
-.mainInfoPrice{
+.mainInfoPrice {
     margin-left: 34px;
     margin-top: 20px;
     width: fit-content;
 }
 
-.priceEditionProperties{
+.priceEditionProperties {
     display: flex;
     flex-direction: row;
     gap: 10px;
 }
 
-.editProperties{
+.editProperties {
     display: flex;
     flex-direction: row;
     width: min-content;
     gap: 20px;
 }
 
-.editInputProperties{
+.editInputProperties {
     width: 20px;
     font-size: 20px;
     text-align: center;
 }
 
-.ubicationEditProperties{
+.ubicationEditProperties {
     display: flex;
     flex-direction: row;
     width: min-content;
     gap: 20px;
 }
 
-.btnSold{
+.btnSold {
     background-color: var(--primary-color-1);
 }

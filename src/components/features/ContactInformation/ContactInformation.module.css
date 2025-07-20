@@ -40,7 +40,6 @@
     font-weight: normal;
 }
 
-
 @keyframes scroll-right {
     0% {
         transform: translateX(-100%);
