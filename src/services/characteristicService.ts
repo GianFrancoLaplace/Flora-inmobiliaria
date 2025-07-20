@@ -151,22 +151,22 @@ export class CharacteristicService {
     }
 
     private static validateOpenSurface(input: CharacteristicValidationInput): ValidationResult {
-        // TODO: Validar ≥ 0, ≤ superficie total, tipo integer
+        // TODO: Validar ≥ 0 ≤ 20.000 , tipo integer
         return { isValid: true, errors: [] };
     }
 
     private static validateSemiOpenSurface(input: CharacteristicValidationInput): ValidationResult {
-        // TODO: Validar ≥ 0, ≤ superficie total, tipo integer
+        // TODO: Validar ≥ 0, ≤ 20.000, tipo integer
         return { isValid: true, errors: [] };
     }
 
     private static validateCoveredSurface(input: CharacteristicValidationInput): ValidationResult {
-        // TODO: Validar ≥ 0, ≤ superficie total, tipo integer, suma coherente con otras superficies
+        // TODO: Validar ≥ 0, ≤ 20.000, tipo integer
         return { isValid: true, errors: [] };
     }
 
     private static validateRooms(input: CharacteristicValidationInput): ValidationResult {
-        // TODO: Validar rango 1-15, tipo integer, ≥ dormitorios, coherencia con superficie
+        // TODO: Validar rango 1-15, tipo integer
         const result: ValidationResult = { isValid: true, errors: [] };
 
         if (input.data_type !== 'integer') {
@@ -226,7 +226,7 @@ export class CharacteristicService {
     }
 
     private static validateBedroomSuites(input: CharacteristicValidationInput): ValidationResult {
-        // TODO: Validar ≥ 0, ≤ total dormitorios, tipo integer
+        // TODO: Validar ≥ 0,  tipo integer
         return { isValid: true, errors: [] };
     }
 
@@ -264,16 +264,17 @@ export class CharacteristicService {
 
     private static validateGarages(input: CharacteristicValidationInput): ValidationResult {
         // TODO: Validar rango 0-6, tipo integer, coherencia con superficie total
+        // Revisar validación de rango y coherencia
         return { isValid: true, errors: [] };
     }
 
     private static validateGarageCoverage(input: CharacteristicValidationInput): ValidationResult {
-        // TODO: Validar valores válidos: "cubierta", "semicubierta", "descubierta", tipo text
+        // TODO: Validar valores: "cubierta", "semicubierta", "descubierta", tipo text
         return { isValid: true, errors: [] };
     }
 
     private static validateBalconyTerrace(input: CharacteristicValidationInput): ValidationResult {
-        // TODO: Validar ≥ 0, tipo integer, coherencia con superficie descubierta/semicubierta
+        // TODO: Validar ≥ 0 <= 2? (Revisar), tipo integer
         return { isValid: true, errors: [] };
     }
 
@@ -317,7 +318,7 @@ export class CharacteristicService {
     }
 
     private static validateLighting(input: CharacteristicValidationInput): ValidationResult {
-        // TODO: Validar valores válidos: "excelente", "muy buena", "buena", "regular", "escasa", tipo text
+        // TODO: Validar valores válidos: "excelente", "muy buena", "buena", "regular", tipo text
         // Revisar valores propuestos
         return { isValid: true, errors: [] };
     }
