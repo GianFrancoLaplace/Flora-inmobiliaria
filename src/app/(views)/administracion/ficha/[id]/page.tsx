@@ -1,3 +1,4 @@
+import { use } from 'react';
 import { notFound } from 'next/navigation';
 import TechnicalSheet from '@/components/TechnicalFile/TechnicalSheet';
 import {Property} from "@/types/Property";
@@ -5,8 +6,8 @@ import {Property} from "@/types/Property";
 type Mode = 'view' | 'edit' | 'create';
 
 type PageProps = {
-    params: { id: string };
-    searchParams: {mode? : Mode};
+    params: Promise<{ id: string }>;
+    searchParams: Promise<{mode? : Mode}>;
 }
 
 async function getProperty(id: string) : Promise<Property | null> {
@@ -34,10 +35,13 @@ export default async function UnifiedPropertyPage({
                                                       params,
                                                       searchParams
                                                   }: PageProps) {
-    const mode = searchParams.mode || 'view'; // Default a view
+    const resolvedParams =  use(params);
+    const resolvedSearchParams = use(searchParams);
+
+    const mode = resolvedSearchParams.mode || 'view'; // Default a view
 
     // Manejo especial para crear nueva propiedad
-    if (params.id === 'nueva') {
+    if (resolvedParams.id === 'nueva') {
         if (mode !== 'create')
             notFound(); // Solo permite mode=create para nueva
 
@@ -53,7 +57,7 @@ export default async function UnifiedPropertyPage({
     }
 
     // Para propiedades existentes
-    const property = await getProperty(params.id);
+    const property = await getProperty(resolvedParams.id);
 
     if (!property) {
         notFound();
@@ -77,16 +81,19 @@ export default async function UnifiedPropertyPage({
 
 // Metadata dinámica basada en mode
 export async function generateMetadata({ params, searchParams }: PageProps) {
-    const mode = searchParams.mode || 'view';
+    const resolvedParams =  use(params);
+    const resolvedSearchParams = use(searchParams);
 
-    if (params.id === 'nueva') {
+    const mode = resolvedSearchParams.mode || 'view';
+
+    if (resolvedParams.id === 'nueva') {
         return {
             title: 'Crear Nueva Propiedad',
             description: 'Crear una nueva publicación inmobiliaria'
         };
     }
 
-    const property = await getProperty(params.id);
+    const property = await getProperty(resolvedParams.id);
 
     if (!property) {
         return { title: 'Propiedad no encontrada' };

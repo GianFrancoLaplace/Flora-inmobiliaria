@@ -7,10 +7,16 @@ import EditButton from '@/components/TechnicalFile/EditButton'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
-import {CharacteristicCategory, Property, PropertyState, PropertyType} from "@/types/Property";
+import { Property, PropertyState, PropertyType} from "@/types/Property";
+import { CharacteristicCategory } from "@/types/Characteristic";
 import React, { useState } from "react";
 import CarrouselFotos from "./Carrousel/CarrouselFotos";
 import Item from "@/components/TechnicalFile/PropertiesItem";
+
+import {
+    getDataGridCharacteristics,
+    getTechnicalSheetCharacteristics
+} from "@/components/TechnicalFile/MockCharacteristic";
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
@@ -175,6 +181,10 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
         setEditingField(null);
     };
 
+    function handleSaveCharacteristic() {
+        console.log("Guardar")
+    }
+
     return (
         <main className={styles.page}>
             <div>
@@ -272,34 +282,21 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
 
             <div className={styles.mainBoxesGridProperties}>
                 <div className={styles.dataGridProperties}>
-                    <Item
-                        imgSrc="/icons/baños.png"
-                        label="Baños"
-                        characterisctic={CharacteristicCategory.BANOS}
-                        isEditing={isEditingAllP}
-                        type="data"
-                    />
-                    <Item
-                        imgSrc="/icons/antiguedad.png"
-                        label="Antiguedad"
-                        characterisctic={CharacteristicCategory.ANTIGUEDAD}
-                        isEditing={isEditingAllP}
-                        type="data"
-                    />
-                    <Item
-                        imgSrc="/icons/cochera.png"
-                        label="Cocheras"
-                        characterisctic={CharacteristicCategory.COCHERAS}
-                        isEditing={isEditingAllP}
-                        type="data"
-                    />
-                    <Item
-                        imgSrc="/icons/plantas.png"
-                        label="Cant. plantas"
-                        characterisctic={CharacteristicCategory.CANTIDAD_PLANTAS}
-                        isEditing={isEditingAllP}
-                        type="data"
-                    />
+                    {getDataGridCharacteristics(property).map((characteristic) => {
+                        return (
+                            <Item
+                                key={characteristic.category}
+                                imgSrc={characteristic.iconUrl || '/icons/default.png'}
+                                label={characteristic.characteristic}
+                                characteristic={characteristic}
+                                isEditing={isEditingAllP}
+                                onSave={handleSaveCharacteristic}
+                                id={characteristic.id}
+                                type="data"
+                                value={characteristic.value_text ? characteristic.value_text : ''}
+                            />
+                        );
+                    })}
                 </div>
 
                 <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
@@ -379,14 +376,18 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                 </div>
                 <div className={styles.dataGridProperties}>
                     <div className={styles.sectionProperties}>
-                        {itemsToShow.map(({category, label, icon}) => {
+                        {getTechnicalSheetCharacteristics(property).map((characteristic) => {
                             return (
                                 <Item
-                                imgSrc={icon}
-                                label={label}
-                                characterisctic={category}
-                                isEditing={isEditingAll}
-                                type="item"
+                                    key={characteristic.category}
+                                    imgSrc={characteristic.iconUrl || '/icons/default.png'}
+                                    label={characteristic.characteristic}
+                                    characteristic={characteristic}
+                                    isEditing={isEditingAllP}
+                                    onSave={handleSaveCharacteristic}
+                                    id={characteristic.id}
+                                    type="item"
+                                    value={characteristic.value_integer ? characteristic.value_integer : ''}
                                 />
                             );
                         })}

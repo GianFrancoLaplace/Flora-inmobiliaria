@@ -2,24 +2,28 @@ import styles from "@/components/TechnicalFile/TechnicalSheet.module.css";
 import Image from "next/image";
 import EditableField from "@/components/TechnicalFile/EditableField/EditableTextField";
 import {useState} from "react";
-import {Characteristic, CharacteristicCategory} from "@/types/Property";
+import {Characteristic, CharacteristicCategory} from "@/types/Characteristic";
+import EditableNumericField from "@/components/TechnicalFile/EditableField/EditableNumericField";
+import EditableTextField from "@/components/TechnicalFile/EditableField/EditableTextField";
 
 type Props = {
     imgSrc: string;
     label: string;
     value: string | number;
-    characterisctic: Characteristic;
+    characteristic: Characteristic;
     isEditing: boolean
     onSave: (category: CharacteristicCategory, newValue: string) => void;
     id: number;
     type: string
 };
 
-export default function Item({ imgSrc, label, characterisctic, isEditing, type }: Props) {
+export default function Item({ imgSrc, label, characteristic, isEditing, type }: Props) {
     // const [editingField, setEditingField] = useState<keyof Characteristic | null>(null);
-    const [localCharacterisctic, setLocalCharacterisctic] = useState<Characteristic>(characterisctic);
+    const [localCharacterisctic, setLocalCharacterisctic] = useState<Characteristic>(characteristic);
 
     const isItem = type === "item";
+
+    const dataType = characteristic.data_type || 'text';
 
     const handleSaveField = async (value : number | string) => {
         console.log(value);
@@ -33,6 +37,33 @@ export default function Item({ imgSrc, label, characterisctic, isEditing, type }
         console.log("hola");
     };
 
+
+    const renderEditableField = () => {
+        if (dataType === 'integer') {
+            return (
+                <EditableNumericField
+                    value={characteristic.value_integer as number}
+                    isEditing={isEditing}
+                    onSave={handleSaveField}
+                    onCancel={handleCancelEdit}
+                    className={styles.editInputProperties}
+                    min={0} // Opcional: valores mínimos como mi autoestima
+                    max={999999} // Opcional: valores máximos más realistas que mis fantasías
+                />
+            );
+        } else {
+            return (
+                <EditableTextField
+                    value={characteristic.value_text as string}
+                    isEditing={isEditing}
+                    type="text"
+                    onSave={handleSaveField}
+                    onCancel={handleCancelEdit}
+                    className={styles.editInputProperties}
+                />
+            );
+        }
+    }
     return (
         <div className={`${isItem ? styles.itemProperties : styles.infoCardProperties}`}>
             <Image
@@ -42,14 +73,7 @@ export default function Item({ imgSrc, label, characterisctic, isEditing, type }
                 height={20}
             />
             <h5>
-                {label}: <EditableField
-                    value={localCharacterisctic.amount}
-                    isEditing={isEditing}
-                    type={"text"}
-                    onSave={handleSaveField}
-                    onCancel={handleCancelEdit}
-                    className={styles.editInputProperties}
-                />
+                {label}: {renderEditableField()}
             </h5>
         </div>
     )

@@ -19,11 +19,11 @@ const EditableNumericField: React.FC<EditableNumericFieldProps> = ({
                                                                        min,
                                                                        max
                                                                    }) => {
-    const [tempValue, setTempValue] = useState<string>(value.toString());
+    const [tempValue, setTempValue] = useState<number>(value);
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        setTempValue(value.toString());
+        setTempValue(value);
     }, [value]);
 
     useEffect(() => {
@@ -34,7 +34,7 @@ const EditableNumericField: React.FC<EditableNumericFieldProps> = ({
     }, [isEditing]);
 
     const handleSave = () => {
-        const numericValue = parseFloat(tempValue);
+        const numericValue = tempValue;
 
         if (isNaN(numericValue)) {
             handleCancel();
@@ -50,7 +50,7 @@ const EditableNumericField: React.FC<EditableNumericFieldProps> = ({
     };
 
     const handleCancel = () => {
-        setTempValue(value.toString());
+        setTempValue(value);
         onCancel();
     };
 
@@ -67,9 +67,8 @@ const EditableNumericField: React.FC<EditableNumericFieldProps> = ({
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
-        if (/^-?\d*\.?\d*$/.test(inputValue) || inputValue === '') {
-            setTempValue(inputValue);
-        }
+        const inputNumber = parseInt(inputValue);
+        setTempValue(inputNumber);
     };
 
     if (isEditing) {
@@ -88,7 +87,7 @@ const EditableNumericField: React.FC<EditableNumericFieldProps> = ({
 
     return (
         <span style={{ cursor: 'pointer' }} title="Click para editar">
-            {value.toLocaleString()}
+            {value}
         </span>
     );
 };
