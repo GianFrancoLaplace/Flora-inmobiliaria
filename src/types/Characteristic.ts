@@ -41,8 +41,3 @@ export interface CharacteristicValidationInput {
     value_integer?: number;
     value_text?: string;
 }
-
-export interface ValidationResult {
-    isValid: boolean;
-    errors: string[];
-}

@@ -1,4 +1,5 @@
-import { CharacteristicCategory, CharacteristicValidationInput, ValidationResult } from "@/types/Characteristic";
+import { CharacteristicCategory, CharacteristicValidationInput } from "@/types/Characteristic";
+import { ValidationResult } from "@/types";
 
 export class CharacteristicService {
 
