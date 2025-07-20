@@ -293,7 +293,6 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                                 onSave={handleSaveCharacteristic}
                                 id={characteristic.id}
                                 type="data"
-                                value={characteristic.value_text ? characteristic.value_text : ''}
                             />
                         );
                     })}
@@ -387,7 +386,6 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                                     onSave={handleSaveCharacteristic}
                                     id={characteristic.id}
                                     type="item"
-                                    value={characteristic.value_integer ? characteristic.value_integer : ''}
                                 />
                             );
                         })}

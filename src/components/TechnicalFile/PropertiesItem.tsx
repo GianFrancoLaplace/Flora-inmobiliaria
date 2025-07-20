@@ -9,7 +9,6 @@ import EditableTextField from "@/components/TechnicalFile/EditableField/Editable
 type Props = {
     imgSrc: string;
     label: string;
-    value: string | number;
     characteristic: Characteristic;
     isEditing: boolean
     onSave: (category: CharacteristicCategory, newValue: string) => void;
@@ -17,7 +16,13 @@ type Props = {
     type: string
 };
 
-export default function Item({ imgSrc, label, characteristic, isEditing, type }: Props) {
+export default function Item({
+                                 imgSrc,
+                                 label,
+                                 characteristic,
+                                 isEditing,
+                                 type
+}: Props) {
     // const [editingField, setEditingField] = useState<keyof Characteristic | null>(null);
     const [localCharacterisctic, setLocalCharacterisctic] = useState<Characteristic>(characteristic);
 
