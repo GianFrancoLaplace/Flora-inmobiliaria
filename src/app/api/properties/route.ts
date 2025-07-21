@@ -35,11 +35,13 @@ export async function GET(request: Request) {
         }
 
         const propiedadesRaw = await prisma.property.findMany({
-            where: Object.keys(where).length > 0 ? where : undefined,
-            include: {
-                characteristics: true,
-            },
-        });
+    where: Object.keys(where).length > 0 ? where : undefined,
+    include: {
+        characteristics: true,
+        image: true,
+    },
+});
+
 
         const propiedades: Property[] = propiedadesRaw.map((p) => ({
     id: p.id_property,
@@ -52,13 +54,19 @@ export async function GET(request: Request) {
     characteristics: p.characteristics.map((c): Characteristic => ({
         id: c.id_characteristic,
         characteristic: c.characteristic,
-        data_type: c.data_type === 'integer' ? 'integer' : 'text', 
-        value_integer: c.value_integer ?? undefined, 
-        value_text: c.value_text ?? undefined,
-        category: mapPrismaCharacteristicCategory(c.category || null)
+        data_type: c.data_type === 'integer' ? 'integer' : 'text',
+        value_integer: c.value_integer ?? undefined,
+        value_text: c.value_text?.trim() || undefined,
+        category: mapPrismaCharacteristicCategory(c.category || null),
     })),
     ubication: p.ubication || '',
+
+    images: (() => {
+        const portada = p.image.find(img);
+        return portada ? [{ id: portada.id_image, url: portada.url! }] : [];
+    })(),
 }));
+
 
 
         return NextResponse.json(propiedades);
@@ -87,3 +95,7 @@ export async function POST(request: NextRequest) {
         return new NextResponse('El servidor falló al procesar la solicitud', { status: 500 });
     }
 }
+function img(value: { id_property: number | null; id_image: number; url: string | null; }, index: number, obj: { id_property: number | null; id_image: number; url: string | null; }[]): value is { id_property: number | null; id_image: number; url: string | null; } {
+    throw new Error('Function not implemented.');
+}
+

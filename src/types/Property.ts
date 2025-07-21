@@ -15,6 +15,7 @@ export interface Property {
   description: string;
   ubication: string;
   characteristics: Characteristic[];
+  images: { id: number; url: string }[];
   type?: PropertyType;
 }
 
