@@ -41,24 +41,25 @@ export async function GET(request: Request) {
             },
         });
 
-        const propiedades : Property[] = propiedadesRaw.map((p) => ({
-            id: p.id_property,
-            address: p.address || '',
-            city: '',
-            state: mapOperationToState(p.category),
-            price: p.price || 0,
-            description: p.description || '',
-            type: mapPropertyType(p.type),
-            characteristics: p.characteristics.map((c): Characteristic => ({
-                id: c.id_characteristic,
-                characteristic: c.characteristic,
-                data_type: c.data_type,
-                value_integer: c.value_integer,
-                value_text: c.value_text,
-                category: mapPrismaCharacteristicCategory(c.category || null)
-            })),
-            ubication: p.ubication || '',
-        }));
+        const propiedades: Property[] = propiedadesRaw.map((p) => ({
+    id: p.id_property,
+    address: p.address || '',
+    city: '',
+    state: mapOperationToState(p.category),
+    price: p.price || 0,
+    description: p.description || '',
+    type: mapPropertyType(p.type),
+    characteristics: p.characteristics.map((c): Characteristic => ({
+        id: c.id_characteristic,
+        characteristic: c.characteristic,
+        data_type: c.data_type === 'integer' ? 'integer' : 'text', 
+        value_integer: c.value_integer ?? undefined, 
+        value_text: c.value_text ?? undefined,
+        category: mapPrismaCharacteristicCategory(c.category || null)
+    })),
+    ubication: p.ubication || '',
+}));
+
 
         return NextResponse.json(propiedades);
     } catch (error) {
