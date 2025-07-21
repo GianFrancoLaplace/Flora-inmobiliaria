@@ -42,7 +42,6 @@ export async function POST(request: NextRequest, context: { params: { id: string
             data: {
                 url: uploadedUrl,
                 id_property: propertyId,
-                id_image: 2
             },
         });
 
