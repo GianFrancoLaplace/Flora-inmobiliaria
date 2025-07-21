@@ -7,7 +7,7 @@
     padding: 1.5rem;
 
     border-radius: 5px;
-    background-color: rgba(37, 36, 36, 0.80);
+    background-color: rgba(37, 36, 36, 0.8);
     color: var(--secondary-color-1);
 }
 
@@ -28,7 +28,7 @@
     font-size: 10px;
 }
 
-.linkProperties{
+.linkProperties {
     text-decoration: none;
 }
 

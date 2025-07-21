@@ -1,4 +1,4 @@
-import { CharacteristicCategory } from '@/types/Property';
+import { CharacteristicCategory } from '@/types/Characteristic';
 
 // Mapeo de categorías a iconos
 export const CHARACTERISTIC_ICON_MAP: Record<CharacteristicCategory, string> = {

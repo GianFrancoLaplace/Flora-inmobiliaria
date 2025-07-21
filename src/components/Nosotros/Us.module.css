@@ -1,5 +1,5 @@
-.backgroundNavProperties{
-    background-image: url('../../../public/backgrounds/tandil-us.webp');
+.backgroundNavProperties {
+    background-image: url("../../../public/backgrounds/tandil-us.webp");
     background-size: 100%;
     position: relative;
     align-content: center;
@@ -11,7 +11,7 @@
 }
 
 .backgroundNavProperties::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     z-index: 1;
@@ -31,7 +31,7 @@
     font-weight: bold;
 }
 
-.h5Properties{
+.h5Properties {
     display: flex;
 
     width: fit-content;
@@ -42,7 +42,7 @@
     white-space: nowrap;
 }
 
-.generalInfoProperties{
+.generalInfoProperties {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -52,14 +52,14 @@
     gap: 8%;
 }
 
-.missionAndVisionProperties{
+.missionAndVisionProperties {
     display: flex;
     flex-direction: column;
 
     gap: 20px;
 }
 
-.infoProperties{
+.infoProperties {
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -71,7 +71,7 @@
     color: var(--primary-color-5);
 }
 
-.imgRealStateProperties{
+.imgRealStateProperties {
     justify-self: center;
 
     width: 1315px;
@@ -79,7 +79,7 @@
 
     margin-bottom: 20px;
 
-    background-color: #FADA4D;
+    background-color: #fada4d;
 }
 
 @keyframes fadeInUp {
@@ -147,14 +147,13 @@
 }
 
 @media (max-width: 768px) {
-
     .backgroundNavProperties {
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
 
         height: 300px;
-        }
+    }
 
     .container {
         flex-direction: column;
@@ -163,11 +162,11 @@
         gap: 2rem;
     }
 
-    .h5Properties{
+    .h5Properties {
         margin-left: 0;
     }
 
-    .infoImageProperties{
+    .infoImageProperties {
         align-items: center;
 
         width: fit-content;
@@ -175,18 +174,18 @@
         margin-left: 10px;
     }
 
-    .infoImageProperties h5{
+    .infoImageProperties h5 {
         font-size: 16px;
     }
 
-    .generalInfoProperties{
+    .generalInfoProperties {
         flex-direction: column;
         align-items: center;
 
         gap: 30px;
     }
 
-    .infoProperties{
+    .infoProperties {
         text-align: justify;
 
         width: 300px;
@@ -194,13 +193,13 @@
         font-size: 14px;
     }
 
-    .infoProperties h1{
+    .infoProperties h1 {
         text-align: center;
         white-space: nowrap;
         font-size: 28px;
     }
 
-    .missionAndVisionProperties{
+    .missionAndVisionProperties {
         gap: 30px;
     }
 
@@ -213,7 +212,7 @@
         animation-delay: 0s;
     }
 
-    .imageProperties{
+    .imageProperties {
         visibility: hidden;
 
         width: 0;
@@ -222,11 +221,11 @@
         padding: 0;
     }
 
-    .underline{
+    .underline {
         border-bottom: black 1px solid;
     }
 
-    .container{
+    .container {
         display: flex;
 
         margin-left: 0;
