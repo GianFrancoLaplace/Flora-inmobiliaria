@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { mapPropertyType, mapOperationToState } from '@/helpers/PropertyMapper';
 import { Property } from '@/types/Property';
-import { Characteristic} from "@/types/Characteristic";
+import { Characteristic } from "@/types/Characteristic";
 import { PropertyUpdateData } from "@/helpers/UpdateProperty"
 import { PropertyService } from "@/services/propertyService";
 import { getIconByCategory, mapPrismaCharacteristicCategory } from "@/helpers/IconMapper"
@@ -40,24 +40,31 @@ export async function GET(
             description: propiedad.description || '',
             type: mapPropertyType(propiedad.type),
             characteristics: propiedad.characteristics
-                .filter((c) => c.value_integer !== null && c.value_integer !== 0) //valido que no se incluyan caracteristicas vacias/valor cero
+                .filter((c) => {
+                    const isIntegerValid = c.data_type === 'integer' && c.value_integer !== null && c.value_integer !== 0;
+                    const isTextValid = c.data_type === 'text' && c.value_text !== null && c.value_text.trim() !== '';
+                    return isIntegerValid || isTextValid;
+                })
                 .map((c): Characteristic => {
                     const mappedCategory = mapPrismaCharacteristicCategory(c.category);
                     const iconUrl = getIconByCategory(mappedCategory);
 
-                    console.log('Categoria DB:', c.category);
-                    console.log('Categoria mapeada:', mappedCategory);
-                    console.log('Icono URL:', iconUrl);
-
                     return {
                         id: c.id_characteristic,
                         characteristic: c.characteristic,
-                        data_type: "integer",
-                        value_integer: c.value_integer as number,
+                        data_type: c.data_type === 'integer' ? 'integer' : 'text',
+                        value_integer: c.data_type === 'integer' && c.value_integer !== null ? c.value_integer : undefined,
+                        value_text:
+                            c.data_type === 'text' && c.value_text && c.value_text.trim() !== ''
+                                ? c.value_text.trim()
+                                : undefined,
+
                         category: mappedCategory,
                         iconUrl: iconUrl
                     };
                 }),
+
+
             ubication: propiedad.ubication || ''
         };
 
@@ -87,7 +94,7 @@ export async function PUT(
         }
 
         const body: PropertyUpdateData = await request.json();
-        const service =  new  PropertyService([], []);
+        const service = new PropertyService([], []);
 
         const validationErrors = service.validatePropertyData(body);
 
