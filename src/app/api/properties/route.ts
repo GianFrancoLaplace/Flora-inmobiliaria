@@ -7,6 +7,7 @@ import { Property } from '@/types/Property';
 import { Characteristic} from "@/types/Characteristic";
 import { mapOperationToState, mapPropertyType } from '@/helpers/PropertyMapper';
 import { mapPrismaCharacteristicCategory } from '@/helpers/IconMapper';
+import image from 'next/image';
 
 type PriceFilter = {
     lte?: number;
@@ -62,9 +63,9 @@ export async function GET(request: Request) {
     ubication: p.ubication || '',
 
     images: (() => {
-        const portada = p.image.find(img);
-        return portada ? [{ id: portada.id_image, url: portada.url! }] : [];
-    })(),
+    const portada = p.image[0];
+    return portada ? [{ id: portada.id_image, url: portada.url! }] : [];
+})(),
 }));
 
 
@@ -94,8 +95,5 @@ export async function POST(request: NextRequest) {
         console.error(e);
         return new NextResponse('El servidor falló al procesar la solicitud', { status: 500 });
     }
-}
-function img(value: { id_property: number | null; id_image: number; url: string | null; }, index: number, obj: { id_property: number | null; id_image: number; url: string | null; }[]): value is { id_property: number | null; id_image: number; url: string | null; } {
-    throw new Error('Function not implemented.');
 }
 
