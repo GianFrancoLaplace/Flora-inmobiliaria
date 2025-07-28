@@ -83,6 +83,18 @@ export async function POST(request: NextRequest) {
         const body = await request.json();
 
         const service = new PropertyService(undefined, undefined);
+        const validationErrors = service.validatePropertyData(body);
+
+        if (validationErrors.length > 0) {
+            return NextResponse.json(
+                {
+                    message: 'Datos de propiedad inválidos',
+                    errors: validationErrors
+                },
+                { status: 400 }
+            );
+        }
+
         const result = await service.createProperty(body);
 
         if (result.errors) {
