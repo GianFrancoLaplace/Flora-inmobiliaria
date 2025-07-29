@@ -72,9 +72,6 @@ export default function Administration() {
                             Crear publicación
                         </button>
                     </Link>
-                    <button className={`${styles.showInactivePublication} ${cactus.className}`}>
-                        Ver publicaciones inactivas
-                    </button>
                 </div>
             </div>
 

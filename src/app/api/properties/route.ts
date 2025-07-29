@@ -4,10 +4,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { PropertyService } from '@/services/propertyService';
 import { Property } from '@/types/Property';
-import { Characteristic} from "@/types/Characteristic";
+import { Characteristic } from "@/types/Characteristic";
 import { mapOperationToState, mapPropertyType } from '@/helpers/PropertyMapper';
 import { mapPrismaCharacteristicCategory } from '@/helpers/IconMapper';
 import image from 'next/image';
+import { PropertyUpdateData } from '@/helpers/UpdateProperty';
 
 type PriceFilter = {
     lte?: number;
@@ -18,11 +19,11 @@ export async function GET(request: Request) {
     try {
         const { searchParams } = new URL(request.url);
 
-        const tipos = searchParams.get('tipo')?.split(',') ?? undefined;
-        const operaciones = searchParams.get('operacion')?.split(',') ?? undefined;
+        const types = searchParams.get('tipo')?.split(',') ?? undefined;
+        const operations = searchParams.get('operacion')?.split(',') ?? undefined;
         const maxValue = searchParams.get('maxValue');
 
-        const service = new PropertyService(tipos, operaciones);
+        const service = new PropertyService(types, operations);
         const where = service.buildWhereClause();
 
         if (maxValue && !isNaN(Number(maxValue))) {
@@ -35,42 +36,42 @@ export async function GET(request: Request) {
             }
         }
 
-        const propiedadesRaw = await prisma.property.findMany({
-    where: Object.keys(where).length > 0 ? where : undefined,
-    include: {
-        characteristics: true,
-        image: true,
-    },
-});
+        const propertiesRaw = await prisma.property.findMany({
+            where: Object.keys(where).length > 0 ? where : undefined,
+            include: {
+                characteristics: true,
+                image: true,
+            },
+        });
 
 
-        const propiedades: Property[] = propiedadesRaw.map((p) => ({
-    id: p.id_property,
-    address: p.address || '',
-    city: '',
-    state: mapOperationToState(p.category),
-    price: p.price || 0,
-    description: p.description || '',
-    type: mapPropertyType(p.type),
-    characteristics: p.characteristics.map((c): Characteristic => ({
-        id: c.id_characteristic,
-        characteristic: c.characteristic,
-        data_type: c.data_type === 'integer' ? 'integer' : 'text',
-        value_integer: c.value_integer ?? undefined,
-        value_text: c.value_text?.trim() || undefined,
-        category: mapPrismaCharacteristicCategory(c.category || null),
-    })),
-    ubication: p.ubication || '',
+        const properties: Property[] = propertiesRaw.map((p) => ({
+            id: p.id_property,
+            address: p.address || '',
+            city: '',
+            state: mapOperationToState(p.category),
+            price: p.price || 0,
+            description: p.description || '',
+            type: mapPropertyType(p.type),
+            characteristics: p.characteristics.map((c): Characteristic => ({
+                id: c.id_characteristic,
+                characteristic: c.characteristic,
+                data_type: c.data_type === 'integer' ? 'integer' : 'text',
+                value_integer: c.value_integer ?? undefined,
+                value_text: c.value_text?.trim() || undefined,
+                category: mapPrismaCharacteristicCategory(c.category || null),
+            })),
+            ubication: p.ubication || '',
 
-    images: (() => {
-    const portada = p.image[0];
-    return portada ? [{ id: portada.id_image, url: portada.url! }] : [];
-})(),
-}));
+            images: (() => {
+                const mainimage = p.image[0];
+                return mainimage ? [{ id: mainimage.id_image, url: mainimage.url! }] : [];
+            })(),
+        }));
 
 
 
-        return NextResponse.json(propiedades);
+        return NextResponse.json(properties);
     } catch (error) {
         console.error('Error en GET /api/properties:', error);
         return new NextResponse('Error al obtener propiedades', { status: 500 });
@@ -80,22 +81,25 @@ export async function GET(request: Request) {
 
 export async function POST(request: NextRequest) {
     try {
-        const body = await request.json();
 
-        const service = new PropertyService(undefined, undefined);
-        const validationErrors = service.validatePropertyData(body);
+        const body: PropertyUpdateData = await request.json();
+                const service = new PropertyService([], []);
+        
+                const validationErrors = service.verifyFields(body);
+        
+                if (validationErrors.length > 0) {
+                    return NextResponse.json(
+                        {
+                            message: 'Datos de propiedad inválidos',
+                            errors: validationErrors
+                        },
+                        { status: 400 }
+                    );
+                }
+        
+        const property = await request.json();
 
-        if (validationErrors.length > 0) {
-            return NextResponse.json(
-                {
-                    message: 'Datos de propiedad inválidos',
-                    errors: validationErrors
-                },
-                { status: 400 }
-            );
-        }
-
-        const result = await service.createProperty(body);
+        const result = await service.createProperty(property);
 
         if (result.errors) {
             return NextResponse.json({ errors: result.errors }, { status: 400 });
