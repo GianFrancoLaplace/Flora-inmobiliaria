@@ -89,7 +89,7 @@ export async function PUT(
         const body: PropertyUpdateData = await request.json();
         const service =  new  PropertyService([], []);
 
-        const validationErrors = service.validatePropertyData(body);
+        const validationErrors = service.updateProperty(body);
 
         if (validationErrors.length > 0) {
             return NextResponse.json(

@@ -106,7 +106,7 @@ export class PropertyService {
         return { property: newProperty };
     }
 
-    public validatePropertyData(data: PropertyUpdateData): ValidationError[] {
+    public updateProperty(data: PropertyUpdateData): ValidationError[] {
         const errors: ValidationError[] = [];
 
         if (data.address !== undefined) {
