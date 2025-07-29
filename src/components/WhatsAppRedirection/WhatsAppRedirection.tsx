@@ -7,7 +7,7 @@ export default function WhatsAppRedirection() {
         <div className={styles.wpButton}>
             <Link href="https://wa.me/2494025527">
             <Image
-                src={'/redes/wpRedirect.png'}
+                src={'/socialMedia/wpRedirect.png'}
                 alt={'whatsapp redirection'}
                 width={72}
                 height={66}
