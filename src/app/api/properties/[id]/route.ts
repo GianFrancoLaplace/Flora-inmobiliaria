@@ -12,7 +12,7 @@ export async function GET(
     { params }: { params: { id: string } }
 ) {
     try {
-        const { id } = params;
+        const { id } = await params;
         const propertyId = parseInt(id);
 
         const propiedad = await prisma.property.findUnique({
@@ -96,8 +96,14 @@ export async function PUT(
     request: NextRequest,
     { params }: { params: Promise<{ id: string }> }
 ) {
+    console.log("hola put???");
     try {
         const { id } = await params;
+
+    if (!id) {
+        return NextResponse.json({ error: "ID no proporcionado" }, { status: 400 });
+    }
+
         const propertyId = parseInt(id);
 
         if (isNaN(propertyId)) {
@@ -110,7 +116,10 @@ export async function PUT(
         const body: PropertyUpdateData = await request.json();
         const service = new PropertyService([], []);
 
-        const validationErrors = service.updateProperty(body);
+        const validationErrors = service.verifyFields(body);
+        validationErrors.forEach(element => {
+            console.log("error: " + element.message);
+        });
 
         if (validationErrors.length > 0) {
             return NextResponse.json(
@@ -121,6 +130,10 @@ export async function PUT(
                 { status: 400 }
             );
         }
+
+        // Verifica esto:
+        console.log("ID recibido:", id); // ¿Qué imprime?
+        console.log("propertyId:", propertyId); // ¿Y esto?
 
         const existingProperty = await prisma.property.findUnique({
             where: { id_property: propertyId }
@@ -165,6 +178,7 @@ export async function DELETE(
     context: { params: { id: string } }
 ) {
     const { id } = context.params;
+
     const propertyId = parseInt(id);
     try {
         if (isNaN(propertyId) || propertyId <= 0) {

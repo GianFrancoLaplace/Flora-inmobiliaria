@@ -8,6 +8,7 @@ import { Characteristic } from "@/types/Characteristic";
 import { mapOperationToState, mapPropertyType } from '@/helpers/PropertyMapper';
 import { mapPrismaCharacteristicCategory } from '@/helpers/IconMapper';
 import image from 'next/image';
+import { PropertyUpdateData } from '@/helpers/UpdateProperty';
 
 type PriceFilter = {
     lte?: number;
@@ -80,22 +81,25 @@ export async function GET(request: Request) {
 
 export async function POST(request: NextRequest) {
     try {
-        const body = await request.json();
 
-        const service = new PropertyService(undefined, undefined);
-        const validationErrors = service.validatePropertyData(body);
+        const body: PropertyUpdateData = await request.json();
+                const service = new PropertyService([], []);
+        
+                const validationErrors = service.verifyFields(body);
+        
+                if (validationErrors.length > 0) {
+                    return NextResponse.json(
+                        {
+                            message: 'Datos de propiedad inválidos',
+                            errors: validationErrors
+                        },
+                        { status: 400 }
+                    );
+                }
+        
+        const property = await request.json();
 
-        if (validationErrors.length > 0) {
-            return NextResponse.json(
-                {
-                    message: 'Datos de propiedad inválidos',
-                    errors: validationErrors
-                },
-                { status: 400 }
-            );
-        }
-
-        const result = await service.createProperty(body);
+        const result = await service.createProperty(property);
 
         if (result.errors) {
             return NextResponse.json({ errors: result.errors }, { status: 400 });

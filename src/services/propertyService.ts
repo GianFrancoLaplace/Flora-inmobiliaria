@@ -19,7 +19,7 @@ interface PropertyInput {
     price: number;
     type: PropertyTypeEnum;
     category: OperationEnum;
-    // city?: string;
+    city?: string;
 }
 
 export class PropertyService {
@@ -64,31 +64,6 @@ export class PropertyService {
 
 
     public async createProperty(body: PropertyInput): Promise<CreatePropertyResult> {
-        const errors: string[] = [];
-
-        if (typeof body.address !== 'string' || body.address.trim().length === 0) {
-            errors.push('Dirección inválida');
-        }
-        if (typeof body.description !== 'string' || body.description.trim().length === 0) {
-            errors.push('Descripción inválida');
-        }
-        if (typeof body.ubication !== 'string' || body.ubication.trim().length === 0) {
-            errors.push('Ubicación inválida');
-        }
-        if (typeof body.price !== 'number' || body.price <= 0 || isNaN(body.price)) {
-            errors.push('Precio inválido');
-        }
-        if (!Object.values(PropertyTypeEnum).includes(body.type)) {
-            errors.push('Tipo de propiedad inválida');
-        }
-        if (!Object.values(OperationEnum).includes(body.category)) {
-            errors.push('Categoría inválida');
-        }
-
-        if (errors.length > 0) {
-            return { errors };
-        }
-
         const newProperty = await prisma.property.create({
             data: {
                 price: body.price,
@@ -107,7 +82,7 @@ export class PropertyService {
         return { property: newProperty };
     }
 
-    public updateProperty(data: PropertyUpdateData): ValidationError[] {
+    public verifyFields(data: PropertyUpdateData): ValidationError[] {
         const errors: ValidationError[] = [];
 
         if (data.address !== undefined) {
