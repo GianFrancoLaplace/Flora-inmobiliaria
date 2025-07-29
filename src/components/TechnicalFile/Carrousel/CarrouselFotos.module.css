@@ -1,0 +1,131 @@
+.imageContainerProperties {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    height: 600px;
+}
+
+.imageContainerProperties:hover .containerAddImage, .imageContainerProperties:hover .messageCardPropertie{
+    visibility: visible;
+    opacity: 1;
+}
+
+.imageProperties {
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity ease-out 0.3s;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.containerAddImage{
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(35, 32, 33, 0.7);
+    position: absolute;
+    visibility: hidden;
+    transition: opacity 1s ease;
+    opacity: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.messageCardPropertie{
+    background-color: rgba(26, 26, 25, 0.83);
+    width: 506px;
+    height: 120px;
+    position: absolute;
+    justify-self: center;
+    align-content: center;
+    text-align: center;
+    margin-top: 250px;
+    z-index: 11;
+    opacity: 0;
+}
+
+.messageCardPropertie p {
+    font-size: 22px;
+    color: var(--primary-color-1);
+}
+
+.buttonMessageProperties{
+    display: flex;
+    flex-direction: row;
+}
+
+.buttonMessageProperties button{
+    width: 200px;
+    height: 30px;
+    cursor: pointer;
+    transition: background-color ease-out 0.3s;
+}
+
+.aceptButtonProperties{
+    background-color: var(--secondary-color-5);
+}
+
+.aceptButtonProperties:hover{
+    background-color: #c82333;
+}
+
+.inputProperties{
+    display: none;
+    opacity: 0;
+}
+
+.labelAddImageProperties{
+    display: flex;
+    width: 200px;
+    height: 50px;
+    background-color: var(--secondary-color-2);
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.deleteIconProperties{
+    background-color: var(--secondary-color-2);
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: none;
+}
+
+.containerAddImage button{
+    cursor: pointer;
+}
+
+.notVisible{
+    visibility: hidden;
+}
+
+.imagePropertiesActive {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 2;
+}
+
+.buttonProperties {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+    bottom: 10px;
+    gap: 60px;
+    z-index: 11;
+}
+
+.buttonProperties button {
+    width: 50px;
+    height: 50px;
+    background-color: var(--secondary-color-3);
+    border: none;
+}

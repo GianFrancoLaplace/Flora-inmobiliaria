@@ -13,11 +13,16 @@ type Props = {
     rooms: number;
     dorms: number;
     bathrooms: number;
+    showLabel?: boolean;
 };
 
 export default function BigCard({id,imageSrc, price, transaction, adress, city, rooms, dorms, bathrooms}: Props) {
-    return(
-        <main className={`${styles.page} ${cactus.className}`}>
+    const showLabel = transaction === "VENDIDA" || transaction === "ALQUILADA";
+
+    return (
+        <main className={`${styles.page} ${cactus.className}`} style={{position: 'relative'}}>
+            {showLabel && <div className={styles.addedLabel}>{transaction}</div>}
+
             <Link href={`/propiedades/ficha/${id}`}>
                 <Image
                     src={imageSrc}
@@ -26,14 +31,14 @@ export default function BigCard({id,imageSrc, price, transaction, adress, city, 
                     className={styles.cardBackground}
                 />
             </Link>
-                <div className={styles.detailsProperties}>
-                    <h3>USD {price} | {transaction}</h3>
-                    <div>
-                        <h5>{adress}, {city}</h5>
-                        <h6>{rooms} ambientes | {dorms} dormitorios | {bathrooms} baños</h6>
-                    </div>
-                </div>
 
+            <div className={styles.detailsProperties}>
+                <h3>USD {price} | {transaction}</h3>
+                <div>
+                    <h5>{adress}, {city}</h5>
+                    <h6>{rooms} ambientes | {dorms} dormitorios | {bathrooms} baños</h6>
+                </div>
+            </div>
         </main>
-    )
+    );
 }

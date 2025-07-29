@@ -204,6 +204,13 @@
   }
 
   .inputWithSearchContainer {
-    max-width: 350px;
-  }
+  max-width: none;
+  width: 270px; /* o el valor que prefieras */
+  align-self: flex-start;
+  margin-left: 0;
+  margin-right: auto;
 }
+
+}
+
+

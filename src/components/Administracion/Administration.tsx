@@ -76,7 +76,7 @@ export default function Administration() {
         <div>
             <div className={`${styles.sectionProperties} ${cactus.className}`}>
                 <div>
-                    <Link href={'/administracion/fichavacia'} className={styles.linkProperties}>
+                    <Link href={'/administracion/ficha/nueva?mode=create'} className={styles.linkProperties}>
                         <button className={`${styles.buttonNewPublication} ${cactus.className}`}>
                             Crear publicación
                         </button>
@@ -128,7 +128,7 @@ export default function Administration() {
                                 <button
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        router.push(`/administracion/fichaeditable/${prop.id}`);
+                                        router.push(`administracion/ficha/${prop.id}?mode=edit`);
                                     }}
                                     type="button"
                                 >

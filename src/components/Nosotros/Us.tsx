@@ -1,5 +1,6 @@
 import styles from './Us.module.css'
 import Image from "next/image";
+import CarrouselFotos from "@/components/TechnicalFile/Carrousel/CarrouselFotos";
 
 export default function Us() {
     return (

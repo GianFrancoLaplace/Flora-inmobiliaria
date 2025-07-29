@@ -5,7 +5,7 @@ import type { User as NextAuthUser } from 'next-auth'; // 1. Importa el tipo Use
 import Credentials from 'next-auth/providers/credentials';
 import { authConfig } from './auth.config';
 import { z } from 'zod';
-import type { User as AppUser } from '@/types/definitions'; // El tipo de tu app
+import type { User as AppUser } from '@/types/Property'; // El tipo de tu app
 import bcrypt from 'bcryptjs';
 import postgres from 'postgres';
 

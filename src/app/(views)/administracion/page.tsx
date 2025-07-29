@@ -4,7 +4,7 @@ import ContactInformation from '@/components/features/ContactInformation/Contact
 import '../ui/fonts'
 import styles from './adminStyles.module.css';
 import UnifiedFilter from '@/components/FilterPropertiesAdmin/UnifiedFilter';
-import SignOutButton from '@/components/botonSingOut/SignOutButton';
+import SignOutButton from '../../../../../../OneDrive/Escritorio/ProyectoJornadas/proyecto-jornadas-interhospitalarias/src/components/botonSingOut/SignOutButton';
 import { useUnifiedFilter } from '@/hooks/GetProperties';
 
 export default function FichaPropiedad() {

@@ -16,6 +16,12 @@ export interface Property {
   type?: PropertyType;
 }
 
+export interface Image {
+    id_image: number;
+    id_property: number;
+    url: string;
+}
+
 export enum PropertyState {
     SALE = "EN VENTA",
     SOLD = "VENDIDA",
