@@ -45,22 +45,23 @@ export class PropertyService {
         return this.rawOperaciones.filter(op => this.isValidEnumValue(op, OperationEnum)) as OperationEnum[];
     }
 
-    public buildWhereClause(): Prisma.PropertyWhereInput { //construyo clausula where por si hay filtros, si los hay los devuelve y sino
-        const tipos = this.parseTipos();                     // un where vacio para que obtenga todas las propiedades
-        const operaciones = this.parseOperaciones();
+    public buildWhereClause(): Prisma.PropertyWhereInput {
+    const tipos = this.parseTipos();         
+    const operaciones = this.parseOperaciones(); 
 
-        const filters: Prisma.PropertyWhereInput = {};
+    const filters: Prisma.PropertyWhereInput = {};
 
-        if (tipos.length > 0) {
-            filters.category = { in: tipos };
-        }
-
-        if (operaciones.length > 0) {
-            filters.category = { in: operaciones };
-        }
-
-        return filters;
+    if (tipos.length > 0) {
+        filters.type = { in: tipos };
     }
+
+    if (operaciones.length > 0) {
+        filters.category = { in: operaciones }; 
+    }
+
+    return filters;
+}
+
 
     public async createProperty(body: PropertyInput): Promise<CreatePropertyResult> {
         const errors: string[] = [];

@@ -32,10 +32,10 @@ model Admin {
 
 model Characteristic {
   id_characteristic Int                         @id @default(autoincrement())
-  characteristic    String                      @db.VarChar(255) //nombre de la caracteristica
+  characteristic    String                      @db.VarChar(255)
   property_id       Int
   category          CharacteristicCategoryEnum? @default(otros)
-  data_type         String                      @db.VarChar(20) //tipo de dato: 'TEXT' o 'INTEGER'
+  data_type         String                      @db.VarChar(20)
   value_integer     Int?
   value_text        String?
   property          Property                    @relation(fields: [property_id], references: [id_property], onDelete: Cascade, map: "Characteristic_property_id_fkey")

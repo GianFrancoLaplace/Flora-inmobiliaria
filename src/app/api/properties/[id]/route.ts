@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { mapPropertyType, mapOperationToState } from '@/helpers/PropertyMapper';
 import { Property } from '@/types/Property';
-import { Characteristic} from "@/types/Characteristic";
+import { Characteristic } from "@/types/Characteristic";
 import { PropertyUpdateData } from "@/helpers/UpdateProperty"
 import { PropertyService } from "@/services/propertyService";
 import { getIconByCategory, mapPrismaCharacteristicCategory } from "@/helpers/IconMapper"
@@ -16,13 +16,13 @@ export async function GET(
         const propertyId = parseInt(id);
 
         const propiedad = await prisma.property.findUnique({
-            where: {
-                id_property: propertyId,
-            },
+            where: { id_property: Number(id) },
             include: {
                 characteristics: true,
+                image: true,
             },
         });
+
 
         if (!propiedad) {
             return NextResponse.json(
@@ -39,26 +39,46 @@ export async function GET(
             price: propiedad.price,
             description: propiedad.description || '',
             type: mapPropertyType(propiedad.type),
+            ubication: propiedad.ubication || '',
+            images: propiedad.image.map((img) => ({
+                id: img.id_image,
+                url: img.url !== null ? img.url : "",
+            })),
+
             characteristics: propiedad.characteristics
-                .filter((c) => c.value_integer !== null && c.value_integer !== 0) //valido que no se incluyan caracteristicas vacias/valor cero
+                .filter((c) => {
+                    const isIntegerValid =
+                        c.data_type === 'integer' &&
+                        c.value_integer !== null &&
+                        c.value_integer !== 0;
+                    const isTextValid =
+                        c.data_type === 'text' &&
+                        c.value_text &&
+                        c.value_text.trim() !== '';
+                    return isIntegerValid || isTextValid;
+                })
                 .map((c): Characteristic => {
                     const mappedCategory = mapPrismaCharacteristicCategory(c.category);
                     const iconUrl = getIconByCategory(mappedCategory);
 
-                    console.log('Categoria DB:', c.category);
-                    console.log('Categoria mapeada:', mappedCategory);
-                    console.log('Icono URL:', iconUrl);
-
                     return {
                         id: c.id_characteristic,
                         characteristic: c.characteristic,
-                        data_type: "integer",
-                        value_integer: c.value_integer as number,
+                        data_type: c.data_type === 'integer' ? 'integer' : 'text',
+                        value_integer:
+                            c.data_type === 'integer' && c.value_integer !== null
+                                ? c.value_integer
+                                : undefined,
+                        value_text:
+                            c.data_type === 'text' &&
+                                c.value_text &&
+                                c.value_text.trim() !== ''
+                                ? c.value_text.trim()
+                                : undefined,
                         category: mappedCategory,
-                        iconUrl: iconUrl
+                        iconUrl: iconUrl,
                     };
                 }),
-            ubication: propiedad.ubication || ''
         };
 
         return NextResponse.json(propiedadFormateada);
@@ -70,6 +90,7 @@ export async function GET(
         );
     }
 }
+
 
 export async function PUT(
     request: NextRequest,
@@ -87,7 +108,7 @@ export async function PUT(
         }
 
         const body: PropertyUpdateData = await request.json();
-        const service =  new  PropertyService([], []);
+        const service = new PropertyService([], []);
 
         const validationErrors = service.updateProperty(body);
 

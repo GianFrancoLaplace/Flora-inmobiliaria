@@ -7,6 +7,7 @@ import { Property } from '@/types/Property';
 import { Characteristic} from "@/types/Characteristic";
 import { mapOperationToState, mapPropertyType } from '@/helpers/PropertyMapper';
 import { mapPrismaCharacteristicCategory } from '@/helpers/IconMapper';
+import image from 'next/image';
 
 type PriceFilter = {
     lte?: number;
@@ -35,30 +36,39 @@ export async function GET(request: Request) {
         }
 
         const propiedadesRaw = await prisma.property.findMany({
-            where: Object.keys(where).length > 0 ? where : undefined,
-            include: {
-                characteristics: true,
-            },
-        });
+    where: Object.keys(where).length > 0 ? where : undefined,
+    include: {
+        characteristics: true,
+        image: true,
+    },
+});
 
-        const propiedades : Property[] = propiedadesRaw.map((p) => ({
-            id: p.id_property,
-            address: p.address || '',
-            city: '',
-            state: mapOperationToState(p.category),
-            price: p.price || 0,
-            description: p.description || '',
-            type: mapPropertyType(p.type),
-            characteristics: p.characteristics.map((c): Characteristic => ({
-                id: c.id_characteristic,
-                characteristic: c.characteristic,
-                data_type: c.data_type,
-                value_integer: c.value_integer,
-                value_text: c.value_text,
-                category: mapPrismaCharacteristicCategory(c.category || null)
-            })),
-            ubication: p.ubication || '',
-        }));
+
+        const propiedades: Property[] = propiedadesRaw.map((p) => ({
+    id: p.id_property,
+    address: p.address || '',
+    city: '',
+    state: mapOperationToState(p.category),
+    price: p.price || 0,
+    description: p.description || '',
+    type: mapPropertyType(p.type),
+    characteristics: p.characteristics.map((c): Characteristic => ({
+        id: c.id_characteristic,
+        characteristic: c.characteristic,
+        data_type: c.data_type === 'integer' ? 'integer' : 'text',
+        value_integer: c.value_integer ?? undefined,
+        value_text: c.value_text?.trim() || undefined,
+        category: mapPrismaCharacteristicCategory(c.category || null),
+    })),
+    ubication: p.ubication || '',
+
+    images: (() => {
+    const portada = p.image[0];
+    return portada ? [{ id: portada.id_image, url: portada.url! }] : [];
+})(),
+}));
+
+
 
         return NextResponse.json(propiedades);
     } catch (error) {
@@ -73,6 +83,18 @@ export async function POST(request: NextRequest) {
         const body = await request.json();
 
         const service = new PropertyService(undefined, undefined);
+        const validationErrors = service.validatePropertyData(body);
+
+        if (validationErrors.length > 0) {
+            return NextResponse.json(
+                {
+                    message: 'Datos de propiedad inválidos',
+                    errors: validationErrors
+                },
+                { status: 400 }
+            );
+        }
+
         const result = await service.createProperty(body);
 
         if (result.errors) {
@@ -86,3 +108,4 @@ export async function POST(request: NextRequest) {
         return new NextResponse('El servidor falló al procesar la solicitud', { status: 500 });
     }
 }
+

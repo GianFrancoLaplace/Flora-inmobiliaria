@@ -31,6 +31,7 @@
     box-sizing: border-box;
 }
 
+
 /* En mobile: apilar verticalmente */
 @media (max-width: 900px) {
     .propertiesLayoutFilter {
