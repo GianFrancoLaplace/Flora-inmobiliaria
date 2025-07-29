@@ -1,112 +1,111 @@
-import { use } from 'react';
 import { notFound } from 'next/navigation';
 import TechnicalSheet from '@/components/TechnicalFile/TechnicalSheet';
-import {Property} from "@/types/Property";
+import { Property } from "@/types/Property";
 
 type Mode = 'view' | 'edit' | 'create';
 
 type PageProps = {
-    params: Promise<{ id: string }>;
-    searchParams: Promise<{mode? : Mode}>;
+	params: Promise<{ id: string }>;
+	searchParams: Promise<{ mode?: Mode }>;
 }
 
-async function getProperty(id: string) : Promise<Property | null> {
-    try {
-        // Construir URL absoluta para el servidor
-        const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+async function getProperty(id: string): Promise<Property | null> {
+	try {
+		const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
 
-        const response = await fetch(`${baseUrl}/api/properties/${id}`, {
-            cache: 'no-store' // Para datos que cambian frecuentemente
-        });
+		const response = await fetch(`${baseUrl}/api/properties/${id}`, {
+			cache: 'no-store',
+			headers: {
+				'Content-Type': 'application/json',
+			}
+		});
 
-        if (!response.ok) {
-            console.error(`Error fetching property ${id}:`, response.status);
-            return null;
-        }
+		if (!response.ok) {
+			console.error(`Error fetching property ${id}:`, response.status, response.statusText);
+			return null;
+		}
 
-        return await response.json();
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
+		return await response.json();
+	} catch (error) {
+		console.error('Error in getProperty:', error);
+		return null;
+	}
 }
 
 export default async function UnifiedPropertyPage({
-                                                      params,
-                                                      searchParams
+	                                                  params,
+	                                                  searchParams
                                                   }: PageProps) {
-    const resolvedParams =  use(params);
-    const resolvedSearchParams = use(searchParams);
+	const { id } = await params;
+	const { mode = 'view' } = await searchParams;
 
-    const mode = resolvedSearchParams.mode || 'view'; // Default a view
+	if (id === 'nueva') {
+		if (mode !== 'create') {
+			notFound();
+		}
 
-    // Manejo especial para crear nueva propiedad
-    if (resolvedParams.id === 'nueva') {
-        if (mode !== 'create')
-            notFound(); // Solo permite mode=create para nueva
+		return (
+			<main>
+				<TechnicalSheet
+					mode="create"
+					property={null}
+				/>
+			</main>
+		);
+	}
 
+	const property = await getProperty(id);
 
-        return (
-            <main>
-                <TechnicalSheet
-                    mode="create"
-                    property={null}
-                />
-            </main>
-        );
-    }
+	if (!property) {
+		notFound();
+	}
 
-    // Para propiedades existentes
-    const property = await getProperty(resolvedParams.id);
+	const validModes: Mode[] = ['view', 'edit'];
+	const finalMode = validModes.includes(mode) ? mode : 'view';
 
-    if (!property) {
-        notFound();
-    }
-
-    // Validar que el mode sea apropiado
-    const validModes = ['view', 'edit'];
-    const finalMode = validModes.includes(mode) ? mode : 'view';
-
-    console.log('Found ' + finalMode);
-
-    return (
-        <main>
-            <TechnicalSheet
-                mode={finalMode}
-                property={property}
-            />
-        </main>
-    );
+	return (
+		<main>
+			<TechnicalSheet
+				mode={finalMode}
+				property={property}
+			/>
+		</main>
+	);
 }
 
-// Metadata dinámica basada en mode
 export async function generateMetadata({ params, searchParams }: PageProps) {
-    const resolvedParams =  use(params);
-    const resolvedSearchParams = use(searchParams);
+	const { id } = await params;
+	const { mode = 'view' } = await searchParams;
 
-    const mode = resolvedSearchParams.mode || 'view';
+	if (id === 'nueva') {
+		return {
+			title: 'Crear Nueva Propiedad',
+			description: 'Crear una nueva publicación inmobiliaria'
+		};
+	}
 
-    if (resolvedParams.id === 'nueva') {
-        return {
-            title: 'Crear Nueva Propiedad',
-            description: 'Crear una nueva publicación inmobiliaria'
-        };
-    }
+	const property = await getProperty(id);
 
-    const property = await getProperty(resolvedParams.id);
+	if (!property) {
+		return {
+			title: 'Propiedad no encontrada',
+			description: 'La propiedad solicitada no existe'
+		};
+	}
 
-    if (!property) {
-        return { title: 'Propiedad no encontrada' };
-    }
+	const modeTexts = {
+		view: 'Ver Propiedad',
+		edit: 'Editar Propiedad',
+		create: 'Crear Propiedad'
+	};
 
-    const modeTexts = {
-        view: 'Ver',
-        edit: 'Editar',
-        create: 'Crear'
-    };
-
-    return {
-        title: `${modeTexts[mode]}: ${property.address}`,
-        description: property.description
-    };
+	return {
+		title: `${modeTexts[mode]}: ${property.address}`,
+		description: property.description || `${property.type} en ${property.address}`,
+		openGraph: {
+			title: `${modeTexts[mode]}: ${property.address}`,
+			description: property.description,
+			images: property.images?.[0]?.url ? [property.images[0].url] : [],
+		}
+	};
 }
