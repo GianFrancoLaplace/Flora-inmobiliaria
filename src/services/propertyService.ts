@@ -1,8 +1,11 @@
 import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
 import { PropertyTypeEnum, OperationEnum, Property } from '@prisma/client';
-import {CharacteristicUpdateData, PropertyUpdateData, ValidationError} from "@/helpers/UpdateProperty";
-import {PropertyState, PropertyType} from "@/types/Property";
+import { PropertyUpdateData, ValidationError } from "@/helpers/UpdateProperty";
+import { PropertyState, PropertyType } from "@/types/Property";
+import { CharacteristicCategory, CharacteristicValidationInput } from '@/types/Characteristic';
+import { ValidationResult } from "@/types";
+import { CharacteristicService } from "@/services/characteristicService";
 
 type CreatePropertyResult =
     | { errors: string[]; property?: undefined }
@@ -14,8 +17,8 @@ interface PropertyInput {
     description: string;
     ubication: string;
     price: number;
-    property_type_id_property_type: PropertyTypeEnum;
-    categoria_id_category: OperationEnum;
+    type: PropertyTypeEnum;
+    category: OperationEnum;
     // city?: string;
 }
 
@@ -42,22 +45,23 @@ export class PropertyService {
         return this.rawOperaciones.filter(op => this.isValidEnumValue(op, OperationEnum)) as OperationEnum[];
     }
 
-    public buildWhereClause(): Prisma.PropertyWhereInput { //construyo clausula where por si hay filtros, si los hay los devuelve y sino
-        const tipos = this.parseTipos();                     // un where vacio para que obtenga todas las propiedades
-        const operaciones = this.parseOperaciones();
+    public buildWhereClause(): Prisma.PropertyWhereInput {
+    const tipos = this.parseTipos();         
+    const operaciones = this.parseOperaciones(); 
 
-        const filters: Prisma.PropertyWhereInput = {};
+    const filters: Prisma.PropertyWhereInput = {};
 
-        if (tipos.length > 0) {
-            filters.property_type_id_property_type = { in: tipos };
-        }
-
-        if (operaciones.length > 0) {
-            filters.categoria_id_category = { in: operaciones };
-        }
-
-        return filters;
+    if (tipos.length > 0) {
+        filters.type = { in: tipos };
     }
+
+    if (operaciones.length > 0) {
+        filters.category = { in: operaciones }; 
+    }
+
+    return filters;
+}
+
 
     public async createProperty(body: PropertyInput): Promise<CreatePropertyResult> {
         const errors: string[] = [];
@@ -74,10 +78,10 @@ export class PropertyService {
         if (typeof body.price !== 'number' || body.price <= 0 || isNaN(body.price)) {
             errors.push('Precio inválido');
         }
-        if (!Object.values(PropertyTypeEnum).includes(body.property_type_id_property_type)) {
+        if (!Object.values(PropertyTypeEnum).includes(body.type)) {
             errors.push('Tipo de propiedad inválida');
         }
-        if (!Object.values(OperationEnum).includes(body.categoria_id_category)) {
+        if (!Object.values(OperationEnum).includes(body.category)) {
             errors.push('Categoría inválida');
         }
 
@@ -90,8 +94,8 @@ export class PropertyService {
                 price: body.price,
                 address: body.address,
                 description: body.description,
-                property_type_id_property_type: body.property_type_id_property_type,
-                categoria_id_category: body.categoria_id_category,
+                type: body.type,
+                category: body.category,
                 ubication: body.ubication,
             },
         });
@@ -103,7 +107,7 @@ export class PropertyService {
         return { property: newProperty };
     }
 
-    public validatePropertyData(data: PropertyUpdateData): ValidationError[] {
+    public updateProperty(data: PropertyUpdateData): ValidationError[] {
         const errors: ValidationError[] = [];
 
         if (data.address !== undefined) {
@@ -115,8 +119,8 @@ export class PropertyService {
             }
         }
 
-        if (data.state !== undefined) {
-            if (!Object.values(PropertyState).includes(data.state)) {
+        if (data.category !== undefined) {
+            if (!Object.values(PropertyState).includes(data.category)) {
                 errors.push({
                     field: 'state',
                     message: 'El estado debe ser: EN VENTA, VENDIDA, EN ALQUILER o ALQUILADA'
@@ -154,36 +158,116 @@ export class PropertyService {
         return errors;
     }
 
-    public validateCharacteristics(data: CharacteristicUpdateData): ValidationError[] {
+    public static validateCharacteristicsByPropertyType(
+        propertyType: PropertyType,
+        characteristics: CharacteristicValidationInput[]
+    ): ValidationResult {
+        const result: ValidationResult = { isValid: true, errors: [] };
 
-        const errors: ValidationError[] = [];
+        // Obtener características prohibidas para este tipo de propiedad
+        const prohibitedCharacteristics = this.getProhibitedCharacteristics(propertyType);
 
-        if (data.bedrooms !== undefined) {
-            if (!Number.isInteger(data.bedrooms) || data.bedrooms <= 0) {
-                errors.push({
-                    field: 'bedrooms',
-                    message: 'El número de dormitorios debe ser mayor a cero'
-                });
+        // Verificar cada característica contra las prohibiciones
+        characteristics.forEach(characteristic => {
+            if (prohibitedCharacteristics.includes(characteristic.category)) {
+                result.errors.push(
+                    `La característica "${characteristic.category}" no es válida para el tipo de propiedad "${propertyType}"`
+                );
+                result.isValid = false;
             }
+        });
+
+        return result;
+    }
+
+    public static validateCompleteProperty(
+        propertyType: PropertyType,
+        characteristics: CharacteristicValidationInput[]
+    ): ValidationResult {
+        const consolidatedResult: ValidationResult = { isValid: true, errors: [] };
+
+        // PASO 1: Validar cada característica individualmente
+        characteristics.forEach(characteristic => {
+            const individualResult = CharacteristicService.validate(characteristic);
+            if (!individualResult.isValid) {
+                consolidatedResult.errors.push(...individualResult.errors);
+                consolidatedResult.isValid = false;
+            }
+        });
+
+        // PASO 2: Validar coherencia entre características (validaciones cruzadas)
+        const crossValidationResult = CharacteristicService.validateCrossCharacteristics(characteristics);
+        if (!crossValidationResult.isValid) {
+            consolidatedResult.errors.push(...crossValidationResult.errors);
+            consolidatedResult.isValid = false;
         }
 
-        if (data.bathrooms !== undefined) {
-            if (!Number.isInteger(data.bathrooms) || data.bathrooms <= 0) {
-                errors.push({
-                    field: 'bathrooms',
-                    message: 'El número de baños debe ser mayor a cero'
-                });
-            }
+        // PASO 3: Validar compatibilidad con tipo de propiedad
+        const typeCompatibilityResult = this.validateCharacteristicsByPropertyType(propertyType, characteristics);
+        if (!typeCompatibilityResult.isValid) {
+            consolidatedResult.errors.push(...typeCompatibilityResult.errors);
+            consolidatedResult.isValid = false;
         }
 
-        if (data.squareMeters !== undefined) {
-            if (typeof data.squareMeters !== 'number' || data.squareMeters <= 0) {
-                errors.push({
-                    field: 'squareMeters',
-                    message: 'Los metros cuadrados deben ser un número mayor a cero'
-                });
-            }
+        return consolidatedResult;
+    }
+
+    // Devuelve un arreglo con todas las caractristicas prohibidas según el tipo
+    private static getProhibitedCharacteristics(propertyType: PropertyType): CharacteristicCategory[] {
+        switch (propertyType) {
+            case PropertyType.LAND:
+                // Un lote es terreno sin construcción, por lo que no puede tener:
+                // - habitaciones (dormitorios, baños, ambientes)
+                // - Características de construcción (cocheras, tipo_piso, cantidad_plantas)
+                // - Características de servicios (expensas, agua específica)
+                return [
+                    CharacteristicCategory.AMBIENTES,
+                    CharacteristicCategory.DORMITORIOS,
+                    CharacteristicCategory.DORMITORIOS_SUITE,
+                    CharacteristicCategory.BANOS,
+                    CharacteristicCategory.COCHERAS,
+                    CharacteristicCategory.COBERTURA_COCHERA,
+                    CharacteristicCategory.SUPERFICIE_CUBIERTA,
+                    CharacteristicCategory.SUPERFICIE_SEMICUBIERTA,
+                    CharacteristicCategory.BALCON_TERRAZA,
+                    CharacteristicCategory.TIPO_PISO,
+                    CharacteristicCategory.ESTADO_INMUEBLE,
+                    CharacteristicCategory.LUMINOSIDAD,
+                    CharacteristicCategory.DISPOSICION,
+                    CharacteristicCategory.EXPENSAS,
+                    CharacteristicCategory.FECHA_EXPENSA,
+                    CharacteristicCategory.AGUA,
+                    CharacteristicCategory.CANTIDAD_PLANTAS,
+                    CharacteristicCategory.ANTIGUEDAD
+                ];
+
+            case PropertyType.APARTMENT:
+                // Los departamentos son unidades de una sola planta por definición
+                return [
+                    CharacteristicCategory.CANTIDAD_PLANTAS
+                ];
+
+            case PropertyType.COMMERCIAL:
+                // Los locales comerciales no son viviendas, por lo que no tienen:
+                // - Dormitorios (no se duerme en un local comercial)
+                // - Características específicas de vivienda
+                return [
+                    CharacteristicCategory.DORMITORIOS,
+                    CharacteristicCategory.DORMITORIOS_SUITE,
+                    CharacteristicCategory.AMBIENTES, // Los locales tienen "espacios" no "ambientes"
+                    CharacteristicCategory.BALCON_TERRAZA // Los locales no tienen balcones residenciales
+                ];
+
+            case PropertyType.FIELD:
+                // Los campos son propiedades rurales sin administración de consorcio
+                return [
+                    CharacteristicCategory.EXPENSAS,
+                    CharacteristicCategory.FECHA_EXPENSA
+                ];
+
+            default:
+                // Para tipos no reconocidos o para casas, no prohibir ninguna característica
+                return [];
         }
-        return errors;
     }
 }

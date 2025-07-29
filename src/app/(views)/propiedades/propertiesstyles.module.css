@@ -1,49 +1,47 @@
 /*@import url(../ui/fonts.ts);*/
 
-@media (max-width: 720px){
-.conteinerPropiedades{
-  margin-top: 110px;
-}
+@media (max-width: 720px) {
+    .conteinerPropiedades {
+        margin-top: 110px;
+    }
 }
 
 .propertiesLayout {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  min-height: calc(100vh - 200px);
-  padding: 0px;
-  margin: 0px;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    min-height: calc(100vh - 200px);
+    padding: 0px;
+    margin: 0px;
 }
 
 /* Columna izquierda - filtros */
 .propertiesLayoutFilter {
-  flex: 1 1 25%;
-  max-width: 25%;
+    flex: 1 1 25%;
+    max-width: 25%;
 }
 
 /* Columna derecha - cards */
 .propertiesLayoutMainContent {
-  flex: 1 1 75%;
-  max-width: 75%;
-  padding-right: 2rem;
-  box-sizing: border-box;
+    flex: 1 1 75%;
+    max-width: 75%;
+    padding-right: 2rem;
+    box-sizing: border-box;
 }
 
 /* En mobile: apilar verticalmente */
 @media (max-width: 900px) {
-  .propertiesLayout {
-    flex-direction: column;
-  }
+    .propertiesLayout {
+        flex-direction: column;
+    }
 
-  .propertiesLayoutFilter,
-  .propertiesLayoutMainContent {
-    max-width: 100%;
-    flex: 1 1 100%;
-  }
+    .propertiesLayoutFilter,
+    .propertiesLayoutMainContent {
+        max-width: 100%;
+        flex: 1 1 100%;
+    }
 
-  .propertiesLayoutMainContent {
-    padding-right: 0;
-  }
+    .propertiesLayoutMainContent {
+        padding-right: 0;
+    }
 }
-
-

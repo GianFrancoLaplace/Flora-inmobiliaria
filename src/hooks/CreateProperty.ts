@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 // Importamos el tipo unificado para saber qué estructura de datos manejar.
-//import { Property } from '@/types/definitions';
+import { Property } from '@/types/Property';
 
 // Tipo para el estado del proceso de creación.
 type CreateStatus = {

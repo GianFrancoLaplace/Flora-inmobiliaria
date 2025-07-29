@@ -7,11 +7,17 @@ import EditButton from '@/components/TechnicalFile/EditButton'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
-import {CharacteristicCategory, Property, PropertyState, PropertyType} from "@/types/Property";
+import {Property, PropertyState, PropertyType} from "@/types/Property";
 import {useRouter} from "next/navigation";
+import { CharacteristicCategory } from "@/types/Characteristic";
 import React, { useState } from "react";
 import CarrouselFotos from "./Carrousel/CarrouselFotos";
 import Item from "@/components/TechnicalFile/PropertiesItem";
+
+import {
+    getDataGridCharacteristics,
+    getTechnicalSheetCharacteristics
+} from "@/components/TechnicalFile/MockCharacteristic";
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
@@ -22,6 +28,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
     const router = useRouter();
     if (property == null) {
         property = {
+            images: [],
             address: "Dirección",
             characteristics: [],
             city: "Ciudad",
@@ -30,111 +37,9 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             price: 0,
             state: PropertyState.RENT,
             type: PropertyType.HOME,
-            ubication: " ",
+            ubication: " "
         }
     }
-
-    const itemsToShow = [
-        {
-            category: CharacteristicCategory.SUPERFICIE_TOTAL,
-            label: 'Superficie Total',
-            icon: '/icons/sup.png',
-        },
-        {
-            category: CharacteristicCategory.SUPERFICIE_DESCUBIERTA,
-            label: 'Superficie Descubierta',
-            icon: '/icons/supDesc.png',
-        },
-        {
-            category: CharacteristicCategory.SUPERFICIE_SEMICUBIERTA,
-            label: 'Superficie Semidescubierta',
-            icon: '/icons/supCub.png',
-        },
-        {
-            category: CharacteristicCategory.SUPERFICIE_CUBIERTA,
-            label: 'Superficie Cubierta',
-            icon: '/icons/supCub.png',
-        },
-        {
-            category: CharacteristicCategory.AMBIENTES,
-            label: 'Ambientes',
-            icon: '/icons/ambiente.png',
-        }, {
-            category: CharacteristicCategory.DORMITORIOS,
-            label: 'Dormitorios',
-            icon: '/icons/dorms.png',
-        },
-        {
-            category: CharacteristicCategory.DORMITORIOS_SUITE,
-            label: 'Dormitorios en Suite',
-            icon: '/icons/dorms.png',
-        },
-        {
-            category: CharacteristicCategory.BANOS,
-            label: 'Baños',
-            icon: '/icons/baños.png',
-        },
-        {
-            category: CharacteristicCategory.COCHERAS,
-            label: 'Cocheras',
-            icon: '/icons/cochera.png',
-        },
-        {
-            category: CharacteristicCategory.COBERTURA_COCHERA,
-            label: 'Cobertura cochera',
-            icon: '/icons/cobertura.png',
-        },
-        {
-            category: CharacteristicCategory.TIPO_PISO,
-            label: 'Tipo de cochera',
-            icon: '/icons/cobertura.png',
-        },
-        {
-            category: CharacteristicCategory.EXPENSAS,
-            label: 'Expensas',
-            icon: '/icons/expensas.png',
-        },
-        {
-            category: CharacteristicCategory.AGUA,
-            label: 'Fecha de las expensas',
-            icon: '/icons/fecha.png',
-        },
-        {
-            category: CharacteristicCategory.TIPO_PISO,
-            label: 'Tipo de piso',
-            icon: '/icons/piso.png',
-        },
-        {
-            category: CharacteristicCategory.ESTADO_INMUEBLE,
-            label: 'Estado de inmueble',
-            icon: '/icons/estado.png',
-        },
-        {
-            category: CharacteristicCategory.ORIENTACION,
-            label: 'Orientación',
-            icon: '/icons/orientacion.png',
-        },
-        {
-            category: CharacteristicCategory.LUMINOSIDAD,
-            label: 'Luminosidad',
-            icon: '/icons/luminosidad.png',
-        },
-        {
-            category: CharacteristicCategory.DISPOSICION,
-            label: 'Disposición',
-            icon: '/icons/disposicion.png',
-        },
-        {
-            category: CharacteristicCategory.ANTIGUEDAD,
-            label: 'Antiguedad',
-            icon: '/icons/antiguedad.png',
-        },
-        {
-            category: CharacteristicCategory.UBICACION_CUADRA,
-            label: 'Ubicación en la cuadra',
-            icon: '/icons/ubi.png',
-        },
-    ];
 
     const [editingField, setEditingField] = useState<string | null>(null);
     const [localProperty, setLocalProperty] = useState<Property>(property);
@@ -179,7 +84,6 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             // Éxito
             setSubmitStatus({ message: '¡Propiedad publicada con éxito!', type: 'success' });
 
-            // Redirigir a  a la lista de propiedades
             setTimeout(() => {
                 router.push(`/propiedades`); // Asumiendo que el backend devuelve el ID
             }, 2000);
@@ -191,7 +95,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             setIsSubmitting(false);
         }
     };
-
+/*
     const handleSaveCharacteristic = (
         category: CharacteristicCategory,
         newValue: string | number
@@ -211,7 +115,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
 
         // Opcional: Llamada a la API para guardar en base de datos
     };
-
+*/
 
     console.log(editingField)
     const [isEditingAllP, setIsEditingAllP] = useState(false);
@@ -249,6 +153,10 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
 
         setEditingField(null);
     };
+
+    function handleSaveCharacteristic() {
+        console.log("Guardar")
+    }
 
     return (
         <main className={styles.page}>
@@ -351,34 +259,20 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
 
             <div className={styles.mainBoxesGridProperties}>
                 <div className={styles.dataGridProperties}>
-                    <Item
-                        imgSrc="/icons/baños.png"
-                        label="Baños"
-                        characterisctic={CharacteristicCategory.BANOS}
-                        isEditing={isEditingAllP}
-                        type="data"
-                    />
-                    <Item
-                        imgSrc="/icons/antiguedad.png"
-                        label="Antiguedad"
-                        characterisctic={CharacteristicCategory.ANTIGUEDAD}
-                        isEditing={isEditingAllP}
-                        type="data"
-                    />
-                    <Item
-                        imgSrc="/icons/cochera.png"
-                        label="Cocheras"
-                        characterisctic={CharacteristicCategory.COCHERAS}
-                        isEditing={isEditingAllP}
-                        type="data"
-                    />
-                    <Item
-                        imgSrc="/icons/plantas.png"
-                        label="Cant. plantas"
-                        characterisctic={CharacteristicCategory.CANTIDAD_PLANTAS}
-                        isEditing={isEditingAllP}
-                        type="data"
-                    />
+                    {getDataGridCharacteristics(property).map((characteristic) => {
+                        return (
+                            <Item
+                                key={characteristic.category}
+                                imgSrc={characteristic.iconUrl || '/icons/default.png'}
+                                label={characteristic.characteristic}
+                                characteristic={characteristic}
+                                isEditing={isEditingAllP}
+                                onSave={handleSaveCharacteristic}
+                                id={characteristic.id}
+                                type="data"
+                            />
+                        );
+                    })}
                 </div>
 
                 <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
@@ -458,14 +352,17 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                 </div>
                 <div className={styles.dataGridProperties}>
                     <div className={styles.sectionProperties}>
-                        {itemsToShow.map(({category, label, icon}) => {
+                        {getTechnicalSheetCharacteristics(property).map((characteristic) => {
                             return (
                                 <Item
-                                imgSrc={icon}
-                                label={label}
-                                characterisctic={category}
-                                isEditing={isEditingAll}
-                                type="item"
+                                    key={characteristic.category}
+                                    imgSrc={characteristic.iconUrl || '/icons/default.png'}
+                                    label={characteristic.characteristic}
+                                    characteristic={characteristic}
+                                    isEditing={isEditingAllP}
+                                    onSave={handleSaveCharacteristic}
+                                    id={characteristic.id}
+                                    type="item"
                                 />
                             );
                         })}

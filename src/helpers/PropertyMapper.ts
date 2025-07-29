@@ -19,8 +19,6 @@ export function mapPropertyType(type: string): PropertyType {
       return PropertyType.APARTMENT;
     case 'campo':
       return PropertyType.FIELD;
-    case 'duplex':
-      return PropertyType.DUPLEX;
     case 'local_comercial':
       return PropertyType.COMMERCIAL;
     case 'lote':

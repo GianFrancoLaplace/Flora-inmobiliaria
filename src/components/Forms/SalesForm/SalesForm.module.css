@@ -1,4 +1,4 @@
-.page{
+.page {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -35,7 +35,7 @@
     padding: 20px;
 
     border-radius: 5px;
-    background-color: rgba(10, 10, 10, 0.80);
+    background-color: rgba(10, 10, 10, 0.8);
 }
 
 .titleProperties h2 {
@@ -55,13 +55,11 @@
     font-size: 0.875rem;
 }
 
-
 .fieldProperties {
     max-width: 280px;
 
     margin: 12px auto;
 }
-
 
 .fieldProperties label {
     display: block;
@@ -119,8 +117,8 @@
     }
 }
 
-@media (max-width: 720px){
-    .container{
+@media (max-width: 720px) {
+    .container {
         margin-top: 115px;
     }
 }

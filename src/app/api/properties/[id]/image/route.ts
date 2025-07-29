@@ -1,94 +1,63 @@
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import {NextRequest, NextResponse} from "next/server";
+import cloudinary from '@/lib/cloudinary';
 
-export async function DELETE(request : NextRequest, context: {params: {id: string, id_property: string}}){
-    const propertyId = parseInt(context.params.id_property);
-    const imageId = parseInt(context.params.id);
+export async function POST(request: NextRequest, context: { params: { id: string } }) {
+    const { id } = context.params;
+    const propertyId = parseInt(id);
 
+    if (isNaN(propertyId) || propertyId <= 0) {
+        return NextResponse.json({ message: 'Propiedad inválida' }, { status: 400 });
+    }
+
+    const property = await prisma.property.findUnique({
+        where: { id_property: propertyId },
+    });
+
+    if (!property) {
+        return NextResponse.json({ message: 'Propiedad no encontrada' }, { status: 404 });
+    }
 
     try {
-        if((isNaN(imageId) || imageId <= 0) || (isNaN(propertyId) || propertyId <= 0)){
-            return NextResponse.json(
-                { message: "Propiedad y/o imagen inválida" },
-                { status: 400 }
-            );
+        const formData = await request.formData();
+        const file = formData.get('file') as File | null;
+
+        if (!file) {
+            return NextResponse.json({ message: 'No se encontró archivo' }, { status: 400 });
         }
 
-        const image = await prisma.image.findUnique({
-            where: { id_image: imageId },
+        // Convertimos File (Web API) a buffer para Node
+        const arrayBuffer = await file.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+
+        // Subimos el archivo a Cloudinary desde el buffer
+        const uploaded = await new Promise((resolve, reject) => {
+            const stream = cloudinary.uploader.upload_stream(
+                {
+                    folder: 'propiedades',
+                    public_id: `property_${propertyId}_${Date.now()}`,
+                },
+                (error, result) => {
+                    if (error) return reject(error);
+                    resolve(result);
+                }
+            );
+            stream.end(buffer);
         });
 
-        if(!image || image.id_property !== propertyId){
-            return NextResponse.json(
-                { message: "Imagen o propiedad no encontrada" },
-                { status: 404 }
-            )
-        }
+        const cloudinaryResult = uploaded as any; // podés tiparlo con UploadApiResponse si querés
 
-        await prisma.image.delete({
-            where: {id_image: imageId}
-        })
-
-        return NextResponse.json(
-            { message: "Imagen eliminada" },
-            { status: 200 }
-        )
-    }
-    catch (e) {
-        console.log(e);
-        return new NextResponse('El servidor falló al procesar la solicitud', {status: 500});
-    }
-}
-
-export async function POST(request: NextRequest, context: {params: {id_property: string}}) {
-    const propertyId = parseInt(context.params.id_property);
-
-    try {
-        if(isNaN(propertyId) || propertyId <= 0){
-            return NextResponse.json(
-                { message: "Propiedad invalida" },
-                { status: 500 }
-            );
-        }
-
-        const body = await request.json()
-        const url = body.url;
-
-        if(!url){
-            return NextResponse.json(
-                { message: "Falta la url de la imagen" },
-                { status: 400 }
-            )
-        }
-
-        const property = await prisma.property.findUnique(
-            {
-                where: {id_property: propertyId},
-            }
-        )
-
-        if(!property){
-            return NextResponse.json(
-                { message: "Propiedad no encontrada" },
-                { status: 400 }
-            )
-        }
-
+        // Guardamos la URL de Cloudinary en la base de datos
         const newImage = await prisma.image.create({
             data: {
-                url,
+                url: cloudinaryResult.secure_url,
                 id_property: propertyId,
-                id_image: 1
             },
         });
 
-        return NextResponse.json(
-            { message: "Imagen agregada correctamente" + newImage},
-            { status: 200 }
-        )
-    }
-    catch (e){
-        console.log(e);
-        return new NextResponse('El servidor falló al procesar la solicitud', {status: 500});
+        return NextResponse.json(newImage, { status: 201 });
+    } catch (error) {
+        console.error('Error al subir imagen:', error);
+        return NextResponse.json({ message: 'Error al subir imagen' }, { status: 500 });
     }
 }

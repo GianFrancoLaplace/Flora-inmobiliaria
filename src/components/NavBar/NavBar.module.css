@@ -1,32 +1,31 @@
-.navProperties{
+.navProperties {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     background: linear-gradient(
-            to top,
-            #16161600 0%,   /* 0% opacidad */
-            #161616ff 95%   /* 100% opacidad */
+        to top,
+        #16161600 0%,
+        /* 0% opacidad */ #161616ff 95% /* 100% opacidad */
     );
 
     height: 150px;
     width: 100%;
 
     gap: 10%;
-
     color: rgb(253, 255, 226);
 }
 
-.absoluteNav{
+.absoluteNav {
     z-index: 10000;
     position: absolute;
 }
 
-.staticNav{
+.staticNav {
     z-index: 10000;
     position: static;
 }
 
-.nameProperties{
+.nameProperties {
     display: flex;
     flex-direction: column;
 
@@ -34,7 +33,7 @@
     gap: 0;
 }
 
-.logoProperties{
+.logoProperties {
     display: flex;
     flex-direction: row;
 
@@ -43,7 +42,7 @@
     cursor: pointer;
 }
 
-.sectionProperties{
+.sectionProperties {
     display: flex;
     flex-direction: row;
 
@@ -56,11 +55,11 @@
     white-space: nowrap;
 }
 
-.sectionProperties li{
+.sectionProperties li {
     font-size: 24px;
 }
 
-.sectionProperties a:hover{
+.sectionProperties a:hover {
     color: var(--secondary-color-5);
 }
 
@@ -69,18 +68,18 @@
     color: var(--primary-color-1);
 }
 
-.sectionProperties li:hover{
-    color: #FADA4D;
+.sectionProperties li:hover {
+    color: #fada4d;
 }
 
-.iconoProperties{
+.iconoProperties {
     width: 35px;
     height: 35px;
 
     color: rgb(253, 255, 226);
 }
 
-.btnBurgerProperties{
+.btnBurgerProperties {
     width: 0;
 
     margin: 0;
@@ -88,26 +87,27 @@
 
     visibility: hidden;
 }
+
 @media (max-width: 768px) {
-      .navProperties{
-          position: fixed;
-          z-index: 10000;
-          flex-direction: column;
-          background: linear-gradient(
-                  to top,
-                  #16161600 0%,   /* 0% opacidad */
-                  #161616ff 95%   /* 100% opacidad */
-          );
+    .navProperties {
+        position: fixed;
+        z-index: 10000;
+        flex-direction: column;
+        background: linear-gradient(
+            to top,
+            #16161600 0%,
+            /* 0% opacidad */ #161616ff 95% /* 100% opacidad */
+        );
 
-          height: auto;
+        height: auto;
 
-          gap: 1px;
-          top: 0;
-          left: 0;
-          right: 0;
+        gap: 1px;
+        top: 0;
+        left: 0;
+        right: 0;
     }
 
-    .btnBurgerProperties{
+    .btnBurgerProperties {
         visibility: visible;
         display: flex;
         justify-content: flex-start;
@@ -118,7 +118,7 @@
         margin-bottom: 5px;
     }
 
-    .btnBurgerProperties button{
+    .btnBurgerProperties button {
         border: none;
 
         width: auto;
@@ -131,22 +131,18 @@
         transition: all 0.3s ease;
     }
 
-    .btnBurgerProperties button:hover{
+    .btnBurgerProperties button:hover {
         transform: translateY(-2px);
     }
 
-    .btnBurgerProperties button:active{
+    .btnBurgerProperties button:active {
         transform: translateY(0);
     }
 
-    .sectionProperties{
+    .sectionProperties {
         position: relative;
         flex-direction: column;
-        background: linear-gradient(
-            to bottom,
-            #f5f5f5 0%,
-            #e8e8e8 100%
-        );
+        background: linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);
         overflow: hidden;
         z-index: 10001;
 
@@ -167,7 +163,7 @@
         transform-origin: top;
     }
 
-    .sectionProperties li{
+    .sectionProperties li {
         padding: 16px 20px;
 
         border-bottom: 1px solid #d0d0d0;
@@ -177,23 +173,19 @@
         transition: all 0.3s ease;
     }
 
-    .sectionProperties li:last-child{
+    .sectionProperties li:last-child {
         border-bottom: none;
     }
 
-    .sectionProperties li:hover{
-        background: linear-gradient(
-            to right,
-            #f0c040 0%,
-            #d4a836 100%
-        );
+    .sectionProperties li:hover {
+        background: linear-gradient(to right, #f0c040 0%, #d4a836 100%);
 
         color: #2d2d2d;
 
         transform: translateX(8px);
     }
 
-    .logoProperties{
+    .logoProperties {
         visibility: hidden;
 
         width: 0;
@@ -202,7 +194,7 @@
         padding: 0;
     }
 
-    .openNav{
+    .openNav {
         visibility: visible;
         opacity: 1;
 
@@ -211,7 +203,7 @@
         transform: scaleY(1) translateY(0);
     }
 
-    .closeNav{
+    .closeNav {
         visibility: hidden;
         opacity: 0;
 
@@ -220,7 +212,7 @@
         transform: scaleY(0) translateY(-10px);
     }
 
-    .sectionProperties a{
+    .sectionProperties a {
         display: block;
 
         width: 100%;
@@ -232,11 +224,11 @@
         transition: color 0.3s ease;
     }
 
-    .sectionProperties a:hover{
+    .sectionProperties a:hover {
         color: #1a1a1a;
     }
 
-    .sectionProperties li:last-child{
+    .sectionProperties li:last-child {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -247,24 +239,26 @@
         border-radius: 8px;
     }
 
-    .sectionProperties li:last-child:hover{
+    .sectionProperties li:last-child:hover {
         background: linear-gradient(135deg, #f0c040 0%, #d4a836 100%);
 
         transform: translateX(0) scale(1.05);
     }
 
-    .iconoProperties{
+    .iconoProperties {
         width: 28px;
         height: 28px;
 
-        filter: brightness(0) saturate(100%) invert(13%) sepia(10%) saturate(1000%) hue-rotate(0deg); /* Color oscuro por defecto */
+        filter: brightness(0) saturate(100%) invert(13%) sepia(10%)
+            saturate(1000%) hue-rotate(0deg); /* Color oscuro por defecto */
 
         margin-right: 8px;
 
         transition: filter 0.3s ease;
     }
 
-    .sectionProperties li:last-child:hover .iconoProperties{
-        filter: brightness(0) saturate(100%) invert(13%) sepia(10%) saturate(1000%) hue-rotate(0deg); /* Mantener color oscuro en hover */
+    .sectionProperties li:last-child:hover .iconoProperties {
+        filter: brightness(0) saturate(100%) invert(13%) sepia(10%)
+            saturate(1000%) hue-rotate(0deg); /* Mantener color oscuro en hover */
     }
 }

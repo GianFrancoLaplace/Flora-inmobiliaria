@@ -1,4 +1,4 @@
-.viewInfoAdress{
+.viewInfoAdress {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -6,7 +6,7 @@
     white-space: nowrap;
 }
 
-.mainAdressProperties{
+.mainAdressProperties {
     display: flex;
     flex-direction: row;
     margin-top: 20px;
@@ -14,7 +14,8 @@
     box-sizing: border-box;
 }
 
-.mainAdressProperties button, .editButtonProperties{
+.mainAdressProperties button,
+.editButtonProperties {
     background-color: transparent;
     border: none;
     box-shadow: none;
@@ -22,16 +23,14 @@
     padding-bottom: 20px;
 }
 
-.editProperties{
+.editProperties {
     display: flex;
     flex-direction: row;
     width: min-content;
     gap: 20px;
 }
 
-.inputProperties{
+.inputProperties {
     font-size: 30px;
     font-family: var(--font-weight-normal);
 }
-
-

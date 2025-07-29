@@ -1,112 +1,111 @@
 .linkProperties {
     text-decoration: none;
-  }
+}
 
 .filter-menu__title {
-  margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
 
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #1f2937;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1f2937;
 }
 
 .filter-menu__option {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-  padding: 0.5rem 1rem;
-  margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
 
-  background-color: #3c3c3b;
-  color: white;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 600;
+    background-color: #3c3c3b;
+    color: white;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
 }
 
 .presentationProperties {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
 
-  width: 80%;
-  height: fit-content;
+    width: 80%;
+    height: fit-content;
 
-  margin: 0 auto 50px;
-  gap: 10px;
+    margin: 0 auto 50px;
+    gap: 10px;
 }
 
 .presentationProperties h1 {
-  margin-top: 24px;
+    margin-top: 24px;
 
-  font-size: 24px;
+    font-size: 24px;
 }
 
 .presentationProperties h5 {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 .mainCardsGridProperties {
-  width: 100%;
+    width: 100%;
 }
 
 .messageBtn {
-  width: 265px;
+    width: 265px;
 
-  background-color: var(--primary-color-1);
+    background-color: var(--primary-color-1);
 }
 
-.allPropertiesBtn{
-  width: 450px;
-
-  margin-bottom: 5%;
-
-  background-color: var(--secondary-color-4);
-}
-
-  .allPropertiesBtn {
+.allPropertiesBtn {
     width: 450px;
-
-    background-color: var(--secondary-color-4);
-  }
-
-  
-@media (max-width: 720px){
-  .container{
-    margin-top: 0px;
-  }
-
-  .allPropertiesBtn{
-    width: 90%;
 
     margin-bottom: 5%;
 
     background-color: var(--secondary-color-4);
-  }
+}
+
+.allPropertiesBtn {
+    width: 450px;
+
+    background-color: var(--secondary-color-4);
+}
+
+@media (max-width: 720px) {
+    .container {
+        margin-top: 0px;
+    }
+
+    .allPropertiesBtn {
+        width: 90%;
+
+        margin-bottom: 5%;
+
+        background-color: var(--secondary-color-4);
+    }
 }
 
 /*responsive for Tablet*/
 @media (min-width: 768px) {
-  .presentationProperties h1 {
-    font-size: 26px;
-  }
+    .presentationProperties h1 {
+        font-size: 26px;
+    }
 
-  .presentationProperties h5 {
-    font-size: 14px;
-  }
+    .presentationProperties h5 {
+        font-size: 14px;
+    }
 }
 
 /*responsive for Desktop*/
 @media (min-width: 1024px) {
-  .presentationProperties h1 {
-    font-size: 34px;
-  }
+    .presentationProperties h1 {
+        font-size: 34px;
+    }
 
-  .presentationProperties h5 {
-    font-size: 18px;
-  }
+    .presentationProperties h5 {
+        font-size: 18px;
+    }
 }
