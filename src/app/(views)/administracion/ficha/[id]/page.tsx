@@ -1,35 +1,12 @@
 import { notFound } from 'next/navigation';
 import TechnicalSheet from '@/components/TechnicalFile/TechnicalSheet';
 import { Property } from "@/types/Property";
-
+import {getPropertyById} from '@/hooks/getPropertyById';
 type Mode = 'view' | 'edit' | 'create';
 
 type PageProps = {
 	params: Promise<{ id: string }>;
 	searchParams: Promise<{ mode?: Mode }>;
-}
-
-async function getProperty(id: string): Promise<Property | null> {
-	try {
-		const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
-
-		const response = await fetch(`${baseUrl}/api/properties/${id}`, {
-			cache: 'no-store',
-			headers: {
-				'Content-Type': 'application/json',
-			}
-		});
-
-		if (!response.ok) {
-			console.error(`Error fetching property ${id}:`, response.status, response.statusText);
-			return null;
-		}
-
-		return await response.json();
-	} catch (error) {
-		console.error('Error in getProperty:', error);
-		return null;
-	}
 }
 
 export default async function UnifiedPropertyPage({
@@ -54,7 +31,7 @@ export default async function UnifiedPropertyPage({
 		);
 	}
 
-	const property = await getProperty(id);
+	const property = await getPropertyById(id);
 
 	if (!property) {
 		notFound();
@@ -84,7 +61,7 @@ export async function generateMetadata({ params, searchParams }: PageProps) {
 		};
 	}
 
-	const property = await getProperty(id);
+	const property = await getPropertyById(id);
 
 	if (!property) {
 		return {

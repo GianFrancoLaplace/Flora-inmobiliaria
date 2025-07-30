@@ -7,7 +7,8 @@ import EditButton from '@/components/TechnicalFile/EditButton'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
-import { Property, PropertyState, PropertyType} from "@/types/Property";
+import {Property, PropertyState, PropertyType} from "@/types/Property";
+import {useRouter} from "next/navigation";
 import { CharacteristicCategory } from "@/types/Characteristic";
 import React, { useState } from "react";
 import CarrouselFotos from "./Carrousel/CarrouselFotos";
@@ -24,8 +25,10 @@ type TechnicalSheetProps = {
 };
 
 export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
+    const router = useRouter();
     if (property == null) {
         property = {
+            images: [],
             address: "Dirección",
             characteristics: [],
             city: "Ciudad",
@@ -34,7 +37,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             price: 0,
             state: PropertyState.RENT,
             type: PropertyType.HOME,
-            ubication: " ",
+            ubication: " "
         }
     }
 
@@ -43,6 +46,78 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
 
     //para el componente de Items
     const [isEditingAll, setIsEditingAll] = useState(false);
+    //estos dos son para manejar el estado de el envio y la respuesta
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [, setSubmitStatus] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+//funcion para crear la publicacion
+    const handleCreatePublication = async () => {
+        setIsSubmitting(true);
+        setSubmitStatus(null);
+
+        // Validaciones básicas antes de enviar (puedes añadir más)
+        if (!localProperty.address || localProperty.price <= 0) {
+            setSubmitStatus({ message: 'Por favor, complete la dirección y el precio.', type: 'error' });
+            setIsSubmitting(false);
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/propiedades', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // Envio el estado local completo
+
+                body: JSON.stringify(localProperty),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                // Si el backend devuelve errores específicos (ej. validación)
+                const errorMessage = result.errors ? JSON.stringify(result.errors) : 'Ocurrió un error en el servidor.';
+                throw new Error(errorMessage);
+            }
+
+            // Éxito
+            setSubmitStatus({ message: '¡Propiedad publicada con éxito!', type: 'success' });
+
+            setTimeout(() => {
+                router.push(`/propiedades`); // Asumiendo que el backend devuelve el ID
+            }, 2000);
+
+        } catch (error) {
+            const message = error instanceof Error ? error.message : 'Error desconocido al crear la publicación.';
+            setSubmitStatus({ message, type: 'error' });
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+/*
+    const handleSaveCharacteristic = (
+        category: CharacteristicCategory,
+        newValue: string | number
+    ) => {
+        setLocalProperty((prev) => {
+            const updatedCharacteristics = prev.characteristics.map((char) =>
+                char.category === category
+                    ? { ...char, characteristic: String(newValue) }
+                    : char
+            );
+
+            return {
+                ...prev,
+                characteristics: updatedCharacteristics,
+            };
+        });
+
+        // Opcional: Llamada a la API para guardar en base de datos
+    };
+*/
+
+    console.log(editingField)
     const [isEditingAllP, setIsEditingAllP] = useState(false);
 
     const isEmptyFile = mode === "create";
@@ -163,9 +238,13 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                             className={`${styles.askBtn} ${isEmptyFile ? styles.notShowProperties : styles.showProperties || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
                         Consultar por esta propiedad
                     </button>
-                    <button type="button"
-                            className={`${styles.askBtn} ${isEmptyFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
-                        Generar publicación
+                    <button
+                        type="button"
+                        onClick={handleCreatePublication} // Conectamos la función
+                        disabled={isSubmitting} // Deshabilitamos mientras se envía
+                        className={`${styles.askBtn} ${isEmptyFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}
+                    >
+                        {isSubmitting ? 'Generando...' : 'Generar publicación'}
                     </button>
                     <button type="button"
                             className={`${styles.askBtn} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>

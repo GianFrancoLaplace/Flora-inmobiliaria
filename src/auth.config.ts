@@ -16,7 +16,7 @@ export const authConfig = {
                     return true;
                 }
                 // Si intenta entrar a /Administration sin iniciar sesión, lo redirige a /login.
-                return true; //false
+                return false;
             }
 
             // Caso 2: El usuario ya ha iniciado sesión

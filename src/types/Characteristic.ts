@@ -33,6 +33,16 @@ export interface Characteristic {
     category?: CharacteristicCategory;
     iconUrl?: string; // URL del icono (opcional pero obligatorio para el get by id)
 }
+export interface CharacteristicCreate {
+    id: number;
+    characteristic: string;
+    property_id : number;
+    data_type: 'integer' | 'text';
+    value_integer?: number;
+    value_text?: string;
+    category?: CharacteristicCategory;
+    iconUrl?: string; // URL del icono (opcional pero obligatorio para el get by id)
+}
 
 export interface CharacteristicValidationInput {
     characteristic: string;
