@@ -11,7 +11,7 @@ export async function POST(request: NextRequest, context: { params: { id: string
     }
 
     const property = await prisma.property.findUnique({
-        where: { id_property: propertyId },
+        where: { idProperty: propertyId },
     });
 
     if (!property) {
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest, context: { params: { id: string
         const newImage = await prisma.image.create({
             data: {
                 url: cloudinaryResult.secure_url,
-                id_property: propertyId,
+                idProperty: propertyId,
             },
         });
 

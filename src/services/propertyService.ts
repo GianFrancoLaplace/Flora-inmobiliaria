@@ -62,7 +62,6 @@ export class PropertyService {
     return filters;
 }
 
-
     public async createProperty(body: PropertyInput): Promise<CreatePropertyResult> {
         const newProperty = await prisma.property.create({
             data: {

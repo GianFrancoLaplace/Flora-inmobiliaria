@@ -10,6 +10,7 @@ import { cactus } from "@/app/(views)/ui/fonts";
 import {Property, PropertyState, PropertyType} from "@/types/Property";
 import {useRouter} from "next/navigation";
 import { CharacteristicCategory } from "@/types/Characteristic";
+import CharacteristicsForm from "./characteristicsForm/characteristicsForm";
 import React, { useState } from "react";
 import CarrouselFotos from "./Carrousel/CarrouselFotos";
 import Item from "@/components/TechnicalFile/PropertiesItem";
@@ -43,6 +44,9 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
 
     const [editingField, setEditingField] = useState<string | null>(null);
     const [localProperty, setLocalProperty] = useState<Property>(property);
+
+    const [showForm, setShowForm] = useState(false); // <- controla la visibilidad
+
 
     //para el componente de Items
     const [isEditingAll, setIsEditingAll] = useState(false);
@@ -337,19 +341,33 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             </div>
 
             <div className={styles.descriptionsProperties}>
-                <div className={styles.titleProperties}>
-                    <h3>Ficha</h3>
-                    <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
-                        <button onClick={() => setIsEditingAll(!isEditingAll)} className={styles.editButtonProperties}>
-                            {isEditingAll ? '✔ Guardar' :     <Image
-                                src={'/icons/iconoEdit.png'}
-                                alt={'Icono para editar'}
-                                width={30}
-                                height={30}
-                            />}
-                        </button>
+                <div className={styles.buttonsEditProperties}>
+                    <div className={styles.titleProperties}>
+                        <h3>Ficha</h3>
+                        <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
+                            <button onClick={() => setIsEditingAll(!isEditingAll)} className={styles.editButtonProperties}>
+                                {isEditingAll ? '✔ Guardar' :     <Image
+                                    src={'/icons/iconoEdit.png'}
+                                    alt={'Icono para editar'}
+                                    width={30}
+                                    height={30}
+                                />}
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <button onClick={() => setShowForm(v => !v)}
+                                aria-expanded={showForm}
+                                aria-controls="characteristics-form"
+                        className={styles.buttonShowMoreProperties}>
+                            {showForm ? '−' : '+'}</button>
                     </div>
                 </div>
+                {showForm && (
+                    <div>
+                        <CharacteristicsForm/>
+                    </div>
+                )}
                 <div className={styles.dataGridProperties}>
                     <div className={styles.sectionProperties}>
                         {getTechnicalSheetCharacteristics(property).map((characteristic) => {
@@ -359,7 +377,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                                     imgSrc={characteristic.iconUrl || '/icons/default.png'}
                                     label={characteristic.characteristic}
                                     characteristic={characteristic}
-                                    isEditing={isEditingAllP}
+                                    isEditing={isEditingAll}
                                     onSave={handleSaveCharacteristic}
                                     id={characteristic.id}
                                     type="item"

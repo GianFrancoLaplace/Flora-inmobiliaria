@@ -137,9 +137,18 @@
 .titleProperties {
     display: flex;
     flex-direction: row;
+    gap: 10px;
+}
+
+.buttonsEditProperties, .titleProperties{
     height: 40px;
-    gap: 20px;
     border-bottom: 1px solid var(--primary-color-5);
+}
+
+.buttonsEditProperties{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .dataGridProperties {
@@ -258,4 +267,13 @@
 
 .btnSold {
     background-color: var(--primary-color-1);
+}
+
+.buttonShowMoreProperties{
+    background-color: transparent;
+    font-size: 40px;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    padding-bottom: 20px;
 }
