@@ -8,53 +8,55 @@ datasource db {
 }
 
 model Property {
-  id_property                    Int              @id @default(autoincrement())
-  description                    String?
-  price                          Int
-  property_type_id_property_type PropertyTypeEnum
-  categoria_id_category          OperationEnum
-  address                        String?
-  ubication                      String?
-  city                           String?
-  characteristics                Characteristic[]
-  image                          image[]
+  idProperty      Int              @id @default(autoincrement()) @map("id_property")
+  description     String?
+  price           Int
+  type            PropertyTypeEnum
+  category        OperationEnum
+  address         String?
+  ubication       String?
+  city            String?
+  characteristics Characteristic[]
+  images          image[]
 
   @@map("property")
 }
 
 model Admin {
-  id_admin       Int    @id @default(autoincrement())
-  admin_email    String @db.VarChar(255)
-  admin_password String @db.VarChar(255)
+  idAdmin       Int    @id @default(autoincrement()) @map("id_admin")
+  adminEmail    String @map("admin_email") @db.VarChar(255)
+  adminPassword String @map("admin_password") @db.VarChar(255)
 
   @@map("admin")
 }
 
 model Characteristic {
-  id_characteristic Int                         @id(map: "Characteristic_pkey") @default(autoincrement())
-  characteristic    String                      @db.VarChar(255)
-  amount            Int
-  property_id       Int
-  category          CharacteristicCategoryEnum? @default(otros)
-  property          Property                    @relation(fields: [property_id], references: [id_property], map: "Characteristic_property_id_fkey")
+  idCharacteristic Int                         @id @default(autoincrement()) @map("id_characteristic")
+  characteristic   String                      @db.VarChar(255)
+  propertyId       Int                         @map("property_id")
+  category         CharacteristicCategoryEnum? @default(otros)
+  dataType         String                      @map("data_type") @db.VarChar(20)
+  valueInteger     Int?                        @map("value_integer")
+  valueText        String?                     @map("value_text")
+
+  property Property @relation(fields: [propertyId], references: [idProperty], onDelete: Cascade, map: "Characteristic_property_id_fkey")
 
   @@map("characteristic")
 }
 
 model image {
-  id_image    Int       @id
-  url         String?
-  id_property Int?
-  property    Property? @relation(fields: [id_property], references: [id_property], onDelete: NoAction, onUpdate: NoAction, map: "fk_image_propery")
+  idImage    Int       @id @default(autoincrement()) @map("id_image")
+  url        String?
+  idProperty Int?      @map("id_property")
+  property   Property? @relation(fields: [idProperty], references: [idProperty], onDelete: Cascade, map: "fk_image_propery")
 }
 
 enum PropertyTypeEnum {
   casa
   departamento
   campo
-  duplex
   local_comercial
-  terreno
+  lote
 
   @@map("property_type_enum")
 }

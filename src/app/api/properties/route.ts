@@ -49,7 +49,7 @@ export async function GET(request: Request) {
             id: p.id_property,
             address: p.address || '',
             city: '',
-            state: mapOperationToState(p.category),
+            state: mapOperationToState(p.state),
             price: p.price || 0,
             description: p.description || '',
             type: mapPropertyType(p.type),
@@ -83,20 +83,20 @@ export async function POST(request: NextRequest) {
     try {
 
         const body: PropertyUpdateData = await request.json();
-                const service = new PropertyService([], []);
-        
-                const validationErrors = service.verifyFields(body);
-        
-                if (validationErrors.length > 0) {
-                    return NextResponse.json(
-                        {
-                            message: 'Datos de propiedad inválidos',
-                            errors: validationErrors
-                        },
-                        { status: 400 }
-                    );
-                }
-        
+        const service = new PropertyService([], []);
+
+        const validationErrors = service.verifyFields(body);
+
+        if (validationErrors.length > 0) {
+            return NextResponse.json(
+                {
+                    message: 'Datos de propiedad inválidos',
+                    errors: validationErrors
+                },
+                { status: 400 }
+            );
+        }
+
         const property = await request.json();
 
         const result = await service.createProperty(property);
@@ -112,4 +112,3 @@ export async function POST(request: NextRequest) {
         return new NextResponse('El servidor falló al procesar la solicitud', { status: 500 });
     }
 }
-
