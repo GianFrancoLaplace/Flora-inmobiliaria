@@ -7,7 +7,6 @@ import { Property } from '@/types/Property';
 import { Characteristic } from "@/types/Characteristic";
 import { mapOperationToState, mapPropertyType } from '@/helpers/PropertyMapper';
 import { mapPrismaCharacteristicCategory } from '@/helpers/IconMapper';
-import image from 'next/image';
 import { PropertyUpdateData } from '@/helpers/UpdateProperty';
 
 type PriceFilter = {
@@ -16,6 +15,7 @@ type PriceFilter = {
 };
 
 export async function GET(request: Request) {
+    console.log("hola get");
     try {
         const { searchParams } = new URL(request.url);
 
@@ -26,6 +26,7 @@ export async function GET(request: Request) {
         const service = new PropertyService(types, operations);
         const where = service.buildWhereClause();
 
+        console.log("construida la where clause");
         if (maxValue && !isNaN(Number(maxValue))) {
             if (where.price) {
                 (where.price as PriceFilter).lte = Number(maxValue);
@@ -35,37 +36,37 @@ export async function GET(request: Request) {
                 };
             }
         }
-
+        console.log("antes del find many");
         const propertiesRaw = await prisma.property.findMany({
             where: Object.keys(where).length > 0 ? where : undefined,
             include: {
                 characteristics: true,
-                image: true,
+                images: true,
             },
         });
 
-
+        console.log("después del find many");
         const properties: Property[] = propertiesRaw.map((p) => ({
-            id: p.id_property,
+            id: p.idProperty,
             address: p.address || '',
             city: '',
-            state: mapOperationToState(p.state),
+            state: mapOperationToState(p.category),
             price: p.price || 0,
             description: p.description || '',
             type: mapPropertyType(p.type),
             characteristics: p.characteristics.map((c): Characteristic => ({
-                id: c.id_characteristic,
+                id: c.idCharacteristic,
                 characteristic: c.characteristic,
-                data_type: c.data_type === 'integer' ? 'integer' : 'text',
-                value_integer: c.value_integer ?? undefined,
-                value_text: c.value_text?.trim() || undefined,
+                data_type: c.dataType === 'integer' ? 'integer' : 'text',
+                value_integer: c.valueInteger ?? undefined,
+                value_text: c.valueText?.trim() || undefined,
                 category: mapPrismaCharacteristicCategory(c.category || null),
             })),
             ubication: p.ubication || '',
 
             images: (() => {
-                const mainimage = p.image[0];
-                return mainimage ? [{ id: mainimage.id_image, url: mainimage.url! }] : [];
+                const mainimage = p.images[0];
+                return mainimage ? [{ id: mainimage.idImage, url: mainimage.url! }] : [];
             })(),
         }));
 
