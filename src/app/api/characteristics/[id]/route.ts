@@ -45,3 +45,39 @@ export async function POST(request: NextRequest) {
         return new NextResponse('El servidor falló al procesar la solicitud', { status: 500 });
     }
 }
+export async function DELETE(request: NextRequest,{params}:{params:{id: string}})   {
+try {
+    const { id: idAsString } = params; // Desestructuramos y renombramos para claridad
+    const id = parseInt(idAsString, 10); // Convertimos el string a un número base 10
+
+    if (isNaN(id) || id <= 0) {
+        return NextResponse.json(
+            { message: "El ID proporcionado no es un número válido." },
+            { status: 400 }
+        );
+    }
+    const existing = await prisma.characteristic.findUnique({
+        where: {
+            idCharacteristic: id
+        }
+    })
+
+    if (!existing) {
+        return NextResponse.json({erros: "el no pertenece a ninguna caracteristica"},{status:404})
+    }
+    await prisma.characteristic.delete({
+        where: {
+            idCharacteristic: id
+        }
+    })
+    return NextResponse.json({message: "caracteristica eliminada con exito"},{ status: 200 });
+} catch (error) {
+    console.error("Error al eliminar la característica:", error);
+
+    // Manejo de errores genéricos
+    return NextResponse.json(
+        { message: 'Error interno del servidor al intentar eliminar la característica.' },
+        { status: 500 }
+    );
+}
+}

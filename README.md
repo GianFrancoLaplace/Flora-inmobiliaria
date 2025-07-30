@@ -9,3 +9,7 @@ Este proyecto fue desarrollado con el objetivo de poder cumplir con los requerim
 - Prisma
 - PostgreSQL
 
+# url para eliminar caracteristica
+# http://localhost:3000/api/characteristics/id
+# url para crear una caracteristica
+# http://localhost:3000/api/characteristics
