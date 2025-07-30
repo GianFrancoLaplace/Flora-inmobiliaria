@@ -15,6 +15,7 @@ type PriceFilter = {
 };
 
 export async function GET(request: Request) {
+    console.log("hola get");
     try {
         const { searchParams } = new URL(request.url);
 
@@ -25,6 +26,7 @@ export async function GET(request: Request) {
         const service = new PropertyService(types, operations);
         const where = service.buildWhereClause();
 
+        console.log("construida la where clause");
         if (maxValue && !isNaN(Number(maxValue))) {
             if (where.price) {
                 (where.price as PriceFilter).lte = Number(maxValue);
@@ -34,7 +36,7 @@ export async function GET(request: Request) {
                 };
             }
         }
-
+        console.log("antes del find many");
         const propertiesRaw = await prisma.property.findMany({
             where: Object.keys(where).length > 0 ? where : undefined,
             include: {
@@ -43,7 +45,7 @@ export async function GET(request: Request) {
             },
         });
 
-
+        console.log("después del find many");
         const properties: Property[] = propertiesRaw.map((p) => ({
             id: p.idProperty,
             address: p.address || '',
@@ -79,6 +81,7 @@ export async function GET(request: Request) {
 
 
 export async function POST(request: NextRequest) {
+    console.log("hola post??");
     try {
 
         const body: PropertyUpdateData = await request.json();

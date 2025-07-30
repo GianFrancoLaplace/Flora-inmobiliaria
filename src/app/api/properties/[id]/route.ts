@@ -131,10 +131,6 @@ export async function PUT(
             );
         }
 
-        // Verifica esto:
-        console.log("ID recibido:", id); // ¿Qué imprime?
-        console.log("propertyId:", propertyId); // ¿Y esto?
-
         const existingProperty = await prisma.property.findUnique({
             where: { idProperty: propertyId }
         });
