@@ -80,6 +80,7 @@ export async function GET(request: Request) {
 
 
 export async function POST(request: NextRequest) {
+    console.log("hola post??");
     try {
 
         const body: PropertyUpdateData = await request.json();

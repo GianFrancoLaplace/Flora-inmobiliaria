@@ -2,6 +2,7 @@ import {NextRequest, NextResponse} from "next/server";
 import {prisma} from "@/lib/prisma";
 
 export async function DELETE(request : NextRequest, context: {params: {id: string, idImage: string}}){
+    console.log("hola delete");
     const { id } = context.params;
     const propertyId = parseInt(id);
     const { idImage } = context.params;
