@@ -5,12 +5,11 @@
     align-items: end;
     text-align: left;
 
-    width: 70%;
+    width: 100%;
     height: fit-content;
 
-    margin: 50px;
     padding: 20px;
-    padding-inline: 40px;
+    padding-inline: 0px;
 
     background-color: var(--secondary-color-1);
     color: var(--primary-color-5);
@@ -25,8 +24,6 @@
 
     width: 80%;
     height: 100%;
-
-    gap: 1.5rem;
 }
 
 .field {
@@ -54,8 +51,11 @@
 }
 
 .addCharacteristicButton {
-    width: 40px;
+    width: 150px;
     height: 40px;
+
+    margin-bottom: 40px;
+    margin-inline: 0px;
 
     background-color: var(--secondary-color-5);
     color: var(--primary-color-5);
