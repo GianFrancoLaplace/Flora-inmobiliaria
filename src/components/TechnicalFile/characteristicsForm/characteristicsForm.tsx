@@ -51,12 +51,20 @@ const FEATURES: Feature[] = [
         ],
     },
     {
+        name: "Balcón/Terraza",
+        inputType: "text",
+    },
+    {
         name: "Expensas",
         inputType: "text",
         subtypes: [
             { name: "Valor", inputType: "number" },
             { name: "Fecha", inputType: "date" },
         ],
+    },
+    {
+        name: "Agua",
+        inputType: "text",
     },
     {
         name: "Tipo de piso",
