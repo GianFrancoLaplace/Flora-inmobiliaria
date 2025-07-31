@@ -262,3 +262,27 @@
             saturate(1000%) hue-rotate(0deg); /* Mantener color oscuro en hover */
     }
 }
+
+
+/*logout*/
+.logoutButton {
+    width: fit-content;
+    height: fit-content;
+
+    margin: 0px;
+    padding-inline: 10px;
+
+    background-color: transparent;
+    color: var(--secondary-color-1);
+    border-radius: 40px;
+    border: none;
+    box-shadow: none;
+
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.logoutButton:hover {
+    border: 1px solid var(--secondary-color-5);
+    color: var(--secondary-color-5);
+    box-shadow: inset 0px 4px 12px rgba(0, 0, 0, 0.5);
+}
