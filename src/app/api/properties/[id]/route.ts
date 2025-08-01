@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { mapPropertyType, mapOperationToState } from '@/helpers/PropertyMapper';
-import { Property } from '@/types/Property';
+import { Property, PropertyUpdateData } from '@/types/Property';
 import { Characteristic } from "@/types/Characteristic";
-import { PropertyUpdateData } from "@/helpers/UpdateProperty"
 import { PropertyService } from "@/services/propertyService";
 import { getIconByCategory, mapPrismaCharacteristicCategory } from "@/helpers/IconMapper"
 
@@ -173,7 +172,7 @@ export async function DELETE(
     request: NextRequest,
     context: { params: { id: string } }
 ) {
-    const { id } = context.params;
+    const { id } = await context.params;
 
     const propertyId = parseInt(id);
     try {

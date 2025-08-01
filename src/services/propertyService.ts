@@ -1,5 +1,5 @@
 import {ValidationError } from "@/helpers/UpdateProperty";
-import {PropertyInput, PropertyState, PropertyType,Property} from "@/types/Property";
+import {PropertyInput, PropertyState, PropertyType,Property, PropertyUpdateData} from "@/types/Property";
 import { CharacteristicCategory, CharacteristicValidationInput } from '@/types/Characteristic';
 import { ValidationResult } from "@/types";
 import { CharacteristicService } from "@/services/characteristicService";
@@ -67,7 +67,7 @@ public mapPropertyStateToOperationEnum(states: PropertyState[]): OperationEnum[]
 }
 
 
-    public verifyFields(data: PropertyInput): ValidationError[] {
+    public verifyFields(data: PropertyInput | PropertyUpdateData): ValidationError[] {
         const errors: ValidationError[] = [];
 
         if (data.address !== undefined) {
