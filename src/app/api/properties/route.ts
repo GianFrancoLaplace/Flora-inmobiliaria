@@ -3,11 +3,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { PropertyService } from '@/services/propertyService';
-import { PropertyInput,Property } from '@/types/Property';
+import { PropertyInput,Property, PropertyState } from '@/types/Property';
 import { Characteristic } from "@/types/Characteristic";
 import { mapOperationToState, mapPropertyType } from '@/helpers/PropertyMapper';
 import { mapPrismaCharacteristicCategory } from '@/helpers/IconMapper';
 import {ValidationError} from "@/helpers/UpdateProperty";
+import { array } from 'zod/v4';
 
 type PriceFilter = {
     lte?: number;
@@ -98,7 +99,10 @@ export async function POST(request: NextRequest) {
             );
         }
 
-
+        const operations: PropertyState[] = [];
+        operations.push(body.category);
+        const operation = service.mapPropertyStateToOperationEnum(operations)
+        
 
         const newProperty = await prisma.property.create({
             data: {
@@ -106,7 +110,7 @@ export async function POST(request: NextRequest) {
                 description: body.description,
                 price:       body.price,
                 type:        body.type,
-                category:    body.category,
+                category:    operation[0],
                 address:     body.address,
                 ubication:   body.ubication,
                 city:        body.city,
@@ -136,7 +140,12 @@ export async function POST(request: NextRequest) {
                 characteristics: true
             }
         });
-        return { property: newProperty };
+        return NextResponse.json(
+                {
+                    message: 'Propiedad creada con éxito'
+                },
+                { status: 201 }
+            );
 
     } catch (e) {
         console.error(e);

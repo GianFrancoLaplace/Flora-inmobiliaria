@@ -3,7 +3,7 @@ import {PropertyInput, PropertyState, PropertyType,Property} from "@/types/Prope
 import { CharacteristicCategory, CharacteristicValidationInput } from '@/types/Characteristic';
 import { ValidationResult } from "@/types";
 import { CharacteristicService } from "@/services/characteristicService";
-import {Prisma} from "@prisma/client/extension";
+import { OperationEnum, Prisma } from '@prisma/client';
 
 
 type CreatePropertyResult =
@@ -22,6 +22,13 @@ export class PropertyService {
         this.rawOperaciones = operaciones;
     }
 
+    private propertyStateToOperationEnumMap: Record<PropertyState, OperationEnum> = {
+    [PropertyState.SALE]: 'venta',
+    [PropertyState.SOLD]: 'vendida',
+    [PropertyState.RENT]: 'alquiler',
+    [PropertyState.RENTED]: 'alquilada',
+  };
+
     private isValidEnumValue(value: string, enumObject: Record<string, string>): boolean { //verifica la validez de un enum
         return Object.values(enumObject).includes(value);
     }
@@ -36,25 +43,29 @@ export class PropertyService {
         return this.rawOperaciones.filter(op => this.isValidEnumValue(op, PropertyState)) as PropertyState[];
     }
 
-/*
-    public buildWhereClause(): Prisma.PropertyWhereInput {
-    const tipos = this.parseTipos();
-    const operaciones = this.parseOperaciones();
 
-    const filters: Prisma.PropertyWhereInput = {};
+  public buildWhereClause(): Prisma.PropertyWhereInput {
+  const tipos = this.parseTipos();
+  const operaciones = this.parseOperaciones();
 
-    if (tipos.length > 0) {
-        filters.type = { in: tipos };
-    }
+  const filters: Prisma.PropertyWhereInput = {};
 
-    if (operaciones.length > 0) {
-        filters.category = { in: operaciones };
-    }
+  if (tipos.length > 0) {
+    filters.type = { in: tipos };
+  }
 
-    return filters;
+  if (operaciones.length > 0) {
+    filters.category = { in: this.mapPropertyStateToOperationEnum(operaciones) };
+  }
+
+  return filters;
 }
 
-*/
+
+public mapPropertyStateToOperationEnum(states: PropertyState[]): OperationEnum[] {
+  return states.map(state => this.propertyStateToOperationEnumMap[state]);
+}
+
 
     public verifyFields(data: PropertyInput): ValidationError[] {
         const errors: ValidationError[] = [];

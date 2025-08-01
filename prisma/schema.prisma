@@ -63,6 +63,8 @@ enum PropertyTypeEnum {
 enum OperationEnum {
   alquiler
   venta
+  alquilada
+  vendida
 
   @@map("operation_enum")
 }
