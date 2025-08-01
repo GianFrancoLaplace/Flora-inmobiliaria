@@ -25,7 +25,7 @@ export const useCreateProperty = () => {
         setStatus(null);
 
         try {
-            const response = await fetch('/api/propiedades', {
+            const response = await fetch('/api/properties', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
