@@ -140,7 +140,7 @@ export async function POST(request: NextRequest) {
                 characteristics: true
             }
         });
-        return { property: newProperty };
+        return NextResponse.json({ property: newProperty });
 
     } catch (e) {
         console.error(e);
