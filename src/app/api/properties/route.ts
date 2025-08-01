@@ -140,7 +140,12 @@ export async function POST(request: NextRequest) {
                 characteristics: true
             }
         });
-        return NextResponse.json({ property: newProperty });
+        return NextResponse.json(
+                {
+                    message: 'Propiedad creada con éxito'
+                },
+                { status: 201 }
+            );
 
     } catch (e) {
         console.error(e);
