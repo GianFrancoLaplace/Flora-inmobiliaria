@@ -4,7 +4,49 @@ import {NextRequest, NextResponse} from "next/server";
 import {prisma} from "@/lib/prisma";
 import {CharacteristicService} from "@/services/characteristicService";
 
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+    try {
+        const {id} = params;
+        const idProperty = parseInt(id);
 
+        if (!idProperty) {
+            return NextResponse.json(
+                {message: "Id inválido"},
+                {status: 400}
+            )
+        }
+
+        const characteristics = await prisma.characteristic.findMany({
+            where: {propertyId: idProperty},
+            orderBy: {idCharacteristic: "asc"},
+        });
+
+        if (!characteristics) {
+            return NextResponse.json(
+                {message: "Error al obtener las carácterísticas"},
+                {status: 404}
+            )
+        }
+
+        const mapped = characteristics.map((c) => ({
+            id: c.idCharacteristic,
+            characteristic: c.characteristic,
+            data_type: c.dataType === "integer" ? "integer" : "text",
+            value_integer: c.valueInteger ?? undefined,
+            value_text: c.valueText ?? undefined,
+            category: c.category ?? undefined,
+            iconUrl: undefined, // Agregalo si tenés lógica para iconos
+        }));
+
+        return NextResponse.json(mapped, { status: 200 });
+    } catch (e) {
+        console.log(e);
+        return NextResponse.json(
+            {message: "Error del servidor"},
+            {status: 500}
+        )
+    }
+}
 
 export async function DELETE(request: NextRequest,{params}:{params:{id: string}})   {
 try {
