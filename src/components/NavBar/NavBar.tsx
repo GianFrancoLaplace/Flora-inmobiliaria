@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { handleSignOut } from '../../lib/actions';
 
 export default function NavBar() {
     const pathname = usePathname();
@@ -13,6 +14,8 @@ export default function NavBar() {
     const isLogin = pathname === '/login';
     const isI_WantSell = pathname === '/quiero-vender';
     const isOur = pathname === '/nosotros';
+    const isAdmin = pathname === '/administracion';
+
 
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => setIsOpen(!isOpen);
@@ -40,10 +43,26 @@ export default function NavBar() {
                 <li><a href={"/nosotros"}>Nosotros</a></li>
                 <li><a href={"/quiero-vender"}>Quiero vender</a></li>
                 <li>
-                    <a href={"/login"}><Image src={'/icons/iconoUser.png'} alt={'minimalist user icon'} className={`${styles.iconoProperties}`}
-                    width={20}
-                    height={20}/>
-                    </a>
+                    {pathname === '/administracion' ? (
+                        <button
+                            onClick={async () => {
+                                await handleSignOut();
+                                window.location.href = "/";
+                            }}
+                            className={` ${styles.logoutButton} ${cactus.className}`}
+                        > <h3>Cerrar Sesión</h3>
+                        </button>
+                    ) : (
+                        <Link href="/login">
+                            <Image
+                                src={'/icons/iconoUser.png'}
+                                alt={'Iniciar sesión'}
+                                className={styles.iconoProperties}
+                                width={20}
+                                height={20}
+                            />
+                        </Link>
+                    )}
                 </li>
             </ul>
         </nav>
