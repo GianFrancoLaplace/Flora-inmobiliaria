@@ -1,5 +1,4 @@
-import {Property} from "@/types/Property";
-import {Characteristic, CharacteristicCreate, CharacteristicValidationInput} from "@/types/Characteristic";
+import {CharacteristicCreate, CharacteristicValidationInput} from "@/types/Characteristic";
 import {CharacteristicService} from "@/services/characteristicService";
 import {NextRequest, NextResponse} from "next/server";
 import {prisma} from "@/lib/prisma";
@@ -16,7 +15,7 @@ export async function POST(request: NextRequest) {
         if (validationErrors.errors.length > 0) {
             return NextResponse.json(
                 {
-                    message: 'Datos de propiedad inválidos',
+                    message: 'Datos de caracteristicas inválidos',
                     errors: validationErrors.errors.toString()
                 },
                 { status: 400 }

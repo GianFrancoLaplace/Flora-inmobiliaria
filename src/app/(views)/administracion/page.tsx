@@ -21,9 +21,9 @@ export default function FichaPropiedad() {
 
   return (
     <div className={styles.container}>
-        <div className="mt-4">
+        {/*<div className="mt-4">
             <SignOutButton />
-        </div>
+        </div>*/}
       <main>
         <ContactInformation />
       </main>

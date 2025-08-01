@@ -7,12 +7,12 @@ import EditButton from '@/components/TechnicalFile/EditButton'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
-import { Property, PropertyState, PropertyType } from "@/types/Property";
-import { useRouter } from "next/navigation";
-import { CharacteristicCategory } from "@/types/Characteristic";
+import {Property, PropertyState, PropertyType} from "@/types/Property";
+import {useRouter} from "next/navigation";
 import React, { useState } from "react";
 import CarrouselFotos from "./Carrousel/CarrouselFotos";
 import Item from "@/components/TechnicalFile/PropertiesItem";
+import CharacteristicsForm from "./characteristicsForm/characteristicsForm";
 
 import {
     getDataGridCharacteristics,
@@ -24,7 +24,7 @@ type TechnicalSheetProps = {
     property: Property | null;
 };
 
-export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) {
+export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
     const router = useRouter();
     if (property == null) {
         property = {
@@ -43,7 +43,8 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
     const [editingField, setEditingField] = useState<string | null>(null);
     const [localProperty, setLocalProperty] = useState<Property>(property);
-    const encodedAddress = encodeURIComponent(localProperty.address || 'Tandil, Buenos Aires');
+
+    const [showForm, setShowForm] = useState(false);
 
     //para el componente de Items
     const [isEditingAll, setIsEditingAll] = useState(false);
@@ -51,7 +52,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, setSubmitStatus] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
-    //funcion para crear la publicacion
+//funcion para crear la publicacion
     const handleCreatePublication = async () => {
         setIsSubmitting(true);
         setSubmitStatus(null);
@@ -96,27 +97,27 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             setIsSubmitting(false);
         }
     };
-    /*
-        const handleSaveCharacteristic = (
-            category: CharacteristicCategory,
-            newValue: string | number
-        ) => {
-            setLocalProperty((prev) => {
-                const updatedCharacteristics = prev.characteristics.map((char) =>
-                    char.category === category
-                        ? { ...char, characteristic: String(newValue) }
-                        : char
-                );
-    
-                return {
-                    ...prev,
-                    characteristics: updatedCharacteristics,
-                };
-            });
-    
-            // Opcional: Llamada a la API para guardar en base de datos
-        };
-    */
+/*
+    const handleSaveCharacteristic = (
+        category: CharacteristicCategory,
+        newValue: string | number
+    ) => {
+        setLocalProperty((prev) => {
+            const updatedCharacteristics = prev.characteristics.map((char) =>
+                char.category === category
+                    ? { ...char, characteristic: String(newValue) }
+                    : char
+            );
+
+            return {
+                ...prev,
+                characteristics: updatedCharacteristics,
+            };
+        });
+
+        // Opcional: Llamada a la API para guardar en base de datos
+    };
+*/
 
     console.log(editingField)
     const [isEditingAllP, setIsEditingAllP] = useState(false);
@@ -134,7 +135,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
     const handleSaveField = async (fieldName: keyof Property, value: string | number) => {
         console.log(`Guardando ${fieldName}:`, value);
 
-        setLocalProperty(prev => ({ ...prev, [fieldName]: value }));
+        setLocalProperty(prev => ({...prev, [fieldName]: value}));
 
         setEditingField(null)
         console.log("2. LocalProperty después del update:", localProperty); // Para debug
@@ -143,7 +144,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
     const handleSaveAddress = async (value: string) => {
         console.log(`Guardando address:`, value);
 
-        setLocalProperty(prev => ({ ...prev, address: value }));
+        setLocalProperty(prev => ({...prev, address: value}));
 
         setEditingField(null)
         console.log("2. LocalProperty después del update:", localProperty); // Para debug
@@ -162,12 +163,12 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
     return (
         <main className={styles.page}>
             <div>
-                <ContactInformation />
+                <ContactInformation/>
             </div>
 
             <div className={styles.mainAdressProperties}>
                 <div
-                    className={`${styles.adressProperties} ${styles.showProperties}`}>
+                    className={`${styles.adressProperties} ${ styles.showProperties }`}>
                     <h1>
                         <EditableTextField
                             value={localProperty.address}
@@ -189,7 +190,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             </div>
 
             <div className={styles.mediaCarouselProperties}>
-                <CarrouselFotos isEditableFile={isEditableFile || isEmptyFile} property={property} />
+                    <CarrouselFotos isEditableFile={isEditableFile || isEmptyFile} property={property}/>
             </div>
 
             <div className={styles.main}>
@@ -205,14 +206,14 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                                 className={styles.inputProperties}
                             />
                         </h1>
-                        <EditButton
-                            onStartEdit={() => handleStartEditMain()}
-                            onEndEdit={() => handleSaveAddress('valor')}
-                            isEditing={editingField === 'address-main'}
-                            className={styles.editButtonProperties}
-                            show={isEditableFile || isEmptyFile}
-                            img={'/icons/iconoEdit.png'}
-                        />
+                            <EditButton
+                                onStartEdit={() => handleStartEditMain()}
+                                onEndEdit={() => handleSaveAddress('valor')}
+                                isEditing={editingField === 'address-main'}
+                                className={styles.editButtonProperties}
+                                show={isEditableFile || isEmptyFile}
+                                img={'/icons/iconoEdit.png'}
+                            />
                         <h1>
                             <span> | </span>
                             <EditableSelectField // Debería ser un select
@@ -236,7 +237,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                 </div>
                 <div className={styles.buttonsProperties}>
                     <button type="button"
-                        className={`${styles.askBtn} ${isEmptyFile ? styles.notShowProperties : styles.showProperties || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
+                            className={`${styles.askBtn} ${isEmptyFile ? styles.notShowProperties : styles.showProperties || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
                         Consultar por esta propiedad
                     </button>
                     <button
@@ -248,11 +249,11 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                         {isSubmitting ? 'Generando...' : 'Generar publicación'}
                     </button>
                     <button type="button"
-                        className={`${styles.askBtn} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
+                            className={`${styles.askBtn} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
                         Guardar cambios
                     </button>
                     <button type="button"
-                        className={`${styles.askBtn} ${styles.btnSold} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
+                            className={`${styles.askBtn} ${styles.btnSold} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
                         Marcar como vendida/alquilada
                     </button>
                 </div>
@@ -338,19 +339,36 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             </div>
 
             <div className={styles.descriptionsProperties}>
-                <div className={styles.titleProperties}>
-                    <h3>Ficha</h3>
-                    <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
-                        <button onClick={() => setIsEditingAll(!isEditingAll)} className={styles.editButtonProperties}>
-                            {isEditingAll ? '✔ Guardar' : <Image
-                                src={'/icons/iconoEdit.png'}
-                                alt={'Icono para editar'}
-                                width={30}
-                                height={30}
-                            />}
+                <div className={styles.buttonsEditProperties}>
+                    <div className={styles.titleProperties}>
+                        <h3>Ficha</h3>
+                        <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
+                            <button onClick={() => setIsEditingAll(!isEditingAll)} className={styles.editButtonProperties}>
+                                {isEditingAll ? '✔ Guardar' :     <Image
+                                    src={'/icons/iconoEdit.png'}
+                                    alt={'Icono para editar'}
+                                    width={30}
+                                    height={30}
+                                />}
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <button
+                            onClick={() => setShowForm(v => !v)}
+                            aria-expanded={showForm}
+                            aria-controls="characteristics-form"
+                            className={styles.buttonShowMoreProperties}
+                        >
+                            {showForm ? '−' : '+'}
                         </button>
                     </div>
                 </div>
+                {showForm && (
+                    <div>
+                        <CharacteristicsForm />
+                    </div>
+                )}
                 <div className={styles.dataGridProperties}>
                     <div className={styles.sectionProperties}>
                         {getTechnicalSheetCharacteristics(property).map((characteristic) => {
@@ -398,7 +416,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                 </h5>
                 <div className={styles.mapaInteractivo}>
                     <iframe
-                        src={`https://www.google.com/maps?q=${encodedAddress}&output=embed`}
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6345.872814972624!2d-59.128316!3d-37.320334!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95911f92a1699e0f%3A0xb7acb39bd2ed6d7!2sMitre%201247%2C%20B7000%20Tandil%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1750441385483!5m2!1ses!2sar"
                         width="1300"
                         height="400"
                         loading="lazy"
