@@ -40,6 +40,7 @@ export interface PropertyUpdateData {
     price?: number;
     description?: string;
     type?: PropertyType;
+    state?: PropertyState;
 }
 export interface Image {
     id_image: number;
