@@ -1,6 +1,6 @@
 .filterGroupWrapper {
     width: 100%;
-    padding: 1rem 0;
+    padding: var(--space-md) 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,20 +10,20 @@
     margin-bottom: 0.8rem;
     font-size: 1.3rem;
     font-weight: 500;
-    color: #33322f;
+    color: var(--primary-color-5);
     text-align: center;
 }
 
 .burgerButton {
     display: block;
     background-color: var(--secondary-color-5, #f0c040);
-    color: #333;
+    color: var(--primary-color-5);
     padding: 0.6rem 1.2rem;
     border: none;
     font-size: 1.1rem;
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     z-index: 1000;
     align-self: center;
     margin-bottom: 1rem;
@@ -36,11 +36,11 @@
 .filterContainer {
     display: none;
     flex-direction: column;
-    align-items: center; /* <-- centrado solo en mobile */
+    align-items: center;
     flex-wrap: wrap;
     background-color: var(--primary-color-4);
     padding: 1.5rem 1rem;
-    border-radius: 10px;
+    border-radius: var(--radius-l);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
@@ -52,7 +52,7 @@
     background-color: var(--primary-color-5);
     color: #f1e9d2;
     padding: 0.8rem 1.2rem;
-    border-radius: 10px;
+    border-radius: var(--radius-l);
     display: flex;
     align-items: center;
     gap: 0.6rem;
@@ -61,7 +61,7 @@
     transition: background-color 0.3s ease;
     user-select: none;
     border: none;
-    font-size: 1rem;
+    font-size: var(--text-base);
     width: 240px;
     box-sizing: border-box;
     margin-bottom: 0.8rem;
@@ -96,7 +96,7 @@
 
 .active .toggleCircle {
     left: 24px;
-    background-color: var(--secondary-color-5, gold);
+    background-color: var(--secondary-color-5);
 }
 
 @media (min-width: 1000px) {
@@ -111,15 +111,15 @@
     .filterContainer {
         display: flex;
         flex-direction: row;
-        justify-content: flex-start; /* en lugar de center */
-        gap: 2rem;
+        justify-content: flex-start;
+        gap: var(--space-xl);
         flex-wrap: nowrap;
         width: 100%;
         background-color: transparent;
         padding: 0;
         border-radius: 0;
         box-shadow: none;
-        align-items: flex-start; /* <-- esto reemplaza el centrado */
+        align-items: flex-start;
     }
 
     .filterButton {

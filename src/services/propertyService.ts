@@ -1,26 +1,17 @@
-import { Prisma } from '@prisma/client';
-import { prisma } from '@/lib/prisma';
-import { PropertyTypeEnum, OperationEnum, Property } from '@prisma/client';
-import { PropertyUpdateData, ValidationError } from "@/helpers/UpdateProperty";
-import { PropertyState, PropertyType } from "@/types/Property";
+import {ValidationError } from "@/helpers/UpdateProperty";
+import {PropertyInput, PropertyState, PropertyType,Property} from "@/types/Property";
 import { CharacteristicCategory, CharacteristicValidationInput } from '@/types/Characteristic';
 import { ValidationResult } from "@/types";
 import { CharacteristicService } from "@/services/characteristicService";
+import {Prisma} from "@prisma/client/extension";
+
 
 type CreatePropertyResult =
     | { errors: string[]; property?: undefined }
     | { property: Property; errors?: undefined };
 
 
-interface PropertyInput {
-    address: string;
-    description: string;
-    ubication: string;
-    price: number;
-    type: PropertyTypeEnum;
-    category: OperationEnum;
-    city?: string;
-}
+
 
 export class PropertyService {
     private rawTipos: string[] | undefined; //defino mis array de operaciones y tipos para los filtros
@@ -35,19 +26,20 @@ export class PropertyService {
         return Object.values(enumObject).includes(value);
     }
 
-    private parseTipos(): PropertyTypeEnum[] { //parsear tipos si es necesario para que sean aptos para validaciones
+    private parseTipos(): PropertyType[] { //parsear tipos si es necesario para que sean aptos para validaciones
         if (!this.rawTipos) return [];
-        return this.rawTipos.filter(tipo => this.isValidEnumValue(tipo, PropertyTypeEnum)) as PropertyTypeEnum[];
+        return this.rawTipos.filter(tipo => this.isValidEnumValue(tipo, PropertyType)) as PropertyType[];
     }
 
-    private parseOperaciones(): OperationEnum[] { //parsear operaciones
+    private parseOperaciones(): PropertyState[] { //parsear operaciones
         if (!this.rawOperaciones) return [];
-        return this.rawOperaciones.filter(op => this.isValidEnumValue(op, OperationEnum)) as OperationEnum[];
+        return this.rawOperaciones.filter(op => this.isValidEnumValue(op, PropertyState)) as PropertyState[];
     }
 
+/*
     public buildWhereClause(): Prisma.PropertyWhereInput {
-    const tipos = this.parseTipos();         
-    const operaciones = this.parseOperaciones(); 
+    const tipos = this.parseTipos();
+    const operaciones = this.parseOperaciones();
 
     const filters: Prisma.PropertyWhereInput = {};
 
@@ -56,32 +48,15 @@ export class PropertyService {
     }
 
     if (operaciones.length > 0) {
-        filters.category = { in: operaciones }; 
+        filters.category = { in: operaciones };
     }
 
     return filters;
 }
 
-    public async createProperty(body: PropertyInput): Promise<CreatePropertyResult> {
-        const newProperty = await prisma.property.create({
-            data: {
-                price: body.price,
-                address: body.address,
-                description: body.description,
-                type: body.type,
-                category: body.category,
-                ubication: body.ubication,
-            },
-        });
+*/
 
-        if (!newProperty) {
-            return { errors: ['No se pudo crear la propiedad'] };
-        }
-
-        return { property: newProperty };
-    }
-
-    public verifyFields(data: PropertyUpdateData): ValidationError[] {
+    public verifyFields(data: PropertyInput): ValidationError[] {
         const errors: ValidationError[] = [];
 
         if (data.address !== undefined) {
@@ -91,10 +66,19 @@ export class PropertyService {
                     message: 'La dirección debe ser un texto válido y no puede estar vacía'
                 });
             }
+
+        }
+        if (data.city !== undefined) {
+            if (typeof data.address !== 'string' || data.address.trim().length === 0) {
+                errors.push({
+                    field: 'address',
+                    message: 'La dirección debe ser un texto válido y no puede estar vacía'
+                });
+            }
         }
 
-        if (data.category !== undefined) {
-            if (!Object.values(PropertyState).includes(data.category)) {
+        if (data.state !== undefined) {
+            if (!Object.values(PropertyState).includes(data.state)) {
                 errors.push({
                     field: 'state',
                     message: 'El estado debe ser: EN VENTA, VENDIDA, EN ALQUILER o ALQUILADA'
@@ -103,7 +87,7 @@ export class PropertyService {
         }
 
         if (data.price !== undefined) {
-            if (typeof data.price !== 'number' || data.price <= 0) {
+            if (data.price <= 0) {
                 errors.push({
                     field: 'price',
                     message: 'El precio debe ser un número mayor a cero'
@@ -112,7 +96,7 @@ export class PropertyService {
         }
 
         if (data.description !== undefined) {
-            if (typeof data.description !== 'string' || data.description.trim().length === 0) {
+            if ( data.description.trim().length === 0) {
                 errors.push({
                     field: 'description',
                     message: 'La descripción debe ser un texto válido y no puede estar vacía'
@@ -120,14 +104,6 @@ export class PropertyService {
             }
         }
 
-        if (data.type !== undefined) {
-            if (!Object.values(PropertyType).includes(data.type)) {
-                errors.push({
-                    field: 'type',
-                    message: 'El tipo de propiedad debe ser un valor válido'
-                });
-            }
-        }
 
         return errors;
     }

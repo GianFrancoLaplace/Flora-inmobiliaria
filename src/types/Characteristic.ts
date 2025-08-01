@@ -51,3 +51,4 @@ export interface CharacteristicValidationInput {
     value_integer?: number;
     value_text?: string;
 }
+
