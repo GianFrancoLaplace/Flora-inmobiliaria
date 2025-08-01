@@ -17,6 +17,7 @@ export type Property = {
         category: string;
     }[];
     ubication: string;
+    images: { id: number; url: string }[]; // ⬅️ agregá esta línea
 };
 
 // Tipo para PropertyGrid

@@ -22,16 +22,15 @@ export default function useAdminImages() {
 
             return data;
         } catch (error) {
-  if (error instanceof Error) {
-    console.error(error);
-  } else {
-    console.error('Unknown error', error);
-  }
-} finally {
+            if (error instanceof Error) {
+            console.error(error);
+            } else {
+                console.error('Unknown error', error);
+            }
+        } finally {
             setLoading(false);
         }
     };
-
 
     const deleteImage = async (propertyId: number, imageId: number) => {
         setLoading(true);
@@ -46,12 +45,12 @@ export default function useAdminImages() {
 
             return data;
         } catch (error) {
-  if (error instanceof Error) {
-    console.error(error);
-  } else {
-    console.error('Unknown error', error);
-  }
-} finally {
+            if (error instanceof Error) {
+                console.error(error);
+            } else {
+                console.error('Unknown error', error);
+            }
+        } finally {
             setLoading(false);
         }
     };

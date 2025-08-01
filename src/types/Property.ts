@@ -18,6 +18,7 @@ export interface Property {
   images: { id: number; url: string }[];
   type?: PropertyType;
 }
+
 export interface PropertyInput {
     address: string;
     city: string;

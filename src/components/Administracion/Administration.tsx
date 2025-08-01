@@ -91,7 +91,7 @@ export default function Administration() {
                         <div className={`${styles.cardProperties} ${cactus.className}`}>
                             <div className={`${styles.imageProperties} ${cactus.className}`}>
                                 <Image
-                                    src="/imgs/interior1.jpeg"
+                                    src={prop.images[0]?.url}
                                     alt="Imagen interior casa"
                                     width={285}
                                     height={175}
