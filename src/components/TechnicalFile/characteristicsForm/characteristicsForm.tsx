@@ -3,6 +3,7 @@
 import styles from './characteristicsForm.module.css';
 import { useState } from "react";
 import {CharacteristicCategory, CharacteristicCreate} from "@/types/Characteristic";
+import Item from '../PropertiesItem';
 
 type SubFeature = {
     name: string;
@@ -249,18 +250,29 @@ export default function CharacteristicsForm() {
 
             <div className="mt-6">
                 <h2 className="text-lg font-semibold mb-2">Características agregadas</h2>
-                <ul className="space-y-2">
-                    {characteristics.map((c) => (
-                        <li key={c.id} className="p-3 border rounded shadow-sm">
-                            <strong>{c.characteristic}</strong>
-                            {c.category && <span className="ml-2 text-sm text-gray-600">({c.category})</span>}
-                            <div>
-                                Valor: <span className="font-mono">{c.value_integer ?? c.value_text}</span>
-                            </div>
-                        </li>
+                <div className="space-y-2">
+                    {characteristics.map((c, index) => (
+                        <Item
+                            key={index}
+                            imgSrc="/icons/agua.png" // o uno dinámico según la categoría
+                            label={c.characteristic}
+                            characteristic={{
+                                id: 0,
+                                characteristic: c.characteristic,
+                                value_integer: c.value_integer ?? undefined,
+                                value_text: c.value_text ?? undefined,
+                                data_type: c.value_integer !== null ? 'integer' : 'text',
+                            }}
+                            isEditing={false}
+                            id={index}
+                            type="item"
+                            onSave={() => {
+                            }} // Si no editás desde acá, podés pasar función vacía
+                        />
                     ))}
-                </ul>
+                </div>
             </div>
+
         </main>
     );
 }
