@@ -16,7 +16,6 @@ const FilterGroup: React.FC<Props> = ({ title, filters }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Función para normalizar los valores para la API
   const normalizeForAPI = (value: string): string => {
     const mapping: { [key: string]: string } = {
       'Departamentos': 'departamento',
@@ -35,11 +34,9 @@ const FilterGroup: React.FC<Props> = ({ title, filters }) => {
     
     setActivos(newActivos);
     
-    // Actualizar la URL con los filtros SIN recargar la página
     const params = new URLSearchParams(searchParams.toString());
     
     if (newActivos.length > 0) {
-      // Normalizar los valores para la API
       const normalizedValues = newActivos.map(normalizeForAPI);
       params.set('tipo', normalizedValues.join(','));
     } else {

@@ -15,7 +15,7 @@
     object-fit: cover;
     opacity: 0;
     transform: scale(0.98);
-    transition: opacity ease-out 0.3s;
+    transition: opacity ease-out 0.5s;
     position: absolute;
     top: 0;
     left: 0;
@@ -64,7 +64,7 @@
     width: 200px;
     height: 30px;
     cursor: pointer;
-    transition: background-color ease-out 0.3s;
+    transition: background-color ease-out 0.5s;
 }
 
 .aceptButtonProperties {

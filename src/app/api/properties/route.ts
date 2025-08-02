@@ -3,11 +3,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { PropertyService } from '@/services/propertyService';
-import { Property } from '@/types/Property';
+import { PropertyInput,Property, PropertyState } from '@/types/Property';
 import { Characteristic } from "@/types/Characteristic";
 import { mapOperationToState, mapPropertyType } from '@/helpers/PropertyMapper';
 import { mapPrismaCharacteristicCategory } from '@/helpers/IconMapper';
-import { PropertyUpdateData } from '@/helpers/UpdateProperty';
+import {ValidationError} from "@/helpers/UpdateProperty";
+import { array } from 'zod/v4';
 
 type PriceFilter = {
     lte?: number;
@@ -81,10 +82,9 @@ export async function GET(request: Request) {
 
 
 export async function POST(request: NextRequest) {
-    console.log("hola post??");
     try {
 
-        const body: PropertyUpdateData = await request.json();
+        const body: PropertyInput = await request.json();
         const service = new PropertyService([], []);
 
         const validationErrors = service.verifyFields(body);
@@ -99,15 +99,53 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const property = await request.json();
+        const operations: PropertyState[] = [];
+        operations.push(body.category);
+        const operation = service.mapPropertyStateToOperationEnum(operations)
+        
 
-        const result = await service.createProperty(property);
+        const newProperty = await prisma.property.create({
+            data: {
 
-        if (result.errors) {
-            return NextResponse.json({ errors: result.errors }, { status: 400 });
-        }
+                description: body.description,
+                price:       body.price,
+                type:        body.type,
+                category:    operation[0],
+                address:     body.address,
+                ubication:   body.ubication,
+                city:        body.city,
 
-        return NextResponse.json(result.property, { status: 201 });
+
+                images: {
+
+                    create: body.images.map(image => ({
+
+                        url: image.url
+                    }))
+                },
+
+                characteristics: {
+                    create: body.characteristics.map(char => ({
+                        characteristic: char.characteristic,
+                        category:       char.category,
+                        dataType:       char.data_type,
+                        valueInteger:   char.value_integer,
+                        valueText:      char.value_text,
+                    }))
+                }
+            },
+
+            include: {
+                images: true,
+                characteristics: true
+            }
+        });
+        return NextResponse.json(
+                {
+                    message: 'Propiedad creada con éxito'
+                },
+                { status: 201 }
+            );
 
     } catch (e) {
         console.error(e);

@@ -19,6 +19,30 @@ export interface Property {
   type?: PropertyType;
 }
 
+export interface PropertyInput {
+    address: string;
+    city: string;
+    state: PropertyState;
+    price: number;
+    description: string;
+    ubication: string;
+    characteristics: Characteristic[];
+    images: { id: number; url: string }[];
+    type: PropertyType;
+    category: PropertyState;
+
+}
+
+export interface PropertyUpdateData {
+    address?: string;
+    city?: string; //Puede haber propiedades de distintas ciudades?
+    category?: PropertyState;
+    ubication?: string;
+    price?: number;
+    description?: string;
+    type?: PropertyType;
+    state?: PropertyState;
+}
 export interface Image {
     id_image: number;
     id_property: number;

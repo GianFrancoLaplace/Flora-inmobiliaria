@@ -353,7 +353,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                             </button>
                         </div>
                     </div>
-                    <div>
+                    <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
                         <button
                             onClick={() => setShowForm(v => !v)}
                             aria-expanded={showForm}
@@ -378,7 +378,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                                     imgSrc={characteristic.iconUrl || '/icons/default.png'}
                                     label={characteristic.characteristic}
                                     characteristic={characteristic}
-                                    isEditing={isEditingAllP}
+                                    isEditing={isEditingAll}
                                     onSave={handleSaveCharacteristic}
                                     id={characteristic.id}
                                     type="item"

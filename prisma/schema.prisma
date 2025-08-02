@@ -38,8 +38,7 @@ model Characteristic {
   dataType         String                      @map("data_type") @db.VarChar(20)
   valueInteger     Int?                        @map("value_integer")
   valueText        String?                     @map("value_text")
-
-  property Property @relation(fields: [propertyId], references: [idProperty], onDelete: Cascade, map: "Characteristic_property_id_fkey")
+  property         Property                    @relation(fields: [propertyId], references: [idProperty], onDelete: Cascade, map: "Characteristic_property_id_fkey")
 
   @@map("characteristic")
 }
@@ -64,6 +63,8 @@ enum PropertyTypeEnum {
 enum OperationEnum {
   alquiler
   venta
+  alquilada
+  vendida
 
   @@map("operation_enum")
 }
