@@ -2,6 +2,7 @@
 
 import styles from './characteristicsForm.module.css';
 import { useState } from "react";
+import {CharacteristicCategory, CharacteristicCreate} from "@/types/Characteristic";
 
 type SubFeature = {
     name: string;
@@ -100,20 +101,73 @@ const FEATURES: Feature[] = [
     },
 ];
 
+const CATEGORY_MAP: Record<string, CharacteristicCategory> = {
+    "Superficie - Total": CharacteristicCategory.SUPERFICIE_TOTAL,
+    "Superficie - Cubierta": CharacteristicCategory.SUPERFICIE_CUBIERTA,
+    "Superficie - Descubierta": CharacteristicCategory.SUPERFICIE_DESCUBIERTA,
+    "Superficie - Semicubierta": CharacteristicCategory.SUPERFICIE_SEMICUBIERTA,
+    "Ambientes": CharacteristicCategory.AMBIENTES,
+    "Dormitorios": CharacteristicCategory.DORMITORIOS,
+    "Dormitorios - En Suite": CharacteristicCategory.DORMITORIOS_SUITE,
+    "Baños": CharacteristicCategory.BANOS,
+    "Cocheras - Cantidad": CharacteristicCategory.COCHERAS,
+    "Cocheras - Cobertura cochera": CharacteristicCategory.COBERTURA_COCHERA,
+    "Balcón/Terraza": CharacteristicCategory.BALCON_TERRAZA,
+    "Expensas - Valor": CharacteristicCategory.EXPENSAS,
+    "Expensas - Fecha": CharacteristicCategory.FECHA_EXPENSA,
+    "Agua": CharacteristicCategory.AGUA,
+    "Tipo de piso": CharacteristicCategory.TIPO_PISO,
+    "Estado del inmueble": CharacteristicCategory.ESTADO_INMUEBLE,
+    "Orientación": CharacteristicCategory.ORIENTACION,
+    "Luminosidad": CharacteristicCategory.LUMINOSIDAD,
+    "Disposición": CharacteristicCategory.DISPOSICION,
+    "Antigüedad": CharacteristicCategory.ANTIGUEDAD,
+    "Ubicación en la cuadra": CharacteristicCategory.UBICACION_CUADRA,
+    "Cantidad de plantas": CharacteristicCategory.CANTIDAD_PLANTAS,
+};
+
+
 export default function CharacteristicsForm() {
     const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null);
     const [selectedSubtype, setSelectedSubtype] = useState<SubFeature | null>(null);
     const [inputValue, setInputValue] = useState<string | number>("");
+    const [characteristics, setCharacteristics] = useState<CharacteristicCreate[]>([]);
+
 
     const handleSubmit = () => {
-        const key = selectedSubtype ? `${selectedFeature?.name} - ${selectedSubtype.name}` : selectedFeature?.name;
-        const value = inputValue;
+        if (!selectedFeature) return;
 
-        console.log("Resultado a guardar:", {
-            key,
-            value,
-        });
+        const fullLabel = selectedSubtype
+            ? `${selectedFeature.name} - ${selectedSubtype.name}`
+            : selectedFeature.name;
+
+        const category = CATEGORY_MAP[fullLabel] ?? CharacteristicCategory.OTROS;
+
+        const characteristicData: CharacteristicCreate = {
+            id: Date.now(), // o podés usar un uuid
+            characteristic: fullLabel,
+            property_id: 1, // 🔁 Reemplazar por la propiedad real que se esté editando
+            data_type:
+                selectedSubtype?.inputType === "number" || selectedFeature.inputType === "number"
+                    ? "integer"
+                    : "text",
+            value_integer:
+                selectedSubtype?.inputType === "number" || selectedFeature.inputType === "number"
+                    ? Number(inputValue)
+                    : undefined,
+            value_text:
+                selectedSubtype?.inputType === "text" || selectedFeature.inputType === "text"
+                    ? String(inputValue)
+                    : undefined,
+            category: category,
+            iconUrl: "", // opcional, lo podés manejar después
+        };
+
+        console.log("Characteristic creada para guardar:", characteristicData);
+
+        setCharacteristics((prev) => [...prev, characteristicData]);
     };
+
 
     return (
         <main className={styles.main}>
@@ -192,6 +246,21 @@ export default function CharacteristicsForm() {
             >
                 ✔
             </button>
+
+            <div className="mt-6">
+                <h2 className="text-lg font-semibold mb-2">Características agregadas</h2>
+                <ul className="space-y-2">
+                    {characteristics.map((c) => (
+                        <li key={c.id} className="p-3 border rounded shadow-sm">
+                            <strong>{c.characteristic}</strong>
+                            {c.category && <span className="ml-2 text-sm text-gray-600">({c.category})</span>}
+                            <div>
+                                Valor: <span className="font-mono">{c.value_integer ?? c.value_text}</span>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </main>
     );
 }
