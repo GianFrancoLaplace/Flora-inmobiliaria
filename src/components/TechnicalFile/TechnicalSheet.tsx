@@ -393,8 +393,8 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                 </div>
 
                 <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
-                    <button onClick={() => setIsEditingAllP(!isEditingAllP)} className={styles.editButtonProperties}>
-                        {isEditingAllP ? '✔ Guardar' :
+                    <button onClick={() => setIsEditingAllP(!isEditingAllP)} className={`${styles.editButtonProperties} ${isEditingAllP? styles.saveButtonProperties : ""}`}>
+                        {isEditingAllP ? <span>✔ Guardar</span> :
                             <Image
                                 src={'/icons/iconoEdit.png'}
                                 alt={'Icono para editar'}
