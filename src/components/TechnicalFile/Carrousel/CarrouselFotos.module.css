@@ -11,6 +11,11 @@
     opacity: 1;
 }
 
+.containerImagesEmptyFileProperties{
+    visibility: visible;
+    opacity: 1;
+}
+
 .imageProperties {
     object-fit: cover;
     opacity: 0;
@@ -29,6 +34,20 @@
     visibility: hidden;
     transition: opacity 1s ease;
     opacity: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.containerAddImageForEmptyFile{
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(35, 32, 33, 0.7);
+    position: absolute;
+    transition: opacity 1s ease;
     z-index: 10;
     width: 100%;
     height: 100%;

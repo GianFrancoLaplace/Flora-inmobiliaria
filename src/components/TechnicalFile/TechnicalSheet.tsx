@@ -190,7 +190,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             </div>
 
             <div className={styles.mediaCarouselProperties}>
-                    <CarrouselFotos isEditableFile={isEditableFile || isEmptyFile} property={property}/>
+                    <CarrouselFotos isEditableFile={isEditableFile} isEmptyFile={isEmptyFile} property={property}/>
             </div>
 
             <div className={styles.main}>
