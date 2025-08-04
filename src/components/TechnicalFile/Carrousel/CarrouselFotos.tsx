@@ -6,33 +6,28 @@ import styles from "./CarrouselFotos.module.css";
 import { Property } from "@/types/Property";
 import useAdminImages from '@/hooks/AdminImages';
 
-const image = [
-  "/backgrounds/fichaBackground.jpg",
-  "/backgrounds/fichaBackground.2.jpg",
-  "/backgrounds/fichaBackground.3.jpg"
-];
-
-type prop = {
+type Prop = {
   isEditableFile: boolean;
   property: Property;
+  isEmptyFile: boolean;
 };
 
-export default function CarrouselFotos({ isEditableFile, property }: prop) {
+export default function CarrouselFotos({ isEditableFile, isEmptyFile, property }: Prop) {
   const [actual, setActual] = useState(0);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [imageToDelete, setImageToDelete] = useState<any>(null);
+  const [images, setImages] = useState(property.images);
 
   const {
     createImage,
     deleteImage,
     loading: uploading,
-  } = useAdminImages(); 
+  } = useAdminImages();
 
-  const handleAceptDelete = (image: any) => {
+  const handleDeleteClick = (image: any) => {
     setImageToDelete(image);
     setShowConfirmModal(true);
   };
-
   const handleCancelDelete = () => {
     setImageToDelete(null);
     setShowConfirmModal(false);
@@ -43,91 +38,101 @@ export default function CarrouselFotos({ isEditableFile, property }: prop) {
     if (!file) return;
 
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const result = await createImage(property.id, file); // Usás directamente tu hook
+      const result = await createImage(property.id, file);
       if (result) {
-        alert('Imagen subida exitosamente!');
+        alert('¡Imagen subida exitosamente!');
+        setImages((prev: any[]) => [...prev, result]); // agregamos la nueva imagen al estado
+        setActual(images.length); // nos movemos a la nueva imagen
       }
-      } catch (err) {
-        console.error(err);
-        alert('Error al subir la imagen');
-      }
+    } catch (err) {
+      console.error(err);
+      alert('Error al subir la imagen');
+    }
   };
 
   const handleDeleteConfirmed = async () => {
     if (!imageToDelete) return;
-    const result = await deleteImage(property.id, imageToDelete.id_image);
+
+    const result = await deleteImage(property.id, images[actual].id);
     if (result) {
-      alert('Imagen eliminada correctamente');
+      alert('¡Imagen eliminada correctamente!');
+      const newImages = images.filter((img) => img.id !== images[actual].id);
+
+      setImages(newImages);
+
+      if (actual >= newImages.length) {
+        setActual(Math.max(0, newImages.length - 1));
+      }
+
       setShowConfirmModal(false);
+      setImageToDelete(null);
     }
   };
 
-  const next = () => setActual((prev) => (prev + 1) % image.length);
-  const prev = () => setActual((prev) => (prev - 1 + image.length) % image.length);
+  const next = () => setActual((prev) => (prev + 1) % images.length);
+  const prev = () => setActual((prev) => (prev - 1 + images.length) % images.length);
 
   return (
-    <div className={styles.imageContainerProperties}>
-      {image.map((img, i) => (
-        <Image
-          key={i}
-          src={img}
-          alt="Imagen Us"
-          layout="fill"
-          objectFit="cover"
-          className={`${styles.imageProperties} ${i === actual ? styles.imagePropertiesActive : ''}`}
-        />
-      ))}
+      <div className={`${styles.imageContainerProperties}`}>
+        {images.length > 0 && (
+            <Image
+                key={images[actual].id}
+                src={images[actual].url}
+                alt="Imagen propiedad"
+                layout="fill"
+                objectFit="cover"
+                className={`${styles.imageProperties} ${styles.imagePropertiesActive}`}
+            />
+        )}
 
-      <div className={`${isEditableFile ? styles.containerAddImage : styles.notVisible}`}>
-        <div>
-          <input
-            type="file"
-            id="inputId"
-            className={styles.inputProperties}
-            onChange={handleImageUpload}
-            accept="image/*"
-            disabled={uploading}
-          />
-          <label htmlFor="inputId" className={styles.labelAddImageProperties}>
-            {uploading ? 'Subiendo...' : 'Añadir imagen'}
-          </label>
-        </div>
-        <div>
-          <button onClick={(e) => {
-            e.preventDefault();
-            handleAceptDelete("null");
-          }} className={styles.deleteIconProperties}>
-            <Image src={"/icons/deleteIcon.png"} alt={"Icono de eliminar"} width={34} height={34} />
-          </button>
-        </div>
-      </div>
-
-      {showConfirmModal && imageToDelete && (
-        <div className={styles.messageCardPropertie}>
-          <p>¿Desea eliminar la imagen?</p>
-          <p>Esta acción no se podrá deshacer.</p>
-          <div className={styles.buttonMessageProperties}>
-            <button onClick={handleDeleteConfirmed} className={styles.aceptButtonProperties}>
-              Si, deseo eliminarla
-            </button>
-            <button onClick={handleCancelDelete} className={styles.cancelButtonProperties}>
-              No, gracias
-            </button>
+        <div className={`${isEditableFile? styles.containerAddImage : ""} ${isEmptyFile? styles.containerAddImageForEmptyFile : ""}`}>
+          <div>
+            <input
+                type="file"
+                id="inputId"
+                className={styles.inputProperties}
+                onChange={handleImageUpload}
+                accept="image/*"
+                disabled={uploading}
+            />
+            <label htmlFor="inputId" className={styles.labelAddImageProperties}>
+              {uploading ? 'Subiendo...' : 'Añadir imagen'}
+            </label>
           </div>
+          {images.length > 0 && (
+              <div>
+                <button onClick={() => handleDeleteClick(images[actual].id)} className={styles.deleteIconProperties}>
+                  <Image src="/icons/deleteIcon.png" alt="Ícono de eliminar" width={34} height={34} />
+                </button>
+              </div>
+          )}
         </div>
-      )}
 
-      <div className={styles.buttonProperties}>
-        <button onClick={prev}>
-          <Image src="/icons/IconFlechaDireccionContraria.png" alt="Icono de flecha para el carrousel" width={30} height={30} />
-        </button>
-        <button onClick={next}>
-          <Image src="/icons/IconFlecha.png" alt="Icono de flecha para el carrousel" width={30} height={30} />
-        </button>
+        {showConfirmModal && imageToDelete && (
+            <div className={styles.messageCardPropertie}>
+              <p>¿Desea eliminar la imagen?</p>
+              <p>Esta acción no se podrá deshacer.</p>
+              <div className={styles.buttonMessageProperties}>
+                <button onClick={handleDeleteConfirmed}  className={styles.aceptButtonProperties}>
+                  Sí, deseo eliminarla
+                </button>
+                <button onClick={handleCancelDelete} className={styles.cancelButtonProperties}>
+                  No, gracias
+                </button>
+              </div>
+            </div>
+        )}
+
+        {images.length > 1 && (
+            <div className={styles.buttonProperties}>
+              <button onClick={prev}>
+                <Image src="/icons/IconFlechaDireccionContraria.png" alt="Flecha izquierda" width={30} height={30} />
+              </button>
+              <button onClick={next}>
+                <Image src="/icons/IconFlecha.png" alt="Flecha derecha" width={30} height={30} />
+              </button>
+            </div>
+        )}
       </div>
-    </div>
   );
 }

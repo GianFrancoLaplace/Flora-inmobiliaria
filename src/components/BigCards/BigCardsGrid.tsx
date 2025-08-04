@@ -4,8 +4,8 @@ import styles from './BigCard.module.css'
 import {cactus} from "@/app/(views)/ui/fonts";
 import BigCard from "@/components/BigCards/BigCard";
 import React, { useEffect, useState } from "react";
-import { Property } from "../../types/Property"; // Ajusta la ruta según tu estructura
-import { CharacteristicCategory } from "../../types/Characteristic";
+import { Property } from "@/types/Property"; // Ajusta la ruta según tu estructura
+import { CharacteristicCategory } from "@/types/Characteristic";
 import { useSearchParams } from 'next/navigation';
 
 export default function BigCardsGrid() {
@@ -76,11 +76,11 @@ export default function BigCardsGrid() {
                 <BigCard
                     key={property.id}
                     id={property.id}
-                    imageSrc={"/backgrounds/fichaBackground.jpg"} // Mantener imagen por defecto por ahora
+                    imageSrc={property.images[0]?.url}
                     price={property.price}
                     transaction={property.state}
                     adress={property.address}
-                    city={property.city || "Tandil"} // Fallback a Tandil
+                    city={property.city || "Tandil"}
                     rooms={getCharacteristicValue(property, CharacteristicCategory.AMBIENTES)}
                     dorms={getCharacteristicValue(property, CharacteristicCategory.DORMITORIOS)}
                     bathrooms={getCharacteristicValue(property, CharacteristicCategory.BANOS)}

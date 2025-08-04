@@ -1,8 +1,8 @@
 .main {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: end;
+    flex-direction: column;
+    justify-content: left;
+    align-items: start;
     text-align: left;
 
     width: 100%;
@@ -11,11 +11,11 @@
     padding: 20px;
     padding-inline: 0px;
 
-    background-color: var(--secondary-color-1);
     color: var(--primary-color-5);
 }
 
 /*form properties*/
+
 .form {
     display: flex;
     flex-direction: column;

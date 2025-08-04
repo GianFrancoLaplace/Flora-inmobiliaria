@@ -14,6 +14,7 @@ type Props = {
     onSave: (category: CharacteristicCategory, newValue: string) => void;
     id: number;
     type: string
+    onDelete?: () => void;
 };
 
 export default function Item({
@@ -21,7 +22,8 @@ export default function Item({
                                  label,
                                  characteristic,
                                  isEditing,
-                                 type
+                                 type,
+                                 onDelete
 }: Props) {
     // const [editingField, setEditingField] = useState<keyof Characteristic | null>(null);
     const [localCharacterisctic, setLocalCharacterisctic] = useState<Characteristic>(characteristic);
@@ -71,15 +73,25 @@ export default function Item({
     }
     return (
         <div className={`${isItem ? styles.itemProperties : styles.infoCardProperties}`}>
-            <Image
-                src={imgSrc}
-                alt={'icono acorde a la informacion proporcionada'}
-                width={20}
-                height={20}
-            />
-            <h5>
-                {label}: {renderEditableField()}
-            </h5>
+            <div className={styles.itemInfo}>
+                <Image
+                    src={imgSrc}
+                    alt={'icono acorde a la informacion proporcionada'}
+                    width={20}
+                    height={20}
+                />
+                <h5>
+                    {label}: {renderEditableField()}
+                </h5>
+            </div>
+            {onDelete && (
+                <button
+                    onClick={onDelete}
+                    className={styles.deleteButton}
+                >
+                    <h5>✖</h5>
+                </button>
+            )}
         </div>
     )
 }
