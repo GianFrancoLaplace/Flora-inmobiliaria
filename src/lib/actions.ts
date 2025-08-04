@@ -61,13 +61,11 @@ export async function authenticate(
                     return { message: 'Algo salió mal. Por favor, inténtelo de nuevo.' };
             }
         }
-        // Es MUY IMPORTANTE volver a lanzar el error si no es un AuthError.
-        // Esto es lo que permite que la redirección de NextAuth funcione.
+
         throw error;
     }
 }
 
-// Acción única para cerrar sesión y redirigir
 export async function handleSignOut() {
     await signOut({ redirectTo: '/login' });
 }

@@ -15,24 +15,18 @@ export const authConfig = {
                     // Si está en /Administration y ha iniciado sesión, permite el acceso.
                     return true;
                 }
-                // Si intenta entrar a /Administration sin iniciar sesión, lo redirige a /login.
-                return false; //VOLVER A FALSE
+                return false;
             }
 
-            // Caso 2: El usuario ya ha iniciado sesión
             else if (isLoggedIn) {
-                // Si ya ha iniciado sesión e intenta ir a la página de login,
-                // lo redirigimos a su panel de administración.
-                // Esto evita que vea la página de login si ya está autenticado.
+
                 if (nextUrl.pathname === '/login') {
                     return Response.redirect(new URL('/administracion', nextUrl));
                 }
-                // Para cualquier otra página (/, /propiedades, etc.), permite el acceso.
                 return true;
             }
 
-            // Caso 3: El usuario no ha iniciado sesión y no está intentando acceder a /Administration.
-            // Permite el acceso a todas las páginas públicas (/, /nosotros, etc.).
+
             return true;
         },
     },
