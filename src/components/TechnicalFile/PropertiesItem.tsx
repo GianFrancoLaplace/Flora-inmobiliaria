@@ -15,6 +15,7 @@ type Props = {
     id: number;
     type: string
     onDelete?: () => void;
+  showDeleteButton: boolean;
 };
 
 export default function Item({

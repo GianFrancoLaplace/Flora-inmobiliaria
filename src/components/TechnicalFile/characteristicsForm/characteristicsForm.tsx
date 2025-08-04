@@ -1,8 +1,8 @@
 'use client'
 
 import styles from './characteristicsForm.module.css';
-import { useState } from "react";
-import {CharacteristicCategory, CharacteristicCreate} from "@/types/Characteristic";
+import { useState, useEffect } from "react";
+import {Characteristic, CharacteristicCategory, CharacteristicCreate} from "@/types/Characteristic";
 import Item from '../PropertiesItem';
 
 type SubFeature = {
@@ -15,6 +15,13 @@ type Feature = {
     inputType: "number" | "text" | "date";
     subtypes?: SubFeature[];
 };
+
+type CharacteristicsFormProps = {
+    onCharacteristicsChange?: (characteristics: CharacteristicCreate[]) => void;
+    initialCharacteristics?: CharacteristicCreate[];
+    propertyId?: number;
+};
+
 
 //available characteristics
 const FEATURES: Feature[] = [
@@ -101,6 +108,7 @@ const FEATURES: Feature[] = [
         inputType: "number",
     },
 ];
+
 //map
 const CATEGORY_MAP: Record<string, CharacteristicCategory> = {
     "Superficie - Total": CharacteristicCategory.SUPERFICIE_TOTAL,
@@ -109,11 +117,14 @@ const CATEGORY_MAP: Record<string, CharacteristicCategory> = {
     "Superficie - Semicubierta": CharacteristicCategory.SUPERFICIE_SEMICUBIERTA,
     "Ambientes": CharacteristicCategory.AMBIENTES,
     "Dormitorios": CharacteristicCategory.DORMITORIOS,
+    "Dormitorios - Total": CharacteristicCategory.DORMITORIOS,
     "Dormitorios - En Suite": CharacteristicCategory.DORMITORIOS_SUITE,
     "Baños": CharacteristicCategory.BANOS,
+    "Cocheras": CharacteristicCategory.COCHERAS,
     "Cocheras - Cantidad": CharacteristicCategory.COCHERAS,
     "Cocheras - Cobertura cochera": CharacteristicCategory.COBERTURA_COCHERA,
     "Balcón/Terraza": CharacteristicCategory.BALCON_TERRAZA,
+    "Expensas": CharacteristicCategory.EXPENSAS,
     "Expensas - Valor": CharacteristicCategory.EXPENSAS,
     "Expensas - Fecha": CharacteristicCategory.FECHA_EXPENSA,
     "Agua": CharacteristicCategory.AGUA,
@@ -127,50 +138,119 @@ const CATEGORY_MAP: Record<string, CharacteristicCategory> = {
     "Cantidad de plantas": CharacteristicCategory.CANTIDAD_PLANTAS,
 };
 
-
-export default function CharacteristicsForm() {
+export default function CharacteristicsForm({ 
+    onCharacteristicsChange, 
+    initialCharacteristics = [],
+    propertyId = 0
+}: CharacteristicsFormProps) {
     const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null);
     const [selectedSubtype, setSelectedSubtype] = useState<SubFeature | null>(null);
     const [inputValue, setInputValue] = useState<string | number>("");
-    const [characteristics, setCharacteristics] = useState<CharacteristicCreate[]>([]);
+    const [characteristics, setCharacteristics] = useState<CharacteristicCreate[]>(initialCharacteristics);
+
+    // Notificar cambios al componente padre
+    useEffect(() => {
+        if (onCharacteristicsChange) {
+            onCharacteristicsChange(characteristics);
+        }
+    }, [characteristics, onCharacteristicsChange]);
 
     //add characteristic
     const handleSubmit = () => {
-        if (!selectedFeature) return;
+        if (!selectedFeature) {
+            alert('Por favor selecciona una característica');
+            return;
+        }
+
+        if (!inputValue || inputValue === "") {
+            alert('Por favor ingresa un valor');
+            return;
+        }
 
         const fullLabel = selectedSubtype
             ? `${selectedFeature.name} - ${selectedSubtype.name}`
             : selectedFeature.name;
 
+        // Verificar si ya existe esta característica
+        const existingChar = characteristics.find(char => char.characteristic === fullLabel);
+        if (existingChar) {
+            alert('Esta característica ya existe. Puedes editarla desde la lista.');
+            return;
+        }
+
         const category = CATEGORY_MAP[fullLabel] ?? CharacteristicCategory.OTROS;
+        const inputType = selectedSubtype?.inputType ?? selectedFeature.inputType;
 
         const characteristicData: CharacteristicCreate = {
-            id: Date.now(), // o podés usar un uuid
+            id: Date.now(), // Temporal, será reemplazado por el backend
             characteristic: fullLabel,
-            property_id: 1, // 🔁 Reemplazar por la propiedad real que se esté editando
-            data_type:
-                selectedSubtype?.inputType === "number" || selectedFeature.inputType === "number"
-                    ? "integer"
-                    : "text",
-            value_integer:
-                selectedSubtype?.inputType === "number" || selectedFeature.inputType === "number"
-                    ? Number(inputValue)
-                    : undefined,
-            value_text:
-                selectedSubtype?.inputType === "text" || selectedFeature.inputType === "text"
-                    ? String(inputValue)
-                    : undefined,
+            property_id: propertyId, // Usar el propertyId pasado como prop
+            data_type: inputType === "number" ? "integer" : "text",
+            value_integer: inputType === "number" ? Number(inputValue) : undefined,
+            value_text: inputType === "text" || inputType === "date" ? String(inputValue) : undefined,
             category: category,
-            iconUrl: "", // opcional, lo podés manejar después
+            iconUrl: getIconForCategory(category),
         };
 
-        console.log("Characteristic creada para guardar:", characteristicData);
+        console.log("Nueva característica agregada:", characteristicData);
 
         setCharacteristics((prev) => [...prev, characteristicData]);
+        
+        // Limpiar formulario
+        resetForm();
     };
+
     //delete characteristic
     const handleDelete = (index: number) => {
+        console.log('Eliminando característica en índice:', index);
         setCharacteristics(prev => prev.filter((_, i) => i !== index));
+    };
+
+    // Función para obtener ícono basado en la categoría
+    const getIconForCategory = (category: CharacteristicCategory): string => {
+        const iconMap: Record<CharacteristicCategory, string> = {
+            [CharacteristicCategory.SUPERFICIE_TOTAL]: '/icons/superficie.png',
+            [CharacteristicCategory.SUPERFICIE_CUBIERTA]: '/icons/superficie.png',
+            [CharacteristicCategory.SUPERFICIE_DESCUBIERTA]: '/icons/superficie.png',
+            [CharacteristicCategory.SUPERFICIE_SEMICUBIERTA]: '/icons/superficie.png',
+            [CharacteristicCategory.AMBIENTES]: '/icons/ambientes.png',
+            [CharacteristicCategory.DORMITORIOS]: '/icons/dormitorios.png',
+            [CharacteristicCategory.DORMITORIOS_SUITE]: '/icons/dormitorios.png',
+            [CharacteristicCategory.BANOS]: '/icons/banos.png',
+            [CharacteristicCategory.COCHERAS]: '/icons/cochera.png',
+            [CharacteristicCategory.COBERTURA_COCHERA]: '/icons/cochera.png',
+            [CharacteristicCategory.BALCON_TERRAZA]: '/icons/balcon.png',
+            [CharacteristicCategory.EXPENSAS]: '/icons/expensas.png',
+            [CharacteristicCategory.FECHA_EXPENSA]: '/icons/expensas.png',
+            [CharacteristicCategory.AGUA]: '/icons/agua.png',
+            [CharacteristicCategory.TIPO_PISO]: '/icons/piso.png',
+            [CharacteristicCategory.ESTADO_INMUEBLE]: '/icons/estado.png',
+            [CharacteristicCategory.ORIENTACION]: '/icons/orientacion.png',
+            [CharacteristicCategory.LUMINOSIDAD]: '/icons/luz.png',
+            [CharacteristicCategory.DISPOSICION]: '/icons/disposicion.png',
+            [CharacteristicCategory.ANTIGUEDAD]: '/icons/antiguedad.png',
+            [CharacteristicCategory.UBICACION_CUADRA]: '/icons/ubicacion.png',
+            [CharacteristicCategory.CANTIDAD_PLANTAS]: '/icons/plantas.png',
+            [CharacteristicCategory.OTROS]: '/icons/default.png',
+        };
+        
+        return iconMap[category] || '/icons/default.png';
+    };
+
+    const resetForm = () => {
+        setSelectedFeature(null);
+        setSelectedSubtype(null);
+        setInputValue("");
+    };
+
+    // Función para limpiar todas las características
+    const clearAllCharacteristics = () => {
+        if (characteristics.length > 0) {
+            const confirm = window.confirm('¿Estás seguro de que quieres eliminar todas las características?');
+            if (confirm) {
+                setCharacteristics([]);
+            }
+        }
     };
 
 
@@ -182,6 +262,7 @@ export default function CharacteristicsForm() {
                         <h5>Característica:</h5>
                     </label>
                     <select
+                        value={selectedFeature?.name || ""}
                         onChange={(e) => {
                             const feature = FEATURES.find(f => f.name === e.target.value) || null;
                             setSelectedFeature(feature);
@@ -204,6 +285,7 @@ export default function CharacteristicsForm() {
                             <h5>Variante:</h5>
                         </label>
                         <select
+                            value={selectedSubtype?.name || ""}
                             onChange={(e) => {
                                 const subtype = selectedFeature.subtypes?.find(s => s.name === e.target.value) || null;
                                 setSelectedSubtype(subtype);
@@ -220,7 +302,7 @@ export default function CharacteristicsForm() {
                     </div>
                 )}
 
-                {(selectedFeature || selectedSubtype) && (
+                {(selectedFeature && (!selectedFeature.subtypes || selectedSubtype)) && (
                     <div className={styles.field}>
                         <label>
                             <h5>Valor:</h5>
@@ -232,52 +314,108 @@ export default function CharacteristicsForm() {
                                 "text"
                             }
                             value={inputValue}
-                            onChange={(e) =>
-                                setInputValue(
-                                    selectedSubtype?.inputType === "number" ||
-                                    selectedFeature?.inputType === "number"
-                                        ? Number(e.target.value)
-                                        : e.target.value
-                                )
+                            onChange={(e) => {
+                                const inputType = selectedSubtype?.inputType ?? selectedFeature?.inputType;
+                                if (inputType === "number") {
+                                    const numValue = e.target.value;
+                                    setInputValue(numValue === "" ? "" : Number(numValue));
+                                } else {
+                                    setInputValue(e.target.value);
+                                }
+                            }}
+                            placeholder={
+                                selectedSubtype?.inputType === "number" || selectedFeature?.inputType === "number"
+                                    ? "Ingrese un número"
+                                    : selectedSubtype?.inputType === "date" || selectedFeature?.inputType === "date"
+                                    ? "Seleccione una fecha"
+                                    : "Ingrese el valor"
+                            }
+                            min={
+                                selectedSubtype?.inputType === "number" || selectedFeature?.inputType === "number"
+                                    ? "0"
+                                    : undefined
                             }
                         />
                     </div>
                 )}
 
-                <button
-                    className={styles.addCharacteristicButton}
-                    onClick={handleSubmit}
-                >
-                    ✔
-                </button>
-            </div>
-
-            <div className="mt-6">
-                <h2 className="text-lg font-semibold mb-2">Características agregadas</h2>
-                <div className="space-y-2">
-                    {characteristics.map((c, index) => (
-                        <Item
-                            key={index}
-                            imgSrc="/icons/agua.png"
-                            label={c.characteristic}
-                            characteristic={{
-                                id: 0,
-                                characteristic: c.characteristic,
-                                value_integer: c.value_integer ?? undefined,
-                                value_text: c.value_text ?? undefined,
-                                data_type: c.value_integer !== null ? 'integer' : 'text',
-                            }}
-                            isEditing={false}
-                            id={index}
-                            type="item"
-                            onSave={() => {}}
-                            onDelete={() => handleDelete(index)} // 👉 le pasás el handler
-                        />
-
-                    ))}
+                <div className={styles.formButtons}>
+                    <button
+                        className={styles.addCharacteristicButton}
+                        onClick={handleSubmit}
+                        disabled={!selectedFeature || !inputValue || inputValue === ""}
+                        title="Agregar característica"
+                    >
+                        ✔
+                    </button>
+                    
+                    <button
+                        type="button"
+                        className={styles.resetButton}
+                        onClick={resetForm}
+                        title="Limpiar formulario"
+                    >
+                        ↻
+                    </button>
                 </div>
             </div>
 
+            {characteristics.length > 0 && (
+                <div className={styles.characteristicsList}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                        <h4>Características agregadas ({characteristics.length})</h4>
+                        <button
+                            onClick={clearAllCharacteristics}
+                            className={styles.clearAllButton}
+                            title="Eliminar todas las características"
+                            style={{
+                                background: '#ff4444',
+                                color: 'white',
+                                border: 'none',
+                                padding: '5px 10px',
+                                borderRadius: '4px',
+                                cursor: 'pointer',
+                                fontSize: '12px'
+                            }}
+                        >
+                            Limpiar todo
+                        </button>
+                    </div>
+                    <div className={styles.characteristicsGrid}>
+                        {characteristics.map((c, index) => (
+                            <Item
+                                key={`char-${index}-${c.id}`}
+                                imgSrc={c.iconUrl || "/icons/default.png"}
+                                label={c.characteristic}
+                                characteristic={{
+                                    id: c.id,
+                                    characteristic: c.characteristic,
+                                    value_integer: c.value_integer,
+                                    value_text: c.value_text,
+                                    data_type: c.data_type,
+                                }}
+                                isEditing={false}
+                                id={index}
+                                type="item"
+                                onSave={() => {}}
+                                onDelete={() => handleDelete(index)}
+                                showDeleteButton={true}
+                            />
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {characteristics.length === 0 && (
+                <div style={{ 
+                    textAlign: 'center', 
+                    color: '#666', 
+                    margin: '20px 0',
+                    fontStyle: 'italic'
+                }}>
+                    No hay características agregadas aún
+                </div>
+            )}
         </main>
     );
 }
