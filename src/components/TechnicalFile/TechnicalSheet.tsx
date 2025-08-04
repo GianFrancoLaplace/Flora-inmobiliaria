@@ -106,29 +106,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             setIsSubmitting(false);
         }
     };
-/*
-    const handleSaveCharacteristic = (
-        category: CharacteristicCategory,
-        newValue: string | number
-    ) => {
-        setLocalProperty((prev) => {
-            const updatedCharacteristics = prev.characteristics.map((char) =>
-                char.category === category
-                    ? { ...char, characteristic: String(newValue) }
-                    : char
-            );
 
-            return {
-                ...prev,
-                characteristics: updatedCharacteristics,
-            };
-        });
-
-        // Opcional: Llamada a la API para guardar en base de datos
-    };
-*/
-
-    console.log(editingField)
     const [isEditingAllP, setIsEditingAllP] = useState(false);
 
     const isEmptyFile = mode === "create";
@@ -287,8 +265,8 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                 </div>
 
                 <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
-                    <button onClick={() => setIsEditingAllP(!isEditingAllP)} className={styles.editButtonProperties}>
-                        {isEditingAllP ? '✔ Guardar' :
+                    <button onClick={() => setIsEditingAllP(!isEditingAllP)} className={`${styles.editButtonProperties} ${isEditingAllP? styles.saveButtonProperties : ""}`}>
+                        {isEditingAllP ? <span>✔ Guardar</span> :
                             <Image
                                 src={'/icons/iconoEdit.png'}
                                 alt={'Icono para editar'}
@@ -352,7 +330,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                     <div className={styles.titleProperties}>
                         <h3>Ficha</h3>
                         <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
-                            <button onClick={() => setIsEditingAll(!isEditingAll)} className={styles.editButtonProperties}>
+                            <button onClick={() => setIsEditingAll(!isEditingAll)} className={`${styles.editButtonProperties} ${isEditingAll? styles.saveButtonProperties : ""}`}>
                                 {isEditingAll ? '✔ Guardar' :     <Image
                                     src={'/icons/iconoEdit.png'}
                                     alt={'Icono para editar'}
