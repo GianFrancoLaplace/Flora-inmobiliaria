@@ -56,7 +56,7 @@ export default function CarrouselFotos({ isEditableFile, isEmptyFile, property }
     const result = await deleteImage(property.id, images[actual].id);
     if (result) {
       alert('¡Imagen eliminada correctamente!');
-      const newImages = images.filter((img) => img.id !== imageToDelete.id);
+      const newImages = images.filter((img) => img.id !== images[actual].id);
 
       setImages(newImages);
 
