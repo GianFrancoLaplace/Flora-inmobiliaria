@@ -101,7 +101,7 @@ const FEATURES: Feature[] = [
         inputType: "number",
     },
 ];
-
+//map
 const CATEGORY_MAP: Record<string, CharacteristicCategory> = {
     "Superficie - Total": CharacteristicCategory.SUPERFICIE_TOTAL,
     "Superficie - Cubierta": CharacteristicCategory.SUPERFICIE_CUBIERTA,
@@ -134,7 +134,7 @@ export default function CharacteristicsForm() {
     const [inputValue, setInputValue] = useState<string | number>("");
     const [characteristics, setCharacteristics] = useState<CharacteristicCreate[]>([]);
 
-
+    //add characteristic
     const handleSubmit = () => {
         if (!selectedFeature) return;
 
@@ -167,6 +167,10 @@ export default function CharacteristicsForm() {
         console.log("Characteristic creada para guardar:", characteristicData);
 
         setCharacteristics((prev) => [...prev, characteristicData]);
+    };
+    //delete characteristic
+    const handleDelete = (index: number) => {
+        setCharacteristics(prev => prev.filter((_, i) => i !== index));
     };
 
 
@@ -239,14 +243,14 @@ export default function CharacteristicsForm() {
                         />
                     </div>
                 )}
-            </div>
 
-            <button
-                className={styles.addCharacteristicButton}
-                onClick={handleSubmit}
-            >
-                ✔
-            </button>
+                <button
+                    className={styles.addCharacteristicButton}
+                    onClick={handleSubmit}
+                >
+                    ✔
+                </button>
+            </div>
 
             <div className="mt-6">
                 <h2 className="text-lg font-semibold mb-2">Características agregadas</h2>
@@ -254,7 +258,7 @@ export default function CharacteristicsForm() {
                     {characteristics.map((c, index) => (
                         <Item
                             key={index}
-                            imgSrc="/icons/agua.png" // o uno dinámico según la categoría
+                            imgSrc="/icons/agua.png"
                             label={c.characteristic}
                             characteristic={{
                                 id: 0,
@@ -266,9 +270,10 @@ export default function CharacteristicsForm() {
                             isEditing={false}
                             id={index}
                             type="item"
-                            onSave={() => {
-                            }} // Si no editás desde acá, podés pasar función vacía
+                            onSave={() => {}}
+                            onDelete={() => handleDelete(index)} // 👉 le pasás el handler
                         />
+
                     ))}
                 </div>
             </div>
