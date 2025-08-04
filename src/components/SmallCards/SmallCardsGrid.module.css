@@ -1,3 +1,4 @@
+
 .propertyGrid {
     display: flex;
     flex-direction: column;
@@ -8,16 +9,19 @@
     padding: 20px;
     margin: 20px;
 }
+
 .allPropertiesBtn {
-    width: 450px;
-
+    width: 100%;
+    max-width: 450px;
     margin-bottom: 5%;
-
+    align-self: center;
     background-color: var(--secondary-color-4);
 }
+
 .linkProperties {
     text-decoration: none;
 }
+
 .viewButton {
     visibility: visible;
 }
@@ -26,46 +30,34 @@
     visibility: hidden;
 }
 
+
+
+
 @media (min-width: 641px) {
     .propertyGrid {
+
         display: grid;
-        grid-template-columns: repeat(2, minmax(330px, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* Usamos 0 y 1fr para un grid flexible */
+
+
         justify-content: center;
-        align-items: start;
-
         max-width: 1300px;
-
         row-gap: 50px;
         column-gap: 40px;
-        padding: 20px;
-        margin: 0px auto;
+        margin: 0 auto;
     }
 
-    .cardsProperties {
-        display: flex;
-        flex-direction: column;
-    }
+
 }
+
+
+
+
 @media (min-width: 1000px) {
     .propertyGrid {
-        display: grid;
+        /* Sobrescribimos solo la definición de las columnas para hacerla automática */
         grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-        justify-content: center;
-        align-items: start;
-
-        max-width: 1300px;
-
-        row-gap: 50px;
-        column-gap: 40px;
-        padding: 20px;
-        margin: 0px auto;
     }
 
-    .cardAddress {
-        margin-top: 25px;
-        margin-bottom: 5px;
 
-        font-weight: lighter;
-        font-size: 18px;
-    }
 }

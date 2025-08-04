@@ -9,10 +9,10 @@ import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
 import {Property, PropertyState, PropertyType} from "@/types/Property";
 import {useRouter} from "next/navigation";
-import React, { useState } from "react";
+import React, { useState,useEffect  } from "react";
 import CarrouselFotos from "./Carrousel/CarrouselFotos";
 import Item from "@/components/TechnicalFile/PropertiesItem";
-import CharacteristicsForm from "./characteristicsForm/characteristicsForm";
+import CharacteristicsForm from "./characteristicsForm/characteristicsForm"
 
 import {
     getDataGridCharacteristics,
@@ -48,6 +48,15 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
 
     //para el componente de Items
     const [isEditingAll, setIsEditingAll] = useState(false);
+
+    useEffect(() => {
+        if (mode === 'edit') {
+            // Activa el estado de "edición total" para todos los grupos de campos
+            setIsEditingAll(true); // Para la Ficha Técnica
+            setIsEditingAllP(true); // Para las Características Principales
+        }
+    }, [mode]);
+
     //estos dos son para manejar el estado de el envio y la respuesta
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, setSubmitStatus] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
