@@ -2,6 +2,7 @@ import {NextRequest, NextResponse} from "next/server";
 import {prisma} from "@/lib/prisma";
 
 export async function DELETE(request : NextRequest, context: {params: {id: string, idImage: string}}){
+    console.log("hola delete");
     const { id } = context.params;
     const propertyId = parseInt(id);
     const { idImage } = context.params;
@@ -16,10 +17,10 @@ export async function DELETE(request : NextRequest, context: {params: {id: strin
         }
 
         const image = await prisma.image.findUnique({
-            where: { id_image: imageId },
+            where: { idImage: imageId },
         });
 
-        if(!image || image.id_property !== propertyId){
+        if(!image || image.idProperty !== propertyId){
             return NextResponse.json(
                 { message: "Imagen o propiedad no encontrada" },
                 { status: 404 }
@@ -27,7 +28,7 @@ export async function DELETE(request : NextRequest, context: {params: {id: strin
         }
 
         await prisma.image.delete({
-            where: {id_image: imageId}
+            where: {idImage: imageId}
         })
 
         return NextResponse.json(

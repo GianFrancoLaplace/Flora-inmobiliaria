@@ -1,8 +1,8 @@
 .unifiedFilterWrapper {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 0 1rem;
+    gap: var(--space-lg);
+    padding: 0 var(--space-md);
     max-width: 700px;
     margin: 0 auto;
 }
@@ -10,13 +10,13 @@
 .burgerButton {
     display: block;
     background-color: var(--secondary-color-5, #f0c040);
-    color: #333;
+    color: var(--primary-color-4);
     padding: 0.6rem 1.2rem;
     border: none;
     font-size: 1.1rem;
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: var(--space-sm);
     z-index: 1000;
     align-self: center;
 }
@@ -33,9 +33,9 @@
     flex-direction: column;
     align-items: center;
     background-color: var(--primary-color-4);
-    padding: 2rem 1.5rem;
+    padding: var(--space-xl) var(--space-lg);
     border-radius: 5px;
-    gap: 2rem;
+    gap: var(--space-xl);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -65,12 +65,12 @@
 }
 
 .maxValueInput {
-    background-color: #33322f;
-    color: #f1e9d2;
+    background-color: var(--primary-color-5);
+    color: var(--focus-color);
     border: none;
     border-radius: 10px 0 0 10px;
-    padding: 0.6rem 1rem;
-    font-size: 1rem;
+    padding: 0.6rem var(--space-md);
+    font-size: var(--space-md);
     outline: none;
     flex: 1;
     width: 100%;
@@ -82,12 +82,12 @@
 }
 
 .maxValueInput::placeholder {
-    color: #e8ddbf;
+    color: var(--focus-color);
 }
 
 .maxValueInput:focus {
     box-shadow:
-        0 0 0 2px #a7956f,
+        0 0 0 2px var(--focus-color),
         0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -95,7 +95,7 @@
     background-color: var(--secondary-color-5);
     border: none;
     border-radius: 0 10px 10px 0;
-    padding: 0.6rem 1rem;
+    padding: 0.6rem var(--space-md);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -110,24 +110,22 @@
 }
 
 .searchIcon {
-    width: 16px;
-    height: 16px;
+    width: var(--space-md);
+    height: var(--space-md);
     object-fit: contain;
 }
-
-/* Agregar estos estilos a tu propertiesstyles.module.css */
 
 .loadingContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 300px;
-    padding: 2rem;
+    padding: var(--space-xl);
 }
 
 .loadingContainer p {
     font-size: 1.2rem;
-    color: #666;
+    color: var(--primary-color-4);
     text-align: center;
 }
 
@@ -137,29 +135,29 @@
     justify-content: center;
     align-items: center;
     min-height: 300px;
-    padding: 2rem;
+    padding: var(--space-xl);
     text-align: center;
 }
 
 .errorContainer p {
     font-size: 1.1rem;
-    color: #d32f2f;
+    color: var(--error-color);
     margin-bottom: 1rem;
 }
 
 .retryButton {
-    background-color: #1976d2;
-    color: white;
+    background-color: var(--retry);
+    color: var(--primary-color-1);
     border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 4px;
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--space-xs);
     cursor: pointer;
-    font-size: 1rem;
+    font-size: var(--space-md);
     transition: background-color 0.3s ease;
 }
 
 .retryButton:hover {
-    background-color: #1565c0;
+    background-color: var(--retry);
 }
 
 .noPropertiesContainer {
@@ -167,7 +165,7 @@
     justify-content: center;
     align-items: center;
     min-height: 300px;
-    padding: 2rem;
+    padding: var(--space-xl);
 }
 
 .noPropertiesContainer p {
@@ -186,7 +184,7 @@
         background-color: transparent;
         padding: 0;
         box-shadow: none;
-        gap: 2rem;
+        gap: var(--space-xl);
         align-items: flex-start;
     }
 
@@ -207,7 +205,7 @@
 
     .inputWithSearchContainer {
         max-width: none;
-        width: 270px; /* o el valor que prefieras */
+        width: 270px;
         align-self: flex-start;
         margin-left: 0;
         margin-right: auto;

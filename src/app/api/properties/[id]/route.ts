@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { mapPropertyType, mapOperationToState } from '@/helpers/PropertyMapper';
-import { Property } from '@/types/Property';
+import { Property, PropertyUpdateData } from '@/types/Property';
 import { Characteristic } from "@/types/Characteristic";
-import { PropertyUpdateData } from "@/helpers/UpdateProperty"
 import { PropertyService } from "@/services/propertyService";
 import { getIconByCategory, mapPrismaCharacteristicCategory } from "@/helpers/IconMapper"
 
@@ -12,14 +11,14 @@ export async function GET(
     { params }: { params: { id: string } }
 ) {
     try {
-        const { id } = params;
+        const { id } = await params;
         const propertyId = parseInt(id);
 
         const propiedad = await prisma.property.findUnique({
-            where: { id_property: Number(id) },
+            where: { idProperty: Number(id) },
             include: {
                 characteristics: true,
-                image: true,
+                images: true,
             },
         });
 
@@ -32,7 +31,7 @@ export async function GET(
         }
 
         const propiedadFormateada: Property = {
-            id: propiedad.id_property,
+            id: propiedad.idProperty,
             address: propiedad.address || '',
             city: '',
             state: mapOperationToState(propiedad.category),
@@ -40,21 +39,21 @@ export async function GET(
             description: propiedad.description || '',
             type: mapPropertyType(propiedad.type),
             ubication: propiedad.ubication || '',
-            images: propiedad.image.map((img) => ({
-                id: img.id_image,
+            images: propiedad.images.map((img) => ({
+                id: img.idImage,
                 url: img.url !== null ? img.url : "",
             })),
 
             characteristics: propiedad.characteristics
                 .filter((c) => {
                     const isIntegerValid =
-                        c.data_type === 'integer' &&
-                        c.value_integer !== null &&
-                        c.value_integer !== 0;
+                        c.dataType === 'integer' &&
+                        c.valueInteger !== null &&
+                        c.valueInteger !== 0;
                     const isTextValid =
-                        c.data_type === 'text' &&
-                        c.value_text &&
-                        c.value_text.trim() !== '';
+                        c.dataType === 'text' &&
+                        c.valueText &&
+                        c.valueText.trim() !== '';
                     return isIntegerValid || isTextValid;
                 })
                 .map((c): Characteristic => {
@@ -62,18 +61,18 @@ export async function GET(
                     const iconUrl = getIconByCategory(mappedCategory);
 
                     return {
-                        id: c.id_characteristic,
+                        id: c.idCharacteristic,
                         characteristic: c.characteristic,
-                        data_type: c.data_type === 'integer' ? 'integer' : 'text',
+                        data_type: c.dataType === 'integer' ? 'integer' : 'text',
                         value_integer:
-                            c.data_type === 'integer' && c.value_integer !== null
-                                ? c.value_integer
+                            c.dataType === 'integer' && c.valueInteger !== null
+                                ? c.valueInteger
                                 : undefined,
                         value_text:
-                            c.data_type === 'text' &&
-                                c.value_text &&
-                                c.value_text.trim() !== ''
-                                ? c.value_text.trim()
+                            c.dataType === 'text' &&
+                                c.valueText &&
+                                c.valueText.trim() !== ''
+                                ? c.valueText.trim()
                                 : undefined,
                         category: mappedCategory,
                         iconUrl: iconUrl,
@@ -96,8 +95,14 @@ export async function PUT(
     request: NextRequest,
     { params }: { params: Promise<{ id: string }> }
 ) {
+    console.log("hola put???");
     try {
         const { id } = await params;
+
+    if (!id) {
+        return NextResponse.json({ error: "ID no proporcionado" }, { status: 400 });
+    }
+
         const propertyId = parseInt(id);
 
         if (isNaN(propertyId)) {
@@ -110,7 +115,10 @@ export async function PUT(
         const body: PropertyUpdateData = await request.json();
         const service = new PropertyService([], []);
 
-        const validationErrors = service.updateProperty(body);
+        const validationErrors = service.verifyFields(body);
+        validationErrors.forEach(element => {
+            console.log("error: " + element.message);
+        });
 
         if (validationErrors.length > 0) {
             return NextResponse.json(
@@ -123,7 +131,7 @@ export async function PUT(
         }
 
         const existingProperty = await prisma.property.findUnique({
-            where: { id_property: propertyId }
+            where: { idProperty: propertyId }
         });
 
         if (!existingProperty) {
@@ -142,7 +150,7 @@ export async function PUT(
         if (body.type !== undefined) updateData.type = body.type;
 
         const updatedProperty = await prisma.property.update({
-            where: { id_property: propertyId },
+            where: { idProperty: propertyId },
             data: updateData
         });
 
@@ -164,7 +172,8 @@ export async function DELETE(
     request: NextRequest,
     context: { params: { id: string } }
 ) {
-    const { id } = context.params;
+    const { id } = await context.params;
+
     const propertyId = parseInt(id);
     try {
         if (isNaN(propertyId) || propertyId <= 0) {
@@ -175,7 +184,7 @@ export async function DELETE(
         }
 
         const property = await prisma.property.findUnique({
-            where: { id_property: propertyId },
+            where: { idProperty: propertyId },
         });
 
         if (!property) {
@@ -186,7 +195,7 @@ export async function DELETE(
         }
 
         await prisma.property.delete({
-            where: { id_property: propertyId },
+            where: { idProperty: propertyId },
         });
 
         return NextResponse.json(

@@ -16,7 +16,7 @@ type Props = {
     showLabel?: boolean;
 };
 
-export default function BigCard({id,imageSrc, price, transaction, adress, city, rooms, dorms, bathrooms}: Props) {
+export default function BigCard({id, imageSrc, price, transaction, adress, city, rooms, dorms, bathrooms}: Props) {
     const showLabel = transaction === "VENDIDA" || transaction === "ALQUILADA";
 
     return (
