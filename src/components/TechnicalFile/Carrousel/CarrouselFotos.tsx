@@ -9,9 +9,10 @@ import useAdminImages from '@/hooks/AdminImages';
 type Prop = {
   isEditableFile: boolean;
   property: Property;
+  isEmptyFile: boolean;
 };
 
-export default function CarrouselFotos({ isEditableFile, property }: Prop) {
+export default function CarrouselFotos({ isEditableFile, isEmptyFile, property }: Prop) {
   const [actual, setActual] = useState(0);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [imageToDelete, setImageToDelete] = useState<any>(null);
@@ -39,7 +40,7 @@ export default function CarrouselFotos({ isEditableFile, property }: Prop) {
     try {
       const result = await createImage(property.id, file);
       if (result) {
-        alert('Imagen subida exitosamente!');
+        alert('¡Imagen subida exitosamente!');
         setImages((prev: any[]) => [...prev, result]); // agregamos la nueva imagen al estado
         setActual(images.length); // nos movemos a la nueva imagen
       }
@@ -52,14 +53,13 @@ export default function CarrouselFotos({ isEditableFile, property }: Prop) {
   const handleDeleteConfirmed = async () => {
     if (!imageToDelete) return;
 
-    const result = await deleteImage(property.id, imageToDelete.id);
+    const result = await deleteImage(property.id, images[actual].id);
     if (result) {
-      alert('Imagen eliminada correctamente');
-      const newImages = images.filter((img) => img.id !== imageToDelete.id);
+      alert('¡Imagen eliminada correctamente!');
+      const newImages = images.filter((img) => img.id !== images[actual].id);
 
       setImages(newImages);
 
-      // Acomodar el índice actual
       if (actual >= newImages.length) {
         setActual(Math.max(0, newImages.length - 1));
       }
@@ -69,12 +69,11 @@ export default function CarrouselFotos({ isEditableFile, property }: Prop) {
     }
   };
 
-
   const next = () => setActual((prev) => (prev + 1) % images.length);
   const prev = () => setActual((prev) => (prev - 1 + images.length) % images.length);
 
   return (
-      <div className={styles.imageContainerProperties}>
+      <div className={`${styles.imageContainerProperties}`}>
         {images.length > 0 && (
             <Image
                 key={images[actual].id}
@@ -86,7 +85,7 @@ export default function CarrouselFotos({ isEditableFile, property }: Prop) {
             />
         )}
 
-        <div className={`${isEditableFile ? styles.containerAddImage : styles.notVisible}`}>
+        <div className={`${isEditableFile? styles.containerAddImage : ""} ${isEmptyFile? styles.containerAddImageForEmptyFile : ""}`}>
           <div>
             <input
                 type="file"
@@ -107,7 +106,6 @@ export default function CarrouselFotos({ isEditableFile, property }: Prop) {
                 </button>
               </div>
           )}
-
         </div>
 
         {showConfirmModal && imageToDelete && (
@@ -115,7 +113,7 @@ export default function CarrouselFotos({ isEditableFile, property }: Prop) {
               <p>¿Desea eliminar la imagen?</p>
               <p>Esta acción no se podrá deshacer.</p>
               <div className={styles.buttonMessageProperties}>
-                <button onClick={handleDeleteConfirmed} disabled={imageToDelete} className={styles.aceptButtonProperties}>
+                <button onClick={handleDeleteConfirmed}  className={styles.aceptButtonProperties}>
                   Sí, deseo eliminarla
                 </button>
                 <button onClick={handleCancelDelete} className={styles.cancelButtonProperties}>

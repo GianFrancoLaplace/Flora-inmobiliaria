@@ -199,7 +199,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             </div>
 
             <div className={styles.mediaCarouselProperties}>
-                    <CarrouselFotos isEditableFile={isEditableFile || isEmptyFile} property={property}/>
+                    <CarrouselFotos isEditableFile={isEditableFile} isEmptyFile={isEmptyFile} property={property}/>
             </div>
 
             <div className={styles.main}>
@@ -373,30 +373,32 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                         </button>
                     </div>
                 </div>
-                {showForm && (
-                    <div>
-                        <CharacteristicsForm />
-                    </div>
-                )}
-                <div className={styles.dataGridProperties}>
-                    <div className={styles.sectionProperties}>
-                        {getTechnicalSheetCharacteristics(property).map((characteristic) => {
-                            return (
-                                <Item
-                                    key={characteristic.category}
-                                    imgSrc={characteristic.iconUrl || '/icons/default.png'}
-                                    label={characteristic.characteristic}
-                                    characteristic={characteristic}
-                                    isEditing={isEditingAll}
-                                    onSave={handleSaveCharacteristic}
-                                    id={characteristic.id}
-                                    type="item"
-                                />
-                            );
-                        })}
+                <div>
+                    {showForm && (
+                        <div>
+                            <CharacteristicsForm />
+                        </div>
+                    )}
+                    <div className={styles.dataGridProperties}>
+                        <div className={styles.sectionProperties}>
+                            {getTechnicalSheetCharacteristics(property).map((characteristic) => {
+                                return (
+                                    <Item
+                                        key={characteristic.category}
+                                        imgSrc={characteristic.iconUrl || '/icons/default.png'}
+                                        label={characteristic.characteristic}
+                                        characteristic={characteristic}
+                                        isEditing={isEditingAll}
+                                        onSave={handleSaveCharacteristic}
+                                        id={characteristic.id}
+                                        type="item"
+                                    />
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
-            </div>
+                </div>
 
             <div className={styles.descriptionsProperties}>
                 <div className={styles.titleProperties}>
