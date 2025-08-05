@@ -3,10 +3,11 @@ import {CharacteristicCreate, CharacteristicValidationInput} from "@/types/Chara
 import {NextRequest, NextResponse} from "next/server";
 import {prisma} from "@/lib/prisma";
 import {CharacteristicService} from "@/services/characteristicService";
+import { use } from "react";
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest,{ params }: { params: Promise<{ id: string }> }) {
     try {
-        const {id} = params;
+        const {id} = use(params);
         const idProperty = parseInt(id);
 
         if (!idProperty) {

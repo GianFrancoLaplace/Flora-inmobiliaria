@@ -93,11 +93,11 @@ export async function GET(
 
 export async function PUT(
     request: NextRequest,
-    { params }: { params: Promise<{ id: string }> }
+    { params }: { params: any }, { }
 ) {
     console.log("hola put???");
     try {
-        const { id } = await params;
+        const { id } = params;
 
     if (!id) {
         return NextResponse.json({ error: "ID no proporcionado" }, { status: 400 });
