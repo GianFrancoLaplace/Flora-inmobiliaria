@@ -35,13 +35,12 @@ export interface PropertyInput {
 
 export interface PropertyUpdateData {
     address?: string;
-    city?: string; //Puede haber propiedades de distintas ciudades?
-    category?: PropertyState;
+    city?: string;
+    state: PropertyState;
     ubication?: string;
     price?: number;
     description?: string;
     type?: PropertyType;
-    state?: PropertyState;
 }
 export interface Image {
     id_image: number;

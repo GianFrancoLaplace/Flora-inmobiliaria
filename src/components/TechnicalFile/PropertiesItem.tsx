@@ -1,19 +1,21 @@
+// PropertiesItem.tsx
+
 import styles from "@/components/TechnicalFile/TechnicalSheet.module.css";
 import Image from "next/image";
-import EditableField from "@/components/TechnicalFile/EditableField/EditableTextField";
-import {useState} from "react";
-import {Characteristic, CharacteristicCategory} from "@/types/Characteristic";
+import { Characteristic, CharacteristicCategory } from "@/types/Characteristic";
 import EditableNumericField from "@/components/TechnicalFile/EditableField/EditableNumericField";
 import EditableTextField from "@/components/TechnicalFile/EditableField/EditableTextField";
+import React from "react";
 
 type Props = {
     imgSrc: string;
     label: string;
     characteristic: Characteristic;
-    isEditing: boolean
-    onSave: (category: CharacteristicCategory, newValue: string) => void;
+    isEditing: boolean;
+
+    onSave: (newValue: number | string) => void;
     id: number;
-    type: string
+    type: string;
     onDelete?: () => void;
 };
 
@@ -22,55 +24,53 @@ export default function Item({
                                  label,
                                  characteristic,
                                  isEditing,
+                                 onSave,
                                  type,
                                  onDelete
-}: Props) {
-    // const [editingField, setEditingField] = useState<keyof Characteristic | null>(null);
-    const [localCharacterisctic, setLocalCharacterisctic] = useState<Characteristic>(characteristic);
+                             }: Props) {
+
 
     const isItem = type === "item";
-
     const dataType = characteristic.data_type || 'text';
 
-    const handleSaveField = async (value : number | string) => {
-        console.log(value);
-        if (typeof value === "string") {
-            value = parseInt(value);
-        }
-        setLocalCharacterisctic(prev => ({ ...prev, ["amount"]: value }));
+
+    const handleSave = (value: number | string) => {
+        console.log(`Item con ID ${characteristic.id} guardando el valor:`, value);
+        onSave(value);
     };
 
     const handleCancelEdit = () => {
-        console.log("hola");
+        // La lógica de cancelar también la maneja el padre si es necesario.
+        console.log("Edición cancelada en el item.");
     };
-
 
     const renderEditableField = () => {
         if (dataType === 'integer') {
             return (
                 <EditableNumericField
-                    value={characteristic.value_integer as number}
+                    // Usamos los valores directamente de las props
+                    value={characteristic.value_integer ?? 0}
                     isEditing={isEditing}
-                    onSave={handleSaveField}
+                    // Pasamos nuestra nueva función handleSave
+                    onSave={handleSave}
                     onCancel={handleCancelEdit}
                     className={styles.editInputProperties}
-                    min={0} // Opcional: valores mínimos como mi autoestima
-                    max={999999} // Opcional: valores máximos más realistas que mis fantasías
                 />
             );
         } else {
             return (
                 <EditableTextField
-                    value={characteristic.value_text as string}
+                    value={characteristic.value_text ?? ''}
                     isEditing={isEditing}
                     type="text"
-                    onSave={handleSaveField}
+                    onSave={handleSave}
                     onCancel={handleCancelEdit}
                     className={styles.editInputProperties}
                 />
             );
         }
-    }
+    };
+
     return (
         <div className={`${isItem ? styles.itemProperties : styles.infoCardProperties}`}>
             <div className={styles.itemInfo}>
@@ -93,5 +93,5 @@ export default function Item({
                 </button>
             )}
         </div>
-    )
+    );
 }

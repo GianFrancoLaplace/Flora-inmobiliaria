@@ -144,14 +144,14 @@ export async function PUT(
         const updateData: Record<string, unknown> = {};
 
         if (body.address !== undefined) updateData.address = body.address;
-        if (body.category !== undefined) updateData.category = body.category;
+        if (body.state !== undefined) updateData.category = body.state;
         if (body.price !== undefined) updateData.price = body.price;
         if (body.description !== undefined) updateData.description = body.description;
         if (body.type !== undefined) updateData.type = body.type;
 
         const updatedProperty = await prisma.property.update({
             where: { idProperty: propertyId },
-            data: updateData
+            data: updateDat
         });
 
         return NextResponse.json({

@@ -7,12 +7,16 @@ import EditButton from '@/components/TechnicalFile/EditButton'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
-import {Property, PropertyState, PropertyType} from "@/types/Property";
+import {Property, PropertyState, PropertyType, PropertyUpdateData} from "@/types/Property";
 import {useRouter} from "next/navigation";
 import React, { useState,useEffect  } from "react";
 import CarrouselFotos from "./Carrousel/CarrouselFotos";
 import Item from "@/components/TechnicalFile/PropertiesItem";
 import CharacteristicsForm from "./characteristicsForm/characteristicsForm"
+import {useUpdateProperty} from "@/hooks/useUpdateProperty"
+import {useUpdateCharacteristic} from "@/hooks/useUpdateCharacteristic"
+
+
 
 import {
     getDataGridCharacteristics,
@@ -48,18 +52,96 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
 
     //para el componente de Items
     const [isEditingAll, setIsEditingAll] = useState(false);
+    //para la edicion
+    const { updateProperty, isUpdating: isUpdatingProperty, status: propertyStatus } = useUpdateProperty();
+    const { updateCharacteristic } = useUpdateCharacteristic();
+    const [isSubmittingAll, setIsSubmittingAll] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+    const [modifiedCharacteristics, setModifiedCharacteristics] = useState<Map<number, { value_integer?: number; value_text?: string }>>(new Map());
+
+
+
 
     useEffect(() => {
         if (mode === 'edit') {
-            // Activa el estado de "edición total" para todos los grupos de campos
-            setIsEditingAll(true); // Para la Ficha Técnica
-            setIsEditingAllP(true); // Para las Características Principales
+            setIsEditingAll(true);
+            setIsEditingAllP(true);
         }
     }, [mode]);
 
-    //estos dos son para manejar el estado de el envio y la respuesta
+
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [, setSubmitStatus] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+
+    const handleSaveCharacteristic = (characteristicId: number, newValue: number | string) => {
+        setLocalProperty(prev => {
+            if (!prev) return prev;
+            const updatedCharacteristics = prev.characteristics.map(char => {
+                if (char.id === characteristicId) {
+                    return typeof newValue === 'number'
+                        ? { ...char, value_integer: newValue }
+                        : { ...char, value_text: newValue };
+                }
+                return char;
+            });
+            return { ...prev, characteristics: updatedCharacteristics };
+        });
+
+        setModifiedCharacteristics(prevMap => {
+            const newMap = new Map(prevMap);
+            const charToUpdate = localProperty?.characteristics.find(c => c.id === characteristicId);
+            if (charToUpdate) {
+                newMap.set(characteristicId, {
+                    value_integer: typeof newValue === 'number' ? newValue : charToUpdate.value_integer,
+                    value_text: typeof newValue === 'string' ? newValue : charToUpdate.value_text,
+                });
+            }
+            return newMap;
+        });
+    };
+
+    const handleSaveChanges = async () => {
+        if (!localProperty) return;
+
+        setIsSubmitting(true); // 1. Ponemos la UI en estado "Cargando..."
+        setSubmitStatus(null);
+
+        // 2. Preparamos todas las "tareas" (peticiones a la API) que necesitamos hacer.
+        //    Creamos un array de promesas.
+        const updatePromises = [];
+
+        const propertyDataToUpdate = {
+            address: localProperty.address,
+            city: localProperty.city,
+            state:localProperty.state,
+            ubication: localProperty.ubication,
+            price: localProperty.price,
+            description: localProperty.description,
+            type: localProperty.type,
+
+        };
+        updatePromises.push(updateProperty(localProperty.id, propertyDataToUpdate));
+
+        modifiedCharacteristics.forEach((data, id) => {
+            updatePromises.push(updateCharacteristic(id, data));
+        });
+
+        try {
+
+            await Promise.all(updatePromises);
+
+
+            setSubmitStatus({ message: '¡Todos los cambios se guardaron con éxito!', type: 'success' });
+            setModifiedCharacteristics(new Map()); // Reseteamos los cambios pendientes
+
+        } catch (error) {
+
+            const message = error instanceof Error ? error.message : 'Ocurrió un error al guardar.';
+            setSubmitStatus({ message, type: 'error' });
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
 //funcion para crear la publicacion
     const handleCreatePublication = async () => {
@@ -106,27 +188,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
             setIsSubmitting(false);
         }
     };
-/*
-    const handleSaveCharacteristic = (
-        category: CharacteristicCategory,
-        newValue: string | number
-    ) => {
-        setLocalProperty((prev) => {
-            const updatedCharacteristics = prev.characteristics.map((char) =>
-                char.category === category
-                    ? { ...char, characteristic: String(newValue) }
-                    : char
-            );
 
-            return {
-                ...prev,
-                characteristics: updatedCharacteristics,
-            };
-        });
-
-        // Opcional: Llamada a la API para guardar en base de datos
-    };
-*/
 
     console.log(editingField)
     const [isEditingAllP, setIsEditingAllP] = useState(false);
@@ -165,9 +227,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
         setEditingField(null);
     };
 
-    function handleSaveCharacteristic() {
-        console.log("Guardar")
-    }
+
 
     return (
         <main className={styles.page}>
@@ -257,10 +317,18 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                     >
                         {isSubmitting ? 'Generando...' : 'Generar publicación'}
                     </button>
-                    <button type="button"
-                            className={`${styles.askBtn} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
-                        Guardar cambios
+
+
+
+                    <button
+                        onClick={handleSaveChanges}
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? 'Guardando...' : 'Guardar cambios'}
                     </button>
+
+
+
                     <button type="button"
                             className={`${styles.askBtn} ${styles.btnSold} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
                         Marcar como vendida/alquilada
@@ -268,36 +336,7 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                 </div>
             </div>
 
-            <div className={styles.mainBoxesGridProperties}>
-                <div className={styles.dataGridProperties}>
-                    {getDataGridCharacteristics(property).map((characteristic) => {
-                        return (
-                            <Item
-                                key={characteristic.category}
-                                imgSrc={characteristic.iconUrl || '/icons/default.png'}
-                                label={characteristic.characteristic}
-                                characteristic={characteristic}
-                                isEditing={isEditingAllP}
-                                onSave={handleSaveCharacteristic}
-                                id={characteristic.id}
-                                type="data"
-                            />
-                        );
-                    })}
-                </div>
 
-                <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
-                    <button onClick={() => setIsEditingAllP(!isEditingAllP)} className={styles.editButtonProperties}>
-                        {isEditingAllP ? '✔ Guardar' :
-                            <Image
-                                src={'/icons/iconoEdit.png'}
-                                alt={'Icono para editar'}
-                                width={30}
-                                height={30}
-                            />}
-                    </button>
-                </div>
-            </div>
 
             <div className={styles.mainInfoPrice}>
                 <div className={`${styles.priceEditionProperties} ${styles.showProperties}`}>
@@ -380,23 +419,23 @@ export default function TechnicalSheet({mode, property}: TechnicalSheetProps) {
                         </div>
                     )}
                     <div className={styles.dataGridProperties}>
-                        <div className={styles.sectionProperties}>
-                            {getTechnicalSheetCharacteristics(property).map((characteristic) => {
-                                return (
-                                    <Item
-                                        key={characteristic.category}
-                                        imgSrc={characteristic.iconUrl || '/icons/default.png'}
-                                        label={characteristic.characteristic}
-                                        characteristic={characteristic}
-                                        isEditing={isEditingAll}
-                                        onSave={handleSaveCharacteristic}
-                                        id={characteristic.id}
-                                        type="item"
-                                    />
-                                );
-                            })}
-                        </div>
+                    <div className={styles.sectionProperties}>
+                        {getTechnicalSheetCharacteristics(property).map((characteristic) => {
+                            return (
+                                <Item
+                                    key={characteristic.category}
+                                    imgSrc={characteristic.iconUrl || '/icons/default.png'}
+                                    label={characteristic.characteristic}
+                                    characteristic={characteristic}
+                                    isEditing={isEditingAll}
+                                    onSave={(newValue) => handleSaveCharacteristic(characteristic.id, newValue)}
+                                    id={characteristic.id}
+                                    type="item"
+                                />
+                            );
+                        })}
                     </div>
+                </div>
                 </div>
                 </div>
 
