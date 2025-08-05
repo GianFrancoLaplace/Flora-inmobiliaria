@@ -384,43 +384,6 @@ const response = await fetch(`/api/propiedades/${localProperty.id}`, {
                     >
                         {currentIsSubmitting ? 'Guardando...' : 'Guardar cambios'}
                     </button>
-                    <button type="button"
-                        className={`${styles.askBtn} ${styles.btnSold} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
-                        Marcar como vendida/alquilada
-                    </button>
-                </div>
-            </div>
-
-            <div className={styles.mainBoxesGridProperties}>
-                {/* <div className={styles.dataGridProperties}>
-                    {getTechnicalSheetCharacteristics({ ...localProperty, characteristics: characteristicsForRender }).map((characteristic, idx) => {
-                        return (
-                            <Item
-                                key={`${characteristic.id}-${idx}`} // Combina ID + índice
-                                imgSrc={characteristic.iconUrl || '/icons/default.png'}
-                                label={characteristic.characteristic}
-                                characteristic={characteristic}
-                                isEditing={isEditingAll}
-                                onSave={handleSaveCharacteristic}
-                                id={characteristic.id}
-                                type="item"
-                                showDeleteButton={false}
-                            />
-                        );
-                    })}
-
-                </div> */}
-
-                <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
-                    <button onClick={() => setIsEditingAllP(!isEditingAllP)} className={`${styles.editButtonProperties} ${isEditingAllP ? styles.saveButtonProperties : ""}`}>
-                        {isEditingAllP ? <span>✔ Guardar</span> :
-                            <Image
-                                src={'/icons/iconoEdit.png'}
-                                alt={'Icono para editar'}
-                                width={30}
-                                height={30}
-                            />}
-                    </button>
                 </div>
             </div>
 

@@ -5,9 +5,9 @@ import {prisma} from "@/lib/prisma";
 import {CharacteristicService} from "@/services/characteristicService";
 import { use } from "react";
 
-export async function GET(request: NextRequest,{ params }: { params: Promise<{ id: string }> }) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     try {
-        const {id} = use(params);
+        const {id} = params;
         const idProperty = parseInt(id);
 
         if (!idProperty) {
@@ -36,7 +36,7 @@ export async function GET(request: NextRequest,{ params }: { params: Promise<{ i
             value_integer: c.valueInteger ?? undefined,
             value_text: c.valueText ?? undefined,
             category: c.category ?? undefined,
-            iconUrl: undefined, // Agregalo si tenés lógica para iconos
+            iconUrl: undefined,
         }));
 
         return NextResponse.json(mapped, { status: 200 });
