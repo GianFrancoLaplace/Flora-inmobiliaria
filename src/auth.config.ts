@@ -15,7 +15,7 @@ export const authConfig = {
                     // Si está en /Administration y ha iniciado sesión, permite el acceso.
                     return true;
                 }
-                return false;
+                return true;
             }
 
             else if (isLoggedIn) {

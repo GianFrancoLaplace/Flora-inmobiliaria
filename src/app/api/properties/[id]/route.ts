@@ -8,14 +8,17 @@ import { getIconByCategory, mapPrismaCharacteristicCategory } from "@/helpers/Ic
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    context: { params: { id: string } }
 ) {
     try {
-        const { id } = await params;
+        const { id } = context.params;
         const propertyId = parseInt(id);
 
+        if (isNaN(propertyId)) {
+            return NextResponse.json({ message: 'ID de propiedad inválido' }, { status: 400 });
+        }
         const propiedad = await prisma.property.findUnique({
-            where: { idProperty: Number(id) },
+            where: { idProperty : propertyId  },
             include: {
                 characteristics: true,
                 images: true,
@@ -93,11 +96,11 @@ export async function GET(
 
 export async function PUT(
     request: NextRequest,
-    { params }: { params: Promise<{ id: string }> }
+    context: { params: { id: string } }
 ) {
     console.log("hola put???");
     try {
-        const { id } = await params;
+        const { id } = context.params;
 
     if (!id) {
         return NextResponse.json({ error: "ID no proporcionado" }, { status: 400 });
@@ -151,7 +154,7 @@ export async function PUT(
 
         const updatedProperty = await prisma.property.update({
             where: { idProperty: propertyId },
-            data: updateDat
+            data: updateData
         });
 
         return NextResponse.json({

@@ -1,5 +1,3 @@
-// PropertiesItem.tsx
-
 import styles from "@/components/TechnicalFile/TechnicalSheet.module.css";
 import Image from "next/image";
 import { Characteristic, CharacteristicCategory } from "@/types/Characteristic";
@@ -17,6 +15,7 @@ type Props = {
     id: number;
     type: string;
     onDelete?: () => void;
+  showDeleteButton: boolean;
 };
 
 export default function Item({
@@ -70,6 +69,9 @@ export default function Item({
             );
         }
     };
+
+
+
 
     return (
         <div className={`${isItem ? styles.itemProperties : styles.infoCardProperties}`}>

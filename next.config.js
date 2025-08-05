@@ -7,7 +7,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: ['res.cloudinary.com'], // ✅ permite cargar imágenes desde Cloudinary
+    domains: ['res.cloudinary.com'],
   },
 };
 

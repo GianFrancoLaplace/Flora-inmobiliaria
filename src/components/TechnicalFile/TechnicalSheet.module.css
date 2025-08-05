@@ -138,6 +138,8 @@
 .titleProperties {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    align-content: center;
     gap: 10px;
 }
 
@@ -214,10 +216,17 @@
 .mainAdressProperties button,
 .editButtonProperties {
     background-color: transparent;
+    align-content: center;
     border: none;
     box-shadow: none;
+    width: fit-content;
+    padding: 10px;
     cursor: pointer;
-    padding-bottom: 20px;
+}
+
+.saveButtonProperties{
+    background-color: var(--secondary-color-5);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 #imageIconoEditPhoto {
@@ -302,4 +311,15 @@
 .deleteButton:hover {
     color: red;
     box-shadow: none;
+}
+
+/*editable text field*/
+.field input {
+    width: 100%;
+
+    padding: 20px;
+
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid var(--secondary-color-5);
 }
