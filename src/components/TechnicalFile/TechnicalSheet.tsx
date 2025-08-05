@@ -30,8 +30,6 @@ type TechnicalSheetProps = {
 };
 
 type ImageFile = {
-    id: string;
-    url: string;
     file: File;
 };
 
@@ -63,7 +61,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
-    const [tempImages, setTempImages] = useState<ImageFile[]>([]);
+    const [tempImages, setTempImages] = useState<File[]>([]);
     const [tempCharacteristics, setTempCharacteristics] = useState<Characteristic[]>([]);
 
 
@@ -98,6 +96,8 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
     const handleCreatePublication = async () => {
         clearStatus();
+        console.log(localProperty.images[0]);
+        console.log(localProperty.characteristics[0]);
 
         if (!localProperty.address || localProperty.address === "Dirección") {
             alert('Por favor, complete la dirección de la propiedad.');
@@ -141,25 +141,18 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             address: localProperty.address,
             ubication: localProperty.ubication !== " " ? localProperty.ubication : "",
             city: localProperty.city !== "Ciudad" ? localProperty.city : "",
-            characteristics: characteristicsToSend, // Usamos el nuevo arreglo mapeado
-            images: []
+            characteristics: tempCharacteristics, // Usamos el nuevo arreglo mapeado
+            images: tempImages,
         };
-
+        console.log("propiedad to send: " +propertyToSend.images[0]);
+        console.log("tempimages: "+tempImages);
+        console.log("tempCharacterstics: "+tempCharacteristics);
         console.log('Datos a enviar para crear propiedad:', propertyToSend);
 
         try {
             const newProperty = await createProperty(propertyToSend);
-
-            if (newProperty && tempImages.length > 0) {
-                console.log('Propiedad creada, subiendo imágenes...');
-                for (const tempImage of tempImages) {
-                    await createImage(newProperty.id, tempImage.file);
-                }
-            }
-
             if (newProperty) {
                 console.log('Propiedad creada exitosamente:', newProperty);
-                router.push(`/propiedades/${newProperty.id}`);
             }
         } catch (error) {
             console.error('Error en handleCreatePublication:', error);

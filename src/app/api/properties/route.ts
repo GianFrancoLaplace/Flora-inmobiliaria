@@ -82,74 +82,46 @@ export async function GET(request: Request) {
 
 
 export async function POST(request: NextRequest) {
-    try {
+  try {
+    const body: PropertyInput = await request.json();
+    const service = new PropertyService([], []);
 
-        const body: PropertyInput = await request.json();
-        const service = new PropertyService([], []);
-
-        const validationErrors = service.verifyFields(body);
-
-        if (validationErrors.length > 0) {
-            return NextResponse.json(
-                {
-                    message: 'Datos de propiedad inválidos',
-                    errors: validationErrors
-                },
-                { status: 400 }
-            );
-        }
-
-        const operations: PropertyState[] = [];
-        operations.push(body.category);
-        const operation = service.mapPropertyStateToOperationEnum(operations)
-        
-
-        const newProperty = await prisma.property.create({
-            data: {
-
-                description: body.description,
-                price:       body.price,
-                type:        body.type,
-                category:    operation[0],
-                address:     body.address,
-                ubication:   body.ubication,
-                city:        body.city,
-
-
-                images: {
-
-                    create: body.images.map(image => ({
-
-                        url: image.url
-                    }))
-                },
-
-                characteristics: {
-                    create: body.characteristics.map(char => ({
-                        characteristic: char.characteristic,
-                        category:       char.category,
-                        dataType:       char.data_type,
-                        valueInteger:   char.value_integer,
-                        valueText:      char.value_text,
-                    }))
-                }
-            },
-
-            include: {
-                images: true,
-                characteristics: true
-            }
-        });
-        return NextResponse.json(
-                {
-                    message: 'Propiedad creada con éxito',
-                    property: newProperty,
-                },
-                { status: 201 }
-            );
-
-    } catch (e) {
-        console.error(e);
-        return new NextResponse('El servidor falló al procesar la solicitud', { status: 500 });
+    const validationErrors = service.verifyFields(body);
+    if (validationErrors.length > 0) {
+      return NextResponse.json(
+        { message: "Datos de propiedad inválidos", errors: validationErrors },
+        { status: 400 }
+      );
     }
+
+    const operations: PropertyState[] = [];
+    operations.push(body.category);
+    const operation = service.mapPropertyStateToOperationEnum(operations);
+
+    // Crea SOLO la propiedad (sin images ni characteristics)
+    const newProperty = await prisma.property.create({
+      data: {
+        description: body.description,
+        price: body.price,
+        type: body.type,
+        category: operation[0],
+        address: body.address,
+        ubication: body.ubication,
+        city: body.city
+      }
+    });
+
+    // Devuelve la propiedad creada y el id de forma consistente
+    return NextResponse.json(
+      {
+        message: "Propiedad creada con éxito",
+        id: newProperty.idProperty ?? newProperty.idProperty ?? null,
+        property: newProperty
+      },
+      { status: 201 }
+    );
+  } catch (e) {
+    console.error("Error en POST /api/properties:", e);
+    return new NextResponse("El servidor falló al procesar la solicitud", { status: 500 });
+  }
 }

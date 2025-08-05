@@ -1,13 +1,12 @@
+// hooks/useCreateProperty.ts
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-
-// Tipo que coincide con lo que espera tu API
 type CreatePropertyData = {
     description?: string;
     price: number;
-    type: string; // PropertyTypeEnum
-    category: string; // OperationEnum (RENT/SALE) - mapea desde 'state'
+    type: string;
+    category: string;
     address?: string;
     ubication?: string;
     city?: string;
@@ -15,21 +14,17 @@ type CreatePropertyData = {
         id?: number;
         characteristic: string;
         iconUrl?: string;
-        // **CORRECCIÓN AQUÍ:** Permite que category sea string, undefined o null
         category?: string | null;
-        // **CORRECCIÓN AQUÍ:** Permite que value_integer sea number, undefined o null
         value_integer?: number | null;
-        // **CORRECCIÓN AQUÍ:** Permite que value_text sea string, undefined o null
         value_text?: string | null;
-        // **CORRECCIÓN AQUÍ:** Permite que data_type sea string o undefined
         data_type?: string;
     }>;
-    images?: string[];
+    images?: File[]; // array de objetos con `file: File`
 };
 
 type CreateStatus = {
     message: string;
-    type: 'success' | 'error';
+    type: "success" | "error";
 };
 
 export const useCreateProperty = () => {
@@ -44,141 +39,242 @@ export const useCreateProperty = () => {
 
         // Validaciones básicas
         if (!propertyData.address || propertyData.address === "Dirección") {
-            setStatus({
-                message: 'Por favor, complete la dirección de la propiedad.',
-                type: 'error'
-            });
+            setStatus({ message: "Por favor, complete la dirección de la propiedad.", type: "error" });
             setIsCreating(false);
             return null;
         }
-
         if (!propertyData.price || propertyData.price <= 0) {
-            setStatus({
-                message: 'Por favor, ingrese un precio válido mayor a 0.',
-                type: 'error'
-            });
+            setStatus({ message: "Por favor, ingrese un precio válido mayor a 0.", type: "error" });
             setIsCreating(false);
             return null;
         }
 
-        // Limpiar datos antes de enviar
-        const cleanedData = {
+        // Limpiar datos
+        const cleanedData: any = {
             ...propertyData,
             description: propertyData.description === "Descripción" ? "" : propertyData.description,
             city: propertyData.city === "Ciudad" ? "" : propertyData.city,
             ubication: propertyData.ubication === " " ? "" : propertyData.ubication,
-            // Filtrar características vacías
-            characteristics: (propertyData.characteristics || []).filter(char =>
-                (char.value_text && char.value_text.trim() !== "") ||
-                (char.value_integer !== undefined && char.value_integer !== null)
-            ),
-            // Filtrar imágenes vacías
-            images: (propertyData.images || []).filter(img => img && img.trim() !== "")
+            characteristics: (propertyData.characteristics || []).filter(
+                (char) =>
+                    (char.value_text && String(char.value_text).trim() !== "") ||
+                    (char.value_integer !== undefined && char.value_integer !== null)
+            )
         };
 
         try {
-            console.log('Enviando datos a la API:', cleanedData);
+            console.log("Enviando datos a la API (solo propiedad):", cleanedData);
 
-            // Usar el endpoint que coincide con tu backend actual
-            const response = await fetch('/api/properties', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(cleanedData),
+            // 1) Crear la propiedad (JSON)
+            const response = await fetch("/api/properties", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(cleanedData)
             });
 
-            const result = await response.json();
-            console.log('Respuesta de la API:', result);
+            const result = await response.json().catch(() => null);
+            console.log("Respuesta de create property:", result);
 
             if (!response.ok) {
-                // Manejo mejorado de errores
-                let errorMessage = 'Ocurrió un error en el servidor al crear la propiedad.';
-
-                if (result.errors) {
+                let errorMessage = "Ocurrió un error en el servidor al crear la propiedad.";
+                if (result?.errors) {
                     if (Array.isArray(result.errors)) {
-                        errorMessage = `Error de validación: ${result.errors.join(', ')}`;
-                    } else if (typeof result.errors === 'object') {
-                        const errorMessages = Object.entries(result.errors)
-                            .map(([field, messages]) => `${field}: ${Array.isArray(messages) ? messages.join(', ') : messages}`)
-                            .join('; ');
-                        errorMessage = `Errores de validación: ${errorMessages}`;
+                        errorMessage = `Error de validación: ${result.errors.join(", ")}`;
+                    } else if (typeof result.errors === "object") {
+                        const msgs = Object.entries(result.errors)
+                            .map(([field, messages]) => `${field}: ${Array.isArray(messages) ? messages.join(", ") : messages}`)
+                            .join("; ");
+                        errorMessage = `Errores de validación: ${msgs}`;
                     } else {
                         errorMessage = `Error: ${result.errors}`;
                     }
-                } else if (result.message) {
+                } else if (result?.message) {
                     errorMessage = result.message;
-                } else if (result.error) {
+                } else if (result?.error) {
                     errorMessage = result.error;
                 }
-
                 throw new Error(errorMessage);
             }
 
-            // Éxito en la creación
-            setStatus({ message: '¡Propiedad creada con éxito!', type: 'success' });
+            console.log("propiedad creada con exito, ahora a subir imagenes");
 
-            // Redirigir después de mostrar el mensaje de éxito
-            if (result.id) {
-                setTimeout(() => {
-                    router.push(`/propiedades/${result.id}`);
-                }, 2000); // Aumenté el tiempo para que el usuario pueda leer el mensaje
-            } else if (result.data && result.data.id) {
-                setTimeout(() => {
-                    router.push(`/propiedades/${result.data.id}`);
-                }, 2000);
-            } else {
-                // Si no hay ID específico, redirigir a la lista de propiedades
-                setTimeout(() => {
-                    router.push('/propiedades');
-                }, 2000);
+            // Determinar el id creado (flexible según la forma de respuesta)
+            const createdId =
+                result?.idProperty ||
+                result?.property?.idProperty ||
+                result?.property?.id ||
+                result?.data?.id ||
+                (result && typeof result === "number" ? result : undefined);
+
+            if (!createdId) {
+                console.warn("No se pudo determinar el id de la propiedad creada. result:", result);
+                setStatus({ message: "Propiedad creada pero no se pudo obtener su id.", type: "error" });
+                setIsCreating(false);
+                return result;
             }
 
-            return result.data || result;
+            setStatus({ message: "Propiedad creada. Subiendo recursos (imágenes y características)...", type: "success" });
 
-        } catch (error) {
-            console.error('Error al crear la propiedad:', error);
+            // 2) Subir imágenes (si hay). propertyData.images = [{ file: File }, ...]
+            const uploadImageResults: Array<{ ok: boolean; data?: any; error?: any }> = [];
+            if (propertyData.images && Array.isArray(propertyData.images) && propertyData.images.length > 0) {
+                console.log(`Subiendo ${propertyData.images.length} imágenes para property ${createdId}`);
+                // Subir en paralelo con Promise.all
+                // dentro del map de uploads en tu hook
+                const uploads = propertyData.images.map(async (imgObj, idx) => {
+                    try {
+                        // Normalizar: soporta File | { file: File } | dataURL string | url string
+                        let file: File | null = null;
 
-            let message = 'Error desconocido al crear la propiedad.';
+                        // Caso 1: si directamente es un File
+                        if (imgObj instanceof File) {
+                            file = imgObj as File;
+                        }
 
-            if (error instanceof Error) {
-                message = error.message;
-            } else if (typeof error === 'string') {
-                message = error;
+                        // Caso 2: si es un objeto con propiedad file (ej: { file: File })
+                        if (!file && (imgObj as any)?.file) {
+                            const possible = (imgObj as any).file;
+                            if (possible instanceof File) {
+                                file = possible;
+                            } else if (typeof possible === "string") {
+                                // posible dataURL o url dentro de .file
+                                const maybeUrl = possible as string;
+                                if (maybeUrl.startsWith("data:") || maybeUrl.startsWith("http")) {
+                                    const resp = await fetch(maybeUrl);
+                                    const blob = await resp.blob();
+                                    file = new File([blob], (imgObj as any).filename || `img_${idx}.jpg`, { type: blob.type });
+                                }
+                            }
+                        }
+
+                        // Caso 3: si imgObj es string (dataURL o url)
+                        if (!file && (imgObj as any)?.file) {
+                            const possible = (imgObj as any).file as File | string;
+                            if (possible instanceof File) {
+                                file = possible;
+                            } else if (typeof possible === "string") {
+                                const maybeUrl: string = possible; // 👈 acá lo forzás a string
+                                if (maybeUrl.startsWith("data:") || maybeUrl.startsWith("http")) {
+                                    const resp = await fetch(maybeUrl);
+                                    const blob = await resp.blob();
+                                    file = new File([blob], (imgObj as any).filename || `img_${idx}.jpg`, { type: blob.type });
+                                }
+                            }
+                        }
+
+
+                        // Si aún no tenemos File, falla con mensaje claro
+                        if (!file) {
+                            throw new Error(`Imagen ${idx} no es un File válido. Valor recibido: ${JSON.stringify(imgObj).slice(0, 200)}`);
+                        }
+
+                        // Opcional: logs de verificación (borralos en prod)
+                        console.log(`Preparando imagen ${idx}:`, { name: file.name, size: file.size, type: file.type });
+
+                        const formData = new FormData();
+                        formData.append("file", file);
+
+                        const resp = await fetch(`/api/properties/${createdId}/image`, {
+                            method: "POST",
+                            body: formData,
+                        });
+
+                        if (!resp.ok) {
+                            const text = await resp.text().catch(() => null);
+                            throw new Error(`Error subiendo imagen ${idx}: ${resp.status} ${text ?? ""}`);
+                        }
+
+                        const json = await resp.json().catch(() => null);
+                        console.log("Imagen subida OK:", json);
+                        uploadImageResults.push({ ok: true, data: json });
+                        return { ok: true, data: json };
+                    } catch (err) {
+                        console.error("Error subiendo imagen:", err);
+                        uploadImageResults.push({ ok: false, error: err instanceof Error ? err.message : err });
+                        return { ok: false, error: err };
+                    }
+                });
+
+
+                // Esperar todas las subidas
+                await Promise.all(uploads);
             }
 
-            setStatus({ message, type: 'error' });
-            return null;
-        } finally {
+            // 3) Enviar características (si hay) al endpoint /api/characteristics
+            const characteristicsResults: Array<{ ok: boolean; data?: any; error?: any }> = [];
+            if (cleanedData.characteristics && Array.isArray(cleanedData.characteristics) && cleanedData.characteristics.length > 0) {
+                try {
+                    // Adjuntamos propertyId a cada caracteristica
+                    const payload = cleanedData.characteristics.map((ch: any) => ({
+                        ...ch,
+                        propertyId: createdId
+                    }));
+
+                    const resp = await fetch(`/api/characteristics`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ characteristics: payload })
+                    });
+
+                    const json = await resp.json().catch(() => null);
+                    characteristicsResults.push({ ok: resp.ok, data: json });
+
+                    if (!resp.ok) {
+                        console.error("Error creando características (batch):", json);
+                        // fallback: intentar uno por uno
+                        for (const ch of payload) {
+                            try {
+                                const respSingle = await fetch(`/api/characteristics`, {
+                                    method: "POST",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify(ch)
+                                });
+                                const singleJson = await respSingle.json().catch(() => null);
+                                characteristicsResults.push({ ok: respSingle.ok, data: singleJson });
+                            } catch (e) {
+                                characteristicsResults.push({ ok: false, error: e });
+                            }
+                        }
+                    }
+                } catch (err) {
+                    console.error("Error en creación batch de características:", err);
+                    characteristicsResults.push({ ok: false, error: err });
+                }
+            }
+
+            // 4) Resultado final: podés retornar info combinada
+            const finalResult = {
+                property: result?.property ?? result,
+                id: createdId,
+                imagesResults: uploadImageResults,
+                characteristicsResults
+            };
+
+            // Redirección después de todo (si querés esperar a uploads)
+            setTimeout(() => {
+                router.push(`/propiedades/ficha/${createdId}`);
+            }, 1200);
+
             setIsCreating(false);
+            return finalResult;
+        } catch (error) {
+            console.error("Error al crear la propiedad:", error);
+            let message = "Error desconocido al crear la propiedad.";
+            if (error instanceof Error) message = error.message;
+            setStatus({ message, type: "error" });
+            setIsCreating(false);
+            return null;
         }
     };
 
-    // Función para limpiar el estado (útil si quieres resetear mensajes)
-    const clearStatus = () => {
-        setStatus(null);
-    };
+    const clearStatus = () => setStatus(null);
 
-    // Función para validar datos antes de enviar
     const validatePropertyData = (data: CreatePropertyData): string[] => {
         const errors: string[] = [];
-
-        if (!data.address || data.address.trim() === "" || data.address === "Dirección") {
-            errors.push("La dirección es obligatoria");
-        }
-
-        if (!data.price || data.price <= 0) {
-            errors.push("El precio debe ser mayor a 0");
-        }
-
-        if (!data.type) {
-            errors.push("El tipo de propiedad es obligatorio");
-        }
-
-        if (!data.category) {
-            errors.push("La operación (venta/alquiler) es obligatoria");
-        }
-
+        if (!data.address || data.address.trim() === "" || data.address === "Dirección") errors.push("La dirección es obligatoria");
+        if (!data.price || data.price <= 0) errors.push("El precio debe ser mayor a 0");
+        if (!data.type) errors.push("El tipo de propiedad es obligatorio");
+        if (!data.category) errors.push("La operación (venta/alquiler) es obligatoria");
         return errors;
     };
 
