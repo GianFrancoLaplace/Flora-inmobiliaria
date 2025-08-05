@@ -105,43 +105,63 @@ export default function CarrouselFotos({ isEditableFile, isEmptyFile, property, 
         }
     };
 
-    const handleDeleteConfirmed = async () => {
-        if (imageToDelete === null) return;
+  const handleDeleteConfirmed = async () => {
+    if (!imageToDelete) return;
 
-        if (isEmptyFile) {
-            const indexToDelete = tempImages.findIndex(img => img.id === imageToDelete.id);
-            if (indexToDelete === -1) return;
+    const result = await deleteImage(property.id, images[actual].id);
+    if (result) {
+      alert('¡Imagen eliminada correctamente!');
+      const newImages = images.filter((img) => img.id !== images[actual].id);
 
-            URL.revokeObjectURL(tempImages[indexToDelete].url);
+      setImages(newImages);
 
-            const newTempImages = tempImages.filter((_, index) => index !== indexToDelete);
+      if (actual >= newImages.length) {
+        setActual(Math.max(0, newImages.length - 1));
+      }
 
-            setTempImages(newTempImages);
+      setShowConfirmModal(false);
+      setImageToDelete(null);
+    }
+  };
 
-            if (actual >= newTempImages.length) {
-                setActual(Math.max(0, newTempImages.length - 1));
-            }
-        } else {
-            if (!property.id || property.id === 0) {
-                alert('Error: No se puede eliminar la imagen sin un ID de propiedad válido.');
-                return;
-            }
 
-            const result = await deleteImage(property.id, imageToDelete.id);
-            if (result) {
-                alert('¡Imagen eliminada correctamente!');
-                const newImages = images.filter((img) => img.id !== imageToDelete.id);
-                setImages(newImages);
-
-                if (actual >= newImages.length) {
-                    setActual(Math.max(0, newImages.length - 1));
-                }
-            }
-        }
-
-        setShowConfirmModal(false);
-        setImageToDelete(null);
-    };
+  // const handleDeleteConfirmed = async () => {
+    //     if (imageToDelete === null) return;
+    //
+    //     if (isEmptyFile) {
+    //         const indexToDelete = tempImages.findIndex(img => img.id === images[actual].id);
+    //         if (indexToDelete === -1) return;
+    //
+    //         URL.revokeObjectURL(tempImages[indexToDelete].url);
+    //
+    //         const newTempImages = tempImages.filter((_, index) => index !== indexToDelete);
+    //
+    //         setTempImages(newTempImages);
+    //
+    //         if (actual >= newTempImages.length) {
+    //             setActual(Math.max(0, newTempImages.length - 1));
+    //         }
+    //     } else {
+    //         if (!property.id || property.id === 0) {
+    //             alert('Error: No se puede eliminar la imagen sin un ID de propiedad válido.');
+    //             return;
+    //         }
+    //
+    //         const result = await deleteImage(property.id, imageToDelete.id);
+    //         if (result) {
+    //             alert('¡Imagen eliminada correctamente!');
+    //             const newImages = images.filter((img) => img.id !== imageToDelete.id);
+    //             setImages(newImages);
+    //
+    //             if (actual >= newImages.length) {
+    //                 setActual(Math.max(0, newImages.length - 1));
+    //             }
+    //         }
+    //     }
+    //
+    //     setShowConfirmModal(false);
+    //     setImageToDelete(null);
+    // };
 
     useEffect(() => {
         return () => {
@@ -178,8 +198,8 @@ export default function CarrouselFotos({ isEditableFile, isEmptyFile, property, 
     };
 
     return (
-        <div className={styles.container}> {/* Un contenedor que englobe todo */}
-            <div className={styles.imageContainerProperties}>
+        <div className={styles.imageContainerProperties}> {/* Un contenedor que englobe todo */}
+            <div>
                 {hasImages && actual < currentImages.length && (
                     <Image
                         key={currentImages[actual].id}
@@ -193,65 +213,102 @@ export default function CarrouselFotos({ isEditableFile, isEmptyFile, property, 
                         }}
                     />
                 )}
+              {hasImages && (
+              <div className={`${isEditableFile? styles.containerAddImage : ""} ${isEmptyFile? styles.containerAddImageForEmptyFile : ""}`}>
+                <div>
+                  <input
+                      type="file"
+                      id="inputId"
+                      className={styles.inputProperties}
+                      onChange={handleImageUpload}
+                      accept="image/*"
+                      disabled={uploading}
+                  />
+                  <label htmlFor="inputId" className={styles.labelAddImageProperties}>
+                    {uploading ? 'Subiendo...' : 'Añadir imagen'}
+                  </label>
+                </div>
+                {hasImages && (
+                    <div>
+                      <button  onClick={() => handleDeleteClick(currentImages[actual].id)} disabled={uploading} className={styles.deleteIconProperties}>
+                        <Image src="/icons/deleteIcon.png" alt="Ícono de eliminar" width={34} height={34} />
+                      </button>
+                    </div>
+                )}
+              </div>
+              )}
 
-                {!hasImages && (
-                    <div className={`${styles.placeholderImage} ${styles.imageProperties}`}>
-                        <div className={styles.placeholderContent}>
-                            {isEmptyFile ? "Añade imágenes para tu nueva propiedad" : "No hay imágenes disponibles"}
-                        </div>
+
+              {!hasImages && (
+                    <div className={styles.containerAddImageForEmptyFile}>
+                      <div>
+                        <input
+                            type="file"
+                            id="inputId"
+                            className={styles.inputProperties}
+                            onChange={handleImageUpload}
+                            accept="image/*"
+                            disabled={uploading}
+                        />
+                        <label htmlFor="inputId" className={styles.labelAddImageProperties}>
+                          {uploading ? 'Subiendo...' : 'Añadir imagen'}
+                        </label>
+                      </div>
                     </div>
                 )}
                 
                 {/* Botones de navegación, si hay imágenes */}
-                {hasImages && (
-                    <>
-                        <button onClick={prev} className={`${styles.carrouselButton} ${styles.left}`}>
-                            <Image src={'/icons/flechaIzq.svg'} alt={'Flecha a la izquierda'} width={30} height={30} />
-                        </button>
-                        <button onClick={next} className={`${styles.carrouselButton} ${styles.right}`}>
-                            <Image src={'/icons/flechaDer.svg'} alt={'Flecha a la derecha'} width={30} height={30} />
-                        </button>
-                    </>
+                {images.length > 1 && (
+                    <div className={styles.buttonProperties}>
+                      <button onClick={prev}>
+                        <Image src="/icons/IconFlechaDireccionContraria.png" alt="Flecha izquierda" width={30} height={30} />
+                      </button>
+                      <button onClick={next}>
+                        <Image src="/icons/IconFlecha.png" alt="Flecha derecha" width={30} height={30} />
+                      </button>
+                    </div>
                 )}
             </div>
 
-            {/* Este div se mantiene siempre visible cuando corresponde */}
-            {(isEditableFile || isEmptyFile) && (
-                <div className={styles.adminControls}>
-                    <label className={styles.uploadButton}>
-                        {uploading ? 'Subiendo...' : 'Agregar imagen'}
-                        <input
-                            type="file"
-                            onChange={handleImageUpload}
-                            disabled={uploading}
-                            style={{ display: 'none' }}
-                            accept="image/*"
-                        />
-                    </label>
-                    {hasImages && (
-                        <button
-                            className={styles.deleteButton}
-                            onClick={() => handleDeleteClick(currentImages[actual])}
-                            disabled={uploading}
-                        >
-                            Eliminar
-                        </button>
-                    )}
-                </div>
-            )}
+            {/*/!* Este div se mantiene siempre visible cuando corresponde *!/*/}
+            {/*{(isEditableFile || isEmptyFile) && (*/}
+            {/*    <div className={styles.adminControls}>*/}
+            {/*        <label className={styles.uploadButton}>*/}
+            {/*            {uploading ? 'Subiendo...' : 'Agregar imagen'}*/}
+            {/*            <input*/}
+            {/*                type="file"*/}
+            {/*                onChange={handleImageUpload}*/}
+            {/*                disabled={uploading}*/}
+            {/*                style={{ display: 'none' }}*/}
+            {/*                accept="image/*"*/}
+            {/*            />*/}
+            {/*        </label>*/}
+            {/*        {hasImages && (*/}
+            {/*            <button*/}
+            {/*                className={styles.deleteButton}*/}
+            {/*                onClick={() => handleDeleteClick(currentImages[actual])}*/}
+            {/*                disabled={uploading}*/}
+            {/*            >*/}
+            {/*                Eliminar*/}
+            {/*            </button>*/}
+            {/*        )}*/}
+            {/*    </div>*/}
+            {/*)}*/}
 
-            {showConfirmModal && (
-                <div className={styles.modalOverlay}>
-                    <div className={styles.modalContent}>
-                        <h3>¿Estás seguro?</h3>
-                        <p>Esta acción no se puede deshacer.</p>
-                        <div className={styles.modalButtons}>
-                            <button onClick={handleCancelDelete} className={styles.cancelButton}>Cancelar</button>
-                            <button onClick={handleDeleteConfirmed} className={styles.confirmButton}>Sí, eliminar</button>
-                        </div>
-                    </div>
+          {showConfirmModal && imageToDelete && (
+              <div className={styles.messageCardPropertie}>
+                <p>¿Desea eliminar la imagen?</p>
+                <p>Esta acción no se podrá deshacer.</p>
+                <div className={styles.buttonMessageProperties}>
+                  <button onClick={handleDeleteConfirmed} className={styles.aceptButtonProperties}>
+                    Sí, deseo eliminarla
+                  </button>
+                  <button onClick={handleCancelDelete} className={styles.cancelButtonProperties}>
+                    No, gracias
+                  </button>
                 </div>
-            )}
+              </div>
+          )}
         </div>
     )
 }
