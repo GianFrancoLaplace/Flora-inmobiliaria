@@ -45,7 +45,6 @@ export default function Item({
         console.log("hola");
     };
 
-
     const renderEditableField = () => {
         if (dataType === 'integer') {
             return (
@@ -72,6 +71,8 @@ export default function Item({
             );
         }
     }
+
+
     return (
         <div className={`${isItem ? styles.itemProperties : styles.infoCardProperties}`}>
             <div className={styles.itemInfo}>

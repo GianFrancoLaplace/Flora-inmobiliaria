@@ -15,12 +15,7 @@ import CarrouselFotos from "./Carrousel/CarrouselFotos";
 import Item from "@/components/TechnicalFile/PropertiesItem";
 import CharacteristicsForm from "./characteristicsForm/characteristicsForm";
 import { useCreateProperty } from "@/hooks/CreateProperty";
-
-import {
-    getDataGridCharacteristics,
-    getTechnicalSheetCharacteristics,
-    CharacteristicCategory
-} from "@/components/TechnicalFile/MockCharacteristic";
+import { getDataGridCharacteristics, getTechnicalSheetCharacteristics, CharacteristicCategory } from "@/components/TechnicalFile/MockCharacteristic";
 import useAdminImages from "@/hooks/AdminImages";
 import { Characteristic } from "@prisma/client";
 
@@ -58,7 +53,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
     const [localProperty, setLocalProperty] = useState<Property>(initialProperty);
     const [showForm, setShowForm] = useState(false);
     const [isEditingAll, setIsEditingAll] = useState(false);
-    const [isEditingAllP, setIsEditingAllP] = useState(false);
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
@@ -70,7 +64,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
     useEffect(() => {
         if (mode === 'edit') {
             setIsEditingAll(true);
-            setIsEditingAllP(true);
         }
     }, [mode]);
 
@@ -143,29 +136,28 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
         city: localProperty.city !== "Ciudad" ? localProperty.city : "",
         characteristics: characteristicsToSend, // Usamos el nuevo arreglo mapeado
         images: []
-    };
+        };
 
-    console.log('Datos a enviar para crear propiedad:', propertyToSend);
+        console.log('Datos a enviar para crear propiedad:', propertyToSend);
 
-    try {
-        const newProperty = await createProperty(propertyToSend);
+        try {
+            const newProperty = await createProperty(propertyToSend);
 
-        if (newProperty && tempImages.length > 0) {
-            console.log('Propiedad creada, subiendo imágenes...');
-            for (const tempImage of tempImages) {
-                await createImage(newProperty.id, tempImage.file);
+            if (newProperty && tempImages.length > 0) {
+                console.log('Propiedad creada, subiendo imágenes...');
+                for (const tempImage of tempImages) {
+                    await createImage(newProperty.id, tempImage.file);
+                }
             }
-        }
 
-        if (newProperty) {
-            console.log('Propiedad creada exitosamente:', newProperty);
-            router.push(`/propiedades/${newProperty.id}`);
+            if (newProperty) {
+                console.log('Propiedad creada exitosamente:', newProperty);
+                router.push(`/propiedades/${newProperty.id}`);
+            }
+        } catch (error) {
+            console.error('Error en handleCreatePublication:', error);
         }
-    } catch (error) {
-        console.error('Error en handleCreatePublication:', error);
-    }
-};
-
+    };
 
     const handleUpdatePublication = async () => {
         setIsSubmitting(true);
@@ -368,40 +360,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                     >
                         {currentIsSubmitting ? 'Guardando...' : 'Guardar cambios'}
                     </button>
-                    <button type="button"
-                            className={`${styles.askBtn} ${styles.btnSold} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
-                        Marcar como vendida/alquilada
-                    </button>
-                </div>
-            </div>
-
-            <div className={styles.mainBoxesGridProperties}>
-                <div className={styles.dataGridProperties}>
-                    {getDataGridCharacteristics(localProperty).map((characteristic) => {
-                        return (
-                            <Item
-                                key={characteristic.id}
-                                imgSrc={characteristic.iconUrl || '/icons/default.png'}
-                                label={characteristic.characteristic}
-                                characteristic={characteristic}
-                                isEditing={isEditingAllP}
-                                onSave={handleSaveCharacteristic}
-                                id={characteristic.id}
-                                type="data" showDeleteButton={false}                            />
-                        );
-                    })}
-                </div>
-
-                <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
-                    <button onClick={() => setIsEditingAllP(!isEditingAllP)} className={`${styles.editButtonProperties} ${isEditingAllP? styles.saveButtonProperties : ""}`}>
-                        {isEditingAllP ? <span>✔ Guardar</span> :
-                            <Image
-                                src={'/icons/iconoEdit.png'}
-                                alt={'Icono para editar'}
-                                width={30}
-                                height={30}
-                            />}
-                    </button>
                 </div>
             </div>
 
@@ -458,7 +416,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                     <div className={styles.titleProperties}>
                         <h3>Ficha</h3>
                         <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
-                            <button onClick={() => setIsEditingAll(!isEditingAll)} className={styles.editButtonProperties}>
+                            <button onClick={() => setIsEditingAll(!isEditingAll)} className={`${styles.editButtonProperties} ${isEditingAll? styles.saveButtonProperties : ""}`}>
                                 {isEditingAll ? '✔ Guardar' : <Image
                                     src={'/icons/iconoEdit.png'}
                                     alt={'Icono para editar'}

@@ -108,7 +108,6 @@ const FEATURES: Feature[] = [
         inputType: "number",
     },
 ];
-
 //map
 const CATEGORY_MAP: Record<string, CharacteristicCategory> = {
     "Superficie - Total": CharacteristicCategory.SUPERFICIE_TOTAL,
@@ -138,8 +137,8 @@ const CATEGORY_MAP: Record<string, CharacteristicCategory> = {
     "Cantidad de plantas": CharacteristicCategory.CANTIDAD_PLANTAS,
 };
 
-export default function CharacteristicsForm({ 
-    onCharacteristicsChange, 
+export default function CharacteristicsForm({
+    onCharacteristicsChange,
     initialCharacteristics = [],
     propertyId = 0
 }: CharacteristicsFormProps) {
@@ -195,7 +194,7 @@ export default function CharacteristicsForm({
         console.log("Nueva característica agregada:", characteristicData);
 
         setCharacteristics((prev) => [...prev, characteristicData]);
-        
+
         // Limpiar formulario
         resetForm();
     };
@@ -233,7 +232,7 @@ export default function CharacteristicsForm({
             [CharacteristicCategory.CANTIDAD_PLANTAS]: '/icons/plantas.png',
             [CharacteristicCategory.OTROS]: '/icons/default.png',
         };
-        
+
         return iconMap[category] || '/icons/default.png';
     };
 
@@ -348,7 +347,7 @@ export default function CharacteristicsForm({
                     >
                         ✔
                     </button>
-                    
+
                     <button
                         type="button"
                         className={styles.resetButton}
@@ -359,7 +358,6 @@ export default function CharacteristicsForm({
                     </button>
                 </div>
             </div>
-
             {characteristics.length > 0 && (
                 <div className={styles.characteristicsList}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
@@ -403,13 +401,37 @@ export default function CharacteristicsForm({
                             />
                         ))}
                     </div>
+            <div>
+                <h2>Características agregadas</h2>
+                <div>
+                    {/*{characteristics.map((c, index) => (*/}
+                    {/*    // <Item*/}
+                    {/*    //     key={index}*/}
+                    {/*    //     // imgSrc={getIconForLabel(c.characteristic)}*/}
+                    {/*    //     label={c.characteristic}*/}
+                    {/*    //     characteristic={{*/}
+                    {/*    //         id: 0,*/}
+                    {/*    //         characteristic: c.characteristic,*/}
+                    {/*    //         value_integer: c.value_integer ?? undefined,*/}
+                    {/*    //         value_text: c.value_text ?? undefined,*/}
+                    {/*    //         data_type: c.value_integer !== null ? 'integer' : 'text',*/}
+                    {/*    //     }}*/}
+                    {/*    //     isEditing={false}*/}
+                    {/*    //     id={index}*/}
+                    {/*    //     type="item"*/}
+                    {/*    //     onSave={() => {}}*/}
+                    {/*    //     onDelete={() => handleDelete(index)} // 👉 le pasás el handler*/}
+                    {/*    // />*/}
+                    {/*))}*/}
+                </div>
+            </div>
                 </div>
             )}
 
             {characteristics.length === 0 && (
-                <div style={{ 
-                    textAlign: 'center', 
-                    color: '#666', 
+                <div style={{
+                    textAlign: 'center',
+                    color: '#666',
                     margin: '20px 0',
                     fontStyle: 'italic'
                 }}>
