@@ -16,7 +16,7 @@ export async function getCharacteristicsByPropertyId(id: string): Promise<Charac
             return null;
         }
 
-        return await response.json(); // Esto devolvería un array
+        return await response.json();
 
     } catch (error) {
         console.error('Error in getCharacteristicsByPropertyId:', error);
