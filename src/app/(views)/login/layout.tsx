@@ -8,6 +8,6 @@ export default function LoginLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <>{children}</>; // o un div, section, lo que quieras
+  return <>{children}</>; 
 }
 

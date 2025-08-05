@@ -30,7 +30,7 @@ export default function Properties() {
         if (loading) {
             return (
                 <div className={styles.loadingContainer}>
-                    <p>Cargando propiedades...</p>
+                    <h3>Cargando propiedades...</h3>
                 </div>
             );
         }
@@ -38,7 +38,7 @@ export default function Properties() {
         if (error) {
             return (
                 <div className={styles.errorContainer}>
-                    <p>Error al cargar las propiedades: {error}</p>
+                    <h3>Error al cargar las propiedades: {error}</h3>
                     <button onClick={fetchProperties} className={styles.retryButton}>
                         Intentar de nuevo
                     </button>

@@ -8,7 +8,7 @@ import { Characteristic } from "@/types/Characteristic";
 import { mapOperationToState, mapPropertyType } from '@/helpers/PropertyMapper';
 import { mapPrismaCharacteristicCategory } from '@/helpers/IconMapper';
 import {ValidationError} from "@/helpers/UpdateProperty";
-import { array } from 'zod/v4';
+import { array, property } from 'zod/v4';
 
 type PriceFilter = {
     lte?: number;
@@ -142,7 +142,8 @@ export async function POST(request: NextRequest) {
         });
         return NextResponse.json(
                 {
-                    message: 'Propiedad creada con éxito'
+                    message: 'Propiedad creada con éxito',
+                    property: newProperty,
                 },
                 { status: 201 }
             );

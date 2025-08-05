@@ -220,3 +220,5 @@ export const getDisplayValue = (characteristic: Characteristic): string | number
         return characteristic.value_text || '';
     }
 };
+
+export { CharacteristicCategory };

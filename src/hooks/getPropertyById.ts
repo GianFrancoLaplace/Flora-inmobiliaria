@@ -1,12 +1,11 @@
 import { Property } from "@/types/Property";
 
-// 1. Marcar la función como 'async'
 export async function getPropertyById(id: string): Promise<Property | null> {
     try {
         const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
 
         const response = await fetch(`${baseUrl}/api/properties/${id}`, {
-            cache: 'no-store', // Ideal para datos que cambian frecuentemente
+            cache: 'no-store',
             headers: {
                 'Content-Type': 'application/json',
             }

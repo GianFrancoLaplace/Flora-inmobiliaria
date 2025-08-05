@@ -70,7 +70,7 @@ export const useUnifiedFilter = () => {
         });
     };
 
-    // traigo con un fetch las propiedades desde mi route
+        // traigo con un fetch las propiedades desde mi route
     const fetchProperties = useCallback(async () => {
         try {
             setLoading(true);
