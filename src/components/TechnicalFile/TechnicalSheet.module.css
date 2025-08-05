@@ -303,3 +303,14 @@
     color: red;
     box-shadow: none;
 }
+
+/*editable text field*/
+.field input {
+    width: 100%;
+
+    padding: 20px;
+
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid var(--secondary-color-5);
+}

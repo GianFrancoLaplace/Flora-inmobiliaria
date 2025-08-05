@@ -101,6 +101,63 @@ const FEATURES: Feature[] = [
         inputType: "number",
     },
 ];
+
+//icons map
+const ICON_MAP: {
+    [p: number]: string;
+    [CharacteristicCategory.DORMITORIOS]: string;
+    [CharacteristicCategory.BANOS]: string;
+    [CharacteristicCategory.ESTADO_INMUEBLE]: string;
+    [CharacteristicCategory.COBERTURA_COCHERA]: string;
+    [CharacteristicCategory.SUPERFICIE_SEMICUBIERTA]: string;
+    [CharacteristicCategory.AMBIENTES]: string;
+    [CharacteristicCategory.BALCON_TERRAZA]: string;
+    [CharacteristicCategory.ORIENTACION]: string;
+    [CharacteristicCategory.LUMINOSIDAD]: string;
+    [CharacteristicCategory.SUPERFICIE_DESCUBIERTA]: string;
+    [CharacteristicCategory.COCHERAS]: string;
+    [CharacteristicCategory.TIPO_PISO]: string;
+    [CharacteristicCategory.SUPERFICIE_CUBIERTA]: string;
+    [CharacteristicCategory.DORMITORIOS_SUITE]: string;
+    [CharacteristicCategory.DISPOSICION]: string;
+    [CharacteristicCategory.FECHA_EXPENSA]: string;
+    [CharacteristicCategory.CANTIDAD_PLANTAS]: string;
+    [CharacteristicCategory.SUPERFICIE_TOTAL]: string;
+    [CharacteristicCategory.EXPENSAS]: string;
+    [CharacteristicCategory.UBICACION_CUADRA]: string;
+    [CharacteristicCategory.AGUA]: string
+} = {
+    [CharacteristicCategory.SUPERFICIE_TOTAL]: '/icons/sup.png',
+    [CharacteristicCategory.SUPERFICIE_CUBIERTA]: '/icons/sup.png',
+    [CharacteristicCategory.SUPERFICIE_DESCUBIERTA]: '/icons/sup.png',
+    [CharacteristicCategory.SUPERFICIE_SEMICUBIERTA]: '/icons/sup.png',
+    [CharacteristicCategory.AMBIENTES]: '/icons/ambiente.png',
+    [CharacteristicCategory.DORMITORIOS]: '/icons/dorms.png',
+    [CharacteristicCategory.DORMITORIOS_SUITE]: '/icons/dorms.png',
+    [CharacteristicCategory.BANOS]: '/icons/baños.png',
+    [CharacteristicCategory.COCHERAS]: '/icons/cobertura.png',
+    [CharacteristicCategory.COBERTURA_COCHERA]: '/icons/cobertura.png',
+    [CharacteristicCategory.BALCON_TERRAZA]: '/icons/balcon.png',
+    [CharacteristicCategory.EXPENSAS]: '/icons/expensas.png',
+    [CharacteristicCategory.FECHA_EXPENSA]: '/icons/fecha.png',
+    [CharacteristicCategory.AGUA]: '/icons/agua.png',
+    [CharacteristicCategory.TIPO_PISO]: '/icons/piso.png',
+    [CharacteristicCategory.ESTADO_INMUEBLE]: '/icons/estado.png',
+    [CharacteristicCategory.ORIENTACION]: '/icons/orientacion.png',
+    [CharacteristicCategory.LUMINOSIDAD]: '/icons/luminosidad.png',
+    [CharacteristicCategory.DISPOSICION]: '/icons/disposicion.png',
+    [CharacteristicCategory.ANTIGÜEDAD]: '/icons/antiguedad.png',
+    [CharacteristicCategory.UBICACION_CUADRA]: '/icons/ubi.png',
+    [CharacteristicCategory.CANTIDAD_PLANTAS]: '/icons/plantas.png',
+};
+
+const getIconForLabel = (label: string): string => {
+    const category = CATEGORY_MAP[label];
+    // @ts-ignore
+    return ICON_MAP[category] || '/icons/supDesc.png';
+};
+
+
 //map
 const CATEGORY_MAP: Record<string, CharacteristicCategory> = {
     "Superficie - Total": CharacteristicCategory.SUPERFICIE_TOTAL,
@@ -258,7 +315,7 @@ export default function CharacteristicsForm() {
                     {characteristics.map((c, index) => (
                         <Item
                             key={index}
-                            imgSrc="/icons/agua.png"
+                            imgSrc={getIconForLabel(c.characteristic)}
                             label={c.characteristic}
                             characteristic={{
                                 id: 0,

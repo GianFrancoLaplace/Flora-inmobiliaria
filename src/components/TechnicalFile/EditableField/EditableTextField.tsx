@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+import styles from '../TechnicalSheet.module.css';
+import {cactus} from "@/app/(views)/ui/fonts";
 
 interface EditableTextFieldProps {
     value: string;
@@ -53,20 +55,22 @@ const EditableTextField: React.FC<EditableTextFieldProps> = ({
 
     if (isEditing) {
         return (
-            <input
-                ref={inputRef}
-                type={type}
-                className={className}
-                value={tempValue}
-                onChange={(e) => setTempValue(e.target.value)}
-                onBlur={handleSave}
-                onKeyDown={handleKeyDown}
-            />
+            <div className={`${styles.field} ${cactus.className}`}>
+                <input
+                    ref={inputRef}
+                    type={type}
+                    className={className}
+                    value={tempValue}
+                    onChange={(e) => setTempValue(e.target.value)}
+                    onBlur={handleSave}
+                    onKeyDown={handleKeyDown}
+                />
+            </div>
         );
     }
 
     return (
-        <span style={{ cursor: 'pointer' }} title="Click para editar">
+        <span style={{cursor: 'pointer'}} title="Click para editar">
             {value}
         </span>
     );
