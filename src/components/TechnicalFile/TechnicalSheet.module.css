@@ -142,6 +142,9 @@
     align-content: center;
     gap: 10px;
 }
+.titleProperties button {
+    margin-top: 20px;
+}
 
 .buttonsEditProperties, .titleProperties{
     height: 40px;
@@ -224,6 +227,13 @@
     cursor: pointer;
 }
 
+.editButtonProperties {
+    background-color: var(--secondary-color-5);
+    padding: 0px;
+    padding-inline: 10px;
+    margin: 0px;
+}
+
 .saveButtonProperties{
     background-color: var(--secondary-color-5);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -266,8 +276,13 @@
 .editProperties {
     display: flex;
     flex-direction: row;
+    align-items: center;
+
     width: min-content;
+    height: fit-content;
+
     gap: 20px;
+    margin-left: 15px;
 }
 
 .editInputProperties {
@@ -322,4 +337,10 @@
     font-size: 16px;
     cursor: pointer;
     border: 1px solid var(--secondary-color-5);
+}
+
+.field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
