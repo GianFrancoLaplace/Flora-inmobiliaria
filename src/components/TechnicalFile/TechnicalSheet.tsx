@@ -89,10 +89,12 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
         } else {
             setLocalProperty(prev => ({
                 ...prev,
-                characteristics: [...(prev.characteristics || []), ...newCharacteristics]
+                characteristics: newCharacteristics // reemplaza en vez de concatenar
             }));
         }
     }, [mode]);
+
+
 
     const handleCreatePublication = async () => {
         clearStatus();
@@ -141,12 +143,12 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             address: localProperty.address,
             ubication: localProperty.ubication !== " " ? localProperty.ubication : "",
             city: localProperty.city !== "Ciudad" ? localProperty.city : "",
-            characteristics: tempCharacteristics, // Usamos el nuevo arreglo mapeado
+            characteristics: characteristicsToSend,
             images: tempImages,
         };
-        console.log("propiedad to send: " +propertyToSend.images[0]);
-        console.log("tempimages: "+tempImages);
-        console.log("tempCharacterstics: "+tempCharacteristics);
+        console.log("propiedad to send: " + propertyToSend.images[0]);
+        console.log("tempimages: " + tempImages);
+        console.log("tempCharacterstics: " + tempCharacteristics);
         console.log('Datos a enviar para crear propiedad:', propertyToSend);
 
         try {
@@ -171,13 +173,31 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
         }
 
         try {
-            const response = await fetch(`/api/propiedades/${localProperty.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(localProperty),
-            });
+         const mappedCharacteristics = tempCharacteristics.map(tc => ({
+  idCharacteristic: tc.idCharacteristic,          // mapear id a idCharacteristic
+  characteristic: tc.characteristic,
+  propertyId: tc.propertyId,
+  category: tc.category,
+  dataType: tc.dataType,           // mapear data_type a dataType
+  valueInteger: tc.valueInteger,   // mapear value_integer a valueInteger
+  valueText: tc.valueText,         // mapear value_text a valueText
+}));
+
+
+const updatedProperty = {
+  ...localProperty,
+  characteristics: mappedCharacteristics.length > 0
+    ? mappedCharacteristics
+    : localProperty.characteristics
+};
+
+const response = await fetch(`/api/propiedades/${localProperty.id}`, {
+  method: 'PUT',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(updatedProperty),
+});
+
+
 
             const result = await response.json();
 
@@ -222,6 +242,9 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
     const isEmptyFile = mode === "create";
     const isEditableFile = mode === "edit";
+    const characteristicsForRender = mode === 'create'
+    ? tempCharacteristics
+    : localProperty.characteristics;
 
     const handleStartEdit = (fieldName: keyof Property) => {
         console.log(`Iniciando edición de: ${fieldName}`);
@@ -369,8 +392,8 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             </div>
 
             <div className={styles.mainBoxesGridProperties}>
-                <div className={styles.dataGridProperties}>
-                    {getTechnicalSheetCharacteristics(localProperty).map((characteristic, idx) => {
+                {/* <div className={styles.dataGridProperties}>
+                    {getTechnicalSheetCharacteristics({ ...localProperty, characteristics: characteristicsForRender }).map((characteristic, idx) => {
                         return (
                             <Item
                                 key={`${characteristic.id}-${idx}`} // Combina ID + índice
@@ -386,7 +409,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                         );
                     })}
 
-                </div>
+                </div> */}
 
                 <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
                     <button onClick={() => setIsEditingAllP(!isEditingAllP)} className={`${styles.editButtonProperties} ${isEditingAllP ? styles.saveButtonProperties : ""}`}>
