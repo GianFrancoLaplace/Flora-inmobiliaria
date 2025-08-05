@@ -56,6 +56,13 @@
     gap: 20px;
 }
 
+.withoutImageProperties{
+    background-image: url("/backgrounds/notImage.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .messageCardPropertie {
     background-color: rgba(26, 26, 25, 0.83);
     width: 506px;

@@ -22,7 +22,7 @@ import { CharacteristicCategory } from '@/types/Characteristic';
 import {
 
     getDataGridCharacteristics,
-        CHARACTERISTIC_CONFIGS
+    CHARACTERISTIC_CONFIGS
 } from "@/components/TechnicalFile/MockCharacteristic";
 
 import useAdminImages from "@/hooks/AdminImages";
@@ -412,7 +412,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
                 <div className={styles.buttonsProperties}>
                     <button type="button"
-                        className={`${styles.askBtn} ${isEmptyFile || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
+                            className={`${styles.askBtn} ${isEmptyFile || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
                         Consultar por esta propiedad
                     </button>
                     <button
@@ -435,7 +435,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
 
                     <button type="button"
-                        className={`${styles.askBtn} ${styles.btnSold} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
+                            className={`${styles.askBtn} ${styles.btnSold} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
                         Marcar como vendida/alquilada
                     </button>
                 </div>
@@ -448,12 +448,12 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                 <div className={`${styles.priceEditionProperties} ${styles.showProperties}`}>
                     <h1>
                         USD <EditableNumericField
-                            value={localProperty.price}
-                            isEditing={editingField === "price"}
-                            className={styles.inputProperties}
-                            onSave={(value) => handleSaveField('price', value)}
-                            onCancel={handleCancelEdit}
-                        />
+                        value={localProperty.price}
+                        isEditing={editingField === "price"}
+                        className={styles.inputProperties}
+                        onSave={(value) => handleSaveField('price', value)}
+                        onCancel={handleCancelEdit}
+                    />
                     </h1>
                     <EditButton
                         onStartEdit={() => handleStartEdit('price')}
