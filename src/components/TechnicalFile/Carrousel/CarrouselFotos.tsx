@@ -239,8 +239,8 @@ export default function CarrouselFotos({ isEditableFile, isEmptyFile, property, 
               )}
 
 
-              {!hasImages && (
-                    <div className={styles.containerAddImageForEmptyFile}>
+              {!hasImages && (isEditableFile || isEmptyFile) &&(
+                    <div className={`${styles.containerAddImageForEmptyFile} ${styles.withoutImageProperties}`}>
                       <div>
                         <input
                             type="file"
@@ -256,8 +256,7 @@ export default function CarrouselFotos({ isEditableFile, isEmptyFile, property, 
                       </div>
                     </div>
                 )}
-                
-                {/* Botones de navegación, si hay imágenes */}
+
                 {images.length > 1 && (
                     <div className={styles.buttonProperties}>
                       <button onClick={prev}>
@@ -269,31 +268,6 @@ export default function CarrouselFotos({ isEditableFile, isEmptyFile, property, 
                     </div>
                 )}
             </div>
-
-            {/*/!* Este div se mantiene siempre visible cuando corresponde *!/*/}
-            {/*{(isEditableFile || isEmptyFile) && (*/}
-            {/*    <div className={styles.adminControls}>*/}
-            {/*        <label className={styles.uploadButton}>*/}
-            {/*            {uploading ? 'Subiendo...' : 'Agregar imagen'}*/}
-            {/*            <input*/}
-            {/*                type="file"*/}
-            {/*                onChange={handleImageUpload}*/}
-            {/*                disabled={uploading}*/}
-            {/*                style={{ display: 'none' }}*/}
-            {/*                accept="image/*"*/}
-            {/*            />*/}
-            {/*        </label>*/}
-            {/*        {hasImages && (*/}
-            {/*            <button*/}
-            {/*                className={styles.deleteButton}*/}
-            {/*                onClick={() => handleDeleteClick(currentImages[actual])}*/}
-            {/*                disabled={uploading}*/}
-            {/*            >*/}
-            {/*                Eliminar*/}
-            {/*            </button>*/}
-            {/*        )}*/}
-            {/*    </div>*/}
-            {/*)}*/}
 
           {showConfirmModal && imageToDelete && (
               <div className={styles.messageCardPropertie}>
