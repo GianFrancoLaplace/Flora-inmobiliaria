@@ -1,4 +1,3 @@
-
 .propertyGrid {
     display: flex;
     flex-direction: column;
@@ -37,13 +36,13 @@
     .propertyGrid {
 
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr)); /* Usamos 0 y 1fr para un grid flexible */
+        grid-template-columns: repeat(2, minmax(0, 1fr));
 
 
         justify-content: center;
         max-width: 1300px;
         row-gap: 50px;
-        column-gap: 40px;
+        column-gap: 20px;
         margin: 0 auto;
     }
 
