@@ -5,6 +5,7 @@
     position: relative;
     z-index: 10;
 }
+
 .mapaInteractivo {
     display: flex;
     justify-content: center;
@@ -339,13 +340,17 @@
 }
 
 /*editable text field*/
-.field input {
+.field input, .numericField input {
+    justify-items: left;
+
     width: 100%;
 
-    padding: 20px;
+    padding: 10px;
+    padding-inline: 20px;
 
     font-size: 16px;
     cursor: pointer;
+    border-radius: 100px;
     border: 1px solid var(--secondary-color-5);
 }
 

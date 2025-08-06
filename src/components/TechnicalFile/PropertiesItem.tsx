@@ -78,7 +78,7 @@ export default function Item({
             <div className={styles.itemInfo}>
                 <Image
                     src={imgSrc || "/icons/agua.png"}
-                    alt={'icono acorde a la informacion proporcionada'}
+                    alt={''}
                     width={20}
                     height={20}
                 />

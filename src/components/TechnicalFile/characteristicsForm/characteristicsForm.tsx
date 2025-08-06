@@ -193,7 +193,7 @@ export default function CharacteristicsForm({
         <main className={styles.main}>
             <div className={styles.form}>
                 <div className={styles.field}>
-                    <label><h5>Característica:</h5></label>
+                    <label><h3>Característica:</h3></label>
                     <select
                         value={selectedFeature?.name || ""}
                         onChange={(e) => {
@@ -279,12 +279,12 @@ export default function CharacteristicsForm({
             {characteristics.length > 0 && (
                 <div className={styles.characteristicsList}>
                     <div className={styles.formButtons}>
-                        <h4>Características agregadas ({characteristics.length})</h4>
+                        <h5>Características agregadas ({characteristics.length})</h5>
                         <button
                             onClick={clearAllCharacteristics}
-                            className={styles.clearAllButton}
+                            className={`${styles.clearAllButton} ${cactus.className}`}
                         >
-                            Limpiar todo
+                            <h6>Limpiar todas</h6>
                         </button>
                     </div>
                     <div className={styles.characteristicsGrid}>

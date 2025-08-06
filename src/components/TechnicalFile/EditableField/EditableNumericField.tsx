@@ -1,4 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
+import styles from "@/components/TechnicalFile/TechnicalSheet.module.css";
+import {cactus} from "@/app/(views)/ui/fonts";
 
 interface EditableNumericFieldProps {
     value: number;
@@ -73,20 +75,22 @@ const EditableNumericField: React.FC<EditableNumericFieldProps> = ({
 
     if (isEditing) {
         return (
-            <input
-                ref={inputRef}
-                type="text"
-                className={className}
-                value={tempValue}
-                onChange={handleInputChange}
-                onBlur={handleSave}
-                onKeyDown={handleKeyDown}
-            />
+            <div className={`${styles.numericField} ${cactus.className}`}>
+                <input
+                    ref={inputRef}
+                    type="text"
+                    className={className}
+                    value={tempValue}
+                    onChange={handleInputChange}
+                    onBlur={handleSave}
+                    onKeyDown={handleKeyDown}
+                />
+            </div>
         );
     }
 
     return (
-        <span style={{ cursor: 'pointer' }} title="Click para editar">
+        <span style={{cursor: 'pointer'}} title="Click para editar">
             {value}
         </span>
     );
