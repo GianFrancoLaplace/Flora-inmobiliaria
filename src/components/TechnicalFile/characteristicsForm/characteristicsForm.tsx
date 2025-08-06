@@ -147,10 +147,10 @@ export default function CharacteristicsForm({
 
     const getIconForCategory = (category: CharacteristicCategory): string => {
         const iconMap: Record<CharacteristicCategory, string> = {
-            [CharacteristicCategory.SUPERFICIE_TOTAL]: '/icons/superficie.png',
-            [CharacteristicCategory.SUPERFICIE_CUBIERTA]: '/icons/superficie.png',
-            [CharacteristicCategory.SUPERFICIE_DESCUBIERTA]: '/icons/superficie.png',
-            [CharacteristicCategory.SUPERFICIE_SEMICUBIERTA]: '/icons/superficie.png',
+            [CharacteristicCategory.SUPERFICIE_TOTAL]: '/icons/sup.png',
+            [CharacteristicCategory.SUPERFICIE_CUBIERTA]: '/icons/sup.png',
+            [CharacteristicCategory.SUPERFICIE_DESCUBIERTA]: '/icons/sup.png',
+            [CharacteristicCategory.SUPERFICIE_SEMICUBIERTA]: '/icons/sup.png',
             [CharacteristicCategory.AMBIENTES]: '/icons/ambientes.png',
             [CharacteristicCategory.DORMITORIOS]: '/icons/dormitorios.png',
             [CharacteristicCategory.DORMITORIOS_SUITE]: '/icons/dormitorios.png',
