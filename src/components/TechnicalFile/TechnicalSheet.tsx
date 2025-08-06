@@ -18,15 +18,11 @@ import {useUpdateCharacteristic} from "@/hooks/useUpdateCharacteristic"
 import CharacteristicsForm from "./characteristicsForm/characteristicsForm";
 import { useCreateProperty } from "@/hooks/CreateProperty";
 import { enrichCharacteristic } from '@/helpers/CharacteristicHelper';
-import { CharacteristicCategory } from '@/types/Characteristic';
-import {
+import { useCreateCharacteristic } from '@/hooks/useCreateCharacteristic';
+import { Characteristic, CharacteristicCategory } from '@/types/Characteristic';
 
-    getDataGridCharacteristics,
-    CHARACTERISTIC_CONFIGS
-} from "@/components/TechnicalFile/MockCharacteristic";
 
 import useAdminImages from "@/hooks/AdminImages";
-import { Characteristic } from "@prisma/client";
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
@@ -63,6 +59,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
     //para la edicion
     const { updateProperty, isUpdating: isUpdatingProperty, status: propertyStatus } = useUpdateProperty();
     const { updateCharacteristic } = useUpdateCharacteristic();
+    const { createCharacteristic } = useCreateCharacteristic();
     const [isSubmittingAll, setIsSubmittingAll] = useState(false);
     const [modifiedCharacteristics, setModifiedCharacteristics] = useState<Map<number, { value_integer?: number; value_text?: string }>>(new Map());
 
@@ -127,58 +124,94 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
         });
     };
 
+
+
+
+    // En TechnicalSheet.tsx
+
     const handleSaveChanges = async () => {
         if (!localProperty) return;
 
-        setIsSubmitting(true); // 1. Ponemos la UI en estado "Cargando..."
+        setIsSubmitting(true);
         setSubmitStatus(null);
 
-        // 2. Preparamos todas las "tareas" (peticiones a la API) que necesitamos hacer.
-        //    Creamos un array de promesas.
-        const updatePromises = [];
+        // --- LÓGICA DE SEPARACIÓN ---
 
-        const propertyDataToUpdate = {
+        // 1. Identifica las características que son completamente NUEVAS (ID negativo)
+        const characteristicsToCreate = localProperty.characteristics.filter(c => c.id <= 0);
+
+        // 2. Identifica las características que EXISTEN y han sido MODIFICADAS
+        const characteristicsToUpdate = new Map<number, { value_integer?: number; value_text?: string }>();
+        modifiedCharacteristics.forEach((data, id) => {
+            // Solo añadimos a la lista de actualización si el ID es POSITIVO (es decir, ya existe en la BD)
+            if (id > 0) {
+                characteristicsToUpdate.set(id, data);
+            }
+        });
+
+
+        // --- CONSTRUCCIÓN DE LAS PROMESAS ---
+
+        const promises = [];
+
+        // Promesa para actualizar la propiedad principal
+        const propertyData = {
             address: localProperty.address,
             city: localProperty.city,
-            state:localProperty.state,
+            state: localProperty.state,
             ubication: localProperty.ubication,
             price: localProperty.price,
             description: localProperty.description,
             type: localProperty.type,
-
         };
-        updatePromises.push(updateProperty(localProperty.id, propertyDataToUpdate));
+        promises.push(updateProperty(localProperty.id, propertyData));
 
-        modifiedCharacteristics.forEach((data, id) => {
-            updatePromises.push(updateCharacteristic(id, data));
+        // Promesas para ACTUALIZAR características existentes
+        characteristicsToUpdate.forEach((data, id) => {
+            promises.push(updateCharacteristic(id, data));
+        });
+
+        // Promesas para CREAR nuevas características
+        characteristicsToCreate.forEach(char => {
+            // Preparamos el payload para la API, quitando el ID temporal y añadiendo el property_id
+            const { id, iconUrl, ...dataToCreate } = char;
+            promises.push(createCharacteristic({ ...dataToCreate, property_id: localProperty.id }));
         });
 
         try {
-
-            await Promise.all(updatePromises);
-
+            // Ejecutamos todas las promesas en paralelo
+            console.log("PROMESAA")
+            await Promise.all(promises);
 
             setSubmitStatus({ message: '¡Todos los cambios se guardaron con éxito!', type: 'success' });
-            setModifiedCharacteristics(new Map()); // Reseteamos los cambios pendientes
+            setModifiedCharacteristics(new Map()); // Limpiamos el registro de cambios
+
+            // Refrescamos para obtener los datos actualizados, incluyendo los nuevos IDs
+            router.refresh();
 
         } catch (error) {
-
             const message = error instanceof Error ? error.message : 'Ocurrió un error al guardar.';
             setSubmitStatus({ message, type: 'error' });
         } finally {
             setIsSubmitting(false);
         }
     };
-    const handleCharacteristicsChange = useCallback((newCharacteristics: any[]) => {
-        if (mode === 'create') {
-            setTempCharacteristics(newCharacteristics);
-        } else {
-            setLocalProperty(prev => ({
+    const handleCharacteristicsChange = useCallback((newCharacteristics: Characteristic[]) => {
+        // Asignamos un ID temporal y negativo para identificarla como nueva
+        const characteristicsWithTempIds = newCharacteristics.map(char => ({
+            ...char,
+            id: -Date.now() // Un ID único y negativo
+        }));
+
+        setLocalProperty(prev => {
+            if (!prev) return prev;
+            return {
                 ...prev,
-                characteristics: [...(prev.characteristics || []), ...newCharacteristics]
-            }));
-        }
-    }, [mode]);
+                characteristics: [...prev.characteristics, ...characteristicsWithTempIds]
+            }
+        });
+    }, []);
+
 
     const handleCreatePublication = async () => {
         clearStatus();
@@ -199,23 +232,23 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
         // Usamos los nombres de propiedades correctos (camelCase vs snake_case).
         const characteristicsToSend = (tempCharacteristics || [])
             .filter(char =>
-                (char.valueText && char.valueText.trim() !== "") ||
-                (char.valueInteger !== undefined && char.valueInteger !== null)
+                (char.value_text && char.value_text.trim() !== "") ||
+                (char.value_integer !== undefined && char.value_integer !== null)
             )
             .map(char => ({
                 // Mapeo de nombres de propiedades
-                id: char.idCharacteristic, // O `char.idCharacteristic` si ese es el campo correcto
+                id: char.id, // O `char.idCharacteristic` si ese es el campo correcto
                 characteristic: char.characteristic,
 
                 // Corrección del tipo de `category`: si es null, lo convertimos a undefined
                 category: char.category ? String(char.category) : undefined,
 
                 // Conversión de camelCase a snake_case para las propiedades de valor
-                value_integer: char.valueInteger,
-                value_text: char.valueText,
+                value_integer: char.value_integer,
+                value_text: char.value_text,
 
                 // Mapeo de data_type
-                data_type: char.dataType,
+                data_type: char.data_type,
             }));
 
 
@@ -242,48 +275,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             }
         } catch (error) {
             console.error('Error en handleCreatePublication:', error);
-        }
-    };
-
-
-    const handleUpdatePublication = async () => {
-        setIsSubmitting(true);
-        setSubmitStatus(null);
-
-        // Validaciones básicas antes de enviar (puedes añadir más)
-        if (!localProperty.address || localProperty.price <= 0) {
-            setSubmitStatus({ message: 'Por favor, complete la dirección y el precio.', type: 'error' });
-            setIsSubmitting(false);
-            return;
-        }
-
-        try {
-            const response = await fetch(`/api/properties/${localProperty.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(localProperty),
-            });
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                const errorMessage = result.errors ? JSON.stringify(result.errors) : 'Ocurrió un error en el servidor.';
-                throw new Error(errorMessage);
-            }
-
-            setSubmitStatus({ message: '¡Cambios guardados con éxito!', type: 'success' });
-
-            setTimeout(() => {
-                router.push(`/propiedades/${localProperty.id}`);
-            }, 2000);
-
-        } catch (error) {
-            const message = error instanceof Error ? error.message : 'Error desconocido al guardar los cambios.';
-            setSubmitStatus({ message, type: 'error' });
-        } finally {
-            setIsSubmitting(false);
         }
     };
 
@@ -425,7 +416,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                     </button>
                     <button
                         type="button"
-                        onClick={handleUpdatePublication}
+                        onClick={handleSaveChanges}
                         disabled={currentIsSubmitting}
                         className={`${styles.askBtn} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}
                     >
