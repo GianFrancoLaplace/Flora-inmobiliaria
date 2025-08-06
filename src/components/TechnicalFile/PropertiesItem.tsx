@@ -77,7 +77,7 @@ export default function Item({
         <div className={`${isItem ? styles.itemProperties : styles.infoCardProperties}`}>
             <div className={styles.itemInfo}>
                 <Image
-                    src={imgSrc}
+                    src={imgSrc || "/icons/agua.png"}
                     alt={'icono acorde a la informacion proporcionada'}
                     width={20}
                     height={20}

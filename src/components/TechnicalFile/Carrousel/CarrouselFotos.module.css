@@ -57,8 +57,8 @@
 }
 
 .withoutImageProperties{
-    background-image: url("/backgrounds/notImage.jpg");
-    background-size: cover;
+    background-image: url("/logos/fullLogo.png");
+    background-size: auto;
     background-position: center;
     background-repeat: no-repeat;
 }

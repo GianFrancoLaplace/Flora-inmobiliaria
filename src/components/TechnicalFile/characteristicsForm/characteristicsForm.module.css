@@ -15,7 +15,6 @@
 }
 
 /*form properties*/
-
 .form {
     display: flex;
     flex-direction: column;
@@ -48,6 +47,16 @@
     color: var(--secondary-color-1);
     border-radius: 100px;
     font-size: 16px;
+}
+
+
+/*form buttons*/
+.formButtons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: 1rem;
 }
 
 .addCharacteristicButton {

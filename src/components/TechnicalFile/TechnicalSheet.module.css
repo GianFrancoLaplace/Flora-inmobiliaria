@@ -71,6 +71,8 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    height: fit-content;
+    padding: 0px;
     padding-inline: 20px;
     position: relative;
     z-index: 10;
@@ -86,7 +88,6 @@
 .mainInfo {
     display: flex;
     flex-direction: row;
-    gap: 70%;
     white-space: nowrap;
 }
 
@@ -125,14 +126,21 @@
     display: flex;
     flex-direction: column;
     text-align: justify;
-    width: 880px;
-    margin: 30px;
-    margin-inline: 40px;
+    max-width: 880px;
+    width: 100%;
+    margin-top: 30px;
+    margin-inline: 35px;
+    padding-left: 10px;
+
+    border-left: 1px solid var(--secondary-color-5);
 }
 
 .descriptionsProperties div {
-    padding-bottom: 10px;
     margin-bottom: 10px;
+}
+
+.descriptionsProperties .sectionProperties, .descriptionsProperties .dataGridProperties {
+    margin-bottom: 0px;
 }
 
 .titleProperties {
@@ -142,13 +150,10 @@
     align-content: center;
     gap: 10px;
 }
-.titleProperties button {
-    margin-top: 20px;
-}
 
 .buttonsEditProperties, .titleProperties{
     height: 40px;
-    border-bottom: 1px solid var(--primary-color-5);
+    border-bottom: 1px solid var(--primary-color-2);
 }
 
 .buttonsEditProperties{
@@ -167,7 +172,8 @@
     display: grid;
     grid-auto-flow: column;
     grid-template-rows: repeat(10, max-content);
-    grid-column-gap: 150px;
+    grid-column-gap: 100px;
+    grid-row-gap: 0px;
 }
 
 .itemInfo {
@@ -218,20 +224,18 @@
 
 .mainAdressProperties button,
 .editButtonProperties {
-    background-color: transparent;
+    background-color: var(--secondary-color-5);
     align-content: center;
     border: none;
     box-shadow: none;
     width: fit-content;
     padding: 10px;
+    margin: 0px;
     cursor: pointer;
 }
-
 .editButtonProperties {
-    background-color: var(--secondary-color-5);
     padding: 0px;
     padding-inline: 10px;
-    margin: 0px;
 }
 
 .saveButtonProperties{
@@ -265,6 +269,9 @@
     margin-left: 34px;
     margin-top: 20px;
     width: fit-content;
+
+    background-color: var(--secondary-color-5);
+    color: var(--primary-color-5);
 }
 
 .priceEditionProperties {
@@ -283,6 +290,9 @@
 
     gap: 20px;
     margin-left: 15px;
+}
+.editProperties h1 {
+    padding-bottom: 0px;
 }
 
 .editInputProperties {

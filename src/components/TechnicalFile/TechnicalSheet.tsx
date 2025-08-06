@@ -468,7 +468,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
             <div className={styles.descriptionsProperties}>
                 <div className={styles.titleProperties}>
-                    <h3>Descripción</h3>
+                    <h2>Descripción</h2>
                     <div>
                         <EditButton
                             onStartEdit={() => handleStartEdit('description')}
@@ -495,14 +495,14 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             <div className={styles.descriptionsProperties}>
                 <div className={styles.buttonsEditProperties}>
                     <div className={styles.titleProperties}>
-                        <h3>Ficha</h3>
+                        <h2>Ficha</h2>
                         <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
                             <button onClick={() => setIsEditingAll(!isEditingAll)} className={styles.editButtonProperties}>
-                                {isEditingAll ? '✔ Guardar' : <Image
+                                {isEditingAll ? <h5 className={cactus.className}>Guardar ✔</h5> : <Image
                                     src={'/icons/iconoEdit.png'}
                                     alt={'Icono para editar'}
-                                    width={30}
-                                    height={30}
+                                    width={20}
+                                    height={20}
                                 />}
                             </button>
                         </div>
@@ -555,7 +555,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
             <div className={styles.descriptionsProperties}>
                 <div className={styles.titleProperties}>
-                    <h3>Ubicación</h3>
+                    <h2>Ubicación</h2>
                     <div>
                         <EditButton
                             className={styles.editButtonProperties}

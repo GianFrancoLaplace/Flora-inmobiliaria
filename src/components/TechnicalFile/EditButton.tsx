@@ -34,8 +34,8 @@ const EditButton: React.FC<EditButtonProps> = ({
             <Image
                 src={img}
                 alt={'Icono para editar'}
-                width={30}
-                height={30}
+                width={20}
+                height={20}
             />
         </button>
     );

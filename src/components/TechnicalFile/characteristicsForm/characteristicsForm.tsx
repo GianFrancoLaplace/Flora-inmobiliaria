@@ -4,6 +4,7 @@ import styles from './characteristicsForm.module.css';
 import { useState, useEffect } from "react";
 import { Characteristic, CharacteristicCategory, CharacteristicCreate } from "@/types/Characteristic";
 import Item from '../PropertiesItem';
+import {cactus} from "@/app/(views)/ui/fonts";
 
 type SubFeature = {
     name: string;
@@ -170,7 +171,7 @@ export default function CharacteristicsForm({
             [CharacteristicCategory.CANTIDAD_PLANTAS]: '/icons/plantas.png',
             [CharacteristicCategory.OTROS]: '/icons/default.png',
         };
-        return iconMap[category] || '/icons/default.png';
+        return iconMap[category] || '/icons/agua.png';
     };
 
     const resetForm = () => {
@@ -262,30 +263,26 @@ export default function CharacteristicsForm({
                         disabled={!selectedFeature || !inputValue || inputValue === ""}
                         title="Agregar característica"
                     >
-                        ✔
+                        <h5 className={cactus.className}>Agregar ✔</h5>
                     </button>
                     <button
                         type="button"
-                        className={styles.resetButton}
+                        className={styles.addCharacteristicButton}
                         onClick={resetForm}
                         title="Limpiar formulario"
                     >
-                        ↻
+                        <h5 className={cactus.className}>Recargar ↻</h5>
                     </button>
                 </div>
             </div>
 
             {characteristics.length > 0 && (
                 <div className={styles.characteristicsList}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                    <div className={styles.formButtons}>
                         <h4>Características agregadas ({characteristics.length})</h4>
                         <button
                             onClick={clearAllCharacteristics}
                             className={styles.clearAllButton}
-                            style={{
-                                background: '#ff4444', color: 'white', border: 'none',
-                                padding: '5px 10px', borderRadius: '4px', cursor: 'pointer', fontSize: '12px'
-                            }}
                         >
                             Limpiar todo
                         </button>
@@ -294,7 +291,7 @@ export default function CharacteristicsForm({
                         {characteristics.map((c, index) => (
                             <Item
                                 key={`char-${index}-${c.id}`}
-                                imgSrc={c.iconUrl || "/icons/default.png"}
+                                imgSrc={c.iconUrl || "/icons/agua.png"}
                                 label={c.characteristic}
                                 characteristic={{
                                     id: c.id,
