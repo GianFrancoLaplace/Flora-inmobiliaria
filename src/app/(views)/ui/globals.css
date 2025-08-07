@@ -1,4 +1,5 @@
 :root {
+    /*colors*/
     --primary-color-1: #fdffe2;
     --primary-color-2: #d3d3d3;
     --primary-color-3: #8d8d8d;
@@ -21,13 +22,13 @@
     --focus-color: #fef3c7;
     --error-color: #d32f2f;
     --retry: #1976d2;
+    --almost-black: #202020;
 
-    /* Espaciado */
-    --space-xs: 0.25rem; /* 4px */
-    --space-sm: 0.5rem; /* 8px */
-    --space-md: 1rem; /* 16px */
-    --space-lg: 1.5rem; /* 24px */
-    --space-xl: 2rem; /* 32px */
+    --transparent: transparent;
+    --transparent-black-01: rgba(0, 0, 0, 0.1);
+    --transparent-black-03: rgba(0, 0, 0, 0.3);
+    --transparent-black-07: rgba(0, 0, 0, 0.7);
+
 
     /*font-sizes for mobile*/
     --h1-size: 1.125rem; /* 18px */
@@ -36,6 +37,9 @@
     --h4-size: 0.75rem; /*12px*/
     --h5-size: 0.625rem; /*10px*/
     --h6-size: 0.5rem; /*8px*/
+
+
+
 
     /*margin/padding*/
     --50px: 3.125rem; /*50px*/
@@ -48,7 +52,10 @@
     --5px: 0.3125rem; /*5px*/
     --1px: 0.0625; /*1px*/
 
-    /* Tipografía */
+
+
+
+    /*fonts*/
     --primary-font: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
     --font-weight-normal: 400;
     --font-weight-medium: 500;
@@ -56,7 +63,10 @@
     --text-sm: 0.875rem; /* 14px */
     --text-base: 1rem; /* 16px */
 
-    /* Bordes y efectos */
+
+
+
+    /*borders and effects*/
     --radius-sm: 0.375rem; /* 6px */
     --radius-md: 0.5rem; /* 8px */
     --radius-l: 0.625rem; /* 10px */
@@ -66,14 +76,28 @@
     --shadow-lg:
         0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
-    /* Transiciones */
+
+
+
+
+    /*transitions*/
     --fast-transition: 150ms ease-in-out;
     --normal-transition: 200ms ease-in-out;
 }
 
+
+
 body {
     background-color: var(--background-color);
 }
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+
+    overflow: visible;
+}
+
 
 /*font-sizes*/
 h1{
@@ -100,7 +124,6 @@ h6{
     font-size: var(--h6-size);
     font-weight: lighter;
 }
-
 /*same for tablet and desktop*/
 @media (min-width: 768px) {
     :root {
@@ -115,6 +138,7 @@ h6{
 }
 
 
+/*buttons general properties (for specific ones, modify them in an apart className)*/
 button {
     display: flex;
     justify-content: center;
@@ -130,18 +154,11 @@ button {
     border-radius: 100px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
 
-    transition: box-shadow 1s ease-in-out;
+    transition: box-shadow var(--normal-transition);
 }
-
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-
-    overflow: visible;
-}
-/*buttons general properties (for specific ones, modify them in an apart className)*/
-
 button:hover {
     box-shadow: inset 0px 4px 12px rgba(0, 0, 0, 0.2);
 }
+
+
+
