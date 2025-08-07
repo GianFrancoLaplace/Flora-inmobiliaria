@@ -61,11 +61,10 @@ export default function SalesForm() {
     return (
         <section className={styles.page}>
             <div className={styles.titleProperties}>
-                <h2>Vendé tu propiedad</h2>
-                <h6>Completá el formulario con tus datos y nos contactaremos a la brevedad para continuar con el proceso</h6>
+                <h1>Vendé tu propiedad</h1>
+                <h4>Completá el formulario con tus datos y nos contactaremos a la brevedad para continuar con el proceso</h4>
             </div>
             <div className={styles.loginContainer}>
-                {/* Paso 4: Conectar la lógica al formulario JSX */}
                 <form onSubmit={handleSubmit}>
                     <div className={styles.fieldProperties}>
                         <label htmlFor="name">Nombre y apellido</label>
