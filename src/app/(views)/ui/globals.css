@@ -86,7 +86,7 @@
 
     /*transitions*/
     --fast-transition: 150ms ease-in-out;
-    --normal-transition: 200ms ease-in-out;
+    --normal-transition: 300ms ease-in-out;
 }
 
 

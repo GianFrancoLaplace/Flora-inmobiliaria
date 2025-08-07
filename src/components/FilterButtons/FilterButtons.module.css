@@ -1,14 +1,14 @@
 .filterGroupWrapper {
     width: 100%;
-    padding: var(--space-md) 0;
+    padding: var(--15px) 0;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .filterGroupTitle {
-    margin-bottom: 0.8rem;
-    font-size: 1.3rem;
+    margin-bottom: var(--15px);
+    font-size: var(--h1-size);
     font-weight: 500;
     color: var(--primary-color-5);
     text-align: center;
@@ -18,15 +18,15 @@
     display: block;
     background-color: var(--secondary-color-5, #f0c040);
     color: var(--primary-color-5);
-    padding: 0.6rem 1.2rem;
+    padding: var(--10px) var(--20px);
     border: none;
-    font-size: 1.1rem;
+    font-size: var(--h1-size);
     font-weight: var(--font-weight-bold);
     cursor: pointer;
     border-radius: var(--radius-md);
     z-index: 1000;
     align-self: center;
-    margin-bottom: 1rem;
+    margin-bottom: var(--15px);
 }
 
 .filterGroupTitle {
@@ -39,9 +39,9 @@
     align-items: center;
     flex-wrap: wrap;
     background-color: var(--primary-color-4);
-    padding: 1.5rem 1rem;
+    padding: var(--25px) var(--15px);
     border-radius: var(--radius-l);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 12px var(--transparent-black-03);
 }
 
 .filterContainer.show {
@@ -50,48 +50,48 @@
 
 .filterButton {
     background-color: var(--primary-color-5);
-    color: #f1e9d2;
-    padding: 0.8rem 1.2rem;
+    color: var(--secondary-color-1);
+    padding: var(--15px) var(--20px);
     border-radius: var(--radius-l);
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: var(--10px);
     cursor: pointer;
     justify-content: space-between;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--transition-normal);
     user-select: none;
     border: none;
     font-size: var(--text-base);
-    width: 240px;
+    width: 100%; /*240px*/
     box-sizing: border-box;
-    margin-bottom: 0.8rem;
+    margin-bottom: var(--15px);
 }
 
 .filterButton:hover {
-    background-color: #44423e;
+    background-color: var(--primary-color-4);
 }
 
 .toggle {
-    width: 40px;
-    height: 20px;
-    background-color: #ccc;
-    border-radius: 999px;
+    width: var(--40px);
+    height: var(--20px);
+    background-color: var(--primary-color-2);
+    border-radius: 62rem; /*999px*/
     position: relative;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--transition-normal);
     flex-shrink: 0;
 }
 
 .toggleCircle {
-    width: 14px;
-    height: 14px;
+    width: var(--15px);
+    height: var(--15px);
     border-radius: 50%;
-    background-color: var(--primary-color-3, gray);
+    background-color: var(--primary-color-3, var(--primary-color-4));
     position: absolute;
     top: 3px;
     left: 2px;
     transition:
-        left 0.3s ease,
-        background-color 0.3s ease;
+        left var(--transition-normal),
+        background-color var(--transition-normal);
 }
 
 .active .toggleCircle {
@@ -99,7 +99,7 @@
     background-color: var(--secondary-color-5);
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1024px) {
     .burgerButton {
         display: none;
     }
@@ -112,7 +112,7 @@
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        gap: var(--space-xl);
+        gap: var(--20px);
         flex-wrap: nowrap;
         width: 100%;
         background-color: transparent;
@@ -122,7 +122,15 @@
         align-items: flex-start;
     }
 
+    .filterGroupWrapper {
+        width: 100vw;
+        padding-inline: var(--40px);
+        padding-bottom: 0px;
+        color: #1976d2;
+    }
+
     .filterButton {
+        width: 20%;
         margin-left: 0;
     }
 }
