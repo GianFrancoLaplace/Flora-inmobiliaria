@@ -13,7 +13,7 @@
     width: 100%;
 
 
-    color: rgb(253, 255, 226);
+    color: var(--secondary-color-1);
 }
 .absoluteNav {
     z-index: 10000;
@@ -29,7 +29,7 @@
     display: flex;
     flex-direction: column;
 
-    padding-top: 20px;
+    padding-top: var(--20px);
     gap: 0;
 }
 
@@ -37,7 +37,7 @@
     display: flex;
     flex-direction: row;
 
-    padding-top: 20px;
+    padding-top: var(--10px);
 
     cursor: pointer;
 }
@@ -46,8 +46,9 @@
     display: flex;
     flex-direction: row;
 
-    padding-top: 50px;
-    gap: 30px;
+    padding-top: var(--50px);
+    padding-right: var(--10px);
+    gap: var(--25px);
 
     cursor: pointer;
 
@@ -56,12 +57,12 @@
 }
 
 .sectionProperties li {
-    font-size: 22px;
+    font-size: var(--h3-size);
     font-weight: lighter;
 }
 
 .sectionProperties a:hover {
-    color: var(--secondary-color-5);
+    color: var(--secondary-color-4);
 }
 
 .sectionProperties a {
@@ -70,14 +71,14 @@
 }
 
 .sectionProperties li:hover {
-    color: #fada4d;
+    color: var(--secondary-color-4);
 }
 
 .iconoProperties {
-    width: 35px;
-    height: 35px;
+    width: var(--25px);
+    height: var(--25px);
 
-    color: rgb(253, 255, 226);
+    color: var(--secondary-color-1);
 }
 
 .btnBurgerProperties {
@@ -114,9 +115,9 @@
         justify-content: flex-start;
         z-index: 10002;
 
-        margin-left: 25px;
+        margin-left: var(--25px);
         margin-top: -50px;
-        margin-bottom: 5px;
+        margin-bottom: var(--5px);
     }
 
     .btnBurgerProperties button {
@@ -129,7 +130,7 @@
 
         cursor: pointer;
 
-        transition: all 0.3s ease;
+        transition: all var(--transition-normal);
     }
 
     .btnBurgerProperties button:hover {
@@ -150,28 +151,28 @@
         width: calc(100% - 50px);
 
         gap: 0;
-        margin-left: 25px;
-        margin-top: 10px;
+        margin-left: var(--25px);
+        margin-top: var(--10px);
         padding: 0;
 
         list-style-type: none;
         white-space: nowrap;
 
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        border-radius: var(--10px);
+        box-shadow: 0 8px 24px var(--transparent-black-01);
 
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         transform-origin: top;
     }
 
     .sectionProperties li {
-        padding: 16px 20px;
+        padding: var(--15px) var(--20px);
 
-        border-bottom: 1px solid #d0d0d0;
-        font-size: 18px;
+        border-bottom: 1px solid var(--primary-color-2);
+        font-size: var(--h5-size);
         font-weight: 500;
 
-        transition: all 0.3s ease;
+        transition: all var(--transition-normal);
     }
 
     .sectionProperties li:last-child {
@@ -181,7 +182,7 @@
     .sectionProperties li:hover {
         background: linear-gradient(to right, #f0c040 0%, #d4a836 100%);
 
-        color: #2d2d2d;
+        color: var(--primary-color-5);
 
         transform: translateX(8px);
     }
@@ -199,7 +200,7 @@
         visibility: visible;
         opacity: 1;
 
-        max-height: 400px;
+        max-height: 25rem; /*400px*/
 
         transform: scaleY(1) translateY(0);
     }
@@ -219,14 +220,14 @@
         width: 100%;
         height: 100%;
 
-        color: #2d2d2d;
+        color: var(--primary-color-5);
         text-decoration: none;
 
-        transition: color 0.3s ease;
+        transition: color var(--transition-normal);
     }
 
     .sectionProperties a:hover {
-        color: #1a1a1a;
+        color: var(--almost-black);
     }
 
     .sectionProperties li:last-child {
@@ -234,10 +235,10 @@
         align-items: center;
         justify-content: center;
 
-        margin: 8px;
+        margin: var(--10px);
 
         background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 100%);
-        border-radius: 8px;
+        border-radius: var(--10px);
     }
 
     .sectionProperties li:last-child:hover {
@@ -247,20 +248,20 @@
     }
 
     .iconoProperties {
-        width: 28px;
-        height: 28px;
+        width: var(--25px);
+        height: var(--25px);
 
         filter: brightness(0) saturate(100%) invert(13%) sepia(10%)
-            saturate(1000%) hue-rotate(0deg); /* Color oscuro por defecto */
+            saturate(1000%) hue-rotate(0deg);
 
-        margin-right: 8px;
+        margin-right: var(--10px);
 
-        transition: filter 0.3s ease;
+        transition: filter var(--transition-normal);
     }
 
     .sectionProperties li:last-child:hover .iconoProperties {
         filter: brightness(0) saturate(100%) invert(13%) sepia(10%)
-            saturate(1000%) hue-rotate(0deg); /* Mantener color oscuro en hover */
+            saturate(1000%) hue-rotate(0deg);
     }
 }
 
@@ -271,11 +272,11 @@
     height: fit-content;
 
     margin: 0px;
-    padding-inline: 10px;
+    padding-inline: var(--10px);
 
     background-color: transparent;
     color: var(--secondary-color-1);
-    border-radius: 40px;
+    border-radius: var(--40px);
     border: none;
     box-shadow: none;
 
