@@ -28,8 +28,10 @@
     --transparent-black-01: rgba(0, 0, 0, 0.1);
     --transparent-black-03: rgba(0, 0, 0, 0.3);
     --transparent-black-07: rgba(0, 0, 0, 0.7);
+    --transparent-grey-065: rgb(26, 26, 25, 0.65);
     --transparent-grey-085: rgb(26, 26, 25, 0.85);
     --transparent-grey-095: rgb(26, 26, 25, 0.95);
+    --transparent-white-07: rgb(253, 255, 226, 0.7);
 
 
     /*font-sizes for mobile*/
@@ -127,7 +129,7 @@ h6{
     font-weight: lighter;
 }
 /*same for tablet and desktop*/
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
     :root {
         /* Tablet */
         --h1-size: 2.125rem; /* 34px */

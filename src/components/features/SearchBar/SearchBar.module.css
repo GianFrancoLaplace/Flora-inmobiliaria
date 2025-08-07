@@ -1,32 +1,30 @@
-/* Contenedor principal - Mobile base */
+/*main container*/
 .searcher {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    font-family: var(--primary-font);
-    background-color: rgba(21, 21, 21, 0.6);
-    padding: var(--space-sm);
-    border-radius: 8px;
-    max-width: 100%; /* Prevenir overflow en móviles pequeños */
+    background-color: var(--transparent-grey-065);
+    padding: var(--10px);
+    border-radius: var(--radius-md);
+    max-width: 100%;
 }
 
-/* Grupo de botones - Mobile base */
+/*buttons group*/
 .buttonGroup {
     display: flex;
     flex-direction: column;
-    /*overflow: hidden;*/
     box-shadow: none;
 }
 
-/* Botón individual - Mobile base */
+/*individual button*/
 .button {
-    margin: 5px auto;
-    background-color: rgb(253, 255, 226, 0.7);
+    margin: var(--5px) auto;
+    background-color: var(--transparent-white-07);
     border-radius: var(--radius-sm);
     color: var(--secondary-color-1);
     border: none;
-    font-size: 0.875rem;
-    padding: 0.5rem;
+    font-size: var(--h3-size);
+    padding: var(--10px);
     cursor: pointer;
     transition: all var(--normal-transition);
     position: relative;
@@ -42,7 +40,7 @@
     transition: all var(--fast-transition);
 }
 
-/* Modificador: Botón activo - Mobile optimizado */
+/*active button*/
 .buttonActive {
     font-weight: bold;
     background-color: var(--secondary-color-5);
@@ -50,7 +48,7 @@
     transform: scale(1.02);
 }
 
-/* Contenedor de búsqueda - Mobile base */
+/*search container*/
 .searchContainer {
     display: none;
 }
@@ -66,68 +64,47 @@
     }
 }
 
-/* Tablets pequeñas (600px+) */
-@media (min-width: 640px) {
-    .buttonGroup {
-        flex-direction: row;
-        gap: var(--space-sm);
-    }
 
-    .button {
-        flex: 1;
-        text-wrap: nowrap;
-        font-size: 16px;
-        height: fit-content;
-        line-height: 1;
-        padding: 0.5rem;
-    }
-
-    .searchContainer {
-        flex-direction: row;
-    }
-}
-
-/* Tablets grandes (768px+) */
+/*mobile for tablets*/
 @media (min-width: 768px) {
     .searcher {
-        max-width: 40rem;
+        width: 100%;
+        max-width: 60%; /*640px*/
+    }
+
+    .buttonGroup {
+        flex-direction: row;
     }
 
     .button {
-        font-size: 17px;
-        padding: var(--space-md) var(--space-lg);
+        width: 30%;
+        font-size: var(--h1-size);
+        padding: var(--10px) var(--20px);
         height: fit-content;
         line-height: 1;
     }
 }
 
-/* Desktop (1024px+) */
+/*mobile for desktop*/
 @media (min-width: 1024px) {
     .searcher {
         max-width: 44rem; /* 702px */
-        padding: var(--space-sm) var(--space-md);
+        padding: var(--10px) var(--20px);
     }
 
     .button {
-        font-size: 18px;
-        padding: var(--space-md) var(--space-xl);
+        font-size: var(--h5-size);
+        padding: var(--15px) var(--20px);
         height: fit-content;
         line-height: 1;
     }
 
     .buttonGroup {
-        box-shadow: var(--shadow-sm); /* Restaurar shadow en desktop */
-        gap: var(--space-md);
+        box-shadow: var(--shadow-sm);
+        gap: var(--20px);
     }
 
     .searchContainer {
-        box-shadow: var(--shadow-md); /* Restaurar shadow original */
-    }
-}
-
-/* Desktop XL (1440px+) */
-@media (min-width: 1440px) {
-    .searcher {
-        max-width: 46.25rem; /* 740px */
+        box-shadow: var(--shadow-md);
     }
 }

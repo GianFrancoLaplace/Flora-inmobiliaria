@@ -9,8 +9,8 @@
 .mainAdressProperties {
     display: flex;
     flex-direction: row;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: var(--20px);
+    margin-bottom: var(--20px);
     box-sizing: border-box;
 }
 
@@ -20,17 +20,17 @@
     border: none;
     box-shadow: none;
     cursor: pointer;
-    padding-bottom: 20px;
+    padding-bottom: var(--20px);
 }
 
 .editProperties {
     display: flex;
     flex-direction: row;
     width: min-content;
-    gap: 20px;
+    gap: var(--20px);
 }
 
 .inputProperties {
-    font-size: 30px;
+    font-size: var(--30px);
     font-family: var(--font-weight-normal);
 }
