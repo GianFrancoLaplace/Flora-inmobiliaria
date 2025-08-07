@@ -210,7 +210,7 @@ export const useCreateProperty = () => {
                     const payload = cleanedData.characteristics.map((ch: any) => ({
                         ...ch,
                         property_id: createdId,
-                        property: result
+                        property: result.property
                     }));
 
                     const resp = await fetch(`/api/characteristics`, {

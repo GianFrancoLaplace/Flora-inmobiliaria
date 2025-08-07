@@ -30,7 +30,6 @@ export async function POST(request: NextRequest) {
                 dataType:     body.data_type,
                 valueInteger: body.value_integer,
                 valueText:    body.value_text,
-                property: 
             }
         });
 
