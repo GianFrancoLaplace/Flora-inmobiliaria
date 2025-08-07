@@ -1,6 +1,4 @@
-/* ==========================================================================
-   ANIMACIÓN DE ENTRADA
-   ========================================================================== */
+/*beggining animation*/
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -12,16 +10,13 @@
     }
 }
 
-/* ==========================================================================
-   ESTILOS BASE (Mobile First)
-   ========================================================================== */
-
+/*mobile properties*/
 .footer {
     width: 100%;
-    padding: 3rem 1.5rem 1.5rem 1.5rem; /* Más espaciado vertical */
+    padding: var(--50px) var(--25px) var(--25px) var(--25px);
     background-color: var(--primary-color-5);
-    color: #e0e0e0; /* Un gris claro en lugar de amarillo para mejor legibilidad */
-    border-top: 4px solid var(--secondary-color-5); /* Borde superior distintivo */
+    color: var(--primary-color-2);
+    border-top: 4px solid var(--secondary-color-5);
 }
 
 .footerContent {
@@ -29,9 +24,9 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 3rem; /* Espacio entre secciones */
+    gap: var(--50px);
     width: 100%;
-    max-width: 1200px;
+    max-width: 75rem; /*1200px*/
     margin: 0 auto;
 }
 
@@ -39,14 +34,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem; /* Espacio entre los elementos de una sección */
+    gap: var(--10px);
 
-    /* Aplicamos la animación */
-    opacity: 0; /* Empieza invisible */
+    opacity: 0;
     animation: fadeInUp 0.6s ease-out forwards;
 }
 
-/* Animación escalonada para cada sección */
 .footerSection:nth-of-type(1) {
     animation-delay: 0.1s;
 }
@@ -58,18 +51,18 @@
 }
 
 .sectionTitle {
-    font-size: 1.25rem;
+    font-size: var(--h2-size);
     font-weight: var(--font-weight-medium);
-    color: var(--secondary-color-4); /* Usamos el amarillo para los títulos */
-    margin-bottom: 0.5rem;
-    letter-spacing: 0.5px; /* Un poco de espacio entre letras */
+    color: var(--secondary-color-4);
+    margin-bottom: var(--10px);
+    letter-spacing: var(--5px);
 }
 
 .contactItem {
     display: flex;
     align-items: center;
-    gap: 0.75rem; /* Espacio entre icono y texto */
-    color: #d1d5db; /* Un gris claro para el texto */
+    gap: var(--10px);
+    color: var(--primary-color-2);
     font-size: var(--text-base);
     text-decoration: none;
     transition:
@@ -77,15 +70,13 @@
         transform var(--fast-transition);
 }
 
-/* Efecto hover sutil y elegante */
 .contactItem:hover {
-    color: #ffffff; /* El texto se vuelve blanco al pasar el mouse */
-    transform: translateY(-2px); /* Se eleva ligeramente */
+    color: var(--secondary-color-1);
+    transform: translateY(-2px);
 }
 
-/* Ajustes específicos para el logo */
 .logoContainer {
-    margin-top: 1rem;
+    margin-top: var(--15px);
 }
 
 .footerLogo {
@@ -100,36 +91,32 @@
     opacity: 1;
 }
 
-/* Copyright al final */
 .footerCopyright {
     text-align: center;
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--primary-color-4); /* Línea separadora sutil */
+    margin-top: var(--50px);
+    padding-top: var(--25px);
+    border-top: 1px solid var(--primary-color-4);
     font-size: var(--text-sm);
     color: var(--primary-color-3);
 }
 
-/* ==========================================================================
-   DESKTOP - Para pantallas de 768px en adelante
-   ========================================================================== */
-
+/*mobile for tablet and desktop*/
 @media (min-width: 768px) {
     .footerContent {
-        flex-direction: row; /* Ponemos las secciones en fila */
-        justify-content: space-between; /* Las distribuimos en el espacio */
-        align-items: flex-start; /* Alineamos al inicio */
-        text-align: left; /* Alineamos el texto a la izquierda */
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        text-align: left;
     }
 
     .footerSection {
-        align-items: flex-start; /* Alineamos los items de cada sección a la izquierda */
+        align-items: flex-start;
     }
 
     .logoContainer {
         margin-top: 0;
-        align-items: center; /* Centramos el logo verticalmente respecto a su 'columna' */
-        margin-left: auto; /* Empujamos el logo a la derecha */
-        padding-left: 2rem; /* Espacio para que no se pegue a las otras columnas */
+        align-items: center;
+        margin-left: auto;
+        padding-left: var(--30px);
     }
 }

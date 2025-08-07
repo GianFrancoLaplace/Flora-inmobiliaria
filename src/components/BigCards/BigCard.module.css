@@ -48,6 +48,7 @@
     justify-content: center;
 
     max-width: 81.25rem; /*1300px*/
+    width: 100%;
 
     gap: var(--25px);
     padding: var(--15px);
@@ -75,22 +76,27 @@
 
 
 /*responsive for TABLET*/
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) {
     .grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        padding: 2rem;
+    }
+}
 
-        gap: var(--30px);
-        column-gap: var(--50px);
+@media (min-width: 1024px) {
+    .page {
+        min-width: 450px;
     }
 }
 
 /*responsive for DESKTOP*/
-@media (min-width: 1024px) {
+@media (min-width: 1440px) {
     .grid {
-        grid-template-columns: repeat(auto-fit, minmax(34.375rem/*550px*/, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(31.25rem/*550px*/, 1fr));
         align-items: start;
 
-        column-gap: var(--40px);
+        column-gap: var(--50px);
         row-gap: var(--40px);
         padding: var(--30px);
     }

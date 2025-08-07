@@ -130,7 +130,8 @@
     }
 
     .filterButton {
-        width: 20%;
+        min-width: fit-content;
+        width: 100%;
         margin-left: 0;
     }
 }
