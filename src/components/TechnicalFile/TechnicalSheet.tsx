@@ -19,7 +19,7 @@ import CharacteristicsForm from "./characteristicsForm/characteristicsForm";
 import { useCreateProperty } from "@/hooks/CreateProperty";
 import { enrichCharacteristic } from '@/helpers/CharacteristicHelper';
 import { useCreateCharacteristic } from '@/hooks/useCreateCharacteristic';
-import { Characteristic, CharacteristicCategory } from '@/types/Characteristic';
+import { Characteristic, CharacteristicCategory, CharacteristicCreate } from '@/types/Characteristic';
 
 
 import useAdminImages from "@/hooks/AdminImages";
@@ -196,87 +196,65 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             setIsSubmitting(false);
         }
     };
-    const handleCharacteristicsChange = useCallback((newCharacteristics: Characteristic[]) => {
-        // Asignamos un ID temporal y negativo para identificarla como nueva
-        const characteristicsWithTempIds = newCharacteristics.map(char => ({
-            ...char,
-            id: -Date.now() // Un ID único y negativo
-        }));
+    const handleCharacteristicsChange = useCallback((newCharacteristics: CharacteristicCreate[]) => {
+    setTempCharacteristics(newCharacteristics); // ← ¡clave!
+}, []);
 
-        setLocalProperty(prev => {
-            if (!prev) return prev;
-            return {
-                ...prev,
-                characteristics: [...prev.characteristics, ...characteristicsWithTempIds]
-            }
-        });
-    }, []);
 
 
     const handleCreatePublication = async () => {
-        clearStatus();
-        console.log(localProperty.images[0]);
-        console.log(localProperty.characteristics[0]);
+    clearStatus();
 
-        if (!localProperty.address || localProperty.address === "Dirección") {
-            alert('Por favor, complete la dirección de la propiedad.');
-            return;
-        }
+    if (!localProperty.address || localProperty.address === "Dirección") {
+        alert("Por favor, complete la dirección de la propiedad.");
+        return;
+    }
 
-        if (!localProperty.price || localProperty.price <= 0) {
-            alert('Por favor, ingrese un precio válido.');
-            return;
-        }
+    if (!localProperty.price || localProperty.price <= 0) {
+        alert("Por favor, ingrese un precio válido.");
+        return;
+    }
 
-        // Mapeamos las características a la estructura esperada por el hook.
-        // Usamos los nombres de propiedades correctos (camelCase vs snake_case).
-        const characteristicsToSend = (tempCharacteristics || [])
-            .filter(char =>
-                (char.value_text && char.value_text.trim() !== "") ||
-                (char.value_integer !== undefined && char.value_integer !== null)
-            )
-            .map(char => ({
-                // Mapeo de nombres de propiedades
-                id: char.id, // O `char.idCharacteristic` si ese es el campo correcto
-                characteristic: char.characteristic,
+    const cleanedCharacteristics = (tempCharacteristics || [])
+        .filter((char) =>
+            (char.value_text && String(char.value_text).trim() !== "") ||
+            (char.value_integer !== undefined && char.value_integer !== null)
+        )
+        .map((char) => ({
+            characteristic: char.characteristic,
+            data_type: char.data_type,
+            category: char.category ?? null,
+            value_integer: char.value_integer ?? null,
+            value_text: char.value_text ?? null,
+        }));
 
-                // Corrección del tipo de `category`: si es null, lo convertimos a undefined
-                category: char.category ? String(char.category) : undefined,
+        console.log("caracteristicas to send: "+cleanedCharacteristics);
 
-                // Conversión de camelCase a snake_case para las propiedades de valor
-                value_integer: char.value_integer,
-                value_text: char.value_text,
-
-                // Mapeo de data_type
-                data_type: char.data_type,
-            }));
-
-
-        const propertyToSend = {
-            description: localProperty.description !== "Descripción" ? localProperty.description : "",
-            price: localProperty.price,
-            type: localProperty.type || PropertyType.HOME,
-            category: localProperty.state || PropertyState.RENT,
-            address: localProperty.address,
-            ubication: localProperty.ubication !== " " ? localProperty.ubication : "",
-            city: localProperty.city !== "Ciudad" ? localProperty.city : "",
-            characteristics: tempCharacteristics, // Usamos el nuevo arreglo mapeado
-            images: tempImages,
-        };
-        console.log("propiedad to send: " +propertyToSend.images[0]);
-        console.log("tempimages: "+tempImages);
-        console.log("tempCharacterstics: "+tempCharacteristics);
-        console.log('Datos a enviar para crear propiedad:', propertyToSend);
-
-        try {
-            const newProperty = await createProperty(propertyToSend);
-            if (newProperty) {
-                console.log('Propiedad creada exitosamente:', newProperty);
-            }
-        } catch (error) {
-            console.error('Error en handleCreatePublication:', error);
-        }
+    const propertyToSend = {
+        description: localProperty.description !== "Descripción" ? localProperty.description : "",
+        price: localProperty.price,
+        type: localProperty.type || PropertyType.HOME,
+        category: localProperty.state || PropertyState.RENT,
+        address: localProperty.address,
+        ubication: localProperty.ubication !== " " ? localProperty.ubication : "",
+        city: localProperty.city !== "Ciudad" ? localProperty.city : "",
+        characteristics: cleanedCharacteristics,
+        images: tempImages,
     };
+
+    try {
+        const result = await createProperty(propertyToSend);
+        if (result?.id) {
+            alert("Propiedad creada con éxito ✅");
+        } else {
+            alert("Ocurrió un error al crear la propiedad.");
+        }
+    } catch (err) {
+        console.error("Error al crear propiedad:", err);
+        alert("Error inesperado.");
+    }
+};
+
 
 
 

@@ -97,6 +97,8 @@ export const useCreateProperty = () => {
             }
 
             console.log("propiedad creada con exito, ahora a subir imagenes");
+            console.log("result class: "+result.class);
+            console.log("result: "+result.property);
 
             // Determinar el id creado (flexible según la forma de respuesta)
             const createdId =
@@ -207,7 +209,8 @@ export const useCreateProperty = () => {
                     // Adjuntamos propertyId a cada caracteristica
                     const payload = cleanedData.characteristics.map((ch: any) => ({
                         ...ch,
-                        propertyId: createdId
+                        property_id: createdId,
+                        property: result
                     }));
 
                     const resp = await fetch(`/api/characteristics`, {
