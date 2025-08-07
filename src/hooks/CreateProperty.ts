@@ -227,6 +227,8 @@ export const useCreateProperty = () => {
                         // fallback: intentar uno por uno
                         for (const ch of payload) {
                             try {
+                                console.log(ch.class);
+                                console.log(ch);
                                 const respSingle = await fetch(`/api/characteristics`, {
                                     method: "POST",
                                     headers: { "Content-Type": "application/json" },

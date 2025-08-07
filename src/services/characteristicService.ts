@@ -91,10 +91,10 @@ export class CharacteristicService {
         if (!input.characteristic || input.characteristic.trim() === '') {
             result.errors.push('El nombre de la característica es requerido');
         }
-
-        if (!input.data_type || !['integer', 'text'].includes(input.data_type)) {
-            result.errors.push('El tipo de dato debe ser "integer" o "text"');
-        }
+        console.log("data type: "+input.data_type);
+        // if (!input.data_type || !['integer', 'text'].includes(input.data_type)) {
+        //     result.errors.push('El tipo de dato debe ser "integer" o "text"');
+        // }
 
         if (input.data_type === 'integer' && (input.value_integer === undefined || input.value_integer === null)) {
             result.errors.push('Se requiere valor numérico para tipo integer');
