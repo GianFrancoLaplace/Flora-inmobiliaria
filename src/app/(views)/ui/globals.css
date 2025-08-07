@@ -28,6 +28,8 @@
     --transparent-black-01: rgba(0, 0, 0, 0.1);
     --transparent-black-03: rgba(0, 0, 0, 0.3);
     --transparent-black-07: rgba(0, 0, 0, 0.7);
+    --transparent-grey-085: rgb(26, 26, 25, 0.85);
+    --transparent-grey-095: rgb(26, 26, 25, 0.95);
 
 
     /*font-sizes for mobile*/

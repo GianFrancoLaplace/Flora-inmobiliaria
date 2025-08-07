@@ -7,20 +7,12 @@
     position: relative;
     overflow: hidden;
 
-    max-width: 550px;
-    min-width: 350px;
+    max-width: 34.375rem; /*550px*/
+    min-width: 21.875rem; /*350px*/
     width: 100%;
-    height: 415px;
+    height: 25.9375rem; /*415px*/
 
     cursor: pointer;
-}
-
-.page h3 {
-    font-size: 20px;
-}
-
-.page h5 {
-    font-size: 16px;
 }
 
 .cardBackground {
@@ -34,19 +26,19 @@
     text-align: left;
     z-index: 100;
 
-    height: 125px;
+    height: 7.8125rem; /*125px*/
     width: 100%;
 
-    padding-inline: 20px;
+    padding-inline: var(--20px);
 
-    background-color: rgb(26, 26, 25, 0.85);
+    background-color: var(--transparent-grey-085);
     color: var(--primary-color-1);
 
-    transition: 0.3s ease-in-out;
+    transition: var(--normal-transition);
 }
 
 .detailsProperties:hover {
-    background-color: rgba(26, 26, 25, 0.95);
+    background-color: var(--transparent-grey-095);
 }
 
 /*only grid properties*/
@@ -55,60 +47,55 @@
     grid-template-columns: 1fr;
     justify-content: center;
 
-    max-width: 1300px;
+    max-width: 81.25rem; /*1300px*/
 
-    gap: 24px;
-    padding: 16px;
+    gap: var(--25px);
+    padding: var(--15px);
     margin: 0 auto;
 }
 
 .addedLabel {
     position: absolute;
     top: 0px;
-    left: 75px;
+    left: 4.6875rem; /*75px*/
     background-color: var(
         --secondary-color-5,
-        #f4d35e
-    ); /* o el color que uses */
-    color: var(--black, #000);
+        var(--secondary-color-3)
+    );
+    color: var(--almost-black);
     font-weight: bold;
-    padding: 5px 40px;
-    border-radius: 5px;
+    padding: var(--5px) var(--40px);
+    border-radius: var(--5px);
     z-index: 10;
 
     transform: rotate(0deg) translateX(-50%);
 }
 
+
+
+
 /*responsive for TABLET*/
-@media (min-width: 600px) and (max-width: 1199px) {
+@media (min-width: 768px) and (max-width: 1023px) {
     .grid {
         grid-template-columns: repeat(2, 1fr);
 
-        gap: 30px;
-        column-gap: 50px;
-    }
-
-    .page h3 {
-        font-size: 22px;
+        gap: var(--30px);
+        column-gap: var(--50px);
     }
 }
 
 /*responsive for DESKTOP*/
-@media (min-width: 1200px) {
+@media (min-width: 1024px) {
     .grid {
-        grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(34.375rem/*550px*/, 1fr));
         align-items: start;
 
-        column-gap: 40px;
-        row-gap: 40px;
-        padding: 32px;
+        column-gap: var(--40px);
+        row-gap: var(--40px);
+        padding: var(--30px);
     }
 
     .page {
-        min-width: 550px;
-    }
-
-    .page h3 {
-        font-size: 24px;
+        min-width: 34.375rem; /*550px*/
     }
 }
