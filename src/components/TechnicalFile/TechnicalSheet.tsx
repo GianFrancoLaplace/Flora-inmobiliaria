@@ -326,16 +326,20 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
             <div className={styles.mainAdressProperties}>
                 <div className={`${styles.adressProperties} ${styles.showProperties}`}>
-                    <h1>
-                        <EditableTextField
-                            value={localProperty.address}
-                            isEditing={editingField === 'address-header'}
-                            type={"text"}
-                            onSave={(value) => handleSaveAddress(value)}
-                            onCancel={handleCancelEdit}
-                            className={styles.inputProperties}
-                        />
-                    </h1>
+	                {editingField === 'address-header' ? (
+		                <EditableTextField
+			                value={localProperty.address}
+			                isEditing={true}
+			                type={"text"}
+			                onSave={(value) => handleSaveAddress(value)}
+			                onCancel={handleCancelEdit}
+			                className={styles.inputProperties}
+		                />
+	                ) : (
+		                <h1 onClick={() => handleStartEditHeader()}>
+			                {localProperty.address}
+		                </h1>
+	                )}
                     <EditButton
                         onStartEdit={() => handleStartEditHeader()}
                         onEndEdit={() => handleSaveAddress(localProperty.address)}
@@ -358,16 +362,20 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             <div className={styles.main}>
                 <div className={`${styles.mainInfo}`}>
                     <div className={styles.editProperties}>
-                        <h1>
-                            <EditableTextField
-                                value={localProperty.address}
-                                isEditing={editingField === 'address-main'}
-                                type={"text"}
-                                onSave={(value) => handleSaveAddress(value)}
-                                onCancel={handleCancelEdit}
-                                className={styles.inputProperties}
-                            />
-                        </h1>
+	                    {editingField === 'address-main' ? (
+		                    <EditableTextField
+			                    value={localProperty.address}
+			                    isEditing={true}
+			                    type={"text"}
+			                    onSave={(value) => handleSaveAddress(value)}
+			                    onCancel={handleCancelEdit}
+			                    className={styles.inputProperties}
+		                    />
+	                    ) : (
+		                    <h1 onClick={() => handleStartEditMain()} style={{cursor: 'pointer'}}>
+			                    {localProperty.address}
+		                    </h1>
+	                    )}
                         <EditButton
                             onStartEdit={() => handleStartEditMain()}
                             onEndEdit={() => handleSaveAddress(localProperty.address)}
@@ -437,15 +445,19 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
             <div className={styles.mainInfoPrice}>
                 <div className={`${styles.priceEditionProperties} ${styles.showProperties}`}>
-                    <h1>
-                        USD <EditableNumericField
-                        value={localProperty.price}
-                        isEditing={editingField === "price"}
-                        className={styles.inputProperties}
-                        onSave={(value) => handleSaveField('price', value)}
-                        onCancel={handleCancelEdit}
-                    />
-                    </h1>
+	                {editingField === 'price' ? (
+		                <EditableNumericField
+			                value={localProperty.price}
+			                isEditing={true}
+			                className={styles.inputProperties}
+			                onSave={(value) => handleSaveField('price', value)}
+			                onCancel={handleCancelEdit}
+		                />
+	                ) : (
+		                <h1 onClick={() => handleStartEdit('price')}>
+			                USD {localProperty.price}
+		                </h1>
+	                )}
                     <EditButton
                         onStartEdit={() => handleStartEdit('price')}
                         onEndEdit={() => handleSaveField('price', localProperty.price)}
@@ -471,7 +483,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                         />
                     </div>
                 </div>
-                <h5 className={`${styles.showProperties}`}>
+	            { editingField === 'description' ? (
                     <EditableTextField
                         value={localProperty.description}
                         isEditing={editingField === 'description'}
@@ -480,7 +492,11 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                         onCancel={handleCancelEdit}
                         className={styles.inputProperties}
                     />
-                </h5>
+	            ) : (
+	                <h5 className={`${styles.showProperties}`}>
+		                {localProperty.description}
+	                </h5>
+	            )}
             </div>
 
             <div className={styles.descriptionsProperties}>

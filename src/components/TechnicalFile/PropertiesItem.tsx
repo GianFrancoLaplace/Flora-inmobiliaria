@@ -70,9 +70,6 @@ export default function Item({
         }
     };
 
-
-
-
     return (
         <div className={`${isItem ? styles.itemProperties : styles.infoCardProperties}`}>
             <div className={styles.itemInfo}>
