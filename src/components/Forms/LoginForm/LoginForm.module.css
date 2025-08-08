@@ -100,11 +100,7 @@
         justify-content: center;
     }
 
-    .loginBtn {
-        width: 100%;
-    }
-
-    .loginContainer input {
+    .loginBtn, .loginContainer input {
         width: 100%;
     }
 }

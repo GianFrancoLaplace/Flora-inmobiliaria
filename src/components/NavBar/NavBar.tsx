@@ -27,8 +27,8 @@ export default function NavBar() {
                     <Image
                         src={'/logos/fullLogo.png'}
                         alt={'minimalist inmobiliaria yellow logo'}
-                        width={479}
-                        height={102}
+                        width={423}
+                        height={90}
                     />
                 </Link>
             </ul>

@@ -9,12 +9,12 @@ import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
 import {Property, PropertyState, PropertyType, PropertyUpdateData} from "@/types/Property";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, {useState, useEffect, useCallback} from "react";
 import CarrouselFotos from "./Carrousel/CarrouselFotos";
 import Item from "@/components/TechnicalFile/PropertiesItem";
-import {useUpdateProperty} from "@/hooks/useUpdateProperty"
-import {useUpdateCharacteristic} from "@/hooks/useUpdateCharacteristic"
+import { useUpdateProperty } from "@/hooks/useUpdateProperty"
+import { useUpdateCharacteristic } from "@/hooks/useUpdateCharacteristic"
 import CharacteristicsForm from "./characteristicsForm/characteristicsForm";
 import { useCreateProperty } from "@/hooks/CreateProperty";
 import { enrichCharacteristic } from '@/helpers/CharacteristicHelper';
@@ -408,13 +408,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                         className={`${styles.askBtn} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}
                     >
                         {currentIsSubmitting ? 'Guardando...' : 'Guardar cambios'}
-                    </button>
-
-
-
-                    <button type="button"
-                            className={`${styles.askBtn} ${styles.btnSold} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
-                        Marcar como vendida/alquilada
                     </button>
                 </div>
             </div>
