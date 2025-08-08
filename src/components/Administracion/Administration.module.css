@@ -171,34 +171,6 @@
     background-color: var(--transparent);
 }
 
-/*.loadingContainer {*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    padding: var(--30px);*/
-/*    color: var(--primary-color-4);*/
-/*}*/
-
-/*.errorContainer {*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    padding: var(--30px);*/
-/*    color: var(--error-color);*/
-/*    background-color: var(--secondary-color-1);*/
-/*    border: 1px solid var(--focus-color);*/
-/*    border-radius: var(--radius-sm);*/
-/*    margin: var(--15px) 0;*/
-/*}*/
-
-/*.noPropertiesContainer {*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    padding: var(--30px);*/
-/*    color: var(--primary-color-4);*/
-/*}*/
-
 .statusContainer {
     display: flex;
     justify-content: center;
