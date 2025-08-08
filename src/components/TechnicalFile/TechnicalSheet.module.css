@@ -251,6 +251,10 @@
     margin-right: 3%;
 }
 
+.linkProperties{
+    text-decoration: none;
+}
+
 .cityProperties {
     width: 100%;
     display: flex;
@@ -271,7 +275,7 @@
     margin-top: 20px;
     width: fit-content;
 
-    background-color: var(--secondary-color-5);
+    /*background-color: var(--secondary-color-5);*/
     color: var(--primary-color-5);
 }
 

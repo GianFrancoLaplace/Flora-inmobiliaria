@@ -76,7 +76,7 @@ export default function BigCardsGrid() {
                 <BigCard
                     key={property.id}
                     id={property.id}
-                    imageSrc={property.images[0]?.url?.trim() || "/backgrounds/fichaBackground.2.jpg"}
+                    imageSrc={property.images[0]?.url?.trim() || "/backgrounds/notImage.jpg"}
                     price={property.price}
                     transaction={property.state}
                     adress={property.address}

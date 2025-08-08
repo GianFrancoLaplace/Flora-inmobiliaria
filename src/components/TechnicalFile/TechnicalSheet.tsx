@@ -27,6 +27,7 @@ import {
 
 import useAdminImages from "@/hooks/AdminImages";
 import { Characteristic } from "@prisma/client";
+import Link from "next/link";
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
@@ -411,10 +412,12 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                 </div>
 
                 <div className={styles.buttonsProperties}>
-                    <button type="button"
-                            className={`${styles.askBtn} ${isEmptyFile || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
-                        Consultar por esta propiedad
-                    </button>
+                    <Link href="https://wa.me/2494208037" className={styles.linkProperties}>
+                        <button type="button"
+                                className={`${styles.askBtn} ${isEmptyFile || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
+                            Consultar por esta propiedad
+                        </button>
+                    </Link>
                     <button
                         type="button"
                         onClick={handleCreatePublication}
@@ -430,13 +433,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                         className={`${styles.askBtn} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}
                     >
                         {currentIsSubmitting ? 'Guardando...' : 'Guardar cambios'}
-                    </button>
-
-
-
-                    <button type="button"
-                            className={`${styles.askBtn} ${styles.btnSold} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
-                        Marcar como vendida/alquilada
                     </button>
                 </div>
             </div>
