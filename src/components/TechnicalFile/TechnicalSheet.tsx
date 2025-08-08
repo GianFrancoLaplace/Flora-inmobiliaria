@@ -408,13 +408,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                     >
                         {currentIsSubmitting ? 'Guardando...' : 'Guardar cambios'}
                     </button>
-
-
-
-                    <button type="button"
-                            className={`${styles.askBtn} ${styles.btnSold} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
-                        Marcar como vendida/alquilada
-                    </button>
                 </div>
             </div>
 
