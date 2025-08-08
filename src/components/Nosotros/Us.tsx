@@ -4,7 +4,7 @@ import CarrouselFotos from "@/components/TechnicalFile/Carrousel/CarrouselFotos"
 
 export default function Us() {
     return (
-        <main>
+        <main className={styles.page}>
             <div className={`${styles.backgroundNavProperties}`}>
                 <div className={styles.infoImageProperties}>
                     <div className={styles.h5Properties}>
@@ -38,17 +38,6 @@ export default function Us() {
                 </div>
             </div>
 
-            <div className={styles.imageProperties}>
-                <Image
-                    src="/images/imagen_nosotros.jpg"
-                    alt="Imagen Us"
-                    width={1000}          // valor de referencia
-                    height={200}          // altura delgada
-                    priority
-                    style={{ width: '100%' }} // esto hace que se escale al 100%
-                />
-            </div>
-
             <div className={styles.underline}/>
 
             <div>
@@ -58,8 +47,8 @@ export default function Us() {
 
                             src={"/backgrounds/homeBackground.jpg"}
                             alt={"Retrato de Flora Cordeiro, Martillera Pública"}
-                            width={450} // Define un ancho base
-                            height={550} // Define un alto base
+                            width={450}
+                            height={550}
                             className={styles.image}
                         />
                     </div>

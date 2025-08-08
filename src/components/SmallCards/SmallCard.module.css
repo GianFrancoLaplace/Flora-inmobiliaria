@@ -1,13 +1,3 @@
-/* SmallCard.module.css - Refactorizado a Mobile-First */
-
-/*
- * ============================================
- * ESTILOS BASE (MOBILE-FIRST)
- * ============================================
- * Estilos para pantallas pequeñas por defecto.
- * La tarjeta ocupa todo el ancho y el texto está centrado.
-*/
-
 .card {
     position: relative;
     overflow: hidden;
