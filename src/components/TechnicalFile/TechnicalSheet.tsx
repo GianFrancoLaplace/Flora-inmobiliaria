@@ -23,6 +23,7 @@ import { Characteristic, CharacteristicCategory, CharacteristicCreate } from '@/
 
 
 import useAdminImages from "@/hooks/AdminImages";
+import Link from "next/link";
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
