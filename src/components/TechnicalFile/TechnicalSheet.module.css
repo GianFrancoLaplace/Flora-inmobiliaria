@@ -36,6 +36,16 @@
     gap: 70%;
     white-space: nowrap;
 }
+.inputSizer.inputProperties {
+    font-size: var(--h2-size);
+    font-family: var(--font-weight-normal);
+
+
+    padding: var(--10px);
+    padding-inline: var(--20px);
+
+    border: 1px solid transparent;
+}
 
 .mediaCarouselProperties {
     display: flex;
@@ -84,9 +94,22 @@
 }
 
 .inputProperties {
-    font-size: var(--h2-size);
+
+    box-sizing: border-box;
+
+    /* Copiamos aquí TODOS los estilos que afectan al texto y al espacio */
     font-family: var(--font-weight-normal);
-    white-space: none;
+    font-size: var(--h2-size);
+    padding: var(--10px);
+    padding-inline: var(--20px);
+    border: 1px solid var(--secondary-color-5);
+
+    /* --- Otros estilos --- */
+    /* Quitamos el ancho fijo para que JavaScript lo controle */
+    width: auto;
+    min-width: 150px; /* Un ancho mínimo para que no se vea mal cuando está vacío */
+    border-radius: 100px;
+    cursor: pointer;
 }
 
 .mainInfo {
@@ -289,9 +312,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-
-    width: min-content;
     height: fit-content;
+    width: auto;
 
     gap: var(--20px);
 }
@@ -300,11 +322,10 @@
 }
 
 .editInputProperties {
-    width: var(--20px);
+    width: 20rem;
     font-size: var(--20px);
-    text-align: center;
+    text-align: left;
 }
-
 .ubicationEditProperties {
     display: flex;
     flex-direction: row;
@@ -315,7 +336,22 @@
 .btnSold {
     background-color: var(--primary-color-1);
 }
+.inputSizer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    height: auto;
+    width: auto;
+    white-space: pre;
+    box-sizing: border-box;
 
+    font-family: var(--font-weight-normal); /* Debe coincidir */
+    font-size: var(--h2-size); /* Debe coincidir */
+    padding: var(--10px); /* Debe coincidir */
+    padding-inline: var(--20px); /* Debe coincidir */
+    border: 1px solid transparent; /* Debe tener el mismo grosor de borde */
+}
 .buttonShowMoreProperties{
     background-color: transparent;
     font-size: var(--h1-size);
@@ -342,11 +378,11 @@
     box-shadow: none;
 }
 
-/*editable text field*/
+
 .field input, .numericField input {
     justify-items: left;
 
-    width: 100%;
+    width: auto;
 
     padding: var(--10px);
     padding-inline: var(--20px);
@@ -358,9 +394,9 @@
 }
 
 .field {
-    display: flex;
-    flex-direction: row;
+    display: inline-flex;
     align-items: center;
+    position: relative;
 }
 
 
