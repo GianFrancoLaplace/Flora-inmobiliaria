@@ -1,13 +1,20 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
 .backgroundNavProperties {
     background-image: url("../../../public/backgrounds/tandil-us.webp");
     background-size: 100%;
     position: relative;
     align-content: center;
     background-position: center;
+    background-repeat: no-repeat;
     z-index: 1;
 
     width: 100%;
-    height: 400px;
+    height: 13rem; /*208px*/
 }
 
 .backgroundNavProperties::before {
@@ -16,7 +23,7 @@
     inset: 0;
     z-index: 1;
 
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: var(--transparent-black-07);
 }
 
 .infoImageProperties {
@@ -26,37 +33,35 @@
     position: relative;
     width: fit-content;
     justify-self: center;
-    margin-top: 25px;
+    margin-top: var(--25px);
     color: var(--primary-color-1);
-    font-weight: bold;
 }
 
 .h5Properties {
     display: flex;
-
     width: fit-content;
 
-    margin-left: 60px;
-
-    font-weight: 800;
+    margin: 0 auto;
     white-space: nowrap;
 }
 
 .generalInfoProperties {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 
-    margin-top: 50px;
-    margin-bottom: 20px;
-    gap: 8%;
+    margin-top: var(--50px);
+    margin-bottom: var(--20px);
+    gap: var(--30px);
 }
 
 .missionAndVisionProperties {
     display: flex;
     flex-direction: column;
+    align-items: center;
 
-    gap: 20px;
+    gap: var(--20px);
 }
 
 .infoProperties {
@@ -64,46 +69,33 @@
     flex-direction: column;
     text-align: center;
 
-    width: 370px;
+    max-width: 23rem; /*370px*/
+    width: 100%;
 
-    gap: 15px;
+    gap: var(--15px);
 
     color: var(--primary-color-5);
-}
-
-.imgRealStateProperties {
-    justify-self: center;
-
-    width: 1315px;
-    height: 315px;
-
-    margin-bottom: 20px;
-
-    background-color: #fada4d;
 }
 
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(20px); /* Empieza 20px más abajo */
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
-        transform: translateY(0); /* Termina en su posición original */
+        transform: translateY(0);
     }
 }
 
 .container {
     display: flex;
+    flex-direction: column;
     align-items: center;
 
-    max-width: 1100px;
+    width: 100%;
 
-    gap: 5rem;
-    margin-left: 60px;
-    padding: 2rem;
-
-    font-family: "Georgia", serif;
+    gap: var(--20px);
 }
 
 .imageContainer {
@@ -113,6 +105,8 @@
 .textContainer {
     flex: 1;
     opacity: 0;
+
+    padding-inline: var(--50px);
 
     animation: fadeInUp 0.8s ease-out 0.2s forwards;
 }
@@ -124,118 +118,59 @@
     max-width: 100%;
     height: auto;
 
-    padding: 5px;
-
-    background-color: #fff;
+    background-color: var(--secondary-color-1);
 }
 
 .title {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
 
-    font-size: 2.25rem;
-    font-weight: 400;
-    color: #222;
+    font-size: var(--h1-size);
+    color: var(--primary-color-5);
     white-space: nowrap;
 }
 
 .description {
-    margin-bottom: 1rem;
+    margin-bottom: var(--15px);
 
-    font-size: 1.1rem;
+    font-size: var(--h4-size);
     line-height: 1.7;
-    color: #444;
+    color: var(--primary-color-4);
 }
 
-@media (max-width: 768px) {
-    .backgroundNavProperties {
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-
-        height: 300px;
-    }
-
-    .container {
-        flex-direction: column;
-        text-align: center;
-
-        gap: 2rem;
-    }
-
-    .h5Properties {
-        margin-left: 0;
-    }
-
-    .infoImageProperties {
-        align-items: center;
-
-        width: fit-content;
-
-        margin-left: 10px;
-    }
-
-    .infoImageProperties h5 {
-        font-size: 16px;
-    }
-
+@media (min-width: 700px) {
     .generalInfoProperties {
-        flex-direction: column;
-        align-items: center;
-
-        gap: 30px;
+        flex-direction: row;
+        gap: var(--50px);
     }
 
-    .infoProperties {
-        text-align: justify;
-
-        width: 300px;
-
-        font-size: 14px;
-    }
-
-    .infoProperties h1 {
-        text-align: center;
-        white-space: nowrap;
-        font-size: 28px;
+    .backgroundNavProperties {
+        height: 25rem;
     }
 
     .missionAndVisionProperties {
-        gap: 30px;
+        width: 30%;
+    }
+
+    .missionAndVisionProperties .infoProperties {
+        width: 100%;
+    }
+
+    .infoProperties {
+        width: 30%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        flex-direction: row;
+        margin-bottom: var(--20px);
+    }
+
+    .image {
+        padding-left: var(--20px);
     }
 
     .textContainer {
-        align-items: center;
-        text-align: justify;
-
-        width: 300px;
-
-        animation-delay: 0s;
-    }
-
-    .imageProperties {
-        visibility: hidden;
-
-        width: 0;
-
-        margin: -100px;
-        padding: 0;
-    }
-
-    .underline {
-        border-bottom: black 1px solid;
-    }
-
-    .container {
-        display: flex;
-
-        margin-left: 0;
-        margin-top: 0px;
-    }
-
-    .title {
-        text-align: center;
-
-        font-size: 1.8rem;
-        white-space: collapse;
+        padding-inline: var(--20px);
     }
 }

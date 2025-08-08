@@ -55,13 +55,21 @@ export default function Administration() {
         }
     };
 
-    if (loading) {
-        return <div className={styles.loadingContainer}><p>Cargando propiedades...</p></div>;
-    }
+	if (loading) {
+		return (
+			<div className={`${styles.statusContainer} ${styles.statusContainerLoading}`}>
+				<h3>Cargando propiedades...</h3>
+			</div>
+		);
+	}
 
-    if (error) {
-        return <div className={styles.errorContainer}><p>Error al cargar las propiedades: {error}</p></div>;
-    }
+	if (error) {
+		return (
+			<div className={`${styles.statusContainer} ${styles.statusContainerError}`}>
+				<h4>Error al cargar las propiedades: {error}</h4>
+			</div>
+		);
+	}
 
     return (
         <div>
@@ -81,11 +89,11 @@ export default function Administration() {
                 </div>
             )}
 
-            {properties.length === 0 ? (
-                <div className={styles.noPropertiesContainer}>
-                    <p>No se encontraron propiedades con los filtros aplicados.</p>
-                </div>
-            ) : (
+	        {properties.length === 0 ? (
+		        <div className={`${styles.statusContainer} ${styles.statusContainerEmpty}`}>
+			        <h4>No se encontraron propiedades con los filtros aplicados.</h4>
+		        </div>
+	        ) : (
                 properties.map((prop) => (
                     <div key={prop.id} className={`${styles.cardsProperties} ${cactus.className}`}>
                         <div className={`${styles.cardProperties} ${cactus.className}`}>

@@ -8,13 +8,13 @@ import EditButton from '@/components/TechnicalFile/EditButton'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
-import {Property, PropertyState, PropertyType, PropertyUpdateData} from "@/types/Property";
-import {useRouter} from "next/navigation";
-import React, {useState, useEffect, useCallback} from "react";
+import { Property, PropertyState, PropertyType, PropertyUpdateData } from "@/types/Property";
+import { useRouter } from "next/navigation";
+import React, { useState, useEffect, useCallback } from "react";
 import CarrouselFotos from "./Carrousel/CarrouselFotos";
 import Item from "@/components/TechnicalFile/PropertiesItem";
-import {useUpdateProperty} from "@/hooks/useUpdateProperty"
-import {useUpdateCharacteristic} from "@/hooks/useUpdateCharacteristic"
+import { useUpdateProperty } from "@/hooks/useUpdateProperty"
+import { useUpdateCharacteristic } from "@/hooks/useUpdateCharacteristic"
 import CharacteristicsForm from "./characteristicsForm/characteristicsForm";
 import { useCreateProperty } from "@/hooks/CreateProperty";
 import { enrichCharacteristic } from '@/helpers/CharacteristicHelper';
@@ -54,6 +54,9 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
     const [editingField, setEditingField] = useState<string | null>(null);
     const [localProperty, setLocalProperty] = useState<Property>(initialProperty);
+    const encodedAddress = encodeURIComponent(
+        localProperty.address || 'Tandil, Buenos Aires, Argentina'
+    );
     const [showForm, setShowForm] = useState(false);
     const [isEditingAll, setIsEditingAll] = useState(false);
     //para la edicion
@@ -197,63 +200,63 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
         }
     };
     const handleCharacteristicsChange = useCallback((newCharacteristics: CharacteristicCreate[]) => {
-    setTempCharacteristics(newCharacteristics); // ← ¡clave!
-}, []);
+        setTempCharacteristics(newCharacteristics); // ← ¡clave!
+    }, []);
 
 
 
     const handleCreatePublication = async () => {
-    clearStatus();
+        clearStatus();
 
-    if (!localProperty.address || localProperty.address === "Dirección") {
-        alert("Por favor, complete la dirección de la propiedad.");
-        return;
-    }
-
-    if (!localProperty.price || localProperty.price <= 0) {
-        alert("Por favor, ingrese un precio válido.");
-        return;
-    }
-
-    const cleanedCharacteristics = (tempCharacteristics || [])
-        .filter((char) =>
-            (char.value_text && String(char.value_text).trim() !== "") ||
-            (char.value_integer !== undefined && char.value_integer !== null)
-        )
-        .map((char) => ({
-            characteristic: char.characteristic,
-            data_type: char.data_type,
-            category: char.category ?? null,
-            value_integer: char.value_integer ?? null,
-            value_text: char.value_text ?? null,
-        }));
-
-        console.log("caracteristicas to send: "+cleanedCharacteristics);
-
-    const propertyToSend = {
-        description: localProperty.description !== "Descripción" ? localProperty.description : "",
-        price: localProperty.price,
-        type: localProperty.type || PropertyType.HOME,
-        category: localProperty.state || PropertyState.RENT,
-        address: localProperty.address,
-        ubication: localProperty.ubication !== " " ? localProperty.ubication : "",
-        city: localProperty.city !== "Ciudad" ? localProperty.city : "",
-        characteristics: cleanedCharacteristics,
-        images: tempImages,
-    };
-
-    try {
-        const result = await createProperty(propertyToSend);
-        if (result?.id) {
-            alert("Propiedad creada con éxito ✅");
-        } else {
-            alert("Ocurrió un error al crear la propiedad.");
+        if (!localProperty.address || localProperty.address === "Dirección") {
+            alert("Por favor, complete la dirección de la propiedad.");
+            return;
         }
-    } catch (err) {
-        console.error("Error al crear propiedad:", err);
-        alert("Error inesperado.");
-    }
-};
+
+        if (!localProperty.price || localProperty.price <= 0) {
+            alert("Por favor, ingrese un precio válido.");
+            return;
+        }
+
+        const cleanedCharacteristics = (tempCharacteristics || [])
+            .filter((char) =>
+                (char.value_text && String(char.value_text).trim() !== "") ||
+                (char.value_integer !== undefined && char.value_integer !== null)
+            )
+            .map((char) => ({
+                characteristic: char.characteristic,
+                data_type: char.data_type,
+                category: char.category ?? null,
+                value_integer: char.value_integer ?? null,
+                value_text: char.value_text ?? null,
+            }));
+
+        console.log("caracteristicas to send: " + cleanedCharacteristics);
+
+        const propertyToSend = {
+            description: localProperty.description !== "Descripción" ? localProperty.description : "",
+            price: localProperty.price,
+            type: localProperty.type || PropertyType.HOME,
+            category: localProperty.state || PropertyState.RENT,
+            address: localProperty.address,
+            ubication: localProperty.ubication !== " " ? localProperty.ubication : "",
+            city: localProperty.city !== "Ciudad" ? localProperty.city : "",
+            characteristics: cleanedCharacteristics,
+            images: tempImages,
+        };
+
+        try {
+            const result = await createProperty(propertyToSend);
+            if (result?.id) {
+                alert("Propiedad creada con éxito ✅");
+            } else {
+                alert("Ocurrió un error al crear la propiedad.");
+            }
+        } catch (err) {
+            console.error("Error al crear propiedad:", err);
+            alert("Error inesperado.");
+        }
+    };
 
 
 
@@ -304,20 +307,20 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
             <div className={styles.mainAdressProperties}>
                 <div className={`${styles.adressProperties} ${styles.showProperties}`}>
-	                {editingField === 'address-header' ? (
-		                <EditableTextField
-			                value={localProperty.address}
-			                isEditing={true}
-			                type={"text"}
-			                onSave={(value) => handleSaveAddress(value)}
-			                onCancel={handleCancelEdit}
-			                className={styles.inputProperties}
-		                />
-	                ) : (
-		                <h1 onClick={() => handleStartEditHeader()}>
-			                {localProperty.address}
-		                </h1>
-	                )}
+                    {editingField === 'address-header' ? (
+                        <EditableTextField
+                            value={localProperty.address}
+                            isEditing={true}
+                            type={"text"}
+                            onSave={(value) => handleSaveAddress(value)}
+                            onCancel={handleCancelEdit}
+                            className={styles.inputProperties}
+                        />
+                    ) : (
+                        <h1 onClick={() => handleStartEditHeader()}>
+                            {localProperty.address}
+                        </h1>
+                    )}
                     <EditButton
                         onStartEdit={() => handleStartEditHeader()}
                         onEndEdit={() => handleSaveAddress(localProperty.address)}
@@ -340,20 +343,20 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             <div className={styles.main}>
                 <div className={`${styles.mainInfo}`}>
                     <div className={styles.editProperties}>
-	                    {editingField === 'address-main' ? (
-		                    <EditableTextField
-			                    value={localProperty.address}
-			                    isEditing={true}
-			                    type={"text"}
-			                    onSave={(value) => handleSaveAddress(value)}
-			                    onCancel={handleCancelEdit}
-			                    className={styles.inputProperties}
-		                    />
-	                    ) : (
-		                    <h1 onClick={() => handleStartEditMain()} style={{cursor: 'pointer'}}>
-			                    {localProperty.address}
-		                    </h1>
-	                    )}
+                        {editingField === 'address-main' ? (
+                            <EditableTextField
+                                value={localProperty.address}
+                                isEditing={true}
+                                type={"text"}
+                                onSave={(value) => handleSaveAddress(value)}
+                                onCancel={handleCancelEdit}
+                                className={styles.inputProperties}
+                            />
+                        ) : (
+                            <h1 onClick={() => handleStartEditMain()} style={{ cursor: 'pointer' }}>
+                                {localProperty.address}
+                            </h1>
+                        )}
                         <EditButton
                             onStartEdit={() => handleStartEditMain()}
                             onEndEdit={() => handleSaveAddress(localProperty.address)}
@@ -389,7 +392,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
                 <div className={styles.buttonsProperties}>
                     <button type="button"
-                            className={`${styles.askBtn} ${isEmptyFile || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
+                        className={`${styles.askBtn} ${isEmptyFile || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
                         Consultar por esta propiedad
                     </button>
                     <button
@@ -408,13 +411,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                     >
                         {currentIsSubmitting ? 'Guardando...' : 'Guardar cambios'}
                     </button>
-
-
-
-                    <button type="button"
-                            className={`${styles.askBtn} ${styles.btnSold} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}>
-                        Marcar como vendida/alquilada
-                    </button>
                 </div>
             </div>
 
@@ -423,19 +419,19 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
             <div className={styles.mainInfoPrice}>
                 <div className={`${styles.priceEditionProperties} ${styles.showProperties}`}>
-	                {editingField === 'price' ? (
-		                <EditableNumericField
-			                value={localProperty.price}
-			                isEditing={true}
-			                className={styles.inputProperties}
-			                onSave={(value) => handleSaveField('price', value)}
-			                onCancel={handleCancelEdit}
-		                />
-	                ) : (
-		                <h1 onClick={() => handleStartEdit('price')}>
-			                USD {localProperty.price}
-		                </h1>
-	                )}
+                    {editingField === 'price' ? (
+                        <EditableNumericField
+                            value={localProperty.price}
+                            isEditing={true}
+                            className={styles.inputProperties}
+                            onSave={(value) => handleSaveField('price', value)}
+                            onCancel={handleCancelEdit}
+                        />
+                    ) : (
+                        <h1 onClick={() => handleStartEdit('price')}>
+                            USD {localProperty.price}
+                        </h1>
+                    )}
                     <EditButton
                         onStartEdit={() => handleStartEdit('price')}
                         onEndEdit={() => handleSaveField('price', localProperty.price)}
@@ -461,7 +457,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                         />
                     </div>
                 </div>
-	            { editingField === 'description' ? (
+                {editingField === 'description' ? (
                     <EditableTextField
                         value={localProperty.description}
                         isEditing={editingField === 'description'}
@@ -470,11 +466,11 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                         onCancel={handleCancelEdit}
                         className={styles.inputProperties}
                     />
-	            ) : (
-	                <h5 className={`${styles.showProperties}`}>
-		                {localProperty.description}
-	                </h5>
-	            )}
+                ) : (
+                    <h5 className={`${styles.showProperties}`}>
+                        {localProperty.description}
+                    </h5>
+                )}
             </div>
 
             <div className={styles.descriptionsProperties}>
@@ -565,12 +561,12 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                 </h5>
                 <div className={styles.mapaInteractivo}>
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6345.872814972624!2d-59.128316!3d-37.320334!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95911f92a1699e0f%3A0xb7acb39bd2ed6d7!2sMitre%201247%2C%20B7000%20Tandil%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1750441385483!5m2!1ses!2sar"
+                        src={`https://www.google.com/maps?q=${encodedAddress}&output=embed`}
                         width="1300"
                         height="400"
                         loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade">
-                    </iframe>
+                        referrerPolicy="no-referrer-when-downgrade"
+                    ></iframe>
                 </div>
             </div>
         </main>

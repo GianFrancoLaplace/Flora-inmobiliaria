@@ -4,11 +4,10 @@
     justify-content: left;
     align-items: start;
     text-align: left;
+    box-sizing: border-box;
 
     width: 100%;
     height: fit-content;
-
-    padding: 20px;
 
     background-color: var(--primary-color-2);
     color: var(--primary-color-5);
@@ -29,24 +28,24 @@
     display: flex;
     flex-direction: column;
 
-    max-width: 500px;
+    max-width: 31.25rem; /*500px*/
     width: 100%;
     height: fit-content;
 
-    gap: 0.5rem;
+    gap: var(--10px);
 }
 
 .form select, .form input {
     width: 100%;
     height: fit-content;
 
-    padding: 10px;
-    padding-inline: 20px;
+    padding: var(--10px);
+    padding-inline: var(--20px);
 
     background-color: var(--primary-color-5);
     color: var(--secondary-color-1);
     border-radius: 100px;
-    font-size: 16px;
+    font-size: var(--h4-size);
 }
 
 
@@ -56,14 +55,15 @@
     flex-direction: row;
     align-items: center;
 
-    gap: 1rem;
+    gap: var(--15px);
 }
 
 .addCharacteristicButton {
-    width: 150px;
-    height: 40px;
+    min-width: 9.375rem; /*150px*/
+    width: 100%;
+    height: var(--40px);
 
-    margin-bottom: 40px;
+    margin-bottom: var(--40px);
     margin-inline: 0;
 
     background-color: var(--secondary-color-5);
@@ -74,7 +74,7 @@
 
 .clearAllButton {
     padding: 0px;
-    padding-inline: 20px;
+    padding-inline: var(--20px);
 
     background-color: var(--error-color);
     color: var(--secondary-color-1);

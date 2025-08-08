@@ -7,23 +7,13 @@
     margin-right: var(--30px);
 }
 
-.buttonNewPublication,
-.showInactivePublication {
+.buttonNewPublication {
     max-width: 15.625rem; /*250px*/
     width: 100%;
     height: 2.5625rem; /*41px*/
-
     border: 2px var(--primary-color-5) solid;
-
-    cursor: pointer;
-}
-
-.buttonNewPublication {
     background-color: var(--secondary-color-5);
-}
-
-.showInactivePublication {
-    background-color: var(--primary-color-1);
+    cursor: pointer;
 }
 
 .cardsProperties {
@@ -64,11 +54,9 @@
 .infoProperties {
     display: flex;
     flex-direction: column;
-
     margin-top: var(--15px);
     margin-left: var(--30px);
     gap: 4.375rem; /*70px*/
-
     color: var(--primary-color-5);
 }
 
@@ -183,32 +171,35 @@
     background-color: var(--transparent);
 }
 
-.loadingContainer {
+.statusContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: var(--30px);
-    color: var(--primary-color-4);
-}
-
-.errorContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: var(--30px);
-    color: var(--error-color);
-    background-color: var(--secondary-color-1);
-    border: 1px solid var(--focus-color);
     border-radius: var(--radius-sm);
     margin: var(--15px) 0;
+    border: var(--1px) solid transparent;
+    transition: all var(--normal-transition);
+    text-align: center;
 }
 
-.noPropertiesContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: var(--30px);
+.statusContainerLoading {
     color: var(--primary-color-4);
+    background-color: var(--primary-color-1);
+    border-color: var(--primary-color-2);
+}
+
+.statusContainerError {
+    color: var(--error-color);
+    background-color: #ffebee;
+    border-color: #ffcdd2;
+}
+
+.statusContainerEmpty {
+    color: var(--secondary-text-color);
+    background-color: var(--background-color);
+    border-color: var(--border-color);
+    font-style: italic;
 }
 
 @media (max-width: 768px) {
