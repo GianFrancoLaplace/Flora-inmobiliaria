@@ -30,7 +30,7 @@ export const CHARACTERISTIC_CONFIGS: CharacteristicConfig[] = [
     {
         category: CharacteristicCategory.SUPERFICIE_CUBIERTA,
         label: 'Superficie Cubierta',
-        icon: '/icons/supCub.png',
+        icon: '/icons/sup.png',
         dataType: 'integer',
     },
     {

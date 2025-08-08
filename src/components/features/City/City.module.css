@@ -4,7 +4,7 @@
     flex-direction: row;
     justify-content: left;
     color: var(--secondary-color-5);
-    margin-inline: 40px;
-    margin-top: 10px;
+    margin-inline: var(--40px);
+    margin-top: var(--10px);
     white-space: nowrap;
 }

@@ -1,7 +1,5 @@
 /* En NavBar.module.css */
-
 .signOutButton {
-
     background: none;
     border: none;
     padding: 0;
@@ -13,9 +11,9 @@
     cursor: pointer;
     text-decoration: none;
 
-    transition: color 0.2s ease-in-out;
+    transition: color var(--transition-normal);
 }
 
 .signOutButton:hover {
-    color: #fdd835;
+    color: var(--secondary-color-5);
 }

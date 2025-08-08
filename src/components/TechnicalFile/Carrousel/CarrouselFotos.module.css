@@ -2,7 +2,7 @@
     position: relative;
     width: 100%;
     overflow: hidden;
-    height: 600px;
+    height: 22rem;
 }
 
 .imageContainerProperties:hover .containerAddImage,
@@ -29,7 +29,7 @@
 .containerAddImage {
     display: flex;
     flex-direction: row;
-    background-color: rgba(35, 32, 33, 0.7);
+    background-color: var(--transparent-black-07);
     position: absolute;
     visibility: hidden;
     transition: opacity 1s ease;
@@ -39,13 +39,13 @@
     height: 100%;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: var(--20px);
 }
 
 .containerAddImageForEmptyFile{
     display: flex;
     flex-direction: row;
-    background-color: rgba(35, 32, 33, 0.7);
+    background-color: var(--transparent-black-07);
     position: absolute;
     transition: opacity 1s ease;
     z-index: 10;
@@ -53,7 +53,7 @@
     height: 100%;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: var(--20px);
 }
 
 .withoutImageProperties{
@@ -64,20 +64,21 @@
 }
 
 .messageCardPropertie {
-    background-color: rgba(26, 26, 25, 0.83);
-    width: 506px;
-    height: 120px;
+    background-color: var(--transparent-black-07);
+    max-width: 31.625rem; /*506px*/
+    width: 100%;
+    height: 7.5rem; /*120px*/
     position: absolute;
     justify-self: center;
     align-content: center;
     text-align: center;
-    margin-top: 250px;
+    margin-top: 15.625rem; /*250px*/
     z-index: 11;
     opacity: 0;
 }
 
 .messageCardPropertie p {
-    font-size: 22px;
+    font-size: var(--h3-size);
     color: var(--primary-color-1);
 }
 
@@ -87,8 +88,9 @@
 }
 
 .buttonMessageProperties button {
-    width: 200px;
-    height: 30px;
+    max-width: 12.5rem; /*200px*/
+    width: 100%;
+    height: var(--30px);
     cursor: pointer;
     transition: background-color ease-out 0.5s;
 }
@@ -98,7 +100,7 @@
 }
 
 .aceptButtonProperties:hover {
-    background-color: #c82333;
+    background-color: var(--error-color);
 }
 
 .inputProperties {
@@ -108,20 +110,20 @@
 
 .labelAddImageProperties {
     display: flex;
-    width: 200px;
-    height: 50px;
+    width: 16.5rem; /*200px*/
+    height: var(--50px);
     background-color: var(--secondary-color-2);
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
+    border-radius: var(--10px);
     cursor: pointer;
 }
 
 .deleteIconProperties {
     background-color: var(--secondary-color-2);
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
+    width: var(--50px);
+    height: var(--50px);
+    border-radius: var(--10px);
     border: none;
     box-shadow: none;
 }
@@ -146,13 +148,20 @@
     justify-content: center;
     justify-self: center;
     bottom: 10px;
-    gap: 60px;
+    gap: var(--50px);
     z-index: 11;
 }
 
 .buttonProperties button {
-    width: 50px;
-    height: 50px;
+    width: var(--50px);
+    height: var(--50px);
     background-color: var(--secondary-color-3);
     border: none;
+}
+
+
+@media (min-width: 768px) {
+    .imageContainerProperties {
+        height: 37.5rem;
+    }
 }

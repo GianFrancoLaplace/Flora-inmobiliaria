@@ -8,6 +8,6 @@
 .mainInfoH1 {
     display: flex;
     flex-direction: row;
-    gap: 10px;
-    margin-left: 20px;
+    gap: var(--10px);
+    margin-left: var(--20px);
 }

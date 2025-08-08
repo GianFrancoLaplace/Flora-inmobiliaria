@@ -4,15 +4,15 @@
     justify-content: center;
     align-items: center;
 
-    gap: 16px;
-    padding: 20px;
-    margin: 20px;
+    gap: var(--15px);
+    padding: var(--20px);
+    margin: var(--20px);
 }
 
 .allPropertiesBtn {
     width: 100%;
-    max-width: 450px;
-    margin-bottom: 5%;
+    max-width: 28.125rem;/*450px*/
+    margin-bottom: var(--20px);
     align-self: center;
     background-color: var(--secondary-color-4);
 }
@@ -32,7 +32,7 @@
 
 
 
-@media (min-width: 641px) {
+@media (min-width: 768px) {
     .propertyGrid {
 
         display: grid;
@@ -42,8 +42,8 @@
         justify-content: center;
         align-items: center;
         max-width: 100%;
-        row-gap: 50px;
-        column-gap: 20px;
+        row-gap: var(--50px);
+        column-gap: var(--20px);
         margin: 0 auto;
     }
 
@@ -51,9 +51,7 @@
 }
 
 
-
-
-@media (min-width: 1000px) {
+@media (min-width: 1024px) {
     .propertyGrid {
         grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
     }

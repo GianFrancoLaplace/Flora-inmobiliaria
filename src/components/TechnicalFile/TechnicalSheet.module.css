@@ -10,20 +10,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 40px 0;
-    padding: 20px 0;
+    margin: var(--40px) 0;
+    padding: var(--20px) 0;
 }
 
 .mapaInteractivo iframe {
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .mainAdressProperties {
     display: flex;
     flex-direction: row;
-    margin-top: 20px;
-    margin-bottom: 20px;
+
+    margin-top: var(--20px);
+    margin-bottom: var(--20px);
+    padding-left: var(--10px);
     box-sizing: border-box;
 }
 
@@ -34,14 +36,24 @@
     gap: 70%;
     white-space: nowrap;
 }
+.inputSizer.inputProperties {
+    font-size: var(--h2-size);
+    font-family: var(--font-weight-normal);
+
+
+    padding: var(--10px);
+    padding-inline: var(--20px);
+
+    border: 1px solid transparent;
+}
 
 .mediaCarouselProperties {
     display: flex;
     flex-direction: row;
     position: relative;
     width: 100%;
-    height: 600px;
-    margin-bottom: 20px;
+    height: 22rem;
+    margin-bottom: var(--20px);
 }
 
 .visible {
@@ -58,32 +70,46 @@
     justify-content: space-evenly;
     text-align: left;
     width: max-content;
-    min-width: 140px;
-    height: 110px;
-    padding: 10px;
+    min-width: 8.75rem; /*140px*/
+    height: 6.875rem; /*110px*/
+    padding: var(--10px);
     padding-bottom: 0px;
     border: 1px solid var(--primary-color-5);
-    border-radius: 10px;
+    border-radius: var(--10px);
 }
 
 .main {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+
     width: 100%;
     height: fit-content;
-    padding: 0px;
-    padding-inline: 20px;
+
     position: relative;
     z-index: 10;
-    margin-right: 40px;
+    margin-right: var(--40px);
+    padding-left: var(--10px);
 }
 
 .inputProperties {
-    font-size: 30px;
+
+    box-sizing: border-box;
+
+    /* Copiamos aquí TODOS los estilos que afectan al texto y al espacio */
     font-family: var(--font-weight-normal);
-    white-space: none;
+    font-size: var(--h2-size);
+    padding: var(--10px);
+    padding-inline: var(--20px);
+    border: 1px solid var(--secondary-color-5);
+
+    /* --- Otros estilos --- */
+    /* Quitamos el ancho fijo para que JavaScript lo controle */
+    width: auto;
+    min-width: 150px; /* Un ancho mínimo para que no se vea mal cuando está vacío */
+    border-radius: 100px;
+    cursor: pointer;
 }
 
 .mainInfo {
@@ -95,12 +121,12 @@
 .mainInfoH1 {
     display: flex;
     flex-direction: row;
-    gap: 10px;
-    margin-left: 20px;
+    gap: var(--10px);
+    margin-left: var(--20px);
 }
 
 .askBtn {
-    width: 340px;
+    width: 21.25rem; /*340px*/
     background-color: var(--secondary-color-4);
 }
 
@@ -110,34 +136,33 @@
     flex-direction: row;
     justify-content: left;
     color: var(--secondary-color-5);
-    margin-inline: 40px;
-    margin-top: 10px;
+    margin-inline: var(--40px);
+    margin-top: var(--10px);
     white-space: nowrap;
 }
 
 .mainBoxesGridProperties {
     display: flex;
     flex-direction: row;
-    margin-top: 20px;
-    margin-left: 20px;
-    gap: 20px;
+    margin-top: var(--20px);
+    margin-left: var(--20px);
+    gap: var(--20px);
 }
 
 .descriptionsProperties {
     display: flex;
     flex-direction: column;
     text-align: justify;
-    max-width: 880px;
+    max-width: 55rem; /*880px*/
     width: 100%;
-    margin-top: 30px;
-    margin-inline: 35px;
-    padding-left: 10px;
+    margin-top: var(--30px);
+    padding-inline: var(--10px);
 
-    border-left: 1px solid var(--secondary-color-5);
+    border-left: 2px solid var(--secondary-color-5);
 }
 
 .descriptionsProperties div {
-    margin-bottom: 10px;
+    margin-bottom: var(--10px);
 }
 
 .descriptionsProperties .sectionProperties, .descriptionsProperties .dataGridProperties {
@@ -149,11 +174,11 @@
     flex-direction: row;
     align-items: center;
     align-content: center;
-    gap: 10px;
+    gap: var(--10px);
 }
 
 .buttonsEditProperties, .titleProperties{
-    height: 40px;
+    height: var(--40px);
     border-bottom: 1px solid var(--primary-color-2);
 }
 
@@ -166,14 +191,14 @@
 .dataGridProperties {
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: var(--20px);
 }
 
 .sectionProperties {
     display: grid;
     grid-auto-flow: column;
     grid-template-rows: repeat(10, max-content);
-    grid-column-gap: 100px;
+    grid-column-gap: var(--30px);
     grid-row-gap: 0px;
 }
 
@@ -181,7 +206,7 @@
     display: flex;
     flex-direction: row;
 
-    gap: 1rem;
+    gap: var(--15px);
 }
 
 .itemProperties {
@@ -218,8 +243,7 @@
     display: flex;
     flex-direction: row;
     white-space: nowrap;
-    border-bottom: #0a0a0a 1px solid;
-    margin-left: 10px;
+    border-bottom: var(--almost-black) 1px solid;
     gap: 10%;
 }
 
@@ -230,18 +254,18 @@
     border: none;
     box-shadow: none;
     width: fit-content;
-    padding: 10px;
+    padding: var(--10px);
     margin: 0px;
     cursor: pointer;
 }
 .editButtonProperties {
     padding: 0px;
-    padding-inline: 10px;
+    padding-inline: var(--10px);
 }
 
 .saveButtonProperties{
     background-color: var(--secondary-color-5);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 6px var(--transparent-black-03);
 }
 
 #imageIconoEditPhoto {
@@ -261,19 +285,19 @@
     flex-direction: row;
     justify-content: left;
     color: var(--secondary-color-5);
-    margin-inline: 40px;
-    margin-top: 10px;
+    margin-inline: var(--40px);
+    margin-top: var(--10px);
     white-space: nowrap;
 }
 
 .cityProperties button {
-    padding-bottom: 40px;
+    padding-bottom: var(--40px);
 }
 
 .mainInfoPrice {
-    margin-left: 34px;
-    margin-top: 20px;
+    margin-top: var(--20px);
     width: fit-content;
+    margin-left: var(--10px);
 
     /*background-color: var(--secondary-color-5);*/
     color: var(--primary-color-5);
@@ -282,48 +306,63 @@
 .priceEditionProperties {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    align-items: center;
+
+    gap: var(--10px);
+    padding-inline: var(--10px);
 }
 
 .editProperties {
     display: flex;
     flex-direction: row;
     align-items: center;
-
-    width: min-content;
     height: fit-content;
+    width: auto;
 
-    gap: 20px;
-    margin-left: 15px;
+    gap: var(--20px);
 }
 .editProperties h1 {
     padding-bottom: 0px;
 }
 
 .editInputProperties {
-    width: 20px;
-    font-size: 20px;
-    text-align: center;
+    width: 20rem;
+    font-size: var(--20px);
+    text-align: left;
 }
-
 .ubicationEditProperties {
     display: flex;
     flex-direction: row;
     width: min-content;
-    gap: 20px;
+    gap: var(--20px);
 }
 
 .btnSold {
     background-color: var(--primary-color-1);
 }
+.inputSizer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    height: auto;
+    width: auto;
+    white-space: pre;
+    box-sizing: border-box;
 
+    font-family: var(--font-weight-normal); /* Debe coincidir */
+    font-size: var(--h2-size); /* Debe coincidir */
+    padding: var(--10px); /* Debe coincidir */
+    padding-inline: var(--20px); /* Debe coincidir */
+    border: 1px solid transparent; /* Debe tener el mismo grosor de borde */
+}
 .buttonShowMoreProperties{
     background-color: transparent;
-    font-size: 40px;
+    font-size: var(--h1-size);
     border: none;
     box-shadow: none;
     cursor: pointer;
-    padding-bottom: 20px;
+    padding-bottom: var(--20px);
 }
 
 .deleteButton {
@@ -343,23 +382,38 @@
     box-shadow: none;
 }
 
-/*editable text field*/
+
 .field input, .numericField input {
     justify-items: left;
 
-    width: 100%;
+    width: auto;
 
-    padding: 10px;
-    padding-inline: 20px;
+    padding: var(--10px);
+    padding-inline: var(--20px);
 
-    font-size: 16px;
+    font-size: var(--h4-size);
     cursor: pointer;
     border-radius: 100px;
     border: 1px solid var(--secondary-color-5);
 }
 
 .field {
-    display: flex;
-    flex-direction: row;
+    display: inline-flex;
     align-items: center;
+    position: relative;
+}
+
+
+@media (min-width: 768px) {
+    .mediaCarouselProperties {
+        margin-bottom: 18rem;
+    }
+
+    .mainAdressProperties, .main, .descriptionsProperties {
+        padding-left: var(--20px);
+    }
+
+    .mainInfoPrice {
+        margin-left: var(--20px);
+    }
 }

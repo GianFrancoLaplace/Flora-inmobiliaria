@@ -3,56 +3,48 @@
     flex-direction: row;
     justify-content: flex-end;
 
-    margin-top: 3%;
-    margin-right: 30px;
-}
-
-.buttonNewPublication,
-.showInactivePublication {
-    width: 250px;
-    height: 41px;
-
-    border: 2px black solid;
-
-    cursor: pointer;
+    margin-top: var(--20px);
+    margin-right: var(--30px);
 }
 
 .buttonNewPublication {
+    max-width: 15.625rem; /*250px*/
+    width: 100%;
+    height: 2.5625rem; /*41px*/
+    border: 2px var(--primary-color-5) solid;
     background-color: var(--secondary-color-5);
-}
-
-.showInactivePublication {
-    background-color: var(--primary-color-1);
+    cursor: pointer;
 }
 
 .cardsProperties {
     display: flex;
     flex-direction: column;
 
-    margin-left: 5%;
-    margin-bottom: 2%;
-    margin-top: 1%;
+    margin-left: var(--20px);
+    margin-bottom: var(--10px);
+    margin-top: var(--5px);
 }
 
 .cardProperties {
     display: flex;
     flex-direction: row;
 
-    width: 880px;
-    height: 220px;
+    max-width: 55rem; /*880px*/
+    width: 100%;
+    height: 13.75rem; /*220px*/
 
     background-color: var(--primary-color-2);
 }
 
 .imageProperties {
-    margin-top: 3%;
-    margin-left: 3%;
+    margin-top: var(--15px);
+    margin-left: var(--15px);
 }
 
 .priceProperties h5 {
-    margin-top: 15px;
+    margin-top: var(--15px);
 
-    font-size: 22px;
+    font-size: var(--h3-size);
 }
 
 .linkProperties {
@@ -62,11 +54,9 @@
 .infoProperties {
     display: flex;
     flex-direction: column;
-
-    margin-top: 3%;
-    margin-left: 10%;
-    gap: 70px;
-
+    margin-top: var(--15px);
+    margin-left: var(--30px);
+    gap: 4.375rem; /*70px*/
     color: var(--primary-color-5);
 }
 
@@ -81,8 +71,8 @@
 
     width: fit-content;
 
-    margin-left: 15%;
-    gap: 10%;
+    margin-left: var(--40px);
+    gap: var(--20px);
 }
 
 .buttonsProperties button {
@@ -106,108 +96,109 @@
     right: 0;
     bottom: 0;
 
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: var(--transparent-black-03);
 }
 
 .modalContent {
     text-align: center;
-    max-width: 400px;
+    max-width: 25rem; /*400px*/
     width: 90%;
-    padding: 30px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    padding: var(--30px);
+    background: var(--transparent-black-07);
+    border-radius: var(--radius-l);
+    box-shadow: 0 10px 30px var(--transparent-black-03);
 }
 
 .modalContent h3 {
-    margin-bottom: 15px;
-    color: #fdffe2;
-    font-size: 1.5em;
+    margin-bottom: var(--15px);
+    color: var(--secondary-color-1);
 }
 
 .modalContent p {
-    margin-bottom: 10px;
-    color: #fdffe2;
+    margin-bottom: var(--10px);
+    color: var(--secondary-color-1);
     line-height: 1.5;
 }
 
 .modalButtons {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-top: 25px;
+    gap: var(--15px);
+    margin-top: var(--25px);
 }
 
 .cancelButton {
-    background-color: #fdffe2;
+    background-color: var(--secondary-color-1);
 }
 
 .cancelButton:hover {
-    background-color: #5a6268;
+    background-color: var(--primary-color-4);
 }
 
 .cancelButton,
 .deleteButton {
-    padding: 12px 24px;
-    color: black;
+    padding: var(--10px) var(--25px);
+    color: var(--almost-black);
     border: none;
-    border-radius: 6px;
-    font-size: 14px;
+    border-radius: var(--radius-sm);
+    font-size: var(--h3-size);
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--normal-transition);
 }
 
 .deleteButton {
-    background-color: #ffdc2b;
+    background-color: var(--secondary-color-5);
 }
 
 .deleteButton:hover {
-    background-color: #c82333;
+    background-color: var(--error-color);
 }
 
 .buttonsProperties button {
-    padding: 5px;
+    padding: var(--5px);
     background: none;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color var(--normal-transition);
 }
 
 .buttonsProperties button:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: var(--transparent-black-01);
 }
 
 .showActivePublication {
-    background-color: transparent;
+    background-color: var(--transparent);
 }
 
-.loadingContainer {
+.statusContainer {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
-    color: #666;
+    padding: var(--30px);
+    border-radius: var(--radius-sm);
+    margin: var(--15px) 0;
+    border: var(--1px) solid transparent;
+    transition: all var(--normal-transition);
+    text-align: center;
 }
 
-.errorContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    color: #d32f2f;
+.statusContainerLoading {
+    color: var(--primary-color-4);
+    background-color: var(--primary-color-1);
+    border-color: var(--primary-color-2);
+}
+
+.statusContainerError {
+    color: var(--error-color);
     background-color: #ffebee;
-    border: 1px solid #ffcdd2;
-    border-radius: 4px;
-    margin: 1rem 0;
+    border-color: #ffcdd2;
 }
 
-.noPropertiesContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    color: #666;
+.statusContainerEmpty {
+    color: var(--secondary-text-color);
+    background-color: var(--background-color);
+    border-color: var(--border-color);
     font-style: italic;
 }
 
@@ -217,37 +208,34 @@
         justify-self: center;
         justify-content: center;
 
-        margin-left: 30px;
+        margin-left: var(--30px);
     }
 
     .cardsProperties {
         justify-self: center;
 
-        margin-right: 15px;
+        margin-right: var(--15px);
     }
 
     .infoProperties {
-        gap: 30px;
+        gap: var(--30px);
         justify-self: left;
 
         margin-left: 0;
     }
 
     .restInfoProperties {
-        width: 250px;
+        max-width: 15.625rem; /*250px*/
+        width: 100%;
     }
 
     .imageProperties {
         margin-left: 0;
-        margin-top: 30px;
+        margin-top: var(--30px);
     }
 
     .buttonsProperties {
-        margin-left: 70%;
-    }
-
-    .priceProperties h5 {
-        font-size: 25px;
+        margin-left: var(--50px);
     }
 
     .cardProperties {
@@ -255,7 +243,8 @@
         align-items: center;
         justify-content: center;
 
-        width: 320px;
-        height: 420px;
+        max-width: 320px; /*320px*/
+        width: 100%;
+        height: 26.25rem; /*420px*/
     }
 }

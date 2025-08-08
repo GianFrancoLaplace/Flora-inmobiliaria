@@ -1,20 +1,27 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .loginContainer {
     display: flex;
     flex-direction: column;
     justify-content: normal;
     align-items: normal;
 
-    padding: 1.5rem;
+    padding: var(--25px);
 
-    border-radius: 5px;
-    background-color: rgba(37, 36, 36, 0.8);
+    border-radius: var(--radius-md);
+    background-color: var(--transparent-black-07);
     color: var(--secondary-color-1);
 }
 
 .loginContainer h2 {
     width: fit-content;
 
-    margin: 0 auto 20px;
+    margin: 0 auto var(--20px);
 
     font-weight: lighter;
     letter-spacing: 3px;
@@ -23,9 +30,9 @@
 .loginContainer h6 {
     width: fit-content;
 
-    margin: 10px auto 0;
+    margin: var(--10px) auto 0;
 
-    font-size: 10px;
+    font-size: var(--h6-size);
 }
 
 .linkProperties {
@@ -33,15 +40,19 @@
 }
 
 .fieldProperties {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
     margin: 0 auto;
-    padding: var(--space-sm);
 }
 
 .fieldProperties label {
     display: block;
     text-align: left;
 
-    margin: 0 0 2px 2px;
+    margin: 0 0 var(--5px) var(--5px);
 
     font-size: var(--text-sm);
     font-weight: lighter;
@@ -49,14 +60,13 @@
 }
 
 .fieldProperties input {
-    height: 30px;
+    height: var(--30px);
 
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-inline: var(--10px);
 
-    background-color: rgba(255, 252, 249, 0.4);
+    background-color: var(--transparent-white-07);
     border-radius: 100px;
-    font-size: 16px;
+    font-size: var(--h6-size);
     font-weight: lighter;
     color: var(--primary-color-5);
 }
@@ -66,21 +76,22 @@
 }
 
 .loginBtn {
-    padding: 0 var(--space-lg);
-    margin-top: 40px;
-    margin-bottom: 10px;
+    padding: 0 var(--20px);
+    margin-top: var(--40px);
+    margin-bottom: var(--10px);
 
     background-color: var(--secondary-color-4);
 
     cursor: pointer;
 }
 
-@media (min-width: 641px) {
+@media (min-width: 450px) {
     .loginContainer {
         justify-content: center;
 
-        width: 371px;
-        height: 384px;
+        max-width: 23.125rem; /*370px*/
+        width: 100%;
+        height: 24.0625rem; /*384px*/
     }
 
     .loginContainer form {
@@ -89,11 +100,7 @@
         justify-content: center;
     }
 
-    .loginBtn {
-        width: 280px;
-    }
-
-    .loginContainer input {
-        width: 280px;
+    .loginBtn, .loginContainer input {
+        width: 100%;
     }
 }

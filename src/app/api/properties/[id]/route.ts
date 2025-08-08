@@ -8,15 +8,17 @@ import { getIconByCategory, mapPrismaCharacteristicCategory } from "@/helpers/Ic
 
 export async function GET(
     request: NextRequest,
-    context: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { id } = context.params;
+        // Await params antes de usarlos
+        const { id } = await params;
         const propertyId = parseInt(id);
 
         if (isNaN(propertyId)) {
             return NextResponse.json({ message: 'ID de propiedad inválido' }, { status: 400 });
         }
+
         const propiedad = await prisma.property.findUnique({
             where: { idProperty : propertyId  },
             include: {
@@ -24,7 +26,6 @@ export async function GET(
                 images: true,
             },
         });
-
 
         if (!propiedad) {
             return NextResponse.json(
@@ -73,8 +74,8 @@ export async function GET(
                                 : undefined,
                         value_text:
                             c.dataType === 'text' &&
-                                c.valueText &&
-                                c.valueText.trim() !== ''
+                            c.valueText &&
+                            c.valueText.trim() !== ''
                                 ? c.valueText.trim()
                                 : undefined,
                         category: mappedCategory,
@@ -93,18 +94,18 @@ export async function GET(
     }
 }
 
-
 export async function PUT(
     request: NextRequest,
-    context: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
-    console.log("hola put???");
+    console.log("PUT request received for property");
     try {
-        const { id } = context.params;
+        // Await params antes de usarlos
+        const { id } = await params;
 
-    if (!id) {
-        return NextResponse.json({ error: "ID no proporcionado" }, { status: 400 });
-    }
+        if (!id) {
+            return NextResponse.json({ error: "ID no proporcionado" }, { status: 400 });
+        }
 
         const propertyId = parseInt(id);
 
@@ -173,12 +174,13 @@ export async function PUT(
 
 export async function DELETE(
     request: NextRequest,
-    context: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
-    const { id } = await context.params;
-
-    const propertyId = parseInt(id);
     try {
+        // Await params antes de usarlos
+        const { id } = await params;
+        const propertyId = parseInt(id);
+
         if (isNaN(propertyId) || propertyId <= 0) {
             return NextResponse.json(
                 { message: "ID inválido" },

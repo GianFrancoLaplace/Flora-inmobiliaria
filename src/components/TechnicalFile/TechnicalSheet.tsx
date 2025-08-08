@@ -8,26 +8,21 @@ import EditButton from '@/components/TechnicalFile/EditButton'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
-import {Property, PropertyState, PropertyType, PropertyUpdateData} from "@/types/Property";
-import {useRouter} from "next/navigation";
-import React, {useState, useEffect, useCallback} from "react";
+import { Property, PropertyState, PropertyType, PropertyUpdateData } from "@/types/Property";
+import { useRouter } from "next/navigation";
+import React, { useState, useEffect, useCallback } from "react";
 import CarrouselFotos from "./Carrousel/CarrouselFotos";
 import Item from "@/components/TechnicalFile/PropertiesItem";
-import {useUpdateProperty} from "@/hooks/useUpdateProperty"
-import {useUpdateCharacteristic} from "@/hooks/useUpdateCharacteristic"
+import { useUpdateProperty } from "@/hooks/useUpdateProperty"
+import { useUpdateCharacteristic } from "@/hooks/useUpdateCharacteristic"
 import CharacteristicsForm from "./characteristicsForm/characteristicsForm";
 import { useCreateProperty } from "@/hooks/CreateProperty";
 import { enrichCharacteristic } from '@/helpers/CharacteristicHelper';
-import { CharacteristicCategory } from '@/types/Characteristic';
-import {
+import { useCreateCharacteristic } from '@/hooks/useCreateCharacteristic';
+import { Characteristic, CharacteristicCategory, CharacteristicCreate } from '@/types/Characteristic';
 
-    getDataGridCharacteristics,
-    CHARACTERISTIC_CONFIGS
-} from "@/components/TechnicalFile/MockCharacteristic";
 
 import useAdminImages from "@/hooks/AdminImages";
-import { Characteristic } from "@prisma/client";
-import Link from "next/link";
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
@@ -59,11 +54,15 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
     const [editingField, setEditingField] = useState<string | null>(null);
     const [localProperty, setLocalProperty] = useState<Property>(initialProperty);
+    const encodedAddress = encodeURIComponent(
+        localProperty.address || 'Tandil, Buenos Aires, Argentina'
+    );
     const [showForm, setShowForm] = useState(false);
     const [isEditingAll, setIsEditingAll] = useState(false);
     //para la edicion
     const { updateProperty, isUpdating: isUpdatingProperty, status: propertyStatus } = useUpdateProperty();
     const { updateCharacteristic } = useUpdateCharacteristic();
+    const { createCharacteristic } = useCreateCharacteristic();
     const [isSubmittingAll, setIsSubmittingAll] = useState(false);
     const [modifiedCharacteristics, setModifiedCharacteristics] = useState<Map<number, { value_integer?: number; value_text?: string }>>(new Map());
 
@@ -128,97 +127,111 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
         });
     };
 
+
+
+
+    // En TechnicalSheet.tsx
+
     const handleSaveChanges = async () => {
         if (!localProperty) return;
 
-        setIsSubmitting(true); // 1. Ponemos la UI en estado "Cargando..."
+        setIsSubmitting(true);
         setSubmitStatus(null);
 
-        // 2. Preparamos todas las "tareas" (peticiones a la API) que necesitamos hacer.
-        //    Creamos un array de promesas.
-        const updatePromises = [];
+        // --- LÓGICA DE SEPARACIÓN ---
 
-        const propertyDataToUpdate = {
+        // 1. Identifica las características que son completamente NUEVAS (ID negativo)
+        const characteristicsToCreate = localProperty.characteristics.filter(c => c.id <= 0);
+
+        // 2. Identifica las características que EXISTEN y han sido MODIFICADAS
+        const characteristicsToUpdate = new Map<number, { value_integer?: number; value_text?: string }>();
+        modifiedCharacteristics.forEach((data, id) => {
+            // Solo añadimos a la lista de actualización si el ID es POSITIVO (es decir, ya existe en la BD)
+            if (id > 0) {
+                characteristicsToUpdate.set(id, data);
+            }
+        });
+
+
+        // --- CONSTRUCCIÓN DE LAS PROMESAS ---
+
+        const promises = [];
+
+        // Promesa para actualizar la propiedad principal
+        const propertyData = {
             address: localProperty.address,
             city: localProperty.city,
-            state:localProperty.state,
+            state: localProperty.state,
             ubication: localProperty.ubication,
             price: localProperty.price,
             description: localProperty.description,
             type: localProperty.type,
-
         };
-        updatePromises.push(updateProperty(localProperty.id, propertyDataToUpdate));
+        promises.push(updateProperty(localProperty.id, propertyData));
 
-        modifiedCharacteristics.forEach((data, id) => {
-            updatePromises.push(updateCharacteristic(id, data));
+        // Promesas para ACTUALIZAR características existentes
+        characteristicsToUpdate.forEach((data, id) => {
+            promises.push(updateCharacteristic(id, data));
+        });
+
+        // Promesas para CREAR nuevas características
+        characteristicsToCreate.forEach(char => {
+            // Preparamos el payload para la API, quitando el ID temporal y añadiendo el property_id
+            const { id, iconUrl, ...dataToCreate } = char;
+            promises.push(createCharacteristic({ ...dataToCreate, property_id: localProperty.id }));
         });
 
         try {
-
-            await Promise.all(updatePromises);
-
+            // Ejecutamos todas las promesas en paralelo
+            console.log("PROMESAA")
+            await Promise.all(promises);
 
             setSubmitStatus({ message: '¡Todos los cambios se guardaron con éxito!', type: 'success' });
-            setModifiedCharacteristics(new Map()); // Reseteamos los cambios pendientes
+            setModifiedCharacteristics(new Map()); // Limpiamos el registro de cambios
+
+            // Refrescamos para obtener los datos actualizados, incluyendo los nuevos IDs
+            router.refresh();
 
         } catch (error) {
-
             const message = error instanceof Error ? error.message : 'Ocurrió un error al guardar.';
             setSubmitStatus({ message, type: 'error' });
         } finally {
             setIsSubmitting(false);
         }
     };
-    const handleCharacteristicsChange = useCallback((newCharacteristics: any[]) => {
-        if (mode === 'create') {
-            setTempCharacteristics(newCharacteristics);
-        } else {
-            setLocalProperty(prev => ({
-                ...prev,
-                characteristics: [...(prev.characteristics || []), ...newCharacteristics]
-            }));
-        }
-    }, [mode]);
+    const handleCharacteristicsChange = useCallback((newCharacteristics: CharacteristicCreate[]) => {
+        setTempCharacteristics(newCharacteristics); // ← ¡clave!
+    }, []);
+
+
 
     const handleCreatePublication = async () => {
         clearStatus();
-        console.log(localProperty.images[0]);
-        console.log(localProperty.characteristics[0]);
 
         if (!localProperty.address || localProperty.address === "Dirección") {
-            alert('Por favor, complete la dirección de la propiedad.');
+            alert("Por favor, complete la dirección de la propiedad.");
             return;
         }
 
         if (!localProperty.price || localProperty.price <= 0) {
-            alert('Por favor, ingrese un precio válido.');
+            alert("Por favor, ingrese un precio válido.");
             return;
         }
 
-        // Mapeamos las características a la estructura esperada por el hook.
-        // Usamos los nombres de propiedades correctos (camelCase vs snake_case).
-        const characteristicsToSend = (tempCharacteristics || [])
-            .filter(char =>
-                (char.valueText && char.valueText.trim() !== "") ||
-                (char.valueInteger !== undefined && char.valueInteger !== null)
+        const cleanedCharacteristics = (tempCharacteristics || [])
+            .filter((char) =>
+                (char.value_text && String(char.value_text).trim() !== "") ||
+                (char.value_integer !== undefined && char.value_integer !== null)
             )
-            .map(char => ({
-                // Mapeo de nombres de propiedades
-                id: char.idCharacteristic, // O `char.idCharacteristic` si ese es el campo correcto
+            .map((char) => ({
                 characteristic: char.characteristic,
-
-                // Corrección del tipo de `category`: si es null, lo convertimos a undefined
-                category: char.category ? String(char.category) : undefined,
-
-                // Conversión de camelCase a snake_case para las propiedades de valor
-                value_integer: char.valueInteger,
-                value_text: char.valueText,
-
-                // Mapeo de data_type
-                data_type: char.dataType,
+                data_type: char.data_type,
+                category: char.category ?? null,
+                value_integer: char.value_integer ?? null,
+                value_text: char.value_text ?? null,
             }));
 
+        console.log("caracteristicas to send: " + cleanedCharacteristics);
 
         const propertyToSend = {
             description: localProperty.description !== "Descripción" ? localProperty.description : "",
@@ -228,65 +241,23 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             address: localProperty.address,
             ubication: localProperty.ubication !== " " ? localProperty.ubication : "",
             city: localProperty.city !== "Ciudad" ? localProperty.city : "",
-            characteristics: tempCharacteristics, // Usamos el nuevo arreglo mapeado
+            characteristics: cleanedCharacteristics,
             images: tempImages,
         };
-        console.log("propiedad to send: " +propertyToSend.images[0]);
-        console.log("tempimages: "+tempImages);
-        console.log("tempCharacterstics: "+tempCharacteristics);
-        console.log('Datos a enviar para crear propiedad:', propertyToSend);
 
         try {
-            const newProperty = await createProperty(propertyToSend);
-            if (newProperty) {
-                console.log('Propiedad creada exitosamente:', newProperty);
+            const result = await createProperty(propertyToSend);
+            if (result?.id) {
+                alert("Propiedad creada con éxito ✅");
+            } else {
+                alert("Ocurrió un error al crear la propiedad.");
             }
-        } catch (error) {
-            console.error('Error en handleCreatePublication:', error);
+        } catch (err) {
+            console.error("Error al crear propiedad:", err);
+            alert("Error inesperado.");
         }
     };
 
-
-    const handleUpdatePublication = async () => {
-        setIsSubmitting(true);
-        setSubmitStatus(null);
-
-        // Validaciones básicas antes de enviar (puedes añadir más)
-        if (!localProperty.address || localProperty.price <= 0) {
-            setSubmitStatus({ message: 'Por favor, complete la dirección y el precio.', type: 'error' });
-            setIsSubmitting(false);
-            return;
-        }
-
-        try {
-            const response = await fetch(`/api/properties/${localProperty.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(localProperty),
-            });
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                const errorMessage = result.errors ? JSON.stringify(result.errors) : 'Ocurrió un error en el servidor.';
-                throw new Error(errorMessage);
-            }
-
-            setSubmitStatus({ message: '¡Cambios guardados con éxito!', type: 'success' });
-
-            setTimeout(() => {
-                router.push(`/propiedades/${localProperty.id}`);
-            }, 2000);
-
-        } catch (error) {
-            const message = error instanceof Error ? error.message : 'Error desconocido al guardar los cambios.';
-            setSubmitStatus({ message, type: 'error' });
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
 
 
 
@@ -336,16 +307,20 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
             <div className={styles.mainAdressProperties}>
                 <div className={`${styles.adressProperties} ${styles.showProperties}`}>
-                    <h1>
+                    {editingField === 'address-header' ? (
                         <EditableTextField
                             value={localProperty.address}
-                            isEditing={editingField === 'address-header'}
+                            isEditing={true}
                             type={"text"}
                             onSave={(value) => handleSaveAddress(value)}
                             onCancel={handleCancelEdit}
                             className={styles.inputProperties}
                         />
-                    </h1>
+                    ) : (
+                        <h1 onClick={() => handleStartEditHeader()}>
+                            {localProperty.address}
+                        </h1>
+                    )}
                     <EditButton
                         onStartEdit={() => handleStartEditHeader()}
                         onEndEdit={() => handleSaveAddress(localProperty.address)}
@@ -368,16 +343,20 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             <div className={styles.main}>
                 <div className={`${styles.mainInfo}`}>
                     <div className={styles.editProperties}>
-                        <h1>
+                        {editingField === 'address-main' ? (
                             <EditableTextField
                                 value={localProperty.address}
-                                isEditing={editingField === 'address-main'}
+                                isEditing={true}
                                 type={"text"}
                                 onSave={(value) => handleSaveAddress(value)}
                                 onCancel={handleCancelEdit}
                                 className={styles.inputProperties}
                             />
-                        </h1>
+                        ) : (
+                            <h1 onClick={() => handleStartEditMain()} style={{ cursor: 'pointer' }}>
+                                {localProperty.address}
+                            </h1>
+                        )}
                         <EditButton
                             onStartEdit={() => handleStartEditMain()}
                             onEndEdit={() => handleSaveAddress(localProperty.address)}
@@ -412,9 +391,9 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                 </div>
 
                 <div className={styles.buttonsProperties}>
-                    <Link href="https://wa.me/2494208037" className={styles.linkProperties}>
+                    <Link href="https://wa.me/2494208037">
                         <button type="button"
-                                className={`${styles.askBtn} ${isEmptyFile || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
+                            className={`${styles.askBtn} ${isEmptyFile || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
                             Consultar por esta propiedad
                         </button>
                     </Link>
@@ -428,7 +407,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                     </button>
                     <button
                         type="button"
-                        onClick={handleUpdatePublication}
+                        onClick={handleSaveChanges}
                         disabled={currentIsSubmitting}
                         className={`${styles.askBtn} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}
                     >
@@ -442,15 +421,19 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
             <div className={styles.mainInfoPrice}>
                 <div className={`${styles.priceEditionProperties} ${styles.showProperties}`}>
-                    <h1>
-                        USD <EditableNumericField
-                        value={localProperty.price}
-                        isEditing={editingField === "price"}
-                        className={styles.inputProperties}
-                        onSave={(value) => handleSaveField('price', value)}
-                        onCancel={handleCancelEdit}
-                    />
-                    </h1>
+                    {editingField === 'price' ? (
+                        <EditableNumericField
+                            value={localProperty.price}
+                            isEditing={true}
+                            className={styles.inputProperties}
+                            onSave={(value) => handleSaveField('price', value)}
+                            onCancel={handleCancelEdit}
+                        />
+                    ) : (
+                        <h1 onClick={() => handleStartEdit('price')}>
+                            USD {localProperty.price}
+                        </h1>
+                    )}
                     <EditButton
                         onStartEdit={() => handleStartEdit('price')}
                         onEndEdit={() => handleSaveField('price', localProperty.price)}
@@ -476,7 +459,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                         />
                     </div>
                 </div>
-                <h5 className={`${styles.showProperties}`}>
+                {editingField === 'description' ? (
                     <EditableTextField
                         value={localProperty.description}
                         isEditing={editingField === 'description'}
@@ -485,7 +468,11 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                         onCancel={handleCancelEdit}
                         className={styles.inputProperties}
                     />
-                </h5>
+                ) : (
+                    <h5 className={`${styles.showProperties}`}>
+                        {localProperty.description}
+                    </h5>
+                )}
             </div>
 
             <div className={styles.descriptionsProperties}>
@@ -576,12 +563,12 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                 </h5>
                 <div className={styles.mapaInteractivo}>
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6345.872814972624!2d-59.128316!3d-37.320334!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95911f92a1699e0f%3A0xb7acb39bd2ed6d7!2sMitre%201247%2C%20B7000%20Tandil%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1750441385483!5m2!1ses!2sar"
+                        src={`https://www.google.com/maps?q=${encodedAddress}&output=embed`}
                         width="1300"
                         height="400"
                         loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade">
-                    </iframe>
+                        referrerPolicy="no-referrer-when-downgrade"
+                    ></iframe>
                 </div>
             </div>
         </main>
