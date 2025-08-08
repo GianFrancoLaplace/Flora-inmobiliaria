@@ -21,7 +21,17 @@ const EditableTextField: React.FC<EditableTextFieldProps> = ({
                                                              }) => {
     const [tempValue, setTempValue] = useState<string>(value);
     const inputRef = useRef<HTMLInputElement>(null);
+    const sizerRef = useRef<HTMLSpanElement>(null);
 
+    useEffect(() => {
+        if (isEditing && inputRef.current && sizerRef.current) {
+            sizerRef.current.textContent = tempValue || inputRef.current.placeholder;
+
+            const newWidth = sizerRef.current.offsetWidth;
+
+            inputRef.current.style.width = `${newWidth + 4}px`;
+        }
+    }, [isEditing, tempValue]);
     useEffect(() => {
         setTempValue(value);
     }, [value]);
@@ -64,7 +74,11 @@ const EditableTextField: React.FC<EditableTextFieldProps> = ({
                     onChange={(e) => setTempValue(e.target.value)}
                     onBlur={handleSave}
                     onKeyDown={handleKeyDown}
+                    style={{ minWidth: '150px' }}
                 />
+
+
+                <span ref={sizerRef} className={`${styles.inputSizer} ${className}`}></span>
             </div>
         );
     }

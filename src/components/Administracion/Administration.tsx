@@ -156,8 +156,8 @@ export default function Administration() {
             {showConfirmModal && propertyToDelete && (
                 <div className={styles.modalOverlay}>
                     <div className={`${styles.modalContent} ${cactus.className}`}>
-                        <p>¿Desea eliminar la publicación?</p>
-                        <p>Esta acción no se puede deshacer.</p>
+                        <span>¿Desea eliminar la publicación?</span>
+                        <span>Esta acción no se puede deshacer.</span>
                         <div className={styles.modalButtons}>
                             <button
                                 onClick={handleConfirmDelete}

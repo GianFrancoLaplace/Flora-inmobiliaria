@@ -237,9 +237,7 @@ export default function CarrouselFotos({ isEditableFile, isEmptyFile, property, 
                 )}
               </div>
               )}
-
-
-              {!hasImages && (isEditableFile || isEmptyFile) &&(
+                {!hasImages && (isEditableFile || isEmptyFile) &&(
                     <div className={`${styles.containerAddImageForEmptyFile} ${styles.withoutImageProperties}`}>
                       <div>
                         <input
@@ -255,6 +253,19 @@ export default function CarrouselFotos({ isEditableFile, isEmptyFile, property, 
                         </label>
                       </div>
                     </div>
+                )}
+
+                {!hasImages && (!isEmptyFile && !isEditableFile) && (
+                    <Image
+                        src={'/backgrounds/homeBackground.jpg'}
+                        alt="Imagen propiedad"
+                        layout="fill"
+                        objectFit="cover"
+                        className={`${styles.imageProperties} ${styles.imagePropertiesActive}`}
+                        onError={(e) => {
+                            console.error('Error al cargar imagen:', e);
+                        }}
+                    />
                 )}
 
                 {images.length > 1 && (

@@ -29,7 +29,7 @@ export default function Page() {
                 </h5>
 
                 <div className={styles.messageButtonProperties}>
-                    <Link href={"https://wa.me/2494025527"} className={styles.linkProperties}>
+                    <Link href={"https://wa.me/2494208037"} className={styles.linkProperties}>
                         <button className={`${styles.messageBtn} ${cactus.className}`}>Enviar un mensaje
                         </button>
                     </Link>
