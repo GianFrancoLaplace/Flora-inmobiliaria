@@ -40,7 +40,6 @@
     font-size: var(--h2-size);
     font-family: var(--font-weight-normal);
 
-
     padding: var(--10px);
     padding-inline: var(--20px);
 
@@ -73,7 +72,7 @@
     min-width: 8.75rem; /*140px*/
     height: 6.875rem; /*110px*/
     padding: var(--10px);
-    padding-bottom: 0px;
+    padding-bottom: 0;
     border: 1px solid var(--primary-color-5);
     border-radius: var(--10px);
 }
@@ -116,6 +115,8 @@
     display: flex;
     flex-direction: row;
     white-space: nowrap;
+    align-items: center;
+    gap: 100%;
 }
 
 .mainInfoH1 {
@@ -166,7 +167,7 @@
 }
 
 .descriptionsProperties .sectionProperties, .descriptionsProperties .dataGridProperties {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .titleProperties {
@@ -199,7 +200,7 @@
     grid-auto-flow: column;
     grid-template-rows: repeat(10, max-content);
     grid-column-gap: var(--30px);
-    grid-row-gap: 0px;
+    grid-row-gap: 0;
 }
 
 .itemInfo {
@@ -255,11 +256,11 @@
     box-shadow: none;
     width: fit-content;
     padding: var(--10px);
-    margin: 0px;
+    margin: 0;
     cursor: pointer;
 }
 .editButtonProperties {
-    padding: 0px;
+    padding: 0;
     padding-inline: var(--10px);
 }
 
@@ -322,7 +323,7 @@
     gap: var(--20px);
 }
 .editProperties h1 {
-    padding-bottom: 0px;
+    padding-bottom: 0;
 }
 
 .editInputProperties {
@@ -368,8 +369,8 @@
 .deleteButton {
     align-items: start;
 
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 
     background-color: transparent;
     border: none;
