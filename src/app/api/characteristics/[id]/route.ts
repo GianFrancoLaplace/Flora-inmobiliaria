@@ -1,30 +1,31 @@
-import {CharacteristicCategory, CharacteristicCreate, CharacteristicValidationInput,Characteristic} from "@/types/Characteristic";
-import {NextRequest, NextResponse} from "next/server";
-import {prisma} from "@/lib/prisma";
-import {CharacteristicService} from "@/services/characteristicService";
+import { CharacteristicCategory, CharacteristicCreate, CharacteristicValidationInput, Characteristic } from "@/types/Characteristic";
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { CharacteristicService } from "@/services/characteristicService";
 
-export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(
+    request: NextRequest,
+    { params }: { params: { id: string } }
+) {
     try {
-        // Await params antes de usarlos
-        const { id } = await params;
-        const idProperty = parseInt(id);
+        const idProperty = parseInt(params.id, 10);
 
         if (!idProperty) {
             return NextResponse.json(
-                {message: "Id inválido"},
-                {status: 400}
+                { message: "Id inválido" },
+                { status: 400 }
             )
         }
 
         const characteristics = await prisma.characteristic.findMany({
-            where: {propertyId: idProperty},
-            orderBy: {idCharacteristic: "asc"},
+            where: { propertyId: idProperty },
+            orderBy: { idCharacteristic: "asc" },
         });
 
         if (!characteristics) {
             return NextResponse.json(
-                {message: "Error al obtener las carácterísticas"},
-                {status: 404}
+                { message: "Error al obtener las carácterísticas" },
+                { status: 404 }
             )
         }
 
@@ -42,17 +43,18 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     } catch (e) {
         console.log(e);
         return NextResponse.json(
-            {message: "Error del servidor"},
-            {status: 500}
+            { message: "Error del servidor" },
+            { status: 500 }
         )
     }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(
+    request: NextRequest,
+    { params }: { params: { id: string } }
+) {
     try {
-        // Await params antes de usarlos
-        const { id: idAsString } = await params;
-        const id = parseInt(idAsString, 10);
+        const id = parseInt(params.id, 10);
 
         if (isNaN(id) || id <= 0) {
             return NextResponse.json(
@@ -68,7 +70,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
         })
 
         if (!existing) {
-            return NextResponse.json({errors: "el id no pertenece a ninguna caracteristica"}, {status: 404})
+            return NextResponse.json({ errors: "el id no pertenece a ninguna caracteristica" }, { status: 404 })
         }
 
         await prisma.characteristic.delete({
@@ -77,7 +79,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
             }
         })
 
-        return NextResponse.json({message: "caracteristica eliminada con exito"}, { status: 200 });
+        return NextResponse.json({ message: "caracteristica eliminada con exito" }, { status: 200 });
     } catch (error) {
         console.error("Error al eliminar la característica:", error);
         return NextResponse.json(
