@@ -1,3 +1,6 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import {CharacteristicCreate, CharacteristicValidationInput} from "@/types/Characteristic";
 import {CharacteristicService} from "@/services/characteristicService";
 import {NextRequest, NextResponse} from "next/server";
