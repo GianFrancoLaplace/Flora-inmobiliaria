@@ -1,3 +1,4 @@
+
 import { notFound } from 'next/navigation';
 import TechnicalSheet from '@/components/TechnicalFile/TechnicalSheet';
 import { Property } from "@/types/Property";

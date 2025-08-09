@@ -1,5 +1,4 @@
-'use client';
-
+"use client"
 import ContactInformation from "@/components/features/ContactInformation/ContactInformation";
 import EditableTextField from '@/components/TechnicalFile/EditableField/EditableTextField'
 import EditableSelectField from "@/components/TechnicalFile/EditableField/EditableSelectField";

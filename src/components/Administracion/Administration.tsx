@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import styles from "./Administration.module.css";
 import { cactus } from "@/app/(views)/ui/fonts";
 import Image from "next/image";
