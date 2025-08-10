@@ -9,7 +9,7 @@
 
 .buttonNewPublication {
     max-width: 15.625rem; /*250px*/
-    width: 100%;
+    width: 250px;
     height: 2.5625rem; /*41px*/
     border: 2px var(--primary-color-5) solid;
     background-color: var(--secondary-color-5);
@@ -19,7 +19,6 @@
 .cardsProperties {
     display: flex;
     flex-direction: column;
-
     margin-left: var(--20px);
     margin-bottom: var(--10px);
     margin-top: var(--5px);
@@ -34,6 +33,9 @@
     height: 13.75rem; /*220px*/
 
     background-color: var(--primary-color-2);
+
+    align-items: center;
+    gap: 50px;
 }
 
 .imageProperties {
@@ -68,7 +70,7 @@
 .buttonsProperties {
     display: flex;
     flex-direction: row;
-
+    padding-bottom: 15%;
     width: fit-content;
 
     margin-left: var(--40px);
@@ -114,10 +116,12 @@
     color: var(--secondary-color-1);
 }
 
-.modalContent p {
+.modalContent span {
+    display: flex;
+    flex-direction: column;
     margin-bottom: var(--10px);
     color: var(--secondary-color-1);
-    line-height: 1.5;
+    font-size: var(--20px);
 }
 
 .modalButtons {
@@ -141,7 +145,8 @@
     color: var(--almost-black);
     border: none;
     border-radius: var(--radius-sm);
-    font-size: var(--h3-size);
+    font-size: var(--h5-size);
+    height: max-content;
     cursor: pointer;
     transition: background-color var(--normal-transition);
 }

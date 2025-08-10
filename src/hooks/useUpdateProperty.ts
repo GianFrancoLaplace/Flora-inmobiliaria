@@ -1,5 +1,5 @@
 // src/hooks/useUpdateProperty.ts
-'use client';
+"use client"
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';

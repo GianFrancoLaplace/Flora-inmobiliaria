@@ -1,3 +1,4 @@
+"use client"
 import {Characteristic} from "@prisma/client";
 
 export async function getCharacteristicsByPropertyId(id: string): Promise<Characteristic[] | null> {

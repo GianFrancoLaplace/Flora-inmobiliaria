@@ -1,4 +1,5 @@
 // src/components/SignOutButton.tsx
+"use client"
 
 import { handleSignOut } from '../../lib/actions';
 
