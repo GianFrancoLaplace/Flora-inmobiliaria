@@ -15,7 +15,8 @@
 }
 
 .burgerButton {
-    display: block;
+    display: flex;
+    flex-direction: row;
     background-color: var(--secondary-color-5, #f0c040);
     color: var(--primary-color-5);
     padding: var(--10px) var(--20px);
@@ -38,7 +39,7 @@
     flex-direction: column;
     align-items: center;
     flex-wrap: wrap;
-    background-color: var(--primary-color-4);
+    background-color: var(--primary-color-2);
     padding: var(--25px) var(--15px);
     border-radius: var(--radius-l);
     box-shadow: 0 6px 12px var(--transparent-black-03);
@@ -125,7 +126,7 @@
     .filterGroupWrapper {
         width: 100vw;
         padding-inline: var(--40px);
-        padding-bottom: 0px;
+        padding-bottom: 0;
         color: #1976d2;
     }
 

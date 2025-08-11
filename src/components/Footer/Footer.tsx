@@ -69,7 +69,7 @@ export default function Footer() {
 
             </div>
             <div className={styles.footerCopyright}>
-                <p>© {new Date().getFullYear()} Flora Cordeiro Inmobiliaria. Todos los derechos reservados.</p>
+                <p>© {new Date().getFullYear()} Flora Cordeiro Inmobiliaria. Made by Magno IT Systems.</p>
             </div>
         </footer>
     )
