@@ -12,7 +12,7 @@ export default function Footer() {
                 <div className={styles.footerSection}>
                     <h3 className={styles.sectionTitle}>Redes Sociales</h3>
                     {/* Usamos <a> para enlaces externos */}
-                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={styles.contactItem}>
+                    <a href="https://instagram.com/floracordeiro_inmobiliaria" target="_blank" rel="noopener noreferrer" className={styles.contactItem}>
                         <Image
                             src={'/socialMedia/instagram.png'}
                             alt={'Instagram logo'}
@@ -21,7 +21,7 @@ export default function Footer() {
                         />
                         <span>floracordeiro_inmobiliaria</span>
                     </a>
-                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className={styles.contactItem}>
+                    <a href="https://facebook.com/inmob.flora.cordeiro" target="_blank" rel="noopener noreferrer" className={styles.contactItem}>
                         <Image
                             src={'/socialMedia/facebook.png'}
                             alt={'Facebook logo'}
