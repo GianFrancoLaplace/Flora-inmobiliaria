@@ -189,7 +189,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             setSubmitStatus({ message: '¡Todos los cambios se guardaron con éxito!', type: 'success' });
             setModifiedCharacteristics(new Map()); // Limpiamos el registro de cambios
 
-            // Refrescamos para obtener los datos actualizados, incluyendo los nuevos IDs
             router.refresh();
 
         } catch (error) {
