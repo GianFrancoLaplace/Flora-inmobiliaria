@@ -10,6 +10,7 @@
     height: 360px;
 }
 
+
 .searchBarProperties {
     display: flex;
     justify-content: center;
@@ -18,16 +19,26 @@
     width: 100%;
 }
 
-/*responsive para TABLET*/
 @media (min-width: 768px) {
     .navImageProperties {
         height: 500px;
     }
 }
 
-/*responsive para DESKTOP*/
 @media (min-width: 1024px) {
     .navImageProperties {
         height: 750px;
+    }
+}
+
+@media (min-width: 1300px) {
+    .navImageProperties {
+        background-position: center 30%;
+    }
+}
+
+@media (min-width: 1600px) {
+    .navImageProperties {
+        background-position: center 25%;
     }
 }
