@@ -1,3 +1,4 @@
+"use client"
 import { Property } from "@/types/Property";
 
 export async function getPropertyById(id: string): Promise<Property | null> {

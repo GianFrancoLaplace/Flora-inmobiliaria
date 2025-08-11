@@ -1,5 +1,5 @@
 // src/hooks/useCreateCharacteristic.ts
-'use client';
+"use client"
 
 import { useState } from 'react';
 import { Characteristic, CharacteristicCreate } from '@/types/Characteristic';

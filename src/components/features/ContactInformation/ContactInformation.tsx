@@ -1,3 +1,5 @@
+"use client"
+
 import styles from './ContactInformation.module.css'
 
 export default function ContactInformation() {

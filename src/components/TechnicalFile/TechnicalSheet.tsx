@@ -1,5 +1,4 @@
-'use client';
-
+"use client"
 import ContactInformation from "@/components/features/ContactInformation/ContactInformation";
 import EditableTextField from '@/components/TechnicalFile/EditableField/EditableTextField'
 import EditableSelectField from "@/components/TechnicalFile/EditableField/EditableSelectField";
@@ -23,6 +22,7 @@ import { Characteristic, CharacteristicCategory, CharacteristicCreate } from '@/
 
 
 import useAdminImages from "@/hooks/AdminImages";
+import Link from "next/link";
 
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
@@ -387,29 +387,30 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                             img={'/icons/iconSelect.png'}
                         />
                     </div>
-                </div>
-
-                <div className={styles.buttonsProperties}>
-                    <button type="button"
-                        className={`${styles.askBtn} ${isEmptyFile || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
-                        Consultar por esta propiedad
-                    </button>
-                    <button
-                        type="button"
-                        onClick={handleCreatePublication}
-                        disabled={currentIsSubmitting}
-                        className={`${styles.askBtn} ${isEmptyFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}
-                    >
-                        {currentIsSubmitting ? 'Generando...' : 'Generar publicación'}
-                    </button>
-                    <button
-                        type="button"
-                        onClick={handleSaveChanges}
-                        disabled={currentIsSubmitting}
-                        className={`${styles.askBtn} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}
-                    >
-                        {currentIsSubmitting ? 'Guardando...' : 'Guardar cambios'}
-                    </button>
+                    <div className={styles.buttonsProperties}>
+                        <Link href="https://wa.me/2494208037" className={styles.linkProperties}>
+                            <button type="button"
+                                    className={`${styles.askBtn} ${isEmptyFile || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
+                                Consultar por esta propiedad
+                            </button>
+                        </Link>
+                        <button
+                            type="button"
+                            onClick={handleCreatePublication}
+                            disabled={currentIsSubmitting}
+                            className={`${styles.askBtn} ${isEmptyFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}
+                        >
+                            {currentIsSubmitting ? 'Generando...' : 'Generar publicación'}
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleSaveChanges}
+                            disabled={currentIsSubmitting}
+                            className={`${styles.askBtn} ${isEditableFile ? styles.showProperties : styles.notShowProperties} ${cactus.className}`}
+                        >
+                            {currentIsSubmitting ? 'Guardando...' : 'Guardar cambios'}
+                        </button>
+                    </div>
                 </div>
             </div>
 

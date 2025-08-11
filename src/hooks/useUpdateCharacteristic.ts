@@ -1,5 +1,5 @@
 // src/hooks/useUpdateCharacteristic.ts
-'use client';
+"use client"
 
 import { useState } from 'react';
 

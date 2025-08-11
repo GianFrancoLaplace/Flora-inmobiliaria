@@ -1,3 +1,4 @@
+
 import PropertiesSearchBar from "@/components/features/SearchBar/SearchBar";
 import styles from "@/components/Home/Home.module.css";
 

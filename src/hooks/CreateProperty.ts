@@ -1,4 +1,5 @@
 // hooks/useCreateProperty.ts
+"use client"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
