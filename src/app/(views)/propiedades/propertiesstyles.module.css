@@ -27,25 +27,25 @@
 
 .retryButton {
   padding: 0.6rem 1.5rem;
-  background-color: #dc2626; /* rojo base */
+  background-color: var(--secondary-color-5);
   color: white;
   font-weight: 500;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.25s ease;
-  box-shadow: 0 3px 8px rgba(220, 38, 38, 0.3);
+  box-shadow: 0 3px 8px var(--secondary-color-5);
 }
 
 .retryButton:hover {
-  background-color: #b91c1c; /* rojo más oscuro */
+  background-color: var(--secondary-color-4);
   transform: translateY(-2px);
-  box-shadow: 0 5px 12px rgba(220, 38, 38, 0.4);
+  box-shadow: 0 5px 12px var(--secondary-color-4);
 }
 
 .retryButton:active {
   transform: scale(0.97);
-  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.4);
+  box-shadow: 0 2px 6px var(--secondary-color-5);
 }
 
 
