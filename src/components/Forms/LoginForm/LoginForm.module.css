@@ -70,6 +70,7 @@
     font-size: var(--h6-size);
     font-weight: lighter;
     color: var(--primary-color-5);
+    border: none;
 }
 
 .fieldProperties input::placeholder {
