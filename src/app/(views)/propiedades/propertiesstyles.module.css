@@ -7,6 +7,47 @@
     margin: 0;
 }
 
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background-color: #fff5f5; /* rojo muy suave */
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.errorContainer h3 {
+  color: #b91c1c; /* rojo intenso */
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.retryButton {
+  padding: 0.6rem 1.5rem;
+  background-color: #dc2626; /* rojo base */
+  color: white;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 8px rgba(220, 38, 38, 0.3);
+}
+
+.retryButton:hover {
+  background-color: #b91c1c; /* rojo más oscuro */
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(220, 38, 38, 0.4);
+}
+
+.retryButton:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.4);
+}
+
 
 .propertiesLayoutFilter,
 .propertiesLayoutMainContent {
