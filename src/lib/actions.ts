@@ -1,24 +1,64 @@
-// src/lib/actions.ts
-'use server';
+ 'use server';
 
 import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
+import { z } from 'zod';
+
+const LoginSchema = z.object({
+    email: z.string().email({
+        message: 'Por favor, ingresa un email válido.',
+    }),
+    password: z.string().min(1, {
+        message: 'La contraseña debe tener al menos 6 caracteres.',
+    }),
+});
+
+export type State = {
+    errors?: {
+        email?: string[];
+        password?: string[];
+    };
+    message?: string | null;
+};
 
 
 export async function authenticate(
-    prevState: string | undefined,
+    prevState: State | undefined,
     formData: FormData,
-) {
+): Promise<State> {
+
+    const validatedFields = LoginSchema.safeParse(
+        Object.fromEntries(formData.entries()),
+    );
+
+    // Si la validación falla, retornar errores
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Campos faltantes o inválidos. Error al iniciar sesión.',
+        };
+    }
+
+    const { email, password } = validatedFields.data;
+
     try {
-        await signIn('credentials', formData);
+        // signIn redirigirá automáticamente al usuario en caso de éxito
+        await signIn('credentials', {
+            email,
+            password,
+
+        });
+
+
+        return { message: null, errors: {} };
+
     } catch (error) {
         if (error instanceof AuthError) {
-            // En v5, se usa 'error.type' para diferenciar los errores
             switch (error.type) {
                 case 'CredentialsSignin':
-                    return 'Las credenciales proporcionadas son incorrectas.';
+                    return { message: 'Las credenciales proporcionadas son incorrectas.' };
                 default:
-                    return 'Algo salió mal. Por favor, inténtelo de nuevo.';
+                    return { message: 'Algo salió mal. Por favor, inténtelo de nuevo.' };
             }
         }
 
