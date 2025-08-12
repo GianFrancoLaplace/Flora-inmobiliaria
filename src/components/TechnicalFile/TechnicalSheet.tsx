@@ -323,6 +323,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                     <EditButton
                         onStartEdit={() => handleStartEditHeader()}
                         onEndEdit={() => handleSaveAddress(localProperty.address)}
+                        className={styles.editButtonProperties}
                         isEditing={editingField === 'address-header'}
                         show={isEditableFile || isEmptyFile}
                         img={'/icons/iconoEdit.png'}
@@ -477,7 +478,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                 <div className={styles.buttonsEditProperties}>
                     <div className={styles.titleProperties}>
                         <h2>Ficha</h2>
-                        <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
+                        <div className={`${isEmptyFile || isEditableFile ? styles.showProperties : styles.notShowProperties}`}>
                             <button onClick={() => setIsEditingAll(!isEditingAll)} className={styles.editButtonProperties}>
                                 {isEditingAll ? <h5 className={cactus.className}>Guardar ✔</h5> : <Image
                                     src={'/icons/iconoEdit.png'}
@@ -488,7 +489,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                             </button>
                         </div>
                     </div>
-                    <div className={`${isEmptyFile || isEditableFile ? styles.visible : styles.notVisible}`}>
+                    <div className={`${isEmptyFile || isEditableFile ? styles.showProperties : styles.notShowProperties}`}>
                         <button
                             onClick={() => setShowForm(v => !v)}
                             aria-expanded={showForm}
