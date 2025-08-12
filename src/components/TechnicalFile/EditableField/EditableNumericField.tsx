@@ -69,8 +69,13 @@ const EditableNumericField: React.FC<EditableNumericFieldProps> = ({
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
-        const inputNumber = parseInt(inputValue);
-        setTempValue(inputNumber);
+		let inputNumber;
+		if (inputValue === "")
+			inputNumber = 0
+	    else
+            inputNumber = parseInt(inputValue);
+	    console.log(inputNumber);
+	    setTempValue(inputNumber);
     };
 
     if (isEditing) {
