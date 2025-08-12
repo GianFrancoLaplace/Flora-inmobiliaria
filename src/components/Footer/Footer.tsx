@@ -45,12 +45,12 @@ export default function Footer() {
                 <div className={styles.footerSection}>
                     <h3 className={styles.sectionTitle}>Contacto</h3>
                     {/* Enlace para llamar directamente en móviles */}
-                    <a href="tel:+542494112233" className={styles.contactItem}>
-                        <span>2494 11-2233</span>
+                    <a href="https://wa.me/2494208037" className={styles.contactItem}>
+                        <span>2494 208037</span>
                     </a>
                     {/* Puedes hacer que la dirección abra Google Maps */}
                     <a href="https://www.google.com/maps/search/?api=1&query=Alsina+421,Tandil" target="_blank" rel="noopener noreferrer" className={styles.contactItem}>
-                        <span>Alsina 421, Tandil.</span>
+                        <span>14 de Julio 796, Tandil.</span>
                     </a>
                 </div>
 
@@ -69,7 +69,7 @@ export default function Footer() {
 
             </div>
             <div className={styles.footerCopyright}>
-                <p>© {new Date().getFullYear()} Flora Cordeiro Inmobiliaria. Todos los derechos reservados.</p>
+                <p>© {new Date().getFullYear()} Flora Cordeiro Inmobiliaria. Made by Magno IT Systems.</p>
             </div>
         </footer>
     )

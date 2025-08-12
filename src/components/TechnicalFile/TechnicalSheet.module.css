@@ -1,3 +1,7 @@
+/* =============================================================================
+   LAYOUT PRINCIPAL Y CONTENEDORES BASE
+   ============================================================================= */
+
 .page {
     background-color: var(--primary-color-1);
     color: var(--primary-color-5);
@@ -6,6 +10,96 @@
     z-index: 10;
 }
 
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+    width: 100%;
+    height: fit-content;
+    position: relative;
+    z-index: 10;
+    margin-right: var(--40px);
+    padding-left: var(--10px);
+}
+
+/* =============================================================================
+   SECCIONES DE CONTENIDO PRINCIPALES
+   ============================================================================= */
+
+/* Sección de dirección principal */
+.mainAdressProperties {
+    display: flex;
+    flex-direction: row;
+    margin-top: var(--20px);
+    margin-bottom: var(--20px);
+    padding-left: var(--10px);
+    box-sizing: border-box;
+}
+
+.adressProperties {
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
+    border-bottom: var(--almost-black) 1px solid;
+    gap: 10%;
+}
+
+.viewInfoAdress {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 70%;
+    white-space: nowrap;
+}
+
+/* Carrusel de medios */
+.mediaCarouselProperties {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 100%;
+    height: 22rem;
+    margin-bottom: var(--20px);
+}
+
+/* Secciones de descripción y contenido */
+.descriptionsProperties {
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    max-width: 55rem; /*880px*/
+    width: 100%;
+    margin-top: var(--30px);
+    padding-inline: var(--10px);
+    border-left: 2px solid var(--secondary-color-5);
+}
+
+.descriptionsProperties div {
+    margin-bottom: var(--10px);
+}
+
+.descriptionsProperties .sectionProperties, .descriptionsProperties .dataGridProperties {
+    margin-bottom: 0;
+}
+
+/* Sección de precio */
+.mainInfoPrice {
+    margin-top: var(--20px);
+    width: fit-content;
+    margin-left: var(--10px);
+    color: var(--primary-color-5);
+}
+
+.priceEditionProperties {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--10px);
+    padding-inline: var(--10px);
+}
+
+/* Mapa interactivo */
 .mapaInteractivo {
     display: flex;
     justify-content: center;
@@ -19,98 +113,11 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.mainAdressProperties {
-    display: flex;
-    flex-direction: row;
+/* =============================================================================
+   INFORMACIÓN Y ELEMENTOS DE DATOS
+   ============================================================================= */
 
-    margin-top: var(--20px);
-    margin-bottom: var(--20px);
-    padding-left: var(--10px);
-    box-sizing: border-box;
-}
-
-.viewInfoAdress {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    gap: 70%;
-    white-space: nowrap;
-}
-.inputSizer.inputProperties {
-    font-size: var(--h2-size);
-    font-family: var(--font-weight-normal);
-
-    padding: var(--10px);
-    padding-inline: var(--20px);
-
-    border: 1px solid transparent;
-}
-
-.mediaCarouselProperties {
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    width: 100%;
-    height: 22rem;
-    margin-bottom: var(--20px);
-}
-
-.visible {
-    visibility: visible;
-}
-
-.notVisible {
-    visibility: hidden;
-}
-
-.infoCardProperties {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    text-align: left;
-    width: max-content;
-    min-width: 8.75rem; /*140px*/
-    height: 6.875rem; /*110px*/
-    padding: var(--10px);
-    padding-bottom: 0;
-    border: 1px solid var(--primary-color-5);
-    border-radius: var(--10px);
-}
-
-.main {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: flex-start;
-
-    width: 100%;
-    height: fit-content;
-
-    position: relative;
-    z-index: 10;
-    margin-right: var(--40px);
-    padding-left: var(--10px);
-}
-
-.inputProperties {
-
-    box-sizing: border-box;
-
-    /* Copiamos aquí TODOS los estilos que afectan al texto y al espacio */
-    font-family: var(--font-weight-normal);
-    font-size: var(--h2-size);
-    padding: var(--10px);
-    padding-inline: var(--20px);
-    border: 1px solid var(--secondary-color-5);
-
-    /* --- Otros estilos --- */
-    /* Quitamos el ancho fijo para que JavaScript lo controle */
-    width: auto;
-    min-width: 150px; /* Un ancho mínimo para que no se vea mal cuando está vacío */
-    border-radius: 100px;
-    cursor: pointer;
-}
-
+/* Información principal */
 .mainInfo {
     display: flex;
     flex-direction: row;
@@ -126,49 +133,63 @@
     margin-left: var(--20px);
 }
 
-.askBtn {
-    width: 21.25rem; /*340px*/
-    background-color: var(--secondary-color-4);
-}
-
-.cityProperties {
-    width: 100%;
+/* Propiedades editables */
+.editProperties {
     display: flex;
     flex-direction: row;
-    justify-content: left;
-    color: var(--secondary-color-5);
-    margin-inline: var(--40px);
-    margin-top: var(--10px);
-    white-space: nowrap;
-}
-
-.mainBoxesGridProperties {
-    display: flex;
-    flex-direction: row;
-    margin-top: var(--20px);
-    margin-left: var(--20px);
+    align-items: center;
+    height: fit-content;
+    width: auto;
     gap: var(--20px);
 }
 
-.descriptionsProperties {
+.editProperties h1 {
+    padding-bottom: 0;
+}
+
+.ubicationEditProperties {
+    display: flex;
+    flex-direction: row;
+    width: min-content;
+    gap: var(--20px);
+}
+
+/* Tarjetas de información */
+.infoCardProperties {
     display: flex;
     flex-direction: column;
-    text-align: justify;
-    max-width: 55rem; /*880px*/
+    justify-content: space-evenly;
+    text-align: left;
+    width: max-content;
+    min-width: 8.75rem; /*140px*/
+    height: 6.875rem; /*110px*/
+    padding: var(--10px);
+    padding-bottom: 0;
+    border: 1px solid var(--primary-color-5);
+    border-radius: var(--10px);
+}
+
+/* Elementos de propiedades individuales */
+.itemProperties {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     width: 100%;
-    margin-top: var(--30px);
-    padding-inline: var(--10px);
-
-    border-left: 2px solid var(--secondary-color-5);
 }
 
-.descriptionsProperties div {
-    margin-bottom: var(--10px);
+.itemProperties h5 {
+    white-space: wrap;
 }
 
-.descriptionsProperties .sectionProperties, .descriptionsProperties .dataGridProperties {
-    margin-bottom: 0;
+.itemInfo {
+    display: flex;
+    flex-direction: row;
+    gap: var(--15px);
 }
+
+/* =============================================================================
+   HEADERS Y TÍTULOS DE SECCIONES
+   ============================================================================= */
 
 .titleProperties {
     display: flex;
@@ -178,15 +199,27 @@
     gap: var(--10px);
 }
 
-.buttonsEditProperties, .titleProperties{
+.buttonsEditProperties, .titleProperties {
     height: var(--40px);
     border-bottom: 1px solid var(--primary-color-2);
 }
 
-.buttonsEditProperties{
+.buttonsEditProperties {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+/* =============================================================================
+   GRIDS Y LAYOUTS DE DATOS
+   ============================================================================= */
+
+.mainBoxesGridProperties {
+    display: flex;
+    flex-direction: row;
+    margin-top: var(--20px);
+    margin-left: var(--20px);
+    gap: var(--20px);
 }
 
 .dataGridProperties {
@@ -203,29 +236,138 @@
     grid-row-gap: 0;
 }
 
-.itemInfo {
-    display: flex;
-    flex-direction: row;
+/* =============================================================================
+   BOTONES Y CONTROLES INTERACTIVOS
+   ============================================================================= */
 
-    gap: var(--15px);
+/* Botones de edición */
+.editButtonProperties {
+    background-color: var(--secondary-color-5);
+    align-content: center;
+    border: none;
+    box-shadow: none;
+    width: fit-content;
+    padding: var(--10px);
+    margin: 0;
+    cursor: pointer;
+    padding-inline: var(--10px);
 }
 
-.itemProperties {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    width: 100%;
+.saveButtonProperties {
+    background-color: var(--secondary-color-5);
+    box-shadow: 0 4px 6px var(--transparent-black-03);
 }
 
-.itemProperties h5 {
-    white-space: wrap;
+/* Botones de acción principales */
+.askBtn {
+    width: 21.25rem; /*340px*/
+    background-color: var(--secondary-color-4);
 }
 
 .buttonsProperties button {
     cursor: pointer;
 }
-/*PROPERTIE´S EMPTY FILE*/
+
+.buttonShowMoreProperties {
+    background-color: transparent;
+    font-size: var(--h1-size);
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    padding-bottom: var(--20px);
+}
+
+/* Botón de eliminación */
+.deleteButton {
+    align-items: start;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.deleteButton:hover {
+    color: red;
+    box-shadow: none;
+}
+
+.btnSold {
+    background-color: var(--primary-color-1);
+}
+
+/* =============================================================================
+   INPUTS Y CAMPOS EDITABLES
+   ============================================================================= */
+
+/* Input principal de propiedades */
+.inputProperties {
+    box-sizing: border-box;
+    font-family: var(--font-weight-normal);
+    font-size: var(--h2-size);
+    padding: var(--10px);
+    padding-inline: var(--20px);
+    border: 1px solid var(--secondary-color-5);
+    width: auto;
+    min-width: 150px;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+/* Campos de formulario */
+.field {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+}
+
+.field input, .numericField input {
+    justify-items: left;
+    width: auto;
+    padding: var(--10px);
+    padding-inline: var(--20px);
+    font-size: var(--h4-size);
+    cursor: pointer;
+    border-radius: 100px;
+    border: 1px solid var(--secondary-color-5);
+}
+
+/* Input de edición */
+.editInputProperties {
+    width: 20rem;
+    font-size: var(--20px);
+    text-align: left;
+}
+
+/* Sizer para inputs dinámicos */
+.inputSizer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    height: auto;
+    width: auto;
+    white-space: pre;
+    box-sizing: border-box;
+    font-family: var(--font-weight-normal);
+    font-size: var(--h2-size);
+    padding: var(--10px);
+    padding-inline: var(--20px);
+    border: 1px solid transparent;
+}
+
+.inputSizer.inputProperties {
+    font-size: var(--h2-size);
+    font-family: var(--font-weight-normal);
+    padding: var(--10px);
+    padding-inline: var(--20px);
+    border: 1px solid transparent;
+}
+
+/* =============================================================================
+   ESTADOS DE VISIBILIDAD
+   ============================================================================= */
 
 .showProperties {
     visibility: visible;
@@ -240,46 +382,11 @@
     position: absolute;
 }
 
-.adressProperties {
-    display: flex;
-    flex-direction: row;
-    white-space: nowrap;
-    border-bottom: var(--almost-black) 1px solid;
-    gap: 10%;
-}
+/* =============================================================================
+   ELEMENTOS ESPECÍFICOS Y UTILIDADES
+   ============================================================================= */
 
-.mainAdressProperties button,
-.editButtonProperties {
-    background-color: var(--secondary-color-5);
-    align-content: center;
-    border: none;
-    box-shadow: none;
-    width: fit-content;
-    padding: var(--10px);
-    margin: 0;
-    cursor: pointer;
-}
-.editButtonProperties {
-    padding: 0;
-    padding-inline: var(--10px);
-}
-
-.saveButtonProperties{
-    background-color: var(--secondary-color-5);
-    box-shadow: 0 4px 6px var(--transparent-black-03);
-}
-
-#imageIconoEditPhoto {
-    display: flex;
-    position: relative;
-    margin-top: 35%;
-    margin-right: 3%;
-}
-
-.linkProperties{
-    text-decoration: none;
-}
-
+/* Propiedades de ciudad */
 .cityProperties {
     width: 100%;
     display: flex;
@@ -295,115 +402,22 @@
     padding-bottom: var(--40px);
 }
 
-.mainInfoPrice {
-    margin-top: var(--20px);
-    width: fit-content;
-    margin-left: var(--10px);
-
-    /*background-color: var(--secondary-color-5);*/
-    color: var(--primary-color-5);
+/* Enlaces */
+.linkProperties {
+    text-decoration: none;
 }
 
-.priceEditionProperties {
+/* Icono de edición de imagen */
+#imageIconoEditPhoto {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    gap: var(--10px);
-    padding-inline: var(--10px);
-}
-
-.editProperties {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: fit-content;
-    width: auto;
-
-    gap: var(--20px);
-}
-.editProperties h1 {
-    padding-bottom: 0;
-}
-
-.editInputProperties {
-    width: 20rem;
-    font-size: var(--20px);
-    text-align: left;
-}
-.ubicationEditProperties {
-    display: flex;
-    flex-direction: row;
-    width: min-content;
-    gap: var(--20px);
-}
-
-.btnSold {
-    background-color: var(--primary-color-1);
-}
-.inputSizer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    visibility: hidden;
-    height: auto;
-    width: auto;
-    white-space: pre;
-    box-sizing: border-box;
-
-    font-family: var(--font-weight-normal); /* Debe coincidir */
-    font-size: var(--h2-size); /* Debe coincidir */
-    padding: var(--10px); /* Debe coincidir */
-    padding-inline: var(--20px); /* Debe coincidir */
-    border: 1px solid transparent; /* Debe tener el mismo grosor de borde */
-}
-.buttonShowMoreProperties{
-    background-color: transparent;
-    font-size: var(--h1-size);
-    border: none;
-    box-shadow: none;
-    cursor: pointer;
-    padding-bottom: var(--20px);
-}
-
-.deleteButton {
-    align-items: start;
-
-    margin: 0;
-    padding: 0;
-
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-
-    transition: all 0.2s ease-in-out;
-}
-.deleteButton:hover {
-    color: red;
-    box-shadow: none;
-}
-
-
-.field input, .numericField input {
-    justify-items: left;
-
-    width: auto;
-
-    padding: var(--10px);
-    padding-inline: var(--20px);
-
-    font-size: var(--h4-size);
-    cursor: pointer;
-    border-radius: 100px;
-    border: 1px solid var(--secondary-color-5);
-}
-
-.field {
-    display: inline-flex;
-    align-items: center;
     position: relative;
+    margin-top: 35%;
+    margin-right: 3%;
 }
 
+/* =============================================================================
+   MEDIA QUERIES RESPONSIVE
+   ============================================================================= */
 
 @media (min-width: 768px) {
     .mediaCarouselProperties {

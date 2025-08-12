@@ -49,6 +49,7 @@ const FilterGroup: React.FC<Props> = ({ title, filters }) => {
 
   return (
     <div className={styles.filterGroupWrapper}>
+
       <button className={styles.burgerButton} onClick={() => setShowFilters((prev) => !prev)}>
         ☰ Filtrar
       </button>

@@ -16,6 +16,7 @@
     border-radius: var(--radius-md);
     background-color: var(--transparent-black-07);
     color: var(--secondary-color-1);
+    border: none;
 }
 
 .loginContainer h2 {
@@ -69,6 +70,7 @@
     font-size: var(--h6-size);
     font-weight: lighter;
     color: var(--primary-color-5);
+    border: none;
 }
 
 .fieldProperties input::placeholder {
