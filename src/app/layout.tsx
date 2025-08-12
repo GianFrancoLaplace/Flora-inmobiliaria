@@ -9,6 +9,9 @@ import WhatsAppRedirection from "@/components/WhatsAppRedirection/WhatsAppRedire
 export const metadata: Metadata = {
   title: "Flora Cordeiro Inmobiliaria",
   description: "Created by Magno",
+  icons: {
+    icon: '/logos/footerLogo.png',
+  },
 };
 
 export default function RootLayout({

@@ -8,9 +8,9 @@
 }
 
 .burgerButton {
-    display: block;
+    display: flex;
     background-color: var(--secondary-color-5);
-    color: var(--primary-color-4);
+    color: var(--primary-color-5);
     padding: var(--10px) var(--20px);
     border: none;
     font-size: var(--h2-size);
@@ -32,7 +32,7 @@
 .vertical {
     flex-direction: column;
     align-items: center;
-    background-color: var(--primary-color-4);
+    background-color: var(--primary-color-2);
     padding: var(--20px) var(--15px);
     border-radius: var(--radius-sm);
     gap: var(--20px);

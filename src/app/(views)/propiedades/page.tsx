@@ -29,9 +29,12 @@ function PropertiesContent() {
         if (error) {
             return (
                 <div className={styles.errorContainer}>
-                    <h3>Error: {error}</h3>
-                    <button onClick={fetchProperties} className={styles.retryButton}>Intentar de nuevo</button>
-                </div>
+  <h3>Error al cargar las propiedades: {error}</h3>
+  <button onClick={fetchProperties} className={styles.retryButton}>
+    Intentar de nuevo
+  </button>
+</div>
+
             );
         }
         if (mappedProperties.length === 0) {

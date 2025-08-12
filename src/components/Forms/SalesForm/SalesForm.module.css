@@ -47,6 +47,7 @@
 
     border-radius: var(--10px);
     background-color: var(--transparent-black-07);
+    border: none;
 }
 
 
@@ -73,6 +74,7 @@
     border-radius: 100px;
     font-size: var(--h6-size);
     color: var(--primary-color-5);
+    border: none;
 }
 
 .fieldProperties input::placeholder {
