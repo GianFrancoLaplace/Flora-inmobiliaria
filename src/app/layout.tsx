@@ -21,10 +21,11 @@ export default function RootLayout({
 }>) {
 
     return (
-        <html lang="en">
+        <html lang="es">
         <head>
             <link rel="stylesheet" href="Styles.css"/>
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <meta name="google-site-verification" content="5XxYTljI-V7ytErFMbV1yrAL6QzawUMcHoEZhvU7iHg" />
         </head>
         <body className={`${cactus.className}`}>
             <NavBar/>
