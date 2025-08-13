@@ -1,4 +1,3 @@
-"use client"
 import { Property } from "@/types/Property";
 
 export async function getPropertyById(id: string): Promise<Property | null> {
@@ -13,15 +12,11 @@ export async function getPropertyById(id: string): Promise<Property | null> {
         });
 
         if (!response.ok) {
-
             console.error(`Error fetching property ${id}:`, response.status, response.statusText);
             return null;
         }
 
-        const propertyData: Property = await response.json();
-
-        return propertyData;
-
+        return await response.json();
     } catch (error) {
         console.error('Error in getProperty:', error);
         return null;

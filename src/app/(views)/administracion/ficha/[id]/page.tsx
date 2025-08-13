@@ -6,13 +6,18 @@ type Mode = 'view' | 'edit' | 'create';
 
 type PageProps = {
 	params: { id: string };
-	searchParams: { mode?: Mode };
+	searchParams: { mode?: string }; // más flexible por si viene otro valor
 };
 
 export default async function UnifiedPropertyPage({ params, searchParams }: PageProps) {
 	const { id } = params;
-	const { mode = 'view' } = searchParams;
+	const modeParam = searchParams.mode ?? 'view';
 
+	// normalizamos el mode para evitar valores inesperados
+	const validModes: Mode[] = ['view', 'edit', 'create'];
+	const mode: Mode = validModes.includes(modeParam as Mode) ? (modeParam as Mode) : 'view';
+
+	// Si es una nueva propiedad
 	if (id === 'nueva') {
 		if (mode !== 'create') {
 			notFound();
@@ -25,25 +30,26 @@ export default async function UnifiedPropertyPage({ params, searchParams }: Page
 		);
 	}
 
+	// Traer propiedad desde BD
 	const property = await getPropertyById(id);
 
 	if (!property) {
 		notFound();
 	}
 
-	const validModes: Mode[] = ['view', 'edit'];
-	const finalMode = validModes.includes(mode) ? mode : 'view';
-
 	return (
 		<main>
-			<TechnicalSheet mode={finalMode} property={property} />
+			<TechnicalSheet mode={mode} property={property} />
 		</main>
 	);
 }
 
 export async function generateMetadata({ params, searchParams }: PageProps) {
 	const { id } = params;
-	const { mode = 'view' } = searchParams;
+	const modeParam = searchParams.mode ?? 'view';
+
+	const validModes: Mode[] = ['view', 'edit', 'create'];
+	const mode: Mode = validModes.includes(modeParam as Mode) ? (modeParam as Mode) : 'view';
 
 	if (id === 'nueva') {
 		return {
@@ -61,7 +67,7 @@ export async function generateMetadata({ params, searchParams }: PageProps) {
 		};
 	}
 
-	const modeTexts = {
+	const modeTexts: Record<Mode, string> = {
 		view: 'Ver Propiedad',
 		edit: 'Editar Propiedad',
 		create: 'Crear Propiedad'
@@ -72,7 +78,7 @@ export async function generateMetadata({ params, searchParams }: PageProps) {
 		description: property.description || `${property.type} en ${property.address}`,
 		openGraph: {
 			title: `${modeTexts[mode]}: ${property.address}`,
-			description: property.description,
+			description: property.description || '',
 			images: property.images?.[0]?.url ? [property.images[0].url] : [],
 		}
 	};
