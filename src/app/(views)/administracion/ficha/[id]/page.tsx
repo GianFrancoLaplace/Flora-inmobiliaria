@@ -1,21 +1,17 @@
-
 import { notFound } from 'next/navigation';
 import TechnicalSheet from '@/components/TechnicalFile/TechnicalSheet';
-import { Property } from "@/types/Property";
-import {getPropertyById} from '@/hooks/getPropertyById';
+import { getPropertyById } from '@/hooks/getPropertyById';
+
 type Mode = 'view' | 'edit' | 'create';
 
 type PageProps = {
-	params: Promise<{ id: string }>;
-	searchParams: Promise<{ mode?: Mode }>;
-}
+	params: { id: string };
+	searchParams: { mode?: Mode };
+};
 
-export default async function UnifiedPropertyPage({
-	                                                  params,
-	                                                  searchParams
-                                                  }: PageProps) {
-	const { id } = await params;
-	const { mode = 'view' } = await searchParams;
+export default async function UnifiedPropertyPage({ params, searchParams }: PageProps) {
+	const { id } = params;
+	const { mode = 'view' } = searchParams;
 
 	if (id === 'nueva') {
 		if (mode !== 'create') {
@@ -24,10 +20,7 @@ export default async function UnifiedPropertyPage({
 
 		return (
 			<main>
-				<TechnicalSheet
-					mode="create"
-					property={null}
-				/>
+				<TechnicalSheet mode="create" property={null} />
 			</main>
 		);
 	}
@@ -43,17 +36,14 @@ export default async function UnifiedPropertyPage({
 
 	return (
 		<main>
-			<TechnicalSheet
-				mode={finalMode}
-				property={property}
-			/>
+			<TechnicalSheet mode={finalMode} property={property} />
 		</main>
 	);
 }
 
 export async function generateMetadata({ params, searchParams }: PageProps) {
-	const { id } = await params;
-	const { mode = 'view' } = await searchParams;
+	const { id } = params;
+	const { mode = 'view' } = searchParams;
 
 	if (id === 'nueva') {
 		return {
