@@ -14,6 +14,7 @@ export default async function UnifiedPropertyPage({
 	                                                  params,
 	                                                  searchParams
                                                   }: PageProps) {
+	console.log("hola");
 	const { id } = await params;
 	const { mode = 'view' } = await searchParams;
 
