@@ -123,7 +123,7 @@
     flex-direction: row;
     white-space: nowrap;
     align-items: center;
-    gap: 100%;
+    gap: 20px;
 }
 
 .mainInfoH1 {
@@ -260,7 +260,7 @@
 
 /* Botones de acción principales */
 .askBtn {
-    width: 21.25rem; /*340px*/
+    width: 170px; /*340px*/
     background-color: var(--secondary-color-4);
 }
 
@@ -422,6 +422,14 @@
 @media (min-width: 768px) {
     .mediaCarouselProperties {
         margin-bottom: 18rem;
+    }
+
+    .askBtn{
+        width: 21.25rem; /*340px*/
+    }
+
+    .mainInfo{
+        gap: 10%;
     }
 
     .mainAdressProperties, .main, .descriptionsProperties {
