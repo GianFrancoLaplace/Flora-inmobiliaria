@@ -257,9 +257,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
         }
     };
 
-
-
-
     const isEmptyFile = mode === "create";
     const isEditableFile = mode === "edit";
 
@@ -306,7 +303,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
             <div className={styles.mainAdressProperties}>
                 <div className={`${styles.adressProperties} ${styles.showProperties}`}>
-                    {editingField === 'address-header' ? (
+                    {(isEmptyFile || isEditableFile) && editingField === 'address-header' ? (
                         <EditableTextField
                             value={localProperty.address}
                             isEditing={true}
@@ -343,7 +340,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             <div className={styles.main}>
                 <div className={`${styles.mainInfo}`}>
                     <div className={styles.editProperties}>
-                        {editingField === 'address-main' ? (
+                        {(isEmptyFile || isEditableFile) && editingField === 'address-main' ? (
                             <EditableTextField
                                 value={localProperty.address}
                                 isEditing={true}
@@ -392,7 +389,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                         <Link href="https://wa.me/2494208037" className={styles.linkProperties}>
                             <button type="button"
                                     className={`${styles.askBtn} ${isEmptyFile || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
-                                Consultar por esta propiedad
+                                Consultar
                             </button>
                         </Link>
                         <button
@@ -420,7 +417,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
             <div className={styles.mainInfoPrice}>
                 <div className={`${styles.priceEditionProperties} ${styles.showProperties}`}>
-                    {editingField === 'price' ? (
+                    {(isEmptyFile || isEditableFile) && editingField === 'price' ? (
                         <EditableNumericField
                             value={localProperty.price}
                             isEditing={true}
@@ -458,7 +455,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                         />
                     </div>
                 </div>
-                {editingField === 'description' ? (
+                {(isEmptyFile || isEditableFile) && editingField === 'description' ? (
                     <EditableTextField
                         value={localProperty.description}
                         isEditing={editingField === 'description'}

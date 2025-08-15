@@ -213,7 +213,7 @@ export default function CarrouselFotos({ isEditableFile, isEmptyFile, property, 
                         }}
                     />
                 )}
-              {hasImages && (
+              {hasImages && (isEditableFile || isEmptyFile) && (
               <div className={`${isEditableFile? styles.containerAddImage : ""} ${isEmptyFile? styles.containerAddImageForEmptyFile : ""}`}>
                 <div>
                   <input
