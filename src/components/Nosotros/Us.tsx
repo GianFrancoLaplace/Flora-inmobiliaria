@@ -20,12 +20,8 @@ export default function Us() {
                 </div>
                 <div className={styles.infoProperties}>
                     <h1>¿Por qué elegirnos?</h1>
-                    <p> Asesoramiento personalizado para encontrar la propiedad perfecta
-                        Negociación efectiva para obtener el mejor precio y complacer ambas partes
-                        Asistencia en todo el proceso de compra o venta
-                        Acceso a una amplia red de contactos y propiedades
-
-                        🌈Pero más que nada, quiero ser tu guía y tu confidente  en este proceso. Estoy aquí para escucharte, para entender tus necesidades y para ayudarte a alcanzar tus objetivos inmobiliarios.</p>
+                    <p> Asesoramiento personalizado para encontrar la propiedad perfecta, negociación efectiva para obtener el mejor precio y complacer ambas partes, asistencia en todo el proceso de compra o venta sumado al acceso a una amplia red de contactos y propiedades.
+                        Pero más que nada, quiero ser tu guía y tu confidente  en este proceso. Estoy aquí para escucharte, para entender tus necesidades y para ayudarte a alcanzar tus objetivos inmobiliarios.</p>
                 </div>
                 <div className={styles.missionAndVisionProperties}>
                     <div className={styles.infoProperties}>
@@ -61,10 +57,8 @@ export default function Us() {
                             Hola!
                             Soy Flora Cordeiro.
 
-                            Me apasiona mi trabajo que se trata de ayudar a las personas a encontrar su hogar soñado o a cerrar de forma segura una operación inmobiliaria.
-
+                            Me apasiona mi trabajo, el cual se trata ayudar a las personas a encontrar su hogar soñado o a cerrar de forma segura una operación inmobiliaria.
                             Mi compromiso es acompañarte de la mano en cada paso del proceso, escuchando tus necesidades y haciendo que todo sea fácil, claro y especialmente que sea siempre una linda experiencia!
-
                             Con mi  conocimiento en el mercado inmobiliario, y la característica de mantenerme siempre actualizada en el sector, puedo ofrecerte:
 
                         </p>

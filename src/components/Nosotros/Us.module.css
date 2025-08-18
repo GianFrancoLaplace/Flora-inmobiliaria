@@ -50,17 +50,19 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     margin-top: var(--50px);
     margin-bottom: var(--20px);
     gap: var(--30px);
+}
+
+.generalInfoProperties, .description{
+    text-align: justify;
 }
 
 .missionAndVisionProperties {
     display: flex;
     flex-direction: column;
     align-items: center;
-
     gap: var(--20px);
 }
 
@@ -152,10 +154,14 @@
     }
 
     .missionAndVisionProperties .infoProperties {
+        text-align: justify;
+        text-align: center;
         width: 100%;
     }
 
     .infoProperties {
+        text-align: justify;
+        text-align: center;
         width: 30%;
     }
 }

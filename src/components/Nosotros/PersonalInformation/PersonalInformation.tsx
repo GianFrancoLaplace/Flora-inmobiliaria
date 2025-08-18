@@ -9,8 +9,8 @@ export default function PersonalInformation() {
 
                     src={"/backgrounds/homeBackground.jpg"}
                     alt={"Retrato de Flora Cordeiro, Martillera Pública"}
-                    width={350} // Define un ancho base
-                    height={450} // Define un alto base
+                    width={350} 
+                    height={450} 
                     className={styles.image}
                 />
             </div>
