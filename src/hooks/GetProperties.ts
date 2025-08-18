@@ -43,7 +43,7 @@ export const useUnifiedFilter = () => {
     const [properties, setProperties] = useState<Property[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    
+
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -54,7 +54,7 @@ export const useUnifiedFilter = () => {
             const rooms = property.characteristics.find(c => c.characteristic.toLowerCase().includes('ambiente'))?.amount || 0;
             const bedrooms = property.characteristics.find(c => c.characteristic.toLowerCase().includes('dormitorio'))?.amount || 0;
             const bathrooms = property.characteristics.find(c => c.characteristic.toLowerCase().includes('baño'))?.amount || 0;
-            
+
             return {
                 id: property.id,
                 imageUrl: '/backgrounds/fichaBackground.jpg',
@@ -72,33 +72,33 @@ export const useUnifiedFilter = () => {
         });
     };
 
-        // traigo con un fetch las propiedades desde mi route
+    // traigo con un fetch las propiedades desde mi route
     const fetchProperties = useCallback(async () => {
         try {
             setLoading(true);
             setError(null);
-            
+
             const params = new URLSearchParams();
-            
+
             const operacion = searchParams.get('operacion');
             const tipo = searchParams.get('tipo');
             const maxValueParam = searchParams.get('maxValue');
-            
+
             if (operacion) params.set('operacion', operacion);
             if (tipo) params.set('tipo', tipo);
             if (maxValueParam) params.set('maxValue', maxValueParam);
-            
+
             const url = `/api/properties${params.toString() ? `?${params.toString()}` : ''}`; //creo la url
-            
+
             const response = await fetch(url); //llamo al metodo mediante el fetch y la url creada
-            
+
             if (!response.ok) {
                 throw new Error(`Error ${response.status}: ${response.statusText}`);
             }
-            
+
             const data: Property[] = await response.json();
             setProperties(data);
-            
+
         } catch (err) {
             console.error('Error fetching properties:', err);
             setError(err instanceof Error ? err.message : 'Error al cargar las propiedades');
@@ -124,13 +124,14 @@ export const useUnifiedFilter = () => {
 
     useEffect(() => {
         const maxValueFromUrl = searchParams.get('maxValue');
-        if (maxValueFromUrl && maxValueFromUrl !== maxValue) {
+        if (maxValueFromUrl !== null && maxValueFromUrl !== maxValue) {
             setMaxValue(maxValueFromUrl);
         }
-    }, [searchParams, maxValue]);
+    }, [searchParams]);
+
 
     const handleMaxValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault();
+        console.log(e.target.value);
         setMaxValue(e.target.value);
     };
 
@@ -143,7 +144,7 @@ export const useUnifiedFilter = () => {
         const rooms = characteristics.find(c => c.category === 'ambientes')?.amount || 0;
         const bathrooms = characteristics.find(c => c.category === 'banos')?.amount || 0;
         const bedrooms = characteristics.find(c => c.category === 'dormitorios' || c.category === 'dormitorios_suite')?.amount || 0;
-        
+
         return `${rooms} ambientes | ${bedrooms} dormitorios | ${bathrooms} baños`;
     };
 
@@ -152,7 +153,7 @@ export const useUnifiedFilter = () => {
         properties,
         loading,
         error,
-        
+
         handleMaxValueChange,
         mapApiPropertiesToGrid,
         fetchProperties,
@@ -160,7 +161,7 @@ export const useUnifiedFilter = () => {
         removePropertyFromState, // Nueva función para optimización
         formatPrice,
         formatCharacteristics,
-        
+
         // Propiedades mapeadas para PropertyGrid
         mappedProperties: mapApiPropertiesToGrid(properties)
     };
