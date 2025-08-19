@@ -119,15 +119,20 @@ export default function Administration() {
                             </Link>
 
                             <div className={styles.buttonsProperties}>
-                                <Link href={`/administracion/ficha/${prop.id}?mode=edit`}>
-
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        router.push(`/administracion/ficha/${prop.id}?mode=edit`);
+                                    }}
+                                    type="button"
+                                >
                                     <Image
                                         src="/icons/iconoEdit.png"
                                         alt="Editar"
                                         width={25}
                                         height={25}
                                     />
-                                </Link>
+                                </button>
                                 <button
                                     onClick={(e) => {
                                         e.preventDefault();
