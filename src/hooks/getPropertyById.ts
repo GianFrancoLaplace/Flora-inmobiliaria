@@ -4,7 +4,7 @@ export async function getPropertyById(id: string): Promise<Property | null> {
     try {
         const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
 
-        const response = await fetch(`/api/properties/${id}`, {
+        const response = await fetch(`${baseUrl}/api/properties/${id}`, {
             cache: 'no-store',
             headers: {
                 'Content-Type': 'application/json',
