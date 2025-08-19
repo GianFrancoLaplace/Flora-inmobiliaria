@@ -372,7 +372,9 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                                 onCancel={handleCancelEdit}
                                 options={[
                                     { value: PropertyState.RENT, label: 'Alquiler' },
-                                    { value: PropertyState.SALE, label: 'Venta' }
+                                    { value: PropertyState.SALE, label: 'Venta' },
+                                    { value: PropertyState.SOLD, label: 'Vendida' },
+                                    { value: PropertyState.RENTED, label: 'Alquilada' }
                                 ]}
                             />
                         </h1>
