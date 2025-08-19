@@ -18,7 +18,7 @@ export default async function UnifiedPropertyPage({
 
 	if (id === 'nueva') {
 		if (mode !== 'create') {
-			alert("hola");
+			notFound();
 		}
 
 		return (
@@ -34,6 +34,7 @@ export default async function UnifiedPropertyPage({
 	const property = await getPropertyById(id);
 
 	if (!property) {
+		alert("hola");
 		notFound();
 	}
 
