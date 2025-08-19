@@ -18,7 +18,7 @@ import CharacteristicsForm from "./characteristicsForm/characteristicsForm";
 import { useCreateProperty } from "@/hooks/CreateProperty";
 import { enrichCharacteristic } from '@/helpers/CharacteristicHelper';
 import { useCreateCharacteristic } from '@/hooks/useCreateCharacteristic';
-import { Characteristic, CharacteristicCategory, CharacteristicCreate } from '@/types/Characteristic';
+import { Characteristic, CharacteristicCreate } from '@/types/Characteristic';
 
 
 import useAdminImages from "@/hooks/AdminImages";
@@ -27,10 +27,6 @@ import Link from "next/link";
 type TechnicalSheetProps = {
     mode: 'view' | 'create' | 'edit';
     property: Property | null;
-};
-
-type ImageFile = {
-    file: File;
 };
 
 export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) {
@@ -60,10 +56,9 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
     const [showForm, setShowForm] = useState(false);
     const [isEditingAll, setIsEditingAll] = useState(false);
     //para la edicion
-    const { updateProperty, isUpdating: isUpdatingProperty, status: propertyStatus } = useUpdateProperty();
+    const { updateProperty} = useUpdateProperty();
     const { updateCharacteristic } = useUpdateCharacteristic();
     const { createCharacteristic } = useCreateCharacteristic();
-    const [isSubmittingAll, setIsSubmittingAll] = useState(false);
     const [modifiedCharacteristics, setModifiedCharacteristics] = useState<Map<number, { value_integer?: number; value_text?: string }>>(new Map());
 
 
@@ -128,10 +123,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
     };
 
 
-
-
     // En TechnicalSheet.tsx
-
     const handleSaveChanges = async () => {
         if (!localProperty) return;
 
@@ -182,8 +174,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
         });
 
         try {
-            // Ejecutamos todas las promesas en paralelo
-            console.log("PROMESAA")
             await Promise.all(promises);
 
             setSubmitStatus({ message: '¡Todos los cambios se guardaron con éxito!', type: 'success' });
