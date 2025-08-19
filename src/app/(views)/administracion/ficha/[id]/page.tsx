@@ -18,7 +18,7 @@ export default async function UnifiedPropertyPage({
 
 	if (id === 'nueva') {
 		if (mode !== 'create') {
-			notFound();
+			alert("hola");
 		}
 
 		return (
