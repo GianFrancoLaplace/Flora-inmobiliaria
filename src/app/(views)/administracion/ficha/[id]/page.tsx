@@ -34,7 +34,6 @@ export default async function UnifiedPropertyPage({
 	const property = await getPropertyById(id);
 
 	if (!property) {
-		alert("hola");
 		notFound();
 	}
 
