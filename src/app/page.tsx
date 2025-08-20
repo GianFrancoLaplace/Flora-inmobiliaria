@@ -25,10 +25,10 @@ export default function Page() {
                 <div className={styles.presentationProperties}>
                     <h1>Tu próxima propiedad, nuestra prioridad</h1>
                     <h5>
-                        Combinamos experiencia, compromiso y un trato cercano para ayudarte a encontrar el lugar que estás
+                        {/* Combinamos experiencia, compromiso y un trato cercano para ayudarte a encontrar el lugar que estás
                         buscando. Ya sea que quieras comprar, vender o alquilar, te acompañamos en cada paso con
                         asesoramiento personalizado y total transparencia. Descubrí una nueva forma de hacer negocios
-                        inmobiliarios, centrada en vos.
+                        inmobiliarios, centrada en vos. */}
                     </h5>
 
                     <div className={styles.messageButtonProperties}>
