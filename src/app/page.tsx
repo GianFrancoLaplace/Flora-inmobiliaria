@@ -23,7 +23,7 @@ export default function Page() {
                 <HomeF />
 
                 <div className={styles.presentationProperties}>
-                    <h1>Tu próxima propiedad, nuestra prioridad</h1>
+                    <h1>Tu proxima propiedad, nuestra prioridad</h1>
                     <h5>
                         Combinamos experiencia, compromiso y un trato cercano para ayudarte a encontrar el lugar que estás
                         buscando. Ya sea que quieras comprar, vender o alquilar, te acompañamos en cada paso con
