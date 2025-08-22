@@ -1,6 +1,5 @@
 "use client"
 import { useState } from "react";
-import { Property } from "@prisma/client";
 
 export const DeleteProperty = () => {
     const [isDeleting, setIsDeleting] = useState(false);

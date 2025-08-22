@@ -7,7 +7,7 @@ import EditButton from '@/components/TechnicalFile/EditButton'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
-import { Property, PropertyState, PropertyType, PropertyUpdateData } from "@/types/Property";
+import { Property, PropertyState, PropertyType } from "@/types/Property";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect, useCallback } from "react";
 import CarrouselFotos from "./Carrousel/CarrouselFotos";
@@ -18,8 +18,7 @@ import CharacteristicsForm from "./characteristicsForm/characteristicsForm";
 import { useCreateProperty } from "@/hooks/CreateProperty";
 import { enrichCharacteristic } from '@/helpers/CharacteristicHelper';
 import { useCreateCharacteristic } from '@/hooks/useCreateCharacteristic';
-import { Characteristic, CharacteristicCategory, CharacteristicCreate } from '@/types/Characteristic';
-
+import { Characteristic, CharacteristicCreate } from '@/types/Characteristic';
 
 import useAdminImages from "@/hooks/AdminImages";
 import Link from "next/link";
@@ -29,15 +28,10 @@ type TechnicalSheetProps = {
     property: Property | null;
 };
 
-type ImageFile = {
-    file: File;
-};
-
 export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) {
     const router = useRouter();
 
     const { createProperty, isCreating, status, clearStatus } = useCreateProperty();
-    const { createImage } = useAdminImages(); // Usamos createImage directamente
 
     const initialProperty = property || {
         images: [],
@@ -60,13 +54,10 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
     const [showForm, setShowForm] = useState(false);
     const [isEditingAll, setIsEditingAll] = useState(false);
     //para la edicion
-    const { updateProperty, isUpdating: isUpdatingProperty, status: propertyStatus } = useUpdateProperty();
+    const { updateProperty } = useUpdateProperty();
     const { updateCharacteristic } = useUpdateCharacteristic();
     const { createCharacteristic } = useCreateCharacteristic();
-    const [isSubmittingAll, setIsSubmittingAll] = useState(false);
     const [modifiedCharacteristics, setModifiedCharacteristics] = useState<Map<number, { value_integer?: number; value_text?: string }>>(new Map());
-
-
 
     const [isEditingAllP, setIsEditingAllP] = useState(false);
 
@@ -74,7 +65,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
     const [tempImages, setTempImages] = useState<File[]>([]);
     const [tempCharacteristics, setTempCharacteristics] = useState<Characteristic[]>([]);
-
 
     useEffect(() => {
         if (mode === 'edit') {
@@ -96,9 +86,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
         }
     }, [mode]);
 
-
     const [isSubmitting, setIsSubmitting] = useState(false);
-
 
     const handleSaveCharacteristic = (characteristicId: number, newValue: number | string) => {
         setLocalProperty(prev => {
@@ -127,11 +115,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
         });
     };
 
-
-
-
     // En TechnicalSheet.tsx
-
     const handleSaveChanges = async () => {
         if (!localProperty) return;
 
@@ -140,22 +124,23 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
         // --- LÓGICA DE SEPARACIÓN ---
 
-        // 1. Identifica las características que son completamente NUEVAS (ID negativo)
-        const characteristicsToCreate = localProperty.characteristics.filter(c => c.id <= 0);
+        // IDs existentes en DB (los que ya están en localProperty.characteristics)
+        const existingIds = new Set<number>((localProperty.characteristics || []).map(c => c.id));
 
-        // 2. Identifica las características que EXISTEN y han sido MODIFICADAS
+        // Características NUEVAS agregadas desde el formulario en modo edit
+        // (están en tempCharacteristics y NO están en los ids existentes)
+        const characteristicsToCreate = (tempCharacteristics || []).filter(c => !existingIds.has(c.id));
+
+        // Características EXISTENTES modificadas desde los "Item" de la grilla
         const characteristicsToUpdate = new Map<number, { value_integer?: number; value_text?: string }>();
         modifiedCharacteristics.forEach((data, id) => {
-            // Solo añadimos a la lista de actualización si el ID es POSITIVO (es decir, ya existe en la BD)
             if (id > 0) {
                 characteristicsToUpdate.set(id, data);
             }
         });
 
-
         // --- CONSTRUCCIÓN DE LAS PROMESAS ---
-
-        const promises = [];
+        const promises: Promise<any>[] = [];
 
         // Promesa para actualizar la propiedad principal
         const propertyData = {
@@ -176,18 +161,19 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
         // Promesas para CREAR nuevas características
         characteristicsToCreate.forEach(char => {
-            // Preparamos el payload para la API, quitando el ID temporal y añadiendo el property_id
-            const { id, iconUrl, ...dataToCreate } = char;
+            // Quitamos id temporal e iconUrl; aseguramos property_id del inmueble actual
+            const { id, iconUrl, ...dataToCreate } = char as any;
             promises.push(createCharacteristic({ ...dataToCreate, property_id: localProperty.id }));
         });
 
         try {
-            // Ejecutamos todas las promesas en paralelo
-            console.log("PROMESAA")
             await Promise.all(promises);
 
             setSubmitStatus({ message: '¡Todos los cambios se guardaron con éxito!', type: 'success' });
             setModifiedCharacteristics(new Map()); // Limpiamos el registro de cambios
+
+            // Opcional: limpiar temporales para no reintentar crear en el próximo guardado
+            // setTempCharacteristics([]);
 
             router.refresh();
 
@@ -198,11 +184,12 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             setIsSubmitting(false);
         }
     };
+
     const handleCharacteristicsChange = useCallback((newCharacteristics: CharacteristicCreate[]) => {
-        setTempCharacteristics(newCharacteristics); // ← ¡clave!
+        // Mantenemos tempCharacteristics porque es clave para CREATE
+        // (TS permite asignar CharacteristicCreate[] a Characteristic[] por compatibilidad estructural)
+        setTempCharacteristics(newCharacteristics as unknown as Characteristic[]);
     }, []);
-
-
 
     const handleCreatePublication = async () => {
         clearStatus();
@@ -288,7 +275,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
     const currentStatus = isEmptyFile ? status : submitStatus;
     const currentIsSubmitting = isEmptyFile ? isCreating : isSubmitting;
 
-
     return (
         <main className={styles.page}>
             <div>
@@ -362,33 +348,66 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                             show={isEditableFile || isEmptyFile}
                             img={'/icons/iconoEdit.png'}
                         />
-                        <h1>
-                            <span> | </span>
-                            <EditableSelectField
-                                value={localProperty.state}
-                                isEditing={editingField === 'state'}
-                                className={styles.inputProperties}
-                                onSave={(value) => handleSaveField('state', value)}
-                                onCancel={handleCancelEdit}
-                                options={[
-                                    { value: PropertyState.RENT, label: 'Alquiler' },
-                                    { value: PropertyState.SALE, label: 'Venta' }
-                                ]}
-                            />
+                        <h1 className={styles.operationTypeContainer}>
+                            <div className={styles.operationSelect}>
+                                <span> | </span>
+                                <EditableSelectField
+                                    value={localProperty.state}
+                                    isEditing={editingField === 'state'}
+                                    className={styles.inputProperties}
+                                    onSave={(value) => handleSaveField('state', value)}
+                                    onCancel={handleCancelEdit}
+                                    options={[
+                                        { value: PropertyState.RENT, label: 'Alquiler' },
+                                        { value: PropertyState.SALE, label: 'Venta' },
+                                        { value: PropertyState.SOLD, label: 'Vendida' },
+                                        { value: PropertyState.RENTED, label: 'Alquilada' }
+                                    ]}
+                                />
+                                <EditButton
+                                    onStartEdit={() => handleStartEdit('state')}
+                                    onEndEdit={() => handleSaveField('state', localProperty.state)}
+                                    isEditing={editingField === 'state'}
+                                    className={styles.editButtonProperties}
+                                    show={isEditableFile || isEmptyFile}
+                                    img={'/icons/iconSelect.png'}
+                                />
+                            </div>
+
+                            <div className={styles.typeSelect}>
+                                <span> | </span>
+                                <EditableSelectField
+                                    value={localProperty.type ?? ""}
+                                    isEditing={editingField === 'type'}
+                                    className={styles.inputProperties}
+                                    onSave={(value) => handleSaveField('type', value)}
+                                    onCancel={handleCancelEdit}
+                                    options={[
+                                        { value: PropertyType.HOME, label: 'Casa' },
+                                        { value: PropertyType.APARTMENT, label: 'Departamento' },
+                                        { value: PropertyType.FIELD, label: 'Campo' },
+                                        { value: PropertyType.COMMERCIAL, label: 'Local Comercial' },
+                                        { value: PropertyType.LAND, label: 'Lote' }
+                                    ]}
+                                />
+                                <EditButton
+                                    onStartEdit={() => handleStartEdit('type')}
+                                    onEndEdit={() => handleSaveField('type', localProperty.type ?? PropertyType.HOME)}
+                                    isEditing={editingField === 'type'}
+                                    className={styles.editButtonProperties}
+                                    show={isEditableFile || isEmptyFile}
+                                    img={'/icons/iconSelect.png'}
+                                />
+                            </div>
                         </h1>
-                        <EditButton
-                            onStartEdit={() => handleStartEdit('state')}
-                            onEndEdit={() => handleSaveField('state', localProperty.state)}
-                            isEditing={editingField === 'state'}
-                            className={styles.editButtonProperties}
-                            show={isEditableFile || isEmptyFile}
-                            img={'/icons/iconSelect.png'}
-                        />
+
+
+
                     </div>
                     <div className={styles.buttonsProperties}>
                         <Link href="https://wa.me/2494208037" className={styles.linkProperties}>
                             <button type="button"
-                                    className={`${styles.askBtn} ${isEmptyFile || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
+                                className={`${styles.askBtn} ${isEmptyFile || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
                                 Consultar
                             </button>
                         </Link>
@@ -411,9 +430,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                     </div>
                 </div>
             </div>
-
-
-
 
             <div className={styles.mainInfoPrice}>
                 <div className={`${styles.priceEditionProperties} ${styles.showProperties}`}>
@@ -502,7 +518,17 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                         <div>
                             <CharacteristicsForm
                                 onCharacteristicsChange={handleCharacteristicsChange}
-                                initialCharacteristics={[]}
+                                // ✅ Pasamos las del inmueble mapeadas a CharacteristicCreate (agregando property_id)
+                                initialCharacteristics={(localProperty.characteristics || []).map((c: Characteristic): CharacteristicCreate => ({
+                                    id: c.id,
+                                    characteristic: c.characteristic,
+                                    property_id: localProperty.id,
+                                    data_type: c.data_type,
+                                    value_integer: c.value_integer,
+                                    value_text: c.value_text,
+                                    category: c.category,
+                                    iconUrl: c.iconUrl,
+                                }))}
                                 propertyId={localProperty.id}
                             />
                         </div>

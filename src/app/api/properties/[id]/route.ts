@@ -99,57 +99,40 @@ export async function GET(
 
 export async function PUT(
     request: NextRequest,
-    { params }: { params: Promise<{ id: string }> }
+    { params }: { params: { id: string } }
 ) {
-    console.log("PUT request received for property");
     try {
-        // Await params antes de usarlos
-        const { id } = await params;
+        const { id } = params;
 
         if (!id) {
             return NextResponse.json({ error: "ID no proporcionado" }, { status: 400 });
         }
 
         const propertyId = parseInt(id);
-
         if (isNaN(propertyId)) {
-            return NextResponse.json(
-                { message: 'ID de propiedad inválido' },
-                { status: 400 }
-            );
+            return NextResponse.json({ message: "ID inválido" }, { status: 400 });
         }
 
         const body: PropertyUpdateData = await request.json();
         const service = new PropertyService([], []);
 
         const validationErrors = service.verifyFields(body);
-        validationErrors.forEach(element => {
-            console.log("error: " + element.message);
-        });
-
         if (validationErrors.length > 0) {
             return NextResponse.json(
-                {
-                    message: 'Datos de propiedad inválidos',
-                    errors: validationErrors
-                },
+                { message: "Datos inválidos", errors: validationErrors },
                 { status: 400 }
             );
         }
 
         const existingProperty = await prisma.property.findUnique({
-            where: { idProperty: propertyId }
+            where: { idProperty: propertyId },
         });
 
         if (!existingProperty) {
-            return NextResponse.json(
-                { message: 'Propiedad no encontrada' },
-                { status: 404 }
-            );
+            return NextResponse.json({ message: "Propiedad no encontrada" }, { status: 404 });
         }
 
         const updateData: Record<string, unknown> = {};
-
         if (body.address !== undefined) updateData.address = body.address;
         if (body.state !== undefined) updateData.category = body.state;
         if (body.price !== undefined) updateData.price = body.price;
@@ -158,22 +141,22 @@ export async function PUT(
 
         const updatedProperty = await prisma.property.update({
             where: { idProperty: propertyId },
-            data: updateData
+            data: updateData,
         });
 
         return NextResponse.json({
-            message: 'Propiedad actualizada exitosamente',
-            property: updatedProperty
+            message: "Propiedad actualizada exitosamente",
+            property: updatedProperty,
         });
-
     } catch (error) {
-        console.error('Error al actualizar la propiedad:', error);
+        console.error("Error al actualizar la propiedad:", error);
         return NextResponse.json(
-            { message: 'Error interno del servidor al actualizar la propiedad' },
+            { message: "Error interno del servidor" },
             { status: 500 }
         );
     }
 }
+
 
 export async function DELETE(
     request: NextRequest,

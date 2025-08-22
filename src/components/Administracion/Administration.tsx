@@ -109,11 +109,11 @@ export default function Administration() {
                             <Link href={`/propiedades/ficha/${prop.id}`} className={styles.linkProperties}>
                                 <div className={`${styles.infoProperties} ${cactus.className}`}>
                                     <div className={styles.priceProperties}>
-                                        <h5>{formatPrice(prop.price)}</h5>
+                                        <h2>{formatPrice(prop.price)}</h2>
                                     </div>
                                     <div className={styles.restInfoProperties}>
-                                        <h5>{prop.address}, {prop.city}</h5>
-                                        <h5>{formatCharacteristics(prop.characteristics)}</h5>
+                                        <h4>{prop.address}, {prop.city}</h4>
+                                        <h4>{formatCharacteristics(prop.characteristics)}</h4>
                                     </div>
                                 </div>
                             </Link>

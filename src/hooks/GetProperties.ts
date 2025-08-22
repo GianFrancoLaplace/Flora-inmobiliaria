@@ -141,9 +141,9 @@ export const useUnifiedFilter = () => {
 
     // mapeo las caracteristicas para que se vean en la card
     const formatCharacteristics = (characteristics: Property['characteristics']): string => {
-        const rooms = characteristics.find(c => c.category === 'ambientes')?.amount || 0;
-        const bathrooms = characteristics.find(c => c.category === 'banos')?.amount || 0;
-        const bedrooms = characteristics.find(c => c.category === 'dormitorios' || c.category === 'dormitorios_suite')?.amount || 0;
+        const rooms = characteristics.find(c => c.category === 'ambiente')?.amount || 0;
+        const bathrooms = characteristics.find(c => c.category === 'baño')?.amount || 0;
+        const bedrooms = characteristics.find(c => c.category === 'dormitorio' || c.category === 'dormitorios_suite')?.amount || 0;
 
         return `${rooms} ambientes | ${bedrooms} dormitorios | ${bathrooms} baños`;
     };
