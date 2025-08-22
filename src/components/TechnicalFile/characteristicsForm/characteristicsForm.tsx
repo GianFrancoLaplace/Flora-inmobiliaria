@@ -40,7 +40,7 @@ const FEATURES: Feature[] = [
     { name: "Cocheras", inputType: "number", subtypes: [
         { name: "Cantidad", inputType: "number" },
     ]},
-    { name: "Balcón/Terraza", inputType: "text" },
+    { name: "Balcón/Terraza", inputType: "number" },
     { name: "Expensas", inputType: "text", subtypes: [
         { name: "Valor", inputType: "number" },
     ]},
