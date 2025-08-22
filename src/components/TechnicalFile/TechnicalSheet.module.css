@@ -258,6 +258,23 @@
     box-shadow: 0 4px 6px var(--transparent-black-03);
 }
 
+/* Contenedor para selects de operación y tipo */
+.operationTypeContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--20px); /* espacio entre operación y tipo */
+}
+
+.operationSelect,
+.typeSelect {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--10px); /* espacio entre el select y su botón */
+}
+
+
 /* Botones de acción principales */
 .askBtn {
     width: 170px; /*340px*/

@@ -187,17 +187,11 @@ public mapPropertyStateToOperationEnum(states: PropertyState[]): OperationEnum[]
                     CharacteristicCategory.DORMITORIOS_SUITE,
                     CharacteristicCategory.BANOS,
                     CharacteristicCategory.COCHERAS,
-                    CharacteristicCategory.COBERTURA_COCHERA,
                     CharacteristicCategory.SUPERFICIE_CUBIERTA,
                     CharacteristicCategory.SUPERFICIE_SEMICUBIERTA,
                     CharacteristicCategory.BALCON_TERRAZA,
                     CharacteristicCategory.TIPO_PISO,
-                    CharacteristicCategory.ESTADO_INMUEBLE,
-                    CharacteristicCategory.LUMINOSIDAD,
-                    CharacteristicCategory.DISPOSICION,
                     CharacteristicCategory.EXPENSAS,
-                    CharacteristicCategory.FECHA_EXPENSA,
-                    CharacteristicCategory.AGUA,
                     CharacteristicCategory.CANTIDAD_PLANTAS,
                     CharacteristicCategory.ANTIGUEDAD
                 ];
@@ -223,7 +217,6 @@ public mapPropertyStateToOperationEnum(states: PropertyState[]): OperationEnum[]
                 // Los campos son propiedades rurales sin administración de consorcio
                 return [
                     CharacteristicCategory.EXPENSAS,
-                    CharacteristicCategory.FECHA_EXPENSA
                 ];
 
             default:

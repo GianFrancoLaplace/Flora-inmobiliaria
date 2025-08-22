@@ -348,30 +348,61 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                             show={isEditableFile || isEmptyFile}
                             img={'/icons/iconoEdit.png'}
                         />
-                        <h1>
-                            <span> | </span>
-                            <EditableSelectField
-                                value={localProperty.state}
-                                isEditing={editingField === 'state'}
-                                className={styles.inputProperties}
-                                onSave={(value) => handleSaveField('state', value)}
-                                onCancel={handleCancelEdit}
-                                options={[
-                                    { value: PropertyState.RENT, label: 'Alquiler' },
-                                    { value: PropertyState.SALE, label: 'Venta' },
-                                    { value: PropertyState.SOLD, label: 'Vendida' },
-                                    { value: PropertyState.RENTED, label: 'Alquilada' }
-                                ]}
-                            />
+                        <h1 className={styles.operationTypeContainer}>
+                            <div className={styles.operationSelect}>
+                                <span> | </span>
+                                <EditableSelectField
+                                    value={localProperty.state}
+                                    isEditing={editingField === 'state'}
+                                    className={styles.inputProperties}
+                                    onSave={(value) => handleSaveField('state', value)}
+                                    onCancel={handleCancelEdit}
+                                    options={[
+                                        { value: PropertyState.RENT, label: 'Alquiler' },
+                                        { value: PropertyState.SALE, label: 'Venta' },
+                                        { value: PropertyState.SOLD, label: 'Vendida' },
+                                        { value: PropertyState.RENTED, label: 'Alquilada' }
+                                    ]}
+                                />
+                                <EditButton
+                                    onStartEdit={() => handleStartEdit('state')}
+                                    onEndEdit={() => handleSaveField('state', localProperty.state)}
+                                    isEditing={editingField === 'state'}
+                                    className={styles.editButtonProperties}
+                                    show={isEditableFile || isEmptyFile}
+                                    img={'/icons/iconSelect.png'}
+                                />
+                            </div>
+
+                            <div className={styles.typeSelect}>
+                                <span> | </span>
+                                <EditableSelectField
+                                    value={localProperty.type ?? ""}
+                                    isEditing={editingField === 'type'}
+                                    className={styles.inputProperties}
+                                    onSave={(value) => handleSaveField('type', value)}
+                                    onCancel={handleCancelEdit}
+                                    options={[
+                                        { value: PropertyType.HOME, label: 'Casa' },
+                                        { value: PropertyType.APARTMENT, label: 'Departamento' },
+                                        { value: PropertyType.FIELD, label: 'Campo' },
+                                        { value: PropertyType.COMMERCIAL, label: 'Local Comercial' },
+                                        { value: PropertyType.LAND, label: 'Lote' }
+                                    ]}
+                                />
+                                <EditButton
+                                    onStartEdit={() => handleStartEdit('type')}
+                                    onEndEdit={() => handleSaveField('type', localProperty.type ?? PropertyType.HOME)}
+                                    isEditing={editingField === 'type'}
+                                    className={styles.editButtonProperties}
+                                    show={isEditableFile || isEmptyFile}
+                                    img={'/icons/iconSelect.png'}
+                                />
+                            </div>
                         </h1>
-                        <EditButton
-                            onStartEdit={() => handleStartEdit('state')}
-                            onEndEdit={() => handleSaveField('state', localProperty.state)}
-                            isEditing={editingField === 'state'}
-                            className={styles.editButtonProperties}
-                            show={isEditableFile || isEmptyFile}
-                            img={'/icons/iconSelect.png'}
-                        />
+
+
+
                     </div>
                     <div className={styles.buttonsProperties}>
                         <Link href="https://wa.me/2494208037" className={styles.linkProperties}>
