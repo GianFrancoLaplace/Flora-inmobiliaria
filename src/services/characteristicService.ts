@@ -1,5 +1,5 @@
-import {CharacteristicCategory, CharacteristicValidationInput} from "@/types/Characteristic";
-import {ValidationResult} from "@/types";
+import { CharacteristicCategory, CharacteristicValidationInput } from "@/types/Characteristic";
+import { ValidationResult } from "@/types";
 
 export class CharacteristicService {
 
@@ -16,12 +16,11 @@ export class CharacteristicService {
 
         // Validación específica por categoría
         switch (input.category) {
-            case CharacteristicCategory.SUPERFICIE_TOTAL
-                || CharacteristicCategory.SUPERFICIE_DESCUBIERTA
-                || CharacteristicCategory.SUPERFICIE_SEMICUBIERTA
-                || CharacteristicCategory.SUPERFICIE_CUBIERTA:
-
-                    return this.validateSurface(input); // Todas comparten las mismas restricciones
+            case CharacteristicCategory.SUPERFICIE_TOTAL:
+            case CharacteristicCategory.SUPERFICIE_DESCUBIERTA:
+            case CharacteristicCategory.SUPERFICIE_SEMICUBIERTA:
+            case CharacteristicCategory.SUPERFICIE_CUBIERTA:
+                return this.validateSurface(input);
 
             case CharacteristicCategory.AMBIENTES:
                 return this.validateRooms(input);
@@ -35,39 +34,20 @@ export class CharacteristicService {
             case CharacteristicCategory.BANOS:
                 return this.validateBathrooms(input);
 
-            case CharacteristicCategory.COCHERAS
-                ||CharacteristicCategory.COBERTURA_COCHERA:
+            case CharacteristicCategory.COCHERAS:
                 return this.validateGarages(input);
 
             case CharacteristicCategory.BALCON_TERRAZA:
                 return this.validateBalconyTerrace(input);
 
             case CharacteristicCategory.EXPENSAS:
-                return this.validateMaintenanceDate(input);
-
-            case CharacteristicCategory.FECHA_EXPENSA:
-                return this.validateMaintenanceDate(input);
-
-            case CharacteristicCategory.AGUA:
-                return this.validateWaterSupply(input);
+                return this.validateMaintenanceFees(input);
 
             case CharacteristicCategory.CANTIDAD_PLANTAS:
                 return this.validateFloorCount(input);
 
             case CharacteristicCategory.TIPO_PISO:
                 return this.validateFloorType(input);
-
-            case CharacteristicCategory.ESTADO_INMUEBLE:
-                return this.validatePropertyCondition(input);
-
-            case CharacteristicCategory.ORIENTACION:
-                return this.validateOrientation(input);
-
-            case CharacteristicCategory.LUMINOSIDAD:
-                return this.validateLighting(input);
-
-            case CharacteristicCategory.DISPOSICION:
-                return this.validateDisposition(input);
 
             case CharacteristicCategory.ANTIGUEDAD:
                 return this.validateAge(input);
@@ -91,7 +71,7 @@ export class CharacteristicService {
         if (!input.characteristic || input.characteristic.trim() === '') {
             result.errors.push('El nombre de la característica es requerido');
         }
-        console.log("data type: "+input.data_type);
+        console.log("data type: " + input.data_type);
         // if (!input.data_type || !['integer', 'text'].includes(input.data_type)) {
         //     result.errors.push('El tipo de dato debe ser "integer" o "text"');
         // }
@@ -216,12 +196,12 @@ export class CharacteristicService {
 
         const bedroomsCount = input.value_integer!;
 
-        if (bedroomsCount < 0){
+        if (bedroomsCount < 0) {
             result.errors.push("El número de suites no puede ser menor a 0")
             result.isValid = false;
         }
 
-        if (bedroomsCount > 6){
+        if (bedroomsCount > 6) {
             result.errors.push("El número de suites no puede ser mayor a 6")
             result.isValid = false;
         }
@@ -252,12 +232,6 @@ export class CharacteristicService {
             result.isValid = false;
         }
 
-        // Validar rango válido: 1-6
-        if (bathroomsCount < 1 || bathroomsCount > 6) {
-            result.errors.push('El número de baños debe estar entre 0.5 y 6');
-            result.isValid = false;
-        }
-
         if (!Number.isInteger(bathroomsCount)) {
             result.errors.push('El número de baños debe ser un número entero');
             result.isValid = false;
@@ -285,11 +259,6 @@ export class CharacteristicService {
             result.isValid = false;
         }
 
-        if (garages > 6) {
-            result.errors.push('El número máximo de cocheras es 6');
-            result.isValid = false;
-        }
-
         // Validate integer
         if (!Number.isInteger(garages)) {
             result.errors.push('El número de cocheras debe ser un número entero');
@@ -300,7 +269,6 @@ export class CharacteristicService {
     }
 
     private static validateBalconyTerrace(input: CharacteristicValidationInput): ValidationResult {
-        // TODO: Validar ≥ 0 <= 2? (Revisar), tipo integer
         const result: ValidationResult = { isValid: true, errors: [] };
 
         if (input.data_type !== 'integer') {
@@ -326,8 +294,6 @@ export class CharacteristicService {
 
     // Expensas
     private static validateMaintenanceFees(input: CharacteristicValidationInput): ValidationResult {
-        // TODO: Validar rango 0-500,000 pesos, tipo integer, coherencia con precio propiedad
-        // Revisar valores propuestos
         const result: ValidationResult = { isValid: true, errors: [] };
 
         if (input.data_type !== 'integer') {
@@ -344,12 +310,6 @@ export class CharacteristicService {
             result.isValid = false;
         }
 
-        // Validate valid range: 0-500,000 pesos
-        if (expenses > 500000) {
-            result.errors.push('Las expensas máximas son $500,000');
-            result.isValid = false;
-        }
-
         // Validate integer
         if (!Number.isInteger(expenses)) {
             result.errors.push('Las expensas deben ser un número entero');
@@ -359,97 +319,7 @@ export class CharacteristicService {
         return result;
     }
 
-    private static validateMaintenanceDate(input: CharacteristicValidationInput): ValidationResult {
-        // TODO: Validar formato fecha, no futuro, máximo 6 meses atrás, tipo text
-        // Revisar valores propuestos
-        const result: ValidationResult = { isValid: true, errors: [] };
 
-        if (input.data_type !== 'text') {
-            result.errors.push('La fecha de expensa debe ser un valor de texto');
-            result.isValid = false;
-            return result;
-        }
-
-        const dateText = input.value_text!.trim();
-
-        // Validate date format (multiple possible formats)
-        const validFormats = [
-            /^\d{4}-\d{2}-\d{2}$/, // YYYY-MM-DD
-            /^\d{2}\/\d{2}\/\d{4}$/, // DD/MM/YYYY
-            /^\d{2}-\d{2}-\d{4}$/ // DD-MM-YYYY
-        ];
-
-        const isValidFormat = validFormats.some(format => format.test(dateText));
-        if (!isValidFormat) {
-            result.errors.push('La fecha debe estar en formato YYYY-MM-DD, DD/MM/YYYY o DD-MM-YYYY');
-            result.isValid = false;
-            return result;
-        }
-
-        // Convert to Date and validate
-        let date: Date;
-        try {
-            // Normalize format for parsing
-            let normalizedDate = dateText;
-            if (dateText.includes('/')) {
-                const parts = dateText.split('/');
-                normalizedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
-            } else if (dateText.match(/^\d{2}-\d{2}-\d{4}$/)) {
-                const parts = dateText.split('-');
-                normalizedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
-            }
-
-            date = new Date(normalizedDate);
-
-            if (isNaN(date.getTime())) {
-                result.errors.push('La fecha proporcionada no es válida');
-                result.isValid = false;
-                return result;
-            }
-        } catch (error) {
-            result.errors.push('La fecha proporcionada no es válida ' + error);
-            result.isValid = false;
-            return result;
-        }
-
-        // Validate not future date
-        const now = new Date();
-        if (date > now) {
-            result.errors.push('La fecha de expensa no puede ser futura');
-            result.isValid = false;
-        }
-
-        // Validate not more than 6 months ago
-        const sixMonthsAgo = new Date();
-        sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
-        if (date < sixMonthsAgo) {
-            result.errors.push('La fecha de expensa no puede ser mayor a 6 meses');
-            result.isValid = false;
-        }
-
-        return result;
-    }
-
-    private static validateWaterSupply(input: CharacteristicValidationInput): ValidationResult {
-        // TODO: Validar valores válidos: "red", "pozo", "tanque", "mixta", tipo text
-        const result: ValidationResult = { isValid: true, errors: [] };
-
-        if (input.data_type !== 'text') {
-            result.errors.push('El tipo de agua debe ser un valor de texto');
-            result.isValid = false;
-            return result;
-        }
-
-        const water = input.value_text!.toLowerCase().trim();
-        const validValues = ['red', 'pozo', 'tanque', 'mixta'];
-
-        if (!validValues.includes(water)) {
-            result.errors.push(`El tipo de agua debe ser: ${validValues.join(', ')}`);
-            result.isValid = false;
-        }
-
-        return result;
-    }
 
     private static validateFloorCount(input: CharacteristicValidationInput): ValidationResult {
         // TODO: Validar rango 1-5, tipo integer, coherencia con tipo propiedad
@@ -466,12 +336,6 @@ export class CharacteristicService {
         // Validate positive value
         if (floors <= 0) {
             result.errors.push('La cantidad de plantas debe ser mayor a 0');
-            result.isValid = false;
-        }
-
-        // Validate valid range: 1-5
-        if (floors < 1 || floors > 5) {
-            result.errors.push('La cantidad de plantas debe estar entre 1 y 5');
             result.isValid = false;
         }
 
@@ -495,109 +359,9 @@ export class CharacteristicService {
             return result;
         }
 
-        const floorType = input.value_text!.toLowerCase().trim();
-        const validValues = [
-            'parquet', 'porcelanato', 'cerámico', 'mármol', 'madera',
-            'laminado', 'vinílico', 'cemento alisado', 'alfombra', 'baldosa'
-        ];
-
-        if (!validValues.includes(floorType)) {
-            result.errors.push(`El tipo de piso debe ser: ${validValues.join(', ')}`);
-            result.isValid = false;
-        }
-
         return result;
     }
 
-    private static validatePropertyCondition(input: CharacteristicValidationInput): ValidationResult {
-        // TODO: Validar valores válidos: "excelente", "muy bueno", "bueno", "a refaccionar", tipo text, coherencia con antigüedad
-        const result: ValidationResult = { isValid: true, errors: [] };
-
-        if (input.data_type !== 'text') {
-            result.errors.push('El estado del inmueble debe ser un valor de texto');
-            result.isValid = false;
-            return result;
-        }
-
-        const condition = input.value_text!.toLowerCase().trim();
-        const validValues = ['excelente', 'muy bueno', 'bueno', 'a refaccionar', 'a reciclar'];
-
-        if (!validValues.includes(condition)) {
-            result.errors.push(`El estado del inmueble debe ser: ${validValues.join(', ')}`);
-            result.isValid = false;
-        }
-
-        return result;
-    }
-
-    private static validateOrientation(input: CharacteristicValidationInput): ValidationResult {
-        // TODO: Validar valores válidos: "norte", "sur", "este", "oeste", "noreste", "noroeste", "sureste", "suroeste", tipo text
-        // Revisar valores propuestos
-        const result: ValidationResult = { isValid: true, errors: [] };
-
-        if (input.data_type !== 'text') {
-            result.errors.push('La orientación debe ser un valor de texto');
-            result.isValid = false;
-            return result;
-        }
-
-        const orientation = input.value_text!.toLowerCase().trim();
-        const validValues = [
-            'norte', 'sur', 'este', 'oeste',
-            'noreste', 'noroeste', 'sureste', 'suroeste'
-        ];
-
-        if (!validValues.includes(orientation)) {
-            result.errors.push(`La orientación debe ser: ${validValues.join(', ')}`);
-            result.isValid = false;
-        }
-
-        return result;
-    }
-
-    private static validateLighting(input: CharacteristicValidationInput): ValidationResult {
-        // TODO: Validar valores válidos: "excelente", "muy buena", "buena", "regular", tipo text
-        // Revisar valores propuestos
-        const result: ValidationResult = { isValid: true, errors: [] };
-
-        if (input.data_type !== 'text') {
-            result.errors.push('La luminosidad debe ser un valor de texto');
-            result.isValid = false;
-            return result;
-        }
-
-        const lighting = input.value_text!.toLowerCase().trim();
-        const validValues = ['excelente', 'muy buena', 'buena', 'regular', 'escasa'];
-
-        if (!validValues.includes(lighting)) {
-            result.errors.push(`La luminosidad debe ser: ${validValues.join(', ')}`);
-            result.isValid = false;
-        }
-
-        return result;
-    }
-
-    private static validateDisposition(input: CharacteristicValidationInput): ValidationResult {
-        // TODO: Validar valores válidos: "interna", "externa", "mixta", "frente", "contrafrente", tipo text
-        // Revisar valores propuestos
-        const result: ValidationResult = { isValid: true, errors: [] };
-
-        if (input.data_type !== 'text') {
-            result.errors.push('La disposición debe ser un valor de texto');
-            result.isValid = false;
-            return result;
-        }
-
-        const layout = input.value_text!.toLowerCase().trim();
-        const validValues = ['interna', 'externa', 'mixta', 'frente', 'contrafrente'];
-
-        if (!validValues.includes(layout)) {
-            result.errors.push(`La disposición debe ser: ${validValues.join(', ')}`);
-            result.isValid = false;
-        }
-
-        return result;
-    }
 
     private static validateAge(input: CharacteristicValidationInput): ValidationResult {
         // TODO: Validar rango 0-150 años, tipo integer o text ("a estrenar"), coherencia con estado
@@ -608,10 +372,6 @@ export class CharacteristicService {
 
         if (input.data_type === 'text') {
             const age = input.value_text!.toLowerCase().trim();
-            if (age !== 'a estrenar') {
-                result.errors.push('Para tipo texto, la antigüedad solo puede ser "a estrenar"');
-                result.isValid = false;
-            }
         } else if (input.data_type === 'integer') {
             const years = input.value_integer!;
 
@@ -695,7 +455,7 @@ export class CharacteristicService {
         // - Estado vs antigüedad
         const result = { isValid: true, errors: [] };
 
-        if (!characteristics && characteristics < 2)  // No existe la posibilidad de validaciones cruzadas
+        if (!characteristics || characteristics.length < 2)
             return result;
 
         const charMap = new Map<CharacteristicCategory, CharacteristicValidationInput>();
@@ -718,12 +478,6 @@ export class CharacteristicService {
         const coveredSurface = charMap.get(CharacteristicCategory.SUPERFICIE_CUBIERTA)?.value_integer || 0;
         const uncoveredSurface = charMap.get(CharacteristicCategory.SUPERFICIE_DESCUBIERTA)?.value_integer || 0;
         const semiCoveredSurface = charMap.get(CharacteristicCategory.SUPERFICIE_SEMICUBIERTA)?.value_integer || 0;
-
-        /*
-            Puede que no se haya especificado exactamente todas las superficies,
-            por tanto no se controla que la suma de todas sea igual al total,
-            pero la suma no debe ser mayor
-         */
 
         if (totalSurface !== undefined) {
             const surfaceSum = coveredSurface + uncoveredSurface + semiCoveredSurface;
