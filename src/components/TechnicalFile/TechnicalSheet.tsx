@@ -33,7 +33,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
     const router = useRouter();
 
     const { createProperty, isCreating, status, clearStatus } = useCreateProperty();
-    const { createImage } = useAdminImages(); // Usamos createImage directamente
 
     const initialProperty = property || {
         images: [],
@@ -56,7 +55,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
     const [showForm, setShowForm] = useState(false);
     const [isEditingAll, setIsEditingAll] = useState(false);
     //para la edicion
-    const { updateProperty} = useUpdateProperty();
+    const { updateProperty } = useUpdateProperty();
     const { updateCharacteristic } = useUpdateCharacteristic();
     const { createCharacteristic } = useCreateCharacteristic();
     const [modifiedCharacteristics, setModifiedCharacteristics] = useState<Map<number, { value_integer?: number; value_text?: string }>>(new Map());
@@ -133,16 +132,23 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
         // --- LÓGICA DE SEPARACIÓN ---
 
         // 1. Identifica las características que son completamente NUEVAS (ID negativo)
-        const characteristicsToCreate = localProperty.characteristics.filter(c => c.id <= 0);
+        // 1. Combinar características de la BD con las nuevas temporales
+        const allCharacteristics = [
+            ...(localProperty.characteristics || []),
+            ...(tempCharacteristics || [])
+        ];
 
-        // 2. Identifica las características que EXISTEN y han sido MODIFICADAS
+        // 2. Identificar las que son nuevas (id <= 0)
+        const characteristicsToCreate = allCharacteristics.filter(c => c.id <= 0);
+
+        // 3. Identificar las que hay que actualizar
         const characteristicsToUpdate = new Map<number, { value_integer?: number; value_text?: string }>();
         modifiedCharacteristics.forEach((data, id) => {
-            // Solo añadimos a la lista de actualización si el ID es POSITIVO (es decir, ya existe en la BD)
             if (id > 0) {
                 characteristicsToUpdate.set(id, data);
             }
         });
+
 
 
         // --- CONSTRUCCIÓN DE LAS PROMESAS ---
@@ -380,7 +386,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                     <div className={styles.buttonsProperties}>
                         <Link href="https://wa.me/2494208037" className={styles.linkProperties}>
                             <button type="button"
-                                    className={`${styles.askBtn} ${isEmptyFile || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
+                                className={`${styles.askBtn} ${isEmptyFile || isEditableFile ? styles.notShowProperties : styles.showProperties} ${cactus.className}`}>
                                 Consultar
                             </button>
                         </Link>
@@ -494,9 +500,10 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                         <div>
                             <CharacteristicsForm
                                 onCharacteristicsChange={handleCharacteristicsChange}
-                                initialCharacteristics={[]}
+                                initialCharacteristics={[]}  // ✅ antes era []
                                 propertyId={localProperty.id}
                             />
+
                         </div>
                     )}
                     <div className={styles.dataGridProperties}>
