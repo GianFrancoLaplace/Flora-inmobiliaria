@@ -66,3 +66,20 @@
         margin-top: var(--25px);
     }
 }
+
+.addedLabel {
+    position: absolute;
+    top: 0px;
+    left: 4.6875rem; /*75px*/
+    background-color: var(
+            --secondary-color-5,
+            var(--secondary-color-3)
+    );
+    color: var(--almost-black);
+    font-weight: bold;
+    padding: var(--5px) var(--40px);
+    border-radius: var(--5px);
+    z-index: 10;
+
+    transform: rotate(0deg) translateX(-50%);
+}

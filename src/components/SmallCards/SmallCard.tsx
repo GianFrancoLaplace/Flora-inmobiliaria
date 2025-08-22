@@ -23,8 +23,19 @@ type PropertyCardProps = {
 const SmallCard = ({ property }: PropertyCardProps) => {
     const formattedPrice = new Intl.NumberFormat('es-AR').format(property.price);
 
+    const showLabel =
+        property.rentOrSale === "VENDIDA" ||
+        property.rentOrSale === "ALQUILADA" ||
+        property.rentOrSale === "Alquilada" ||
+        property.rentOrSale === "alquilada" ||
+        property.rentOrSale === "Vendida" ||
+        property.rentOrSale === "vendida"
+    ;
+
     return (
         <article className={styles.card}>
+            {showLabel && <div className={styles.addedLabel}>{property.rentOrSale}</div>}
+
             <Link href={`/propiedades/ficha/${property.id}`}>
             <Image
                 src={property.imageUrl}
