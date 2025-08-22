@@ -17,7 +17,14 @@ type Props = {
 };
 
 export default function BigCard({id, imageSrc, price, transaction, adress, city, rooms, dorms, bathrooms}: Props) {
-    const showLabel = transaction === "VENDIDA" || transaction === "ALQUILADA";
+    const showLabel =
+        transaction === "VENDIDA" ||
+        transaction === "ALQUILADA" ||
+        transaction === "Alquilada" ||
+        transaction === "alquilada" ||
+        transaction === "Vendida" ||
+        transaction === "vendida"
+    ;
 
     return (
         <main className={`${styles.page} ${cactus.className}`} style={{position: 'relative'}}>
