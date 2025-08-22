@@ -256,8 +256,10 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
     const handleStartEditMain = () => setEditingField('address-main');
 
     const handleSaveField = async (fieldName: keyof Property, value: string | number) => {
+        console.log("handle save field");
         console.log(`Guardando ${fieldName}:`, value);
         setLocalProperty(prev => ({ ...prev, [fieldName]: value }));
+        console.log(localProperty);
         setEditingField(null);
     };
 

@@ -6,6 +6,10 @@ export function mapOperationToState(operation: string): PropertyState {
       return PropertyState.SALE;
     case 'alquiler':
       return PropertyState.RENT;
+    case 'vendida':
+      return PropertyState.SOLD;
+    case 'alquilada':
+      return PropertyState.RENTED;
     default:
       return PropertyState.SALE;
   }

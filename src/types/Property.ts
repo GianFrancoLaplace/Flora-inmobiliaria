@@ -50,9 +50,9 @@ export interface Image {
 
 export enum PropertyState {
     SALE = "venta",
-    SOLD = "VENDIDA",
+    SOLD = "vendida",
     RENT = "alquiler",
-    RENTED = "ALQUILADA"
+    RENTED = "alquilada"
 }
 
 export enum PropertyType {
