@@ -7,7 +7,7 @@ import EditButton from '@/components/TechnicalFile/EditButton'
 import Image from 'next/image';
 import styles from './TechnicalSheet.module.css'
 import { cactus } from "@/app/(views)/ui/fonts";
-import { Property, PropertyState, PropertyType, PropertyUpdateData } from "@/types/Property";
+import { Property, PropertyState, PropertyType } from "@/types/Property";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect, useCallback } from "react";
 import CarrouselFotos from "./Carrousel/CarrouselFotos";
@@ -19,7 +19,6 @@ import { useCreateProperty } from "@/hooks/CreateProperty";
 import { enrichCharacteristic } from '@/helpers/CharacteristicHelper';
 import { useCreateCharacteristic } from '@/hooks/useCreateCharacteristic';
 import { Characteristic, CharacteristicCreate } from '@/types/Characteristic';
-
 
 import useAdminImages from "@/hooks/AdminImages";
 import Link from "next/link";
@@ -60,15 +59,12 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
     const { createCharacteristic } = useCreateCharacteristic();
     const [modifiedCharacteristics, setModifiedCharacteristics] = useState<Map<number, { value_integer?: number; value_text?: string }>>(new Map());
 
-
-
     const [isEditingAllP, setIsEditingAllP] = useState(false);
 
     const [submitStatus, setSubmitStatus] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
     const [tempImages, setTempImages] = useState<File[]>([]);
     const [tempCharacteristics, setTempCharacteristics] = useState<Characteristic[]>([]);
-
 
     useEffect(() => {
         if (mode === 'edit') {
@@ -90,9 +86,7 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
         }
     }, [mode]);
 
-
     const [isSubmitting, setIsSubmitting] = useState(false);
-
 
     const handleSaveCharacteristic = (characteristicId: number, newValue: number | string) => {
         setLocalProperty(prev => {
@@ -121,7 +115,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
         });
     };
 
-
     // En TechnicalSheet.tsx
     const handleSaveChanges = async () => {
         if (!localProperty) return;
@@ -131,17 +124,14 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
         // --- LÓGICA DE SEPARACIÓN ---
 
-        // 1. Identifica las características que son completamente NUEVAS (ID negativo)
-        // 1. Combinar características de la BD con las nuevas temporales
-        const allCharacteristics = [
-            ...(localProperty.characteristics || []),
-            ...(tempCharacteristics || [])
-        ];
+        // IDs existentes en DB (los que ya están en localProperty.characteristics)
+        const existingIds = new Set<number>((localProperty.characteristics || []).map(c => c.id));
 
-        // 2. Identificar las que son nuevas (id <= 0)
-        const characteristicsToCreate = allCharacteristics.filter(c => c.id <= 0);
+        // Características NUEVAS agregadas desde el formulario en modo edit
+        // (están en tempCharacteristics y NO están en los ids existentes)
+        const characteristicsToCreate = (tempCharacteristics || []).filter(c => !existingIds.has(c.id));
 
-        // 3. Identificar las que hay que actualizar
+        // Características EXISTENTES modificadas desde los "Item" de la grilla
         const characteristicsToUpdate = new Map<number, { value_integer?: number; value_text?: string }>();
         modifiedCharacteristics.forEach((data, id) => {
             if (id > 0) {
@@ -149,11 +139,8 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             }
         });
 
-
-
         // --- CONSTRUCCIÓN DE LAS PROMESAS ---
-
-        const promises = [];
+        const promises: Promise<any>[] = [];
 
         // Promesa para actualizar la propiedad principal
         const propertyData = {
@@ -174,8 +161,8 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
         // Promesas para CREAR nuevas características
         characteristicsToCreate.forEach(char => {
-            // Preparamos el payload para la API, quitando el ID temporal y añadiendo el property_id
-            const { id, iconUrl, ...dataToCreate } = char;
+            // Quitamos id temporal e iconUrl; aseguramos property_id del inmueble actual
+            const { id, iconUrl, ...dataToCreate } = char as any;
             promises.push(createCharacteristic({ ...dataToCreate, property_id: localProperty.id }));
         });
 
@@ -184,6 +171,9 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
             setSubmitStatus({ message: '¡Todos los cambios se guardaron con éxito!', type: 'success' });
             setModifiedCharacteristics(new Map()); // Limpiamos el registro de cambios
+
+            // Opcional: limpiar temporales para no reintentar crear en el próximo guardado
+            // setTempCharacteristics([]);
 
             router.refresh();
 
@@ -194,11 +184,12 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
             setIsSubmitting(false);
         }
     };
+
     const handleCharacteristicsChange = useCallback((newCharacteristics: CharacteristicCreate[]) => {
-        setTempCharacteristics(newCharacteristics); // ← ¡clave!
+        // Mantenemos tempCharacteristics porque es clave para CREATE
+        // (TS permite asignar CharacteristicCreate[] a Characteristic[] por compatibilidad estructural)
+        setTempCharacteristics(newCharacteristics as unknown as Characteristic[]);
     }, []);
-
-
 
     const handleCreatePublication = async () => {
         clearStatus();
@@ -283,7 +274,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
 
     const currentStatus = isEmptyFile ? status : submitStatus;
     const currentIsSubmitting = isEmptyFile ? isCreating : isSubmitting;
-
 
     return (
         <main className={styles.page}>
@@ -410,9 +400,6 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                 </div>
             </div>
 
-
-
-
             <div className={styles.mainInfoPrice}>
                 <div className={`${styles.priceEditionProperties} ${styles.showProperties}`}>
                     {(isEmptyFile || isEditableFile) && editingField === 'price' ? (
@@ -500,10 +487,19 @@ export default function TechnicalSheet({ mode, property }: TechnicalSheetProps) 
                         <div>
                             <CharacteristicsForm
                                 onCharacteristicsChange={handleCharacteristicsChange}
-                                initialCharacteristics={[]}  // ✅ antes era []
+                                // ✅ Pasamos las del inmueble mapeadas a CharacteristicCreate (agregando property_id)
+                                initialCharacteristics={(localProperty.characteristics || []).map((c: Characteristic): CharacteristicCreate => ({
+                                    id: c.id,
+                                    characteristic: c.characteristic,
+                                    property_id: localProperty.id,
+                                    data_type: c.data_type,
+                                    value_integer: c.value_integer,
+                                    value_text: c.value_text,
+                                    category: c.category,
+                                    iconUrl: c.iconUrl,
+                                }))}
                                 propertyId={localProperty.id}
                             />
-
                         </div>
                     )}
                     <div className={styles.dataGridProperties}>
