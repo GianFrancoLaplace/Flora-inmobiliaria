@@ -17,6 +17,7 @@ export interface Property {
   characteristics: Characteristic[];
   images: { id: number; url: string }[];
   type?: PropertyType;
+  transition: PropertyState;
 }
 
 export interface PropertyInput {
@@ -30,7 +31,6 @@ export interface PropertyInput {
     images: { id: number; url: string }[];
     type: PropertyType;
     category: PropertyState;
-
 }
 
 export interface PropertyUpdateData {

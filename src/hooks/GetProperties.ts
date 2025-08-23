@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import {images} from "next/dist/build/webpack/config/blocks/images";
 
 // Tipo para las propiedades de la API
 export type Property = {
@@ -57,7 +58,7 @@ export const useUnifiedFilter = () => {
 
             return {
                 id: property.id,
-                imageUrl: '/backgrounds/fichaBackground.jpg',
+                imageUrl: property.images[0]?.url?.trim(),
                 price: property.price,
                 address: property.address,
                 city: property.city,

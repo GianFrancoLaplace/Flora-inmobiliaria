@@ -25,14 +25,12 @@ type PropertyGridProps = {
 
 const PropertyGrid = ({ properties }: PropertyGridProps) => {
     const pathname = usePathname();
-    const isHome = pathname === '/';
     return (
         <div className={styles.cardsProperties}>
 
             <div className={styles['propertyGrid']}>
                 {properties.map((property) => (
                     <SmallCard
-                        key={property.id}
                         property={property}
                     />
                 ))}
