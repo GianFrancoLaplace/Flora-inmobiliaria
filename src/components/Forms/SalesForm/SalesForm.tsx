@@ -46,7 +46,6 @@ export default function SalesForm() {
 
             if (response.ok) {
                 setMessage('¡Propuesta enviada con éxito! Nos pondremos en contacto pronto.');
-                // Opcional: Limpiar el formulario después del envío
                 setFormData({ name: '', tel: '', email: '', propType: '', coment: '' });
             } else {
                 setMessage(`Error al enviar: ${result.error || 'Inténtelo de nuevo más tarde.'}`);

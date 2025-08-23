@@ -19,7 +19,7 @@ export type Property = {
         category: string;
     }[];
     ubication: string;
-    images: { id: number; url: string }[]; // ⬅️ agregá esta línea
+    images: { id: number; url: string }[];
 };
 
 // Tipo para PropertyGrid
@@ -51,9 +51,9 @@ export const useUnifiedFilter = () => {
     // mapeo a property grid para seccion propiedades
     const mapApiPropertiesToGrid = (apiProperties: Property[]): PropertyGridItem[] => {
         return apiProperties.map(property => {
-            const rooms = property.characteristics.find(c => c.characteristic.toLowerCase().includes('ambiente'))?.amount || 0;
-            const bedrooms = property.characteristics.find(c => c.characteristic.toLowerCase().includes('dormitorio'))?.amount || 0;
-            const bathrooms = property.characteristics.find(c => c.characteristic.toLowerCase().includes('baño'))?.amount || 0;
+            const rooms = property.characteristics.find(c => c.characteristic.toLowerCase().includes('Ambientes'))?.amount || 0;
+            const bedrooms = property.characteristics.find(c => c.characteristic.toLowerCase().includes('Dormitorios'))?.amount || 0;
+            const bathrooms = property.characteristics.find(c => c.characteristic.toLowerCase().includes('Baños'))?.amount || 0;
 
             return {
                 id: property.id,
@@ -141,9 +141,9 @@ export const useUnifiedFilter = () => {
 
     // mapeo las caracteristicas para que se vean en la card
     const formatCharacteristics = (characteristics: Property['characteristics']): string => {
-        const rooms = characteristics.find(c => c.category === 'ambiente')?.amount || 0;
-        const bathrooms = characteristics.find(c => c.category === 'baño')?.amount || 0;
-        const bedrooms = characteristics.find(c => c.category === 'dormitorio' || c.category === 'dormitorios_suite')?.amount || 0;
+        const rooms = characteristics.find(c => c.category === 'Ambientes')?.amount || 0;
+        const bathrooms = characteristics.find(c => c.category === 'Baños')?.amount || 0;
+        const bedrooms = characteristics.find(c => c.category === 'Dormitorios' || c.category === 'dormitorios_suite')?.amount || 0;
 
         return `${rooms} ambientes | ${bedrooms} dormitorios | ${bathrooms} baños`;
     };

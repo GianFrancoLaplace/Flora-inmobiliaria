@@ -4,7 +4,7 @@ import Link from "next/link";
 
 type PropertyImage = {
     id: number;
-    imageUrl: string;
+    imageUrl: string[];
     price: number;
     address: string;
     city: string;
@@ -38,7 +38,7 @@ const SmallCard = ({ property }: PropertyCardProps) => {
 
             <Link href={`/propiedades/ficha/${property.id}`}>
             <Image
-                src={property.imageUrl}
+                src={property.imageUrl[0]}
                 alt={`Imagen de la propiedad en ${property.address}`}
                 fill
                 className={styles.cardImage}

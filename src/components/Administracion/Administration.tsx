@@ -113,7 +113,7 @@ export default function Administration() {
                                     </div>
                                     <div className={styles.restInfoProperties}>
                                         <h4>{prop.address}, {prop.city}</h4>
-                                        <h4>{formatCharacteristics(prop.characteristics)}</h4>
+                                        {/*<h4>{formatCharacteristics(prop.characteristics)}</h4>*/}
                                     </div>
                                 </div>
                             </Link>
